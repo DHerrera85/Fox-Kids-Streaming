@@ -51,42 +51,26 @@ Each gallery limits how many items are visible at once — using one-click-at-a-
 YouTube embed (“AHORA EN PANTALLA”)
 Multiple <section> galleries (SUPER SENTAI, etc.), each with id="..."
 
-2. CSS
-Uses flexbox to create a two-column layout (sidebar + main content).
+* 2. CSS *
+* Uses flexbox to create a two-column layout (sidebar + main content).
+* .round-gallery & .scroll-gallery are set to flex-wrap: nowrap; overflow: hidden; for horizontal carousels.
+* Hover effects and transitions apply brightness or scale on images.
+* Media queries (@media (max-width: 768px)) adjust layouts for smaller screens, shrink images further, and stack the sidebar.
 
-.round-gallery & .scroll-gallery are set to flex-wrap: nowrap; overflow: hidden; for horizontal carousels.
+* 3. JavaScript*
 
-Hover effects and transitions apply brightness or scale on images.
-
-Media queries (@media (max-width: 768px)) adjust layouts for smaller screens, shrink images further, and stack the sidebar.
-
-3. JavaScript
-Each gallery uses a carousel logic:
-
-Round Gallery: 10 visible at once, circular shift on each arrow click.
-
-Other Galleries: 5 visible at once, also circular.
-
-Scrolling Implementation:
-
+* Each gallery uses a carousel logic:
+* Round Gallery: 10 visible at once, circular shift on each arrow click.
+* Other Galleries: 5 visible at once, also circular.
+* Scrolling Implementation:
 We measure each item’s width + gap.
-
 Clicking the right arrow increments a currentIndex, and the script shifts the gallery or toggles display: none for hidden items.
-
 Loops back to the start after the last item.
 
-Getting Started
-Open index.html in your web browser to view the site.
+* Getting Started*
+1. Open index.html in your web browser to view the site.
+2. Check your images: All .png and .jpg references in the <img> tags should match your local file paths (e.g., img/live-action/goosebumps-280x420.jpg).
+3. Edit styles.css for color, spacing, or font changes.
+4. Edit script.js to adjust the scrolling logic or the number of visible items in each gallery.
 
-Check your images: All .png and .jpg references in the <img> tags should match your local file paths (e.g., img/live-action/goosebumps-280x420.jpg).
 
-Edit styles.css for color, spacing, or font changes.
-
-Edit script.js to adjust the scrolling logic or the number of visible items in each gallery.
-
-Next Steps
-Add a Flicker Intro Screen if you want a retro TV “power on” effect.
-
-Responsive Fine-Tuning for extremely narrow devices.
-
-Add Dynamic Schedules or an external JSON feed to load show data automatically.

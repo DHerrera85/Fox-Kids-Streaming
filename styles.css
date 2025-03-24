@@ -1,3 +1,4 @@
+/* ========== styles.css ========== */
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 
 * {
@@ -15,28 +16,21 @@ body {
 .banner {
   background-color: #ad0909;
   color: white;
-  position: relative;       /* to place the logo in top-left corner */
   text-align: center;
-  /* increased top padding so the logo can move up a bit */
-  padding: 20px 0 10px 0;
+  position: relative;
+  padding: 20px 0 10px 0; /* Extra top padding so the logo can float above text */
 }
-
 .banner-content {
-  /* text centered by .banner’s text-align; no flex needed */
+  /* We don't need flex here; the text is centered by .banner's text-align */
   display: block;
 }
-
-/* FOX KIDS LOGO */
 .foxkids-logo {
   position: absolute;
+  top: 0;
   left: 20px;
-  /* SHIFT LOGO A BIT HIGHER */
-  top: 0;          /* pinned to top of banner */
   width: 70px;
   height: auto;
 }
-
-/* BANNER SLOGAN */
 .banner p {
   margin: 0;
   font-size: 1.3em;
@@ -44,27 +38,23 @@ body {
   background-color: #000;
   padding: 8px 16px;
   border-radius: 8px;
-  display: inline-block; 
+  display: inline-block;
 }
 
-/* CONTAINER LAYOUT */
+/* LAYOUT */
 .container {
   display: flex;
   flex-wrap: nowrap;
 }
-
-/* SIDEBAR */
 .left-nav {
   width: 200px;
   background-color: #ff3c00;
   padding: 10px;
 }
-
 .left-nav ul {
   list-style: none;
   padding: 0;
 }
-
 .left-nav li {
   background-color: red;
   color: white;
@@ -75,73 +65,54 @@ body {
   cursor: pointer;
   transition: background 0.3s, color 0.3s;
 }
-
 .left-nav li:hover {
   background-color: yellow;
   color: black;
 }
-
 .main-content {
   flex: 1;
   padding: 10px 20px;
 }
 
-/* ROUND GALLERY (SCHEDULE) - Single-row horizontally scrollable */
-.round-gallery-wrapper {
-  background: #f1bc00;
-  padding: 10px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* ROUND GALLERY SECTION */
+.round-gallery-section {
+  background: #f1bc00; 
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.round-gallery-section h3 {
+  color: #000;
+  margin-bottom: 10px;
 }
 
+/* For Flickity container .round-gallery, remove display:flex, let Flickity handle layout */
 .round-gallery {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
-  flex: 1;
-  overflow: hidden;
-  scroll-behavior: smooth;
+  /* No custom layout here; Flickity will set .flickity-enabled styles */
 }
-
-.gallery-item {
-  flex: 0 0 auto;
-  width: 80px;
+.round-gallery .gallery-item {
+  width: 80px;     /* Flickity slides can have a fixed width if you want smaller icons */
+  margin: 0 auto;  /* Center each icon horizontally */
   text-align: center;
 }
-
-.gallery-item span {
-  display: block;
-  font-size: 0.8em;
-  color: black;
-  margin-top: 4px;
-}
-
-.gallery-item img {
+.round-gallery .gallery-item img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   border: 3px solid #ff3c00;
   transition: transform 0.2s, filter 0.2s;
 }
-
-.gallery-item img:hover {
+.round-gallery .gallery-item img:hover {
   transform: scale(1.1);
   filter: brightness(1.2);
 }
-
-.gallery-btn {
-  background-color: #ff3c00;
-  color: white;
-  border: none;
-  font-size: 1.5em;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 6px;
+.round-gallery .gallery-item span {
+  display: block;
+  font-size: 0.8em;
+  color: black;
+  margin-top: 4px;
 }
 
-/* NOW PLAYING VIDEO */
+/* NOW PLAYING */
 .now-playing-video {
   background: #000;
   padding: 10px;
@@ -149,61 +120,37 @@ body {
   border-left: 8px solid #ff3c00;
   border-right: 8px solid #ff3c00;
 }
-
 .now-playing-video h4 {
   color: white;
   margin: 0 0 10px;
   font-size: 1.1em;
 }
 
-/* SCROLLABLE GALLERIES (SUPER SENTAI, INVASIÓN ANIME, LIVE, COMEDY) */
+/* SHARED GALLERY SECTION STYLES (SUPER SENTAI, ANIME, etc.) */
 .gallery-section {
   margin: 30px 0;
 }
-
 .gallery-section h3 {
   color: white;
   margin-bottom: 10px;
 }
-
-.scroll-gallery-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .scroll-gallery {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow: hidden;
-  scroll-behavior: smooth;
-  gap: 10px;
-  padding: 10px 0;
-  flex: 1;
-  scrollbar-width: none;
+  /* Let Flickity handle layout */
 }
-
-.scroll-gallery::-webkit-scrollbar {
-  display: none;
-}
-
-/* Updated size so 5 images fit horizontally */
-.scroll-item {
-  flex: 0 0 auto;
-  width: 180px;
+.scroll-gallery .scroll-item {
+  width: 180px;    /* Flickity slides can have a fixed width if you prefer */
   height: 270px;
+  margin: 0 auto;
   transition: transform 0.2s;
 }
-
-.scroll-item img {
+.scroll-gallery .scroll-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border: 4px solid #ff3c00;
   border-radius: 6px;
 }
-
-.scroll-item img:hover {
+.scroll-gallery .scroll-item img:hover {
   transform: scale(1.05);
   box-shadow: 0 0 10px yellow;
 }
@@ -213,36 +160,28 @@ body {
   .container {
     flex-direction: column;
   }
-
   .left-nav {
     width: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
   }
-
   .left-nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
-
   .left-nav li {
     margin: 5px;
     padding: 8px 12px;
   }
 
-  .banner {
-    flex-direction: column;
-  }
-
-  /* smaller images on mobile to ensure 5 can still fit or user can scroll horizontally */
-  .scroll-item {
+  /* Adjust item sizes for smaller screens */
+  .scroll-gallery .scroll-item {
     width: 120px;
     height: 180px;
   }
-
-  .gallery-item {
-    width: 70px;
+  .round-gallery .gallery-item {
+    width: 60px;
   }
 }

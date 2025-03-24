@@ -3,7 +3,7 @@
  * 24 total images => user clicks left/right to shift 1 at a time
  * Loops after last => first
  *************************************************/
-(function setupRoundGallery() {
+/** (function setupRoundGallery() {
   const container = document.getElementById('roundScheduleGallery');
   if (!container) return;
 
@@ -68,7 +68,7 @@
  * GENERIC FUNCTION: EXACTLY 'visibleCount' IMAGES
  * in a circular fashion, 1-by-1
  *************************************************/
-function setupCarouselFixedCount({ 
+/** function setupCarouselFixedCount({ 
   sectionId,       // e.g. 'superSentai'
   leftSelector,     // e.g. '#superSentai .scroll-left'
   rightSelector,    // e.g. '#superSentai .scroll-right'
@@ -126,7 +126,7 @@ function setupCarouselFixedCount({
 /*************************************************
  * SETUP 5-IMAGE VIEWS FOR SUPER SENTAI, ANIME, ETC.
  *************************************************/
-setupCarouselFixedCount({
+/** setupCarouselFixedCount({
   sectionId: 'superSentai',
   leftSelector: '.scroll-left',
   rightSelector: '.scroll-right',

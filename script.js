@@ -165,3 +165,12 @@ setupCarouselFixedCount({
   itemSelector: '.scroll-item',
   visibleCount: 5
 });
+
+setupCarouselFixedCount({
+  sectionId: 'movies',
+  leftSelector: '.scroll-left',
+  rightSelector: '.scroll-right',
+  itemSelector: '.scroll-item',
+  visibleCount: 5
+});
+

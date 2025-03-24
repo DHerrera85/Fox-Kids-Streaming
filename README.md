@@ -1,74 +1,54 @@
-Fox Kids Streaming Site
+***Fox Kids Streaming Site***
+
 Overview
-A retro-themed website inspired by Fox Kids Latin America from the early 2000s. It features:
 
-A red banner at the top with the Fox Kids logo and a slogan.
-
-A left sidebar with large buttons: Series, Juegos, Concursos, Videos, Programación.
-
-A round schedule gallery displaying 24 show icons (100×100 px), scrolling horizontally with arrows.
-
-An embedded YouTube video (“AHORA EN PANTALLA”).
-
+* A retro-themed website inspired by Fox Kids Latin America from the early 2000s. It features:
+* A red banner at the top with the Fox Kids logo and a slogan.
+* A left sidebar with large buttons: Series, Juegos, Concursos, Videos, Programación.
+* A round schedule gallery displaying 24 show icons (100×100 px), scrolling horizontally with arrows.
+* An embedded YouTube video (“AHORA EN PANTALLA”).
 Multiple vertical image galleries for SUPER SENTAI, INVASIÓN ANIME, LIVE ACTION, COMEDY, etc.
 
 Each gallery limits how many items are visible at once — using one-click-at-a-time horizontal scrolling in a circular loop.
 
-Key Features
-Retro Aesthetic
+**Key Features**
+1. Retro Aesthetic
+   
+* Bold orange/red color scheme, large chunky buttons, stylized Audiowide font reminiscent of early 2000s Fox Kids design.
+  
+2. Left Navigation Bar
+* Big, rectangular red buttons with white text (hover effect turns them yellow).
+* Main categories: Series, Juegos, Concursos, Videos, Programación.
+3. Round Schedule Gallery (100×100 px)
+* Shows 10 items on-screen at once, each with a time label.
+* Horizontal scrolling arrows let users move left or right 1 item at a time.
+* Circular: after the 24th item, it loops back to the first.
+4. YouTube Embed - “Ahora en Pantalla”
 
-Bold orange/red color scheme, large chunky buttons, stylized Audiowide font reminiscent of early 2000s Fox Kids design.
+* Black background with a border in Fox Kids red.
+* Showcases a featured video clip (e.g., Digimon Opening Latino).
+  
+5. Vertical Image Galleries
+* SUPER SENTAI, INVASIÓN ANIME, LIVE ACTION, COMEDY, etc.
+* Each displays 5 items side-by-side in a row.
+* Clicking arrows scrolls horizontally one item at a time, looping back at the end.
+* Poster size shrunk (e.g., 180×270) so exactly 5 fit on a typical desktop screen.
 
-Left Navigation Bar
+6. Responsive Layout
 
-Big, rectangular red buttons with white text (hover effect turns them yellow).
+* Sidebar reflows below the banner on small screens.
+* Gallery items become smaller (e.g., from 180×270 to 120×180) so they remain scrollable on mobile.
 
-Main categories: Series, Juegos, Concursos, Videos, Programación.
-
-Round Schedule Gallery (100×100 px)
-
-Shows 10 items on-screen at once, each with a time label.
-
-Horizontal scrolling arrows let users move left or right 1 item at a time.
-
-Circular: after the 24th item, it loops back to the first.
-
-YouTube Embed - “Ahora en Pantalla”
-
-Black background with a border in Fox Kids red.
-
-Showcases a featured video clip (e.g., Digimon Opening Latino).
-
-Vertical Image Galleries
-
-SUPER SENTAI, INVASIÓN ANIME, LIVE ACTION, COMEDY, etc.
-
-Each displays 5 items side-by-side in a row.
-
-Clicking arrows scrolls horizontally one item at a time, looping back at the end.
-
-Poster size shrunk (e.g., 180×270) so exactly 5 fit on a typical desktop screen.
-
-Responsive Layout
-
-Sidebar reflows below the banner on small screens.
-
-Gallery items become smaller (e.g., from 180×270 to 120×180) so they remain scrollable on mobile.
-
-How It Works
-1. HTML Structure
-Header (<header class="banner">) holds the Fox Kids logo and slogan.
-
-Container (<div class="container">) splits into:
-
-Left Sidebar (<aside class="left-nav">) with <ul> menu buttons.
-
-Main Content (<main class="main-content">) for:
-
-Round Schedule Gallery (<div id="roundScheduleGallery">)
+**How It Works**
+* 1. HTML Structure *
+   
+* Header (<header class="banner">) holds the Fox Kids logo and slogan.
+* Container (<div class="container">) splits into:
+* Left Sidebar (<aside class="left-nav">) with <ul> menu buttons.
+* Main Content (<main class="main-content">) for:
+* Round Schedule Gallery (<div id="roundScheduleGallery">)
 
 YouTube embed (“AHORA EN PANTALLA”)
-
 Multiple <section> galleries (SUPER SENTAI, etc.), each with id="..."
 
 2. CSS

@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ff3c00;
+  font-family: 'Audiowide', sans-serif;
+  margin: 0;
+  color: #fff;
+}
+
+/* BANNER */
+.banner {
+  background-color: #ad0909;
+  color: white;
+  position: relative;       /* to place the logo in top-left corner */
+  text-align: center;
+  /* increased top padding so the logo can move up a bit */
+  padding: 20px 0 10px 0;
+}
+
+.banner-content {
+  /* text centered by .banner’s text-align; no flex needed */
+  display: block;
+}
+
+/* FOX KIDS LOGO */
+.foxkids-logo {
+  position: absolute;
+  left: 20px;
+  /* SHIFT LOGO A BIT HIGHER */
+  top: 0;          /* pinned to top of banner */
+  width: 70px;
+  height: auto;
+}
+
+/* BANNER SLOGAN */
+.banner p {
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: bold;
+  background-color: #000;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-block; 
+}
+
+/* CONTAINER LAYOUT */
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* SIDEBAR */
+.left-nav {
+  width: 200px;
+  background-color: #ff3c00;
+  padding: 10px;
+}
+
+.left-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.left-nav li {
+  background-color: red;
+  color: white;
+  margin: 10px 0;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.left-nav li:hover {
+  background-color: yellow;
+  color: black;
+}
+
+.main-content {
+  flex: 1;
+  padding: 10px 20px;
+}
+
+/* ROUND GALLERY (SCHEDULE) - Single-row horizontally scrollable */
+.round-gallery-wrapper {
+  background: #f1bc00;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.round-gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  flex: 1;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 80px;
+  text-align: center;
+}
+
+.gallery-item span {
+  display: block;
+  font-size: 0.8em;
+  color: black;
+  margin-top: 4px;
+}
+
+.gallery-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #ff3c00;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.gallery-btn {
+  background-color: #ff3c00;
+  color: white;
+  border: none;
+  font-size: 1.5em;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* NOW PLAYING VIDEO */
+.now-playing-video {
+  background: #000;
+  padding: 10px;
+  margin-top: 10px;
+  border-left: 8px solid #ff3c00;
+  border-right: 8px solid #ff3c00;
+}
+
+.now-playing-video h4 {
+  color: white;
+  margin: 0 0 10px;
+  font-size: 1.1em;
+}
+
+/* SCROLLABLE GALLERIES (SUPER SENTAI, INVASIÓN ANIME, LIVE, COMEDY) */
+.gallery-section {
+  margin: 30px 0;
+}
+
+.gallery-section h3 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.scroll-gallery-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scroll-gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  gap: 10px;
+  padding: 10px 0;
+  flex: 1;
+  scrollbar-width: none;
+}
+
+.scroll-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+/* Updated size so 5 images fit horizontally */
+.scroll-item {
+  flex: 0 0 auto;
+  width: 180px;
+  height: 270px;
+  transition: transform 0.2s;
+}
+
+.scroll-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 4px solid #ff3c00;
+  border-radius: 6px;
+}
+
+.scroll-item img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px yellow;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .left-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .left-nav li {
+    margin: 5px;
+    padding: 8px 12px;
+  }
+
+  .banner {
+    flex-direction: column;
+  }
+
+  /* smaller images on mobile to ensure 5 can still fit or user can scroll horizontally */
+  .scroll-item {
+    width: 120px;
+    height: 180px;
+  }
+
+  .gallery-item {
+    width: 70px;
+  }
+}

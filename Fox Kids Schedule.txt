@@ -1,0 +1,85 @@
+Help me build a simple website with HTML, CSS and JavaScript that allows me to add me the following Schedule grid for Fox Kids Latin America in October 1999
+
+Please allow me to add separate time schedules and photos from the shows named below.
+
+Check some of the past designs from Fox Kids Latin America to design this website 
+
+10:00 Jim Button 
+10:30 El Mundo de Bobby   
+11:00 Masked Rider  
+11:30 Oggy y Las Cucarachas  
+12:00 Power Rangers Mighty Morphin  
+12:30 Power Rangers En El Espacio 
+13:00 Escalofríos 
+13:30 Big Bad Bettleborgs 
+14:00 El Mundo Secreto de Alex Mack 
+14:30 Las Aventuras de Shirley Holmes 
+15:00 El Nuevo Show del Pájaro Loco 
+15:30 Diabolik 
+16:00 El Mago   
+16:30 Iron Man 
+17:00 El Hombre Araña  
+17:30 X-Men  
+18:00 Power Rangers Mighty Morphin  
+18:30 Power Rangers En El Espacio 
+19:00 C-Bear y Jamal 
+19:30 Perros Espías 
+20:00 El Mundo Secreto de Alex Mack 
+20:30 Las Aventuras de Shirley Holmes
+21:00 Escalofríos 
+21:30 Big Bad Bettleborgs 
+22:00 Power Rangers Mighty Morphin  
+22:30 Power Rangers En El Espacio 
+23:00 Mellizas y Rivales
+23:30 Lindetree, Escuela de Equitación
+
+Super Sentai Shows
+
+Power Rangers
+Big Bad Beetleborgs
+Masked Rider
+VR Troopers
+Mystic Knights of Tir na Nog
+Los Luchadores
+
+Marvel Animated Series
+
+X-Men
+Spider-Man
+Iron Man
+Fantastic Four
+The Incredible Hulk
+Silver Surfer
+Avengers: United they Stand
+Spider-Man Unlimited
+
+Invasión Anime
+
+Digimon
+Monster Rancher
+Tonde Buurin
+Medabots
+Beyblade
+Shaman King
+Shin-Chan
+
+Live Action
+
+Goosebumps
+Eerie, Indiana
+Sweet Valley High
+Alex Mack
+Shirley Holmes
+Hardy Boys
+Nancy Drew
+
+Comedy
+
+Angela Anaconda
+Braceface
+Oggy and The Coackroaches.
+Space Goofs
+The New Addams Family Show
+The Tick
+Toonsylvania
+Eek! The Cat

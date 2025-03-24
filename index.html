@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fox Kids</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- HEADER BANNER -->
+  <header class="banner">
+    <div class="banner-content">
+      <img class="foxkids-logo" src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids Logo" />
+      <p>CUANDO EL PLANETA ESTÁ EN PELIGRO… ¡FOX KIDS AL RESCATE!</p>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <div class="container">
+
+    <!-- SIDEBAR (unchanged) -->
+    <aside class="left-nav">
+      <ul>
+        <li>Series</li>
+        <li>Juegos</li>
+        <li>Concursos</li>
+        <li>Videos</li>
+        <li>Programación</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+
+      <!-- ROUND SCHEDULE GALLERY (24 images) -->
+      <div class="round-gallery-wrapper">
+        <button class="gallery-btn round-left-btn">&lt;</button>
+        <div class="round-gallery" id="roundScheduleGallery">
+          <!-- 24 images total, to be paged 7 at a time in script.js -->
+          <div class="gallery-item"><img src="img/round/jim-button-100px-100px.png" alt="Show 1"><span>10:00</span></div>
+          <div class="gallery-item"><img src="img/round/bobbys-world-100px-100px.png" alt="Show 1"><span>10:30</span></div>
+          <div class="gallery-item"><img src="img/round/masked-rider-100px-100px.png" alt="Show 1"><span>11:00</span></div>
+          <div class="gallery-item"><img src="img/round/oggy-cockroaches-100px-100px.png" alt="Show 1"><span>11:30</span></div>
+          <div class="gallery-item"><img src="img/round/mighty-morphin-power-rangers-100px-100px.png" alt="Show 1"><span>12:00</span></div>
+          <div class="gallery-item"><img src="img/round/power-rangers-space-100px-100px.png" alt="Show 2"><span>12:30</span></div>
+          <div class="gallery-item"><img src="img/round/goosebumps-100px-100px.png" alt="Show 3"><span>13:00</span></div>
+          <div class="gallery-item"><img src="img/round/beetleborgs-100px-100px.png" alt="Show 4"><span>13:30</span></div>
+          <div class="gallery-item"><img src="img/round/alex-mack-100px-100px.png" alt="Show 5"><span>14:00</span></div>
+          <div class="gallery-item"><img src="img/round/shirley-holmes-100px-100px.png" alt="Show 5"><span>14:30</span></div>
+          <div class="gallery-item"><img src="img/round/woody-woodpecker-100px-100px.png" alt="Show 5"><span>15:00</span></div>
+          <div class="gallery-item"><img src="img/round/diabolik-100px-100px.png" alt="Show 5"><span>15:30</span></div>
+          <div class="gallery-item"><img src="img/round/magician-100px-100px.png" alt="Show 5"><span>16:00</span></div>
+          <div class="gallery-item"><img src="img/round/iron-man-100px-100px.png" alt="Show 5"><span>16:30</span></div>
+          <div class="gallery-item"><img src="img/round/spider-man-100px-100px.png" alt="Show 5"><span>17:00</span></div>
+          <div class="gallery-item"><img src="img/round/x-men-100px-100px.png" alt="Show 5"><span>17:30</span></div>
+          <div class="gallery-item"><img src="img/round/mighty-morphin-power-rangers-100px-100px.png" alt="Show 1"><span>18:00</span></div>
+          <div class="gallery-item"><img src="img/round/power-rangers-space-100px-100px.png" alt="Show 2"><span>18:30</span></div>
+          <div class="gallery-item"><img src="img/round/c-bear-and-jamal-100px-100px.png" alt="Show 2"><span>19:00</span></div>
+          <div class="gallery-item"><img src="img/round/spy-dogs-100px-100px.png" alt="Show 2"><span>19:30</span></div>
+          <div class="gallery-item"><img src="img/round/alex-mack-100px-100px.png" alt="Show 5"><span>20:00</span></div>
+          <div class="gallery-item"><img src="img/round/shirley-holmes-100px-100px.png" alt="Show 5"><span>20:30</span></div>
+          <div class="gallery-item"><img src="img/round/goosebumps-100px-100px.png" alt="Show 3"><span>21:00</span></div>
+          <div class="gallery-item"><img src="img/round/beetleborgs-100px-100px.png" alt="Show 4"><span>21:30</span></div>
+          <div class="gallery-item"><img src="img/round/mighty-morphin-power-rangers-100px-100px.png" alt="Show 1"><span>22:00</span></div>
+          <div class="gallery-item"><img src="img/round/sweet-valley-high-100px-100px.png" alt="Show 2"><span>23:00</span></div>
+          <div class="gallery-item"><img src="img/round/eerie-indiana-100px-100px.png" alt="Show 1"><span>23:30</span></div>
+        </div>
+        <button class="gallery-btn round-right-btn">&gt;</button>
+      </div>
+
+      <!-- AHORA EN PANTALLA -->
+      <div class="now-playing-video">
+        <h4>AHORA EN PANTALLA</h4>
+        <iframe
+          width="100%"
+          height="315"
+          src="https://www.youtube.com/embed/xISuZlb1KTI"
+          title="Now Playing"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <!-- SUPER SENTAI: 5 images per page -->
+      <section class="gallery-section" id="superSentai">
+        <h3>SUPER SENTAI</h3>
+        <div class="scroll-gallery-wrapper">
+          <button class="gallery-btn scroll-left">&lt;</button>
+          <div class="scroll-gallery">
+            <!-- Example images, 6 total => 5 on first page, 1 on second page -->
+            <div class="scroll-item"><img src="img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/sentai/beetleborgs-02-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/sentai/masked-rider-02-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/sentai/vr-troopers-vertical-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/sentai/mystic-knights-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/sentai/los-luchadores-280x420.png" alt=""></div>
+          </div>
+          <button class="gallery-btn scroll-right">&gt;</button>
+        </div>
+      </section>
+
+      <!-- INVASIÓN ANIME: 5 images per page -->
+      <section class="gallery-section" id="invasionAnime">
+        <h3>INVASIÓN ANIME</h3>
+        <div class="scroll-gallery-wrapper">
+          <button class="gallery-btn scroll-left">&lt;</button>
+          <div class="scroll-gallery">
+            <div class="scroll-item"><img src="img/invasion-anime/digimon-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/invasion-anime/monsterrancher-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/invasion-anime/tonde-buurin-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/invasion-anime/medabots-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/invasion-anime/shaman king-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/invasion-anime/shin-chan-280x420.png" alt=""></div>
+          </div>
+          <button class="gallery-btn scroll-right">&gt;</button>
+        </div>
+      </section>
+
+      <!-- COMIC-BASED SERIES: 5 images per page -->
+      <section class="gallery-section" id="comicAnimated">
+        <h3>COMIC-BASED ANIMATED SERIES</h3>
+        <div class="scroll-gallery-wrapper">
+          <button class="gallery-btn scroll-left">&lt;</button>
+          <div class="scroll-gallery">
+            <div class="scroll-item"><img src="img/marvel/x-men-animated-280 X 420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/spiderman-animated-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/iron-man-vertical-280x420px.png" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/fantastic-four-animated-280 X 420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/incredible-hulk-280 X 420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/the-magician-280x420px.png" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/diabolik-280x420px.png" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/silver-surfer-280 X 420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/avengers-united-they-stand-280 X 420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/marvel/spiderman-unlimited-280 X 420.jpg" alt=""></div>
+          </div>
+          <button class="gallery-btn scroll-right">&gt;</button>
+        </div>
+      </section>
+
+      <!-- LIVE ACTION: 5 images per page -->
+      <section class="gallery-section" id="liveAction">
+        <h3>LIVE ACTION</h3>
+        <div class="scroll-gallery-wrapper">
+          <button class="gallery-btn scroll-left">&lt;</button>
+          <div class="scroll-gallery">
+            <div class="scroll-item"><img src="img/live-action/goosebumps-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/live-action/eerie-indiana-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/live-action/sweet-valley-high-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/live-action/AlexMack-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/live-action/shirley-holmes-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/live-action/nancy-drew-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/live-action/the-new-addams-family-280x420.jpg" alt=""></div>
+          </div>
+          <button class="gallery-btn scroll-right">&gt;</button>
+        </div>
+      </section>
+
+      <!-- COMEDY: 5 images per page -->
+      <section class="gallery-section" id="comedy">
+        <h3>COMEDY</h3>
+        <div class="scroll-gallery-wrapper">
+          <button class="gallery-btn scroll-left">&lt;</button>
+          <div class="scroll-gallery">
+            <div class="scroll-item"><img src="img/comedy/angela-anaconda-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/comedy/braceface-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/comedy/oggy-cockroaches-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/comedy/the-tick-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/comedy/toonsylvania-280x420.jpg" alt=""></div>
+            <div class="scroll-item"><img src="img/comedy/eek-the-cat-280x420.png" alt=""></div>
+            <div class="scroll-item"><img src="img/comedy/eek-the-cat-280x420.png" alt=""></div>
+          </div>
+          <button class="gallery-btn scroll-right">&gt;</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

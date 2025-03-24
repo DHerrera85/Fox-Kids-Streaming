@@ -74,3 +74,4 @@ Loops back to the start after the last item.
 4. Edit script.js to adjust the scrolling logic or the number of visible items in each gallery.
 
 Site: https://foxkids-tribute.netlify.app/
+

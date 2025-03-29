@@ -21,7 +21,7 @@ body {
   padding: 20px 0 10px 0; /* Extra top padding so the logo can float above text */
 }
 .banner-content {
-  /* We don't need flex here; the text is centered by .banner's text-align */
+  /* Default (desktop): leave as block so that text-align centers the content */
   display: block;
 }
 .foxkids-logo {
@@ -86,9 +86,7 @@ body {
 }
 
 /* For Flickity container .round-gallery, remove display:flex, let Flickity handle layout */
-.round-gallery {
-  /* No custom layout here; Flickity will set .flickity-enabled styles */
-}
+
 .round-gallery .gallery-item {
   width: 80px;     /* Flickity slides can have a fixed width if you want smaller icons */
   margin: 0 auto;  /* Center each icon horizontally */
@@ -134,11 +132,8 @@ body {
   color: white;
   margin-bottom: 10px;
 }
-.scroll-gallery {
-  /* Let Flickity handle layout */
-}
 .scroll-gallery .scroll-item {
-  width: 180px;    /* Flickity slides can have a fixed width if you prefer */
+  width: 180px;
   height: 270px;
   margin: 0 auto;
   transition: transform 0.2s;
@@ -157,31 +152,49 @@ body {
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
+  /* Stack container items */
   .container {
     flex-direction: column;
   }
+  
   .left-nav {
     width: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
   }
+  
   .left-nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
+  
   .left-nav li {
     margin: 5px;
     padding: 8px 12px;
   }
-
-  /* Adjust item sizes for smaller screens */
+  
+  /* Modify the banner for mobile: Stack logo above text */
+  .banner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: static;  /* Remove relative positioning for mobile */
+  }
+  
+  .foxkids-logo {
+    position: static; /* Remove absolute positioning */
+    margin-bottom: 10px;
+  }
+  
+  /* Adjust gallery item sizes for smaller screens */
   .scroll-gallery .scroll-item {
     width: 120px;
     height: 180px;
   }
+  
   .round-gallery .gallery-item {
-    width: 60px;
+    width: 70px;
   }
 }

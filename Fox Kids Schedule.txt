@@ -31,7 +31,7 @@ Check some of the past designs from Fox Kids Latin America to design this websit
 22:00 Power Rangers Mighty Morphin  
 22:30 Power Rangers En El Espacio 
 23:00 Mellizas y Rivales
-23:30 Lindetree, Escuela de Equitación
+23:30 Eerie, Indiana
 
 Super Sentai Shows
 
@@ -83,3 +83,35 @@ The New Addams Family Show
 The Tick
 Toonsylvania
 Eek! The Cat
+
+
+            <div class="gallery-item"><img src="img/round/jim-button-100px-100px.png" alt="Show 1"><span>10:00</span></div>
+            <div class="gallery-item"><img src="img/round/bobbys-world-100px-100px.png" alt="Show 1"><span>10:30</span></div>
+            <div class="gallery-item"><img src="img/round/masked-rider-100px-100px.png" alt="Show 1"><span>11:00</span></div>
+            <div class="gallery-item"><img src="img/round/oggy-cockroaches-100px-100px.png" alt="Show 1"><span>11:30</span></div>
+            <div class="gallery-item"><img src="img/round/mighty-morphin-power-rangers-100px-100px.png" alt="Show 1"><span>12:00</span></div>
+            <div class="gallery-item"><img src="img/round/power-rangers-space-100px-100px.png" alt="Show 2"><span>12:30</span></div>
+            <div class="gallery-item"><img src="img/round/goosebumps-100px-100px.png" alt="Show 3"><span>13:00</span></div>
+            <div class="gallery-item"><img src="img/round/beetleborgs-100px-100px.png" alt="Show 4"><span>13:30</span></div>
+            <div class="gallery-item"><img src="img/round/alex-mack-100px-100px.png" alt="Show 5"><span>14:00</span></div>
+            <div class="gallery-item"><img src="img/round/shirley-holmes-100px-100px.png" alt="Show 5"><span>14:30</span></div>
+            <div class="gallery-item"><img src="img/round/woody-woodpecker-100px-100px.png" alt="Show 5"><span>15:00</span></div>
+            <div class="gallery-item"><img src="img/round/diabolik-100px-100px.png" alt="Show 5"><span>15:30</span></div>
+            <div class="gallery-item"><img src="img/round/magician-100px-100px.png" alt="Show 5"><span>16:00</span></div>
+            <div class="gallery-item"><img src="img/round/iron-man-100px-100px.png" alt="Show 5"><span>16:30</span></div>
+            <div class="gallery-item"><img src="img/round/spider-man-100px-100px.png" alt="Show 5"><span>17:00</span></div>
+            <div class="gallery-item"><img src="img/round/x-men-100px-100px.png" alt="Show 5"><span>17:30</span></div>
+            <div class="gallery-item"><img src="img/round/mighty-morphin-power-rangers-100px-100px.png" alt="Show 1"><span>18:00</span></div>
+            <div class="gallery-item"><img src="img/round/power-rangers-space-100px-100px.png" alt="Show 2"><span>18:30</span></div>
+            <div class="gallery-item"><img src="img/round/c-bear-and-jamal-100px-100px.png" alt="Show 2"><span>19:00</span></div>
+            <div class="gallery-item"><img src="img/round/spy-dogs-100px-100px.png" alt="Show 2"><span>19:30</span></div>
+            <div class="gallery-item"><img src="img/round/alex-mack-100px-100px.png" alt="Show 5"><span>20:00</span></div>
+            <div class="gallery-item"><img src="img/round/shirley-holmes-100px-100px.png" alt="Show 5"><span>20:30</span></div>
+            <div class="gallery-item"><img src="img/round/goosebumps-100px-100px.png" alt="Show 3"><span>21:00</span></div>
+            <div class="gallery-item"><img src="img/round/beetleborgs-100px-100px.png" alt="Show 4"><span>21:30</span></div>
+            <div class="gallery-item"><img src="img/round/mighty-morphin-power-rangers-100px-100px.png" alt="Show 1"><span>22:00</span></div>
+            <div class="gallery-item"><img src="img/round/sweet-valley-high-100px-100px.png" alt="Show 2"><span>23:00</span></div>
+            <div class="gallery-item"><img src="img/round/eerie-indiana-100px-100px.png" alt="Show 1"><span>23:30</span></div>
+
+
+Please place the Fox Kids logo a little above, as you can tell now, it's between the red header above and the orange background. Keep the size as it is right now. As for the ROUND GALLERY IMAGE, when I look at the site without zoom, after the 10th image, the complete row until the 24th image does not fit inside the screen. Is it way you could stop displaying all the images, and maybe after the 10th image you can place the arrow left and right so when the user clicks horizontally moves to the right or left one by one? Please keep in consideration that each image is 100px-100px. Same goes with the vertical image galleries (INVASIÓN ANIME, MARVEL, SUPER SENTAI, LIVE ACTION, COMEDY), the new size looks ok, but all the images look displayed to the right. Could you after the 5th image move to the left or right the remaining images? After the last one it should go back to the start. Please summarize all these changes before continuing

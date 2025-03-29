@@ -67,7 +67,7 @@ We measure each item’s width + gap.
 Clicking the right arrow increments a currentIndex, and the script shifts the gallery or toggles display: none for hidden items.
 Loops back to the start after the last item.
 
-* Getting Started*
+* Getting Started
 1. Open index.html in your web browser to view the site.
 2. Check your images: All .png and .jpg references in the img tags should match your local file paths
 3. Edit styles.css for color, spacing, or font changes.

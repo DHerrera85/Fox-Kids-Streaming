@@ -40,24 +40,24 @@ Each gallery limits how many items are visible at once — using one-click-at-a-
 * Gallery items become smaller (e.g., from 180×270 to 120×180) so they remain scrollable on mobile.
 
 **How It Works**
-* 1. HTML Structure *
+1. HTML Structure 
    
-* Header (<header class="banner">) holds the Fox Kids logo and slogan.
-* Container (<div class="container">) splits into:
-* Left Sidebar (<aside class="left-nav">) with <ul> menu buttons.
-* Main Content (<main class="main-content">) for:
-* Round Schedule Gallery (<div id="roundScheduleGallery">)
+* Header holds the Fox Kids logo and slogan.
+* Container splits into:
+* Left Sidebar with ul menu buttons.
+* Main Content for:
+* Round Schedule Gallery
 
 YouTube embed (“AHORA EN PANTALLA”)
-Multiple <section> galleries (SUPER SENTAI, etc.), each with id="..."
+Multiple galleries (SUPER SENTAI, etc.), each with id="..."
 
-* 2. CSS *
+2. CSS 
 * Uses flexbox to create a two-column layout (sidebar + main content).
 * .round-gallery & .scroll-gallery are set to flex-wrap: nowrap; overflow: hidden; for horizontal carousels.
 * Hover effects and transitions apply brightness or scale on images.
 * Media queries (@media (max-width: 768px)) adjust layouts for smaller screens, shrink images further, and stack the sidebar.
 
-* 3. JavaScript*
+3. JavaScript
 
 * Each gallery uses a carousel logic:
 * Round Gallery: 10 visible at once, circular shift on each arrow click.
@@ -69,9 +69,10 @@ Loops back to the start after the last item.
 
 * Getting Started*
 1. Open index.html in your web browser to view the site.
-2. Check your images: All .png and .jpg references in the <img> tags should match your local file paths (e.g., img/live-action/goosebumps-280x420.jpg).
+2. Check your images: All .png and .jpg references in the img tags should match your local file paths
 3. Edit styles.css for color, spacing, or font changes.
 4. Edit script.js to adjust the scrolling logic or the number of visible items in each gallery.
+
 
 Site: https://foxkids-tribute.netlify.app/
 

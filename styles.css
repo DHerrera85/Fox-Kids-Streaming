@@ -18,10 +18,9 @@ body {
   color: white;
   text-align: center;
   position: relative;
-  padding: 20px 0 10px 0; /* Extra top padding so the logo can float above text */
+  padding: 20px 0 10px 0;
 }
 .banner-content {
-  /* Default (desktop): leave as block so that text-align centers the content */
   display: block;
 }
 .foxkids-logo {
@@ -69,6 +68,13 @@ body {
   background-color: yellow;
   color: black;
 }
+.left-nav li a {
+  color: white;
+  text-decoration: none;
+}
+.left-nav li a:hover {
+  text-decoration: none;
+}
 .main-content {
   flex: 1;
   padding: 10px 20px;
@@ -76,7 +82,7 @@ body {
 
 /* ROUND GALLERY SECTION */
 .round-gallery-section {
-  background: #f1bc00; 
+  background: #f1bc00;
   padding: 15px;
   margin-bottom: 20px;
 }
@@ -84,12 +90,9 @@ body {
   color: #000;
   margin-bottom: 10px;
 }
-
-/* For Flickity container .round-gallery, remove display:flex, let Flickity handle layout */
-
 .round-gallery .gallery-item {
-  width: 80px;     /* Flickity slides can have a fixed width if you want smaller icons */
-  margin: 0 auto;  /* Center each icon horizontally */
+  width: 80px;
+  margin: 0 auto;
   text-align: center;
 }
 .round-gallery .gallery-item img {
@@ -125,43 +128,60 @@ body {
 }
 
 /* SCHEDULE SECTION */
-
+/* Schedule Slider */
 .schedule-slider {
   margin: 2rem 0;
+  text-align: center;
 }
-
 .schedule-slider h3 {
   margin-bottom: 1rem;
 }
-
-/* Let Flickity handle layout; just size the cells. */
+/* Schedule Item Structure */
 .schedule-item {
-  width: 200px;       /* Adjust as desired */
-  margin: 0 auto;
-  text-align: center;
-  background: #fff;   /* or a color to highlight */
+  width: 200px;
+  height: 320px;
+  background: #fff;
   color: #000;
   border-radius: 6px;
-  padding: 1rem;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   transition: transform 0.2s, background 0.2s;
 }
-
-.schedule-item img {
-  width: 60px;        /* match your round gallery or adjust as needed */
-  height: 60px;
-  border-radius: 50%;
-  display: block;
-  margin: 0 auto 0.5rem;
-}
-
-/* Hover effect: highlight or scale up the cell */
 .schedule-item:hover {
   background: #f1bc00;
   transform: scale(1.05);
 }
+.schedule-time {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.schedule-image {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.schedule-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+.schedule-image img:hover {
+  transform: scale(1.05);
+}
+/* Schedule Title: Removed fixed font-size and truncation properties */
+.schedule-title {
+  display: block;
+  text-align: center;
+}
 
-
-/* SHARED GALLERY SECTION STYLES (SUPER SENTAI, ANIME, etc.) */
+/* SHARED GALLERY SECTION STYLES */
 .gallery-section {
   margin: 30px 0;
 }
@@ -189,49 +209,44 @@ body {
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
-  /* Stack container items */
   .container {
     flex-direction: column;
   }
-  
   .left-nav {
     width: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
   }
-  
   .left-nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
-  
   .left-nav li {
     margin: 5px;
     padding: 8px 12px;
   }
-  
-  /* Modify the banner for mobile: Stack logo above text */
   .banner-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: static;  /* Remove relative positioning for mobile */
+    position: static;
   }
-  
   .foxkids-logo {
-    position: static; /* Remove absolute positioning */
+    position: static;
     margin-bottom: 10px;
   }
-  
-  /* Adjust gallery item sizes for smaller screens */
   .scroll-gallery .scroll-item {
     width: 120px;
     height: 180px;
   }
-  
   .round-gallery .gallery-item {
     width: 70px;
+  }
+  .schedule-item {
+    width: 140px;
+    height: 220px;
+    padding: 0.8rem;
   }
 }

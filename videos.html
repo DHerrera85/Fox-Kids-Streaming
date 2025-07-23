@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fox Kids</title>
+
+  <!-- Flickity CSS (CDN) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/flickity@2/dist/flickity.min.css"
+  />
+
+  <!-- Your Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- HEADER BANNER -->
+  <header class="banner">
+    <div class="banner-content">
+      <a href="index.html">
+        <img class="foxkids-logo" src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids Logo" />
+      </a>
+      <p>CUANDO EL PLANETA ESTÁ EN PELIGRO… ¡FOX KIDS AL RESCATE!</p>
+    </div>
+  </header>  
+
+  <!-- MAIN LAYOUT -->
+  <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="left-nav">
+        <ul>
+          <li><a href="#">Series</a></li>
+          <li><a href="#">Juegos</a></li>
+          <li><a href="articles.html">Artículos</a></li>
+          <li><a href="videos.html">Videos</a></li>
+          <li><a href="schedule.html">Programación</a></li>
+        </ul>
+    </aside>
+
+ <main class="main-content">
+
+  <!-- ROUND CHARACTER GALLERY with Flickity -->
+  <section class="round-gallery-section">
+    <h3 style="color: black;">Tus personajes favoritos</h3>
+    <div 
+      class="round-gallery flickity" 
+      data-flickity='{
+        "cellAlign": "left",
+        "contain": true,
+        "prevNextButtons": true,
+        "pageDots": false
+      }'
+    >
+      <div class="gallery-item">
+        <img src="img/round/spider-man-100px-100px.png" alt="Spider-Man" data-video="https://www.youtube.com/embed/deBWEBnGZL8" />
+        <span>Spider-Man</span>
+      </div>
+      <div class="gallery-item">
+        <img src="img/round/mighty-morphin-power-rangers-100px-100px.png" alt="Power Rangers" data-video="https://www.youtube.com/embed/efgh5678" />
+        <span>Power Rangers</span>
+      </div>
+      <div class="gallery-item">
+        <img src="img/round/iron-man-100px-100px.png" alt="Iron Man" data-video="https://www.youtube.com/embed/WqEX9o1xntM"/>
+        <span>Iron Man</span>
+      </div>
+      <div class="gallery-item">
+        <img src="img/round/x-men-100px-100px.png" alt="X-Men" data-video="https://www.youtube.com/embed/-ASSXkdiSsA" />
+        <span>X-Men</span>
+      </div>
+      <div class="gallery-item">
+        <img src="img/round/fantastic-four-100px-100px.png" alt="Fantastic Four" data-video="https://www.youtube.com/embed/qrst7890" />
+        <span>Fantastic Four</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO PLAYER SECTION -->
+  <section class="video-gallery">
+    <iframe id="mainVideo" src="https://www.youtube.com/embed/-ASSXkdiSsA" allowfullscreen></iframe>
+  </section>
+
+</main>
+
+  </div>
+
+  <!-- Story Modal Popup -->
+  <div id="storyModal" class="story-modal" style="display:none;">
+    <div class="story-modal-content">
+      <span class="close-story">&times;</span>
+      <iframe id="storyVideo" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Flickity JS (CDN) -->
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script>
+// One-video logic (like Instagram Stories)
+const thumbnails = document.querySelectorAll('.round-gallery img');
+const mainVideo = document.getElementById('mainVideo');
+
+thumbnails.forEach(img => {
+  img.addEventListener('click', () => {
+    const newSrc = img.getAttribute('data-video');
+    mainVideo.src = newSrc;
+  });
+});
+</script>
+
+</body>
+</html>

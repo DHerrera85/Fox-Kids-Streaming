@@ -454,6 +454,222 @@ body {
   }
 }
 
+/* ========== RESUME WATCHING ========== */
+.resume-watching-section {
+  padding: 30px 20px; /* ← ahora tiene padding horizontal igual que .featured-game-carousel */
+  background-color: #ff3c00;
+  color: white;
+}
+
+.resume-watching-section h2 {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 1.6em;
+  margin-bottom: 20px;
+}
+
+.resume-gallery {
+  /* Eliminamos margin-left: 40px */
+}
+
+.resume-card {
+  position: relative;
+  width: 320px;
+  margin-right: 20px;
+  background-color: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Audiowide', sans-serif;
+}
+
+.resume-card iframe {
+  width: 100%;
+  height: 180px;
+  border: none;
+}
+
+.video-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #ff0000;
+  color: white;
+  font-size: 0.65em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.video-label.coming {
+  background-color: #007bff;
+}
+
+.video-progress {
+  height: 5px;
+  background-color: #ff0000;
+  width: 60%; /* Valor de ejemplo, podés modificar dinámicamente */
+}
+
+.video-meta {
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+}
+
+.meta-time {
+  font-size: 0.75em;
+  color: #c00;
+  margin-bottom: 4px;
+}
+
+.meta-title {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.meta-subtitle {
+  font-size: 0.75em;
+  color: #444;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .resume-watching-section {
+    padding: 30px 10px; /* Menor padding en móvil */
+  }
+
+  .resume-watching-section h2 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .resume-gallery {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .resume-card {
+    width: 100%;
+  }
+}
+
+/* ========== TOP 10 SHOWS ========== */
+.top10-section {
+  background-color: #ff3c00;
+  padding: 30px 20px;
+  color: white;
+}
+
+.top10-section h2 {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 1.6em;
+  margin-bottom: 20px;
+}
+
+.top10-container {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.top10-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 280px;
+  height: 420px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  background-color: #000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.top10-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+}
+
+.top10-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.top10-number {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #000;
+  color: #ff0;
+  padding: 6px 12px;
+  font-family: 'Burbank Big Condensed', 'Audiowide', sans-serif;
+  font-size: 2.5em;
+  font-weight: bold;
+  z-index: 2;
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+  line-height: 1;
+}
+
+/* Colores para puestos 1 a 3 */
+.top10-card:nth-child(1) .top10-number {
+  color: #FFD700;
+}
+
+.top10-card:nth-child(2) .top10-number {
+  color: #C0C0C0;
+}
+
+.top10-card:nth-child(3) .top10-number {
+  color: #CD7F32;
+}
+
+/* Flickity arrows */
+.flickity-prev-next-button {
+  background: #000 !important;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.flickity-prev-next-button .flickity-button-icon {
+  fill: #fff;
+}
+
+.flickity-prev-next-button:hover {
+  background: #ff0 !important;
+}
+
+
+/* Colores especiales para los tres primeros */
+.top10-card:nth-child(1) .top10-number {
+  color: #FFD700; /* Oro */
+}
+
+.top10-card:nth-child(2) .top10-number {
+  color: #C0C0C0; /* Plata */
+}
+
+.top10-card:nth-child(3) .top10-number {
+  color: #CD7F32; /* Bronce */
+}
+
+/* Hover zoom suave para toda la card */
+.top10-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.top10-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+}
 
 
 /* ========== RESPONSIVE DESIGN (MOBILE) ========== */

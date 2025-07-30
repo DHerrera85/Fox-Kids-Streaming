@@ -166,87 +166,92 @@
           </div>
         </section>
 
-    <main class="main-content">
-  <div class="articles-section">
-    <h3>ARTICLES</h3>
-<div class="articles-carousel flickity"
-     data-flickity='{
-       "cellAlign": "left",
-       "contain": true,
-       "prevNextButtons": true,
-       "pageDots": false,
-       "groupCells": false
-     }'>
+   <!-- ARTICLES -->
+      <section class="articles-section">
+        <h3>ARTICLES</h3>
+        <div class="articles-carousel">
 
-  <div class="article-card">
-    <img src="img/articles/article-01.png" alt="Article 1">
-    <div class="article-meta">Jul 5, 2023 • Kevin T. Rodriguez</div>
-    <div class="article-title">Why Fox Kids Stopped Airing Anime</div>
-    <div class="article-summary">Why No Other Show Matched Digimon's Success.</div>
-    <div class="article-readmore"><a href="article01.html">Read More</a></div>
+          <div class="article-card carousel-cell">
+            <img src="img/articles/article-01.png" alt="Article 1">
+            <div class="article-meta">Jul 5, 2023 • Kevin T. Rodriguez</div>
+            <div class="article-title">Why Fox Kids Stopped Airing Anime</div>
+            <div class="article-summary">Why No Other Show Matched Digimon's Success.</div>
+            <div class="article-readmore"><a href="article01.html">READ MORE</a></div>
+          </div>
+
+          <div class="article-card carousel-cell">
+            <img src="img/articles/article-02.png" alt="Article 2">
+            <div class="article-meta">Dec 12, 2023 • Adrian Sandoval</div>
+            <div class="article-title">Fox Kids Flashback! How It All Started (Part 1)</div>
+            <div class="article-summary">Tracing the Network’s Rise: 1992–2001</div>
+            <div class="article-readmore"><a href="article02.html">READ MORE</a></div>
+          </div>
+
+          <div class="article-card carousel-cell">
+            <img src="img/articles/article-03.png" alt="Article 3">
+            <div class="article-meta">Dec 12, 2023 • Adrian Sandoval</div>
+            <div class="article-title">Fox Kids Unleashed! The Next Chapter (Part 2)</div>
+            <div class="article-summary">From Disney Takeover to the Jetix Rebrand</div>
+            <div class="article-readmore"><a href="article03.html">READ MORE</a></div>
+          </div>
+
+          <div class="article-card carousel-cell">
+            <img src="img/articles/article-04.png" alt="Article 4">
+            <div class="article-meta">May 4, 2012 • enmemoriapokesog.blogspot.com</div>
+            <div class="article-title">Top Fox Kids Latin America Blocks</div>
+            <div class="article-summary">From anime action to spooky late nights</div>
+            <div class="article-readmore"><a href="article04.html">READ MORE</a></div>
+          </div>
+
+          <div class="article-card carousel-cell">
+            <img src="img/articles/article-05.png" alt="Article 5">
+            <div class="article-meta">28 JUN 2025 • FOX KIDS TEAM</div>
+            <div class="article-title">Volvemos a ver Diabolik</div>
+            <div class="article-summary">Un repaso a este thriller animado que marcó una era en Fox Kids.</div>
+            <div class="article-readmore"><a href="article05.html">READ MORE</a></div>
+          </div>
+
+          <div class="article-card carousel-cell">
+            <img src="img/articles/article-06.png" alt="Article 6">
+            <div class="article-meta">28 JUN 2025 • FOX KIDS TEAM</div>
+            <div class="article-title">Volvemos a ver Diabolik</div>
+            <div class="article-summary">Un repaso a este thriller animado que marcó una era en Fox Kids.</div>
+            <div class="article-readmore"><a href="article06.html">READ MORE</a></div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
   </div>
 
-  <div class="article-card">
-    <img src="img/articles/article-02.png" alt="Article 2">
-    <div class="article-meta">Dec 12, 2023 • Adrian Sandoval</div>
-    <div class="article-title">Fox Kids Flashback! How It All Started (Part 1)</div>
-    <div class="article-summary">Tracing the Network’s Rise: 1992–2001</div>
-    <div class="article-readmore"><a href="article02.html">Read More</a></div>
-  </div>
+  <!-- JS -->
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  <script>
+    const carousel = document.querySelector('.articles-carousel');
+    document.addEventListener('DOMContentLoaded', function () {
+      let flkty;
 
-  <div class="article-card">
-    <img src="img/articles/article-03.png" alt="Article 3">
-    <div class="article-meta">Dec 12, 2023 • Adrian Sandoval</div>
-    <div class="article-title">Fox Kids Unleashed! The Next Chapter (Part 2)</div>
-    <div class="article-summary">From Disney Takeover to the Jetix Rebrand</div>
-    <div class="article-readmore"><a href="article03.html">Read More</a></div>
-  </div>
+      function initFlickity() {
+        if (flkty) {
+          flkty.destroy();
+        }
+        flkty = new Flickity(carousel, {
+          cellAlign: 'left',
+          contain: true,
+          prevNextButtons: true,
+          pageDots: false,
+          groupCells: window.innerWidth <= 768 ? 1 : 3
+        });
+      }
 
-    <div class="article-card">
-    <img src="img/articles/article-04.png" alt="Article 4">
-    <div class="article-meta">May 4, 2012 • enmemoriapokesog.blogspot.com</div>
-    <div class="article-title">Top Fox Kids Latin America Blocks</div>
-    <div class="article-summary">From anime action to spooky late nights</div>
-    <div class="article-readmore"><a href="article04.html">Read More</a></div>
-  </div>
-
-      <div class="article-card">
-    <img src="img/articles/article-05.png" alt="Article 5">
-    <div class="article-meta">28 JUN 2025 • FOX KIDS TEAM</div>
-    <div class="article-title">Volvemos a ver Diabolik</div>
-    <div class="article-summary">Un repaso a este thriller animado que marcó una era en Fox Kids.</div>
-    <div class="article-readmore">Leer más</div>
-  </div>
-
-      <div class="article-card">
-    <img src="img/articles/article-06.png" alt="Article 6">
-    <div class="article-meta">28 JUN 2025 • FOX KIDS TEAM</div>
-    <div class="article-title">Volvemos a ver Diabolik</div>
-    <div class="article-summary">Un repaso a este thriller animado que marcó una era en Fox Kids.</div>
-    <div class="article-readmore">Leer más</div>
-  </div>
-
-</div>
-      </main>
-    </div>
-
-    <!-- Scripts: jQuery first, then Flickity, then FitText, then inline script -->
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Flickity JS (CDN) -->
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <!-- FitText.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.min.js"></script>
-    <script>
-      $(document).ready(function(){
-        // Lower compression factor => bigger text for shorter titles
-        // Increase minFontSize => short titles won't go below 14px
-        $(".schedule-title").fitText(1.0, { minFontSize: '15px', maxFontSize: '16px' });
-      });
-    </script>  
-  </body>
-  </html>
-
-
-  </body>
-  </html>
+      if (carousel) {
+        initFlickity();
+        window.addEventListener('resize', function () {
+          initFlickity();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

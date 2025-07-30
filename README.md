@@ -66,12 +66,3 @@ Proper use of <strong> for anime titles
 
 
 Site: https://foxkids-tribute.netlify.app/
-
-![![Fox Kids Streaming Site Preview]()][def]
-
-
-
-
-
-
-[def]: home.png

@@ -421,6 +421,26 @@ body {
   border-radius: 4px;
 }
 
+/* Lists in full article */
+.full-article ul {
+  font-family: 'Poppins', sans-serif;
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+.full-article ul li {
+  margin-bottom: 8px;
+}
+
+.full-article ul li strong {
+  font-weight: bold;
+}
+
+.full-article ul li em {
+  font-style: italic;
+}
+
+
 /* Back Button */
 .back-button {
   display: inline-block;

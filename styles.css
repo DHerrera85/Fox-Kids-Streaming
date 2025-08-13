@@ -440,7 +440,6 @@ body {
   font-style: italic;
 }
 
-
 /* Back Button */
 .back-button {
   display: inline-block;
@@ -612,6 +611,14 @@ body {
   width: 100%;
   height: 180px;
   border: none;
+}
+
+.resume-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border: none;
+  display: block;
 }
 
 .video-label {

@@ -166,59 +166,11 @@
           </div>
         </section>
 
-   <!-- ARTICLES -->
+   <!-- ARTICLES (dinámico desde data/articles.json) -->
       <section class="articles-section">
         <h3>ARTICLES</h3>
-        <div class="articles-carousel">
-
-          <div class="article-card carousel-cell">
-            <img src="img/articles/article-01.png" alt="Article 1">
-            <div class="article-meta">Jul 5, 2023 • Kevin T. Rodriguez</div>
-            <div class="article-title">Why Fox Kids Stopped Airing Anime</div>
-            <div class="article-summary">Why No Other Show Matched Digimon's Success.</div>
-            <div class="article-readmore"><a href="article01.html">READ MORE</a></div>
-          </div>
-
-          <div class="article-card carousel-cell">
-            <img src="img/articles/article-02.png" alt="Article 2">
-            <div class="article-meta">Dec 12, 2023 • Adrian Sandoval</div>
-            <div class="article-title">Fox Kids Flashback! How It All Started (Part 1)</div>
-            <div class="article-summary">Tracing the Network’s Rise: 1992–2001</div>
-            <div class="article-readmore"><a href="article02.html">READ MORE</a></div>
-          </div>
-
-          <div class="article-card carousel-cell">
-            <img src="img/articles/article-03.png" alt="Article 3">
-            <div class="article-meta">Dec 12, 2023 • Adrian Sandoval</div>
-            <div class="article-title">Fox Kids Unleashed! The Next Chapter (Part 2)</div>
-            <div class="article-summary">From Disney Takeover to the Jetix Rebrand</div>
-            <div class="article-readmore"><a href="article03.html">READ MORE</a></div>
-          </div>
-
-          <div class="article-card carousel-cell">
-            <img src="img/articles/article-04.png" alt="Article 4">
-            <div class="article-meta">May 4, 2012 • enmemoriapokesog.blogspot.com</div>
-            <div class="article-title">Top Fox Kids Latin America Blocks</div>
-            <div class="article-summary">From anime action to spooky late nights</div>
-            <div class="article-readmore"><a href="article04.html">READ MORE</a></div>
-          </div>
-
-          <div class="article-card carousel-cell">
-            <img src="img/articles/article-05.png" alt="Article 5">
-            <div class="article-meta">28 JUN 2025 • FOX KIDS TEAM</div>
-            <div class="article-title">Other Super-Sentai Series Produced by Fox Kids!</div>
-            <div class="article-summary">How Fox Kids Tried (and Failed) to Replicate Power Rangers’ Success</div>
-            <div class="article-readmore"><a href="article05.html">READ MORE</a></div>
-          </div>
-
-          <div class="article-card carousel-cell">
-            <img src="img/articles/article-06.png" alt="Article 6">
-            <div class="article-meta">28 JUN 2025 • FOX KIDS TEAM</div>
-            <div class="article-title">What If Fox Kids Is Still Alive As a Streaming Service?</div>
-            <div class="article-summary">From Nostalgic Network to Digital Dynamo</div>
-            <div class="article-readmore"><a href="article06.html">READ MORE</a></div>
-          </div>
-
+        <div class="articles-carousel" id="articles-grid">
+          <!-- Se llena vía data/articles.json -->
         </div>
       </section>
 
@@ -226,32 +178,34 @@
   </div>
 
   <!-- JS -->
-  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
   <script>
-    const carousel = document.querySelector('.articles-carousel');
-    document.addEventListener('DOMContentLoaded', function () {
-      let flkty;
+    document.addEventListener('DOMContentLoaded', loadArticlesPage);
 
-      function initFlickity() {
-        if (flkty) {
-          flkty.destroy();
-        }
-        flkty = new Flickity(carousel, {
-          cellAlign: 'left',
-          contain: true,
-          prevNextButtons: true,
-          pageDots: false,
-          groupCells: window.innerWidth <= 768 ? 1 : 3
-        });
+    async function loadArticlesPage(){
+      const grid=document.getElementById('articles-grid');
+      if(!grid) return;
+      try{
+        const res=await fetch('data/articles.json');
+        const items=await res.json();
+        grid.innerHTML=items.map(a=>{
+          const link=a.sourceUrl||a.url||'#';
+          const external=Boolean(a.sourceUrl);
+          return `
+            <div class="article-card ${external?'external':''}">
+              <a href="${link}" target="${external?'_blank':'_self'}" rel="${external?'noopener noreferrer':''}" style="color:inherit;text-decoration:none;display:block;">
+                <img src="${a.image||'img/articles/article-01.png'}" alt="${a.title||'Artículo'}" loading="lazy" />
+                <div class="article-meta">${a.date||''} • ${a.author||'Fox Kids'}</div>
+                <div class="article-title">${a.title||''}</div>
+                <div class="article-summary">${a.summary||''}</div>
+                <div class="article-readmore"><span>READ MORE</span></div>
+              </a>
+            </div>`;
+        }).join('');
+      }catch(err){
+        grid.innerHTML='<div style="color:#fff;opacity:.85">No pudimos cargar los artículos.</div>';
+        console.error(err);
       }
-
-      if (carousel) {
-        initFlickity();
-        window.addEventListener('resize', function () {
-          initFlickity();
-        });
-      }
-    });
+    }
   </script>
 </body>
 </html>

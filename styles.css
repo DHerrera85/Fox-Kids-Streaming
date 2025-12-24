@@ -7,9 +7,10 @@
 
 body {
   background-color: #ff3c00;
-  font-family: 'Audiowide', sans-serif;
+  font-family: 'Audiowide', Impact, sans-serif;
   margin: 0;
   color: #fff;
+  letter-spacing: 0.03em;
 }
 
 /* ========== BANNER ========== */

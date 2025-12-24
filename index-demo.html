@@ -28,29 +28,17 @@
   .search-pill .glass{opacity:.7}
   .search-pill input{border:0;outline:0;width:100%;font-size:14px;background:transparent;}
   .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);white-space:nowrap;}
-  .stories-wrap{margin:14px 14px 0;background:rgba(255,196,0,.88);border-radius:var(--radius);padding:12px 10px;box-shadow:var(--shadow);border:3px solid rgba(0,0,0,.16);position:relative;}
+  .stories-wrap{margin:14px 14px 0;background:rgba(255,196,0,.88);border-radius:var(--radius);padding:12px 10px;box-shadow:var(--shadow);border:3px solid rgba(0,0,0,.16);}
   .stories-title{display:flex;align-items:center;justify-content:space-between;color:#111;font-weight:900;font-size:13px;padding:0 4px 10px;}
-  .stories{display:flex;gap:12px;overflow:auto;padding:2px 4px 6px;scroll-snap-type:x mandatory;scroll-behavior:smooth;}
-  .stories::-webkit-scrollbar{display:none;}
-  .stories{-ms-overflow-style:none;scrollbar-width:none;}
-  .story-nav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.75);border:2px solid rgba(255,255,255,.3);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:18px;z-index:5;transition:all .3s ease;user-select:none;}
-  .story-nav:hover{background:rgba(0,0,0,.9);transform:translateY(-50%) scale(1.1);box-shadow:0 8px 20px rgba(0,0,0,.4);}
-  .story-nav:active{transform:translateY(-50%) scale(.95);}
-  .story-nav.left{left:10px;}
-  .story-nav.right{right:10px;}
-  @media (max-width: 767px){.story-nav{display:none;}}
-  .story{flex:0 0 auto;width:85px;text-align:center;scroll-snap-align:start;cursor:pointer;transition:transform .3s ease;}
-  .story:hover{transform:translateY(-4px);}
-  .story .ring{width:60px;height:60px;border-radius:50%;margin:0 auto 6px;padding:3px;background:conic-gradient(from 140deg,#ff0033,#ff8a00,#ffe600,#ff0033);box-shadow:0 10px 16px rgba(0,0,0,.18);transition:all .3s ease;}
-  .story:hover .ring{transform:scale(1.08);box-shadow:0 14px 24px rgba(0,0,0,.28);animation:ringRotate 3s linear infinite;}
-  @keyframes ringRotate{0%{background:conic-gradient(from 140deg,#ff0033,#ff8a00,#ffe600,#ff0033);}50%{background:conic-gradient(from 320deg,#ff0033,#ff8a00,#ffe600,#ff0033);}100%{background:conic-gradient(from 500deg,#ff0033,#ff8a00,#ffe600,#ff0033);}}
-  .story .avatar{width:100%;height:100%;border-radius:50%;background:#f0f0f0;display:grid;place-items:center;color:#111;font-weight:400;border:3px solid rgba(0,0,0,.18);overflow:hidden;transition:transform .3s ease;}
-  .story:hover .avatar{transform:scale(1.05);}
-  .story .avatar b{font-size:18px;letter-spacing:.5px;} .story .label{font-size:9px;font-weight:900;color:#111;line-height:1.2;word-break:break-word;hyphens:auto;max-width:100%;transition:color .3s ease,transform .3s ease;}
-  .story:hover .label{color:#e20000;transform:scale(1.05);}
+  .stories{display:flex;gap:12px;overflow:auto;padding:2px 4px 6px;scroll-snap-type:x mandatory;}
+  .stories::-webkit-scrollbar{height:8px} .stories::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25);border-radius:999px}
+  .story{flex:0 0 auto;width:70px;text-align:center;scroll-snap-align:start;cursor:pointer;}
+  .story .ring{width:60px;height:60px;border-radius:50%;margin:0 auto 6px;padding:3px;background:conic-gradient(from 140deg,#ff0033,#ff8a00,#ffe600,#ff0033);box-shadow:0 10px 16px rgba(0,0,0,.18);}
+  .story .avatar{width:100%;height:100%;border-radius:50%;background:#f0f0f0;display:grid;place-items:center;color:#111;font-weight:400;border:3px solid rgba(0,0,0,.18);overflow:hidden;}
+  .story .avatar b{font-size:18px;letter-spacing:.5px;} .story .label{font-size:11px;font-weight:900;color:#111;line-height:1.05;}
   .content{padding:14px;}
-  .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:10px 2px 10px;gap:12px;}
-  .section-title h2{margin:0;font-size:20px;letter-spacing:.2px;color:#FFD200;} .section-title .hint{font-size:12px;opacity:.8;white-space:nowrap;}
+  .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:10px 2px 10px;}
+  .section-title h2{margin:0;font-size:20px;letter-spacing:.2px;color:#FFD200;} .section-title .hint{font-size:12px;opacity:.8;}
   .grid{display:grid;gap:12px;}
   .card{background:var(--card);color:var(--ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);border:3px solid rgba(0,0,0,.10);}
   .card .media{height:160px;background:linear-gradient(135deg,#2b5cff,#7c2cff 45%,#ff2b8a);position:relative;}
@@ -74,54 +62,7 @@
   .pill{flex:0 0 auto;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.22);color:#fff;padding:8px 12px;border-radius:999px;font-weight:900;font-size:12px;}
   .pill strong{color:#FFD200;}
 
-  /* � INSTAGRAM STORIES VIEWER */
-  .stories-viewer{position:fixed;inset:0;background:#000;z-index:9999;display:none;flex-direction:column;}
-  .stories-viewer.active{display:flex;}
-  .stories-progress{display:flex;gap:4px;padding:8px 12px;position:absolute;top:0;left:0;right:0;z-index:10;}
-  .progress-bar{flex:1;height:3px;background:rgba(255,255,255,.3);border-radius:999px;overflow:hidden;}
-  .progress-fill{height:100%;background:#fff;width:0%;transition:width .1s linear;}
-  .progress-bar.active .progress-fill{animation:fillProgress 5s linear forwards;}
-  @keyframes fillProgress{to{width:100%;}}
-  .stories-header{position:absolute;top:16px;left:12px;right:12px;z-index:10;display:flex;align-items:center;gap:12px;color:#fff;}
-  .stories-header .avatar-mini{width:32px;height:32px;border-radius:50%;border:2px solid #fff;overflow:hidden;}
-  .stories-header .avatar-mini img{width:100%;height:100%;object-fit:cover;}
-  .stories-header .info{flex:1;}
-  .stories-header .name{font-weight:900;font-size:14px;text-shadow:0 2px 8px rgba(0,0,0,.5);}
-  .stories-close{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;cursor:pointer;font-size:20px;color:#fff;}
-  .stories-content{flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-  .story-item{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px 20px;}
-  .story-item.active{display:flex;}
-  .story-item video{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
-  .story-item img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
-  .story-nav-area{position:absolute;inset:0;display:flex;z-index:5;}
-  .story-nav-area .left-area,.story-nav-area .right-area{flex:1;cursor:pointer;}
-  .story-nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;cursor:pointer;color:#fff;font-size:20px;opacity:0;transition:opacity .3s ease;z-index:10;}
-  .story-nav-btn:hover{opacity:1;background:rgba(255,255,255,.3);}
-  .story-nav-btn.prev{left:12px;}
-  .story-nav-btn.next{right:12px;}
-  .story-side-preview{display:none;}
-  
-  /* Desktop 3-column layout */
-  @media (min-width: 768px) {
-    .stories-viewer{background:rgba(0,0,0,.92);backdrop-filter:blur(10px);}
-    .stories-content{display:grid;grid-template-columns:200px 1fr 200px;gap:20px;padding:0 40px;}
-    .story-side-preview{display:flex;align-items:center;justify-content:center;opacity:.4;transition:opacity .3s ease;cursor:pointer;position:relative;}
-    .story-side-preview:hover{opacity:.7;}
-    .story-side-preview img,.story-side-preview video{max-width:100%;max-height:70vh;width:auto;height:auto;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.5);}
-    .story-main-container{position:relative;display:flex;align-items:center;justify-content:center;}
-    .story-item{position:relative;inset:auto;}
-    .story-item video,.story-item img{max-width:100%;max-height:85vh;border-radius:20px;}
-    .stories-progress{max-width:500px;left:50%;transform:translateX(-50%);}
-    .stories-header{max-width:500px;left:50%;transform:translateX(-50%);}
-    .story-nav-area{grid-column:2;position:absolute;inset:0;}
-    .story-nav-btn.prev{left:60px;}
-    .story-nav-btn.next{right:60px;}
-    .stories-viewer-overlay{position:absolute;inset:0;z-index:1;cursor:pointer;}
-    .stories-content{z-index:2;position:relative;pointer-events:none;}
-    .story-nav-area,.story-nav-btn,.stories-header,.stories-close,.stories-progress,.story-side-preview{pointer-events:auto;}
-  }
-
-  /* �📚 Artículos (ScreenRant-style adaptado) */
+  /* 📚 Artículos (ScreenRant-style adaptado) */
   .articles-section{padding:14px;margin-top:18px;}
   .articles-head{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 12px;gap:10px;}
   .articles-head h2{margin:0;font-size:20px;letter-spacing:.2px;color:#FFD200;}
@@ -192,7 +133,7 @@
     .app{max-width:1400px;}
     .topbar-row,.search,.stories-wrap,.content{max-width:1300px;}
     .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;}
-    .stories .story{width:95px;} .story .ring{width:70px;height:70px;} .story .label{font-size:9px;line-height:1.25;}
+    .stories .story{width:80px;} .story .ring{width:70px;height:70px;}
     .shorts{gap:20px;} .short{width:180px;height:280px;}
   }
 </style>
@@ -224,20 +165,13 @@
 
   <div class="stories-wrap">
     <div class="stories-title"><span>Personajes • tocá para abrir “historias”</span><span style="opacity:.75">→</span></div>
-    <div class="story-nav left" onclick="scrollStories('left')">‹</div>
-    <div class="story-nav right" onclick="scrollStories('right')">›</div>
-    <div class="stories" id="stories-container">
-      <div class="story" onclick="openStories(0)"><div class="ring"><div class="avatar"><img src="img/round/spider-man-100px-100px.png" alt="Spider-Man" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Spider-Man</div></div>
-      <div class="story" onclick="openStories(1)"><div class="ring"><div class="avatar"><img src="img/round/mighty-morphin-power-rangers-100px-100px.png" alt="Power Rangers" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Power Rangers</div></div>
-      <div class="story" onclick="openStories(2)"><div class="ring"><div class="avatar"><img src="img/round/iron-man-100px-100px.png" alt="Iron Man" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Iron Man</div></div>
-      <div class="story" onclick="openStories(3)"><div class="ring"><div class="avatar"><img src="img/round/x-men-100px-100px.png" alt="X-Men" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">X-Men</div></div>
-      <div class="story" onclick="openStories(4)"><div class="ring"><div class="avatar"><img src="img/round/fantastic-four-100px-100px.png" alt="Fantastic Four" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Fantastic Four</div></div>
-      <div class="story" onclick="openStories(5)"><div class="ring"><div class="avatar"><img src="img/round/digimon-100px-100px.png" alt="Digimon" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Digimon</div></div>
-      <div class="story" onclick="openStories(6)"><div class="ring"><div class="avatar"><img src="img/round/shaman-king-100px-100px.png" alt="Shaman King" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Shaman King</div></div>
-      <div class="story" onclick="openStories(7)"><div class="ring"><div class="avatar"><img src="img/round/bobbys-world-100px-100px.png" alt="Bobby's World" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Bobby's World</div></div>
-      <div class="story" onclick="openStories(8)"><div class="ring"><div class="avatar"><img src="img/round/hulk-100px-100px.png" alt="Incredible Hulk" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Incredible Hulk</div></div>
-      <div class="story" onclick="openStories(9)"><div class="ring"><div class="avatar"><img src="img/round/goosebumps-100px-100px.png" alt="Goosebumps" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Goosebumps</div></div>
-      <div class="story" onclick="openStories(10)"><div class="ring"><div class="avatar"><img src="img/round/woody-woodpecker-100px-100px.png" alt="Woody Woodpecker" style="width:100%;height:100%;object-fit:cover;"/></div></div><div class="label">Woody Woodpecker</div></div>
+    <div class="stories">
+      <div class="story" onclick="toast('Abriendo historia: Spider-Man')"><div class="ring"><div class="avatar"><b>SM</b></div></div><div class="label">Spider-Man</div></div>
+      <div class="story" onclick="toast('Abriendo historia: Power Rangers')"><div class="ring"><div class="avatar"><b>PR</b></div></div><div class="label">Power Rangers</div></div>
+      <div class="story" onclick="toast('Abriendo historia: Iron Man')"><div class="ring"><div class="avatar"><b>IM</b></div></div><div class="label">Iron Man</div></div>
+      <div class="story" onclick="toast('Abriendo historia: X-Men')"><div class="ring"><div class="avatar"><b>XM</b></div></div><div class="label">X-Men</div></div>
+      <div class="story" onclick="toast('Abriendo historia: Fantastic Four')"><div class="ring"><div class="avatar"><b>FF</b></div></div><div class="label">Fantastic Four</div></div>
+      <div class="story" onclick="toast('Abriendo historia: Digimon')"><div class="ring"><div class="avatar"><b>D</b></div></div><div class="label">Digimon</div></div>
     </div>
   </div>
 
@@ -313,32 +247,7 @@
   </div>
   <div class="nav-item active" data-tab="home" onclick="go(this.dataset.tab)"><div class="ni">🏠</div><div class="label">Inicio</div></div>
   <div class="nav-item" data-tab="schedule" onclick="go(this.dataset.tab)"><div class="ni">🗓️</div><div class="label">Schedule</div></div>
-  <div class="nav-item" onclick="location.href='articles.html'"><div class="ni">📚</div><div class="label">Artículos</div></div>
 </nav>
-
-<!-- Instagram Stories Viewer -->
-<div class="stories-viewer" id="storiesViewer">
-  <div class="stories-viewer-overlay" onclick="closeStories()"></div>
-  <div class="stories-progress" id="storiesProgress"></div>
-  <div class="stories-header">
-    <div class="avatar-mini" id="storyAvatar"></div>
-    <div class="info">
-      <div class="name" id="storyName"></div>
-    </div>
-    <div class="stories-close" onclick="closeStories()">✕</div>
-  </div>
-  <div class="stories-content">
-    <div class="story-side-preview" id="prevPreview" onclick="prevStory()"></div>
-    <div class="story-main-container" id="storiesContent"></div>
-    <div class="story-side-preview" id="nextPreview" onclick="nextStory()"></div>
-  </div>
-  <div class="story-nav-area">
-    <div class="left-area" onclick="prevStory()"></div>
-    <div class="right-area" onclick="nextStory()"></div>
-  </div>
-  <div class="story-nav-btn prev" onclick="prevStory()">‹</div>
-  <div class="story-nav-btn next" onclick="nextStory()">›</div>
-</div>
 
 <script>
   const views = {home: document.getElementById('view-home'), schedule: document.getElementById('view-schedule')};
@@ -389,15 +298,6 @@
     }
   }
   loadArticles();
-  function scrollStories(direction){
-    const container=document.getElementById('stories-container');
-    const scrollAmount=300;
-    if(direction==='left'){
-      container.scrollBy({left:-scrollAmount,behavior:'smooth'});
-    }else{
-      container.scrollBy({left:scrollAmount,behavior:'smooth'});
-    }
-  }
   function focusSearch(){document.getElementById('q').focus(); toast('Buscador listo');}
   let tmr;
   function toast(msg){
@@ -411,145 +311,6 @@
     el.textContent=msg; el.style.opacity='1';
     tmr=setTimeout(()=>{el.style.opacity='0';},1200);
   }
-
-  // Instagram Stories System
-  const storiesData = [
-    {name:'Spider-Man',avatar:'img/round/spider-man-100px-100px.png',items:[{type:'image',src:'img/marvel/spider-man-card.jpg'},{type:'video',src:'videos/demo1.mp4'}]},
-    {name:'Power Rangers',avatar:'img/round/mighty-morphin-power-rangers-100px-100px.png',items:[{type:'image',src:'img/sentai/power-rangers-card.jpg'}]},
-    {name:'Iron Man',avatar:'img/round/iron-man-100px-100px.png',items:[{type:'image',src:'img/marvel/iron-man-card.jpg'}]},
-    {name:'X-Men',avatar:'img/round/x-men-100px-100px.png',items:[{type:'image',src:'img/marvel/x-men-card.jpg'}]},
-    {name:'Fantastic Four',avatar:'img/round/fantastic-four-100px-100px.png',items:[{type:'image',src:'img/marvel/fantastic-four-card.jpg'}]},
-    {name:'Digimon',avatar:'img/round/digimon-100px-100px.png',items:[{type:'image',src:'img/invasion-anime/digimon-card.jpg'}]},
-    {name:'Shaman King',avatar:'img/round/shaman-king-100px-100px.png',items:[{type:'image',src:'img/invasion-anime/shaman-king-card.jpg'}]},
-    {name:'Bobby\'s World',avatar:'img/round/bobbys-world-100px-100px.png',items:[{type:'image',src:'img/comedy/bobbys-world-card.jpg'}]},
-    {name:'Incredible Hulk',avatar:'img/round/hulk-100px-100px.png',items:[{type:'image',src:'img/marvel/hulk-card.jpg'}]},
-    {name:'Goosebumps',avatar:'img/round/goosebumps-100px-100px.png',items:[{type:'image',src:'img/live-action/goosebumps-card.jpg'}]},
-    {name:'Woody Woodpecker',avatar:'img/round/woody-woodpecker-100px-100px.png',items:[{type:'image',src:'img/comedy/woody-woodpecker-card.jpg'}]}
-  ];
-  let currentCharacterIndex=0,currentStoryIndex=0,progressTimer,storyTimer;
-  
-  function openStories(characterIndex){
-    currentCharacterIndex=characterIndex;
-    currentStoryIndex=0;
-    const viewer=document.getElementById('storiesViewer');
-    viewer.classList.add('active');
-    document.body.style.overflow='hidden';
-    renderStories();
-    showStory();
-  }
-  
-  function closeStories(){
-    const viewer=document.getElementById('storiesViewer');
-    viewer.classList.remove('active');
-    document.body.style.overflow='';
-    clearTimeout(storyTimer);
-    const video=viewer.querySelector('video');
-    if(video)video.pause();
-  }
-  
-  function renderStories(){
-    const character=storiesData[currentCharacterIndex];
-    document.getElementById('storyName').textContent=character.name;
-    document.getElementById('storyAvatar').innerHTML=`<img src="${character.avatar}" alt="${character.name}">`;
-    const progress=document.getElementById('storiesProgress');
-    progress.innerHTML=character.items.map((_,i)=>`<div class="progress-bar" id="progress-${i}"><div class="progress-fill"></div></div>`).join('');
-    const content=document.getElementById('storiesContent');
-    content.innerHTML=character.items.map((item,i)=>{
-      if(item.type==='video'){
-        return `<div class="story-item" id="story-${i}"><video src="${item.src}" playsinline></video></div>`;
-      }else{
-        return `<div class="story-item" id="story-${i}"><img src="${item.src}" alt="${character.name}"></div>`;
-      }
-    }).join('');
-    updatePreviews();
-  }
-  
-  function updatePreviews(){
-    const prevPreview=document.getElementById('prevPreview');
-    const nextPreview=document.getElementById('nextPreview');
-    if(currentCharacterIndex>0){
-      const prevChar=storiesData[currentCharacterIndex-1];
-      const prevItem=prevChar.items[0];
-      prevPreview.innerHTML=prevItem.type==='video'?`<video src="${prevItem.src}" muted></video>`:`<img src="${prevItem.src}" alt="${prevChar.name}">`;
-    }else{
-      prevPreview.innerHTML='';
-    }
-    if(currentCharacterIndex<storiesData.length-1){
-      const nextChar=storiesData[currentCharacterIndex+1];
-      const nextItem=nextChar.items[0];
-      nextPreview.innerHTML=nextItem.type==='video'?`<video src="${nextItem.src}" muted></video>`:`<img src="${nextItem.src}" alt="${nextChar.name}">`;
-    }else{
-      nextPreview.innerHTML='';
-    }
-  }
-  
-  function showStory(){
-    const character=storiesData[currentCharacterIndex];
-    const items=document.querySelectorAll('.story-item');
-    items.forEach((item,i)=>{
-      item.classList.toggle('active',i===currentStoryIndex);
-    });
-    const bars=document.querySelectorAll('.progress-bar');
-    bars.forEach((bar,i)=>{
-      bar.classList.toggle('active',i===currentStoryIndex);
-      if(i<currentStoryIndex){
-        bar.querySelector('.progress-fill').style.width='100%';
-        bar.classList.remove('active');
-      }else if(i>currentStoryIndex){
-        bar.querySelector('.progress-fill').style.width='0%';
-      }
-    });
-    const currentItem=character.items[currentStoryIndex];
-    const storyEl=document.getElementById(`story-${currentStoryIndex}`);
-    if(currentItem.type==='video'){
-      const video=storyEl.querySelector('video');
-      video.currentTime=0;
-      video.play();
-      video.onended=()=>nextStory();
-    }else{
-      clearTimeout(storyTimer);
-      storyTimer=setTimeout(()=>nextStory(),5000);
-    }
-  }
-  
-  function nextStory(){
-    const character=storiesData[currentCharacterIndex];
-    if(currentStoryIndex<character.items.length-1){
-      currentStoryIndex++;
-      showStory();
-    }else if(currentCharacterIndex<storiesData.length-1){
-      currentCharacterIndex++;
-      currentStoryIndex=0;
-      renderStories();
-      showStory();
-    }else{
-      closeStories();
-    }
-    updatePreviews();
-  }
-  
-  function prevStory(){
-    if(currentStoryIndex>0){
-      currentStoryIndex--;
-      showStory();
-    }else if(currentCharacterIndex>0){
-      currentCharacterIndex--;
-      const character=storiesData[currentCharacterIndex];
-      currentStoryIndex=character.items.length-1;
-      renderStories();
-      showStory();
-    }
-    updatePreviews();
-  }
-  
-  document.addEventListener('keydown',(e)=>{
-    const viewer=document.getElementById('storiesViewer');
-    if(viewer.classList.contains('active')){
-      if(e.key==='Escape')closeStories();
-      else if(e.key==='ArrowRight')nextStory();
-      else if(e.key==='ArrowLeft')prevStory();
-    }
-  });
 </script>
 </body>
 </html>

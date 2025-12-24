@@ -328,16 +328,16 @@
     <div class="stories-close" onclick="closeStories()">✕</div>
   </div>
   <div class="stories-content">
-    <div class="story-side-preview" id="prevPreview" onclick="prevStory()"></div>
+    <div class="story-side-preview" id="prevPreview" onclick="prevCharacter()"></div>
     <div class="story-main-container" id="storiesContent"></div>
-    <div class="story-side-preview" id="nextPreview" onclick="nextStory()"></div>
+    <div class="story-side-preview" id="nextPreview" onclick="nextCharacter()"></div>
   </div>
   <div class="story-nav-area">
-    <div class="left-area" onclick="prevStory()"></div>
-    <div class="right-area" onclick="nextStory()"></div>
+    <div class="left-area" onclick="handleLeftClick(event)"></div>
+    <div class="right-area" onclick="handleRightClick(event)"></div>
   </div>
-  <div class="story-nav-btn prev" onclick="prevStory()">‹</div>
-  <div class="story-nav-btn next" onclick="nextStory()">›</div>
+  <div class="story-nav-btn prev" onclick="prevCharacter()">‹</div>
+  <div class="story-nav-btn next" onclick="nextCharacter()">›</div>
 </div>
 
 <script>
@@ -414,7 +414,7 @@
 
   // Instagram Stories System
   const storiesData = [
-    {name:'Spider-Man',avatar:'img/round/spider-man-100px-100px.png',items:[{type:'image',src:'img/marvel/spider-man-card.jpg'},{type:'video',src:'videos/demo1.mp4'}]},
+    {name:'Spider-Man',avatar:'img/round/spider-man-100px-100px.png',items:[{type:'video',src:'videos/stories/spider-man-01.mp4'},{type:'video',src:'videos/stories/spider-man-02.mp4'}]},
     {name:'Power Rangers',avatar:'img/round/mighty-morphin-power-rangers-100px-100px.png',items:[{type:'image',src:'img/sentai/power-rangers-card.jpg'}]},
     {name:'Iron Man',avatar:'img/round/iron-man-100px-100px.png',items:[{type:'image',src:'img/marvel/iron-man-card.jpg'}]},
     {name:'X-Men',avatar:'img/round/x-men-100px-100px.png',items:[{type:'image',src:'img/marvel/x-men-card.jpg'}]},
@@ -426,11 +426,12 @@
     {name:'Goosebumps',avatar:'img/round/goosebumps-100px-100px.png',items:[{type:'image',src:'img/live-action/goosebumps-card.jpg'}]},
     {name:'Woody Woodpecker',avatar:'img/round/woody-woodpecker-100px-100px.png',items:[{type:'image',src:'img/comedy/woody-woodpecker-card.jpg'}]}
   ];
-  let currentCharacterIndex=0,currentStoryIndex=0,progressTimer,storyTimer;
+  let currentCharacterIndex=0,currentStoryIndex=0,progressTimer,storyTimer,isPaused=false;
   
   function openStories(characterIndex){
     currentCharacterIndex=characterIndex;
     currentStoryIndex=0;
+    isPaused=false;
     const viewer=document.getElementById('storiesViewer');
     viewer.classList.add('active');
     document.body.style.overflow='hidden';
@@ -443,8 +444,9 @@
     viewer.classList.remove('active');
     document.body.style.overflow='';
     clearTimeout(storyTimer);
-    const video=viewer.querySelector('video');
-    if(video)video.pause();
+    isPaused=false;
+    const videos=viewer.querySelectorAll('video');
+    videos.forEach(v=>{v.pause();v.currentTime=0;});
   }
   
   function renderStories(){
@@ -456,7 +458,7 @@
     const content=document.getElementById('storiesContent');
     content.innerHTML=character.items.map((item,i)=>{
       if(item.type==='video'){
-        return `<div class="story-item" id="story-${i}"><video src="${item.src}" playsinline></video></div>`;
+        return `<div class="story-item" id="story-${i}"><video src="${item.src}" playsinline preload="auto"></video></div>`;
       }else{
         return `<div class="story-item" id="story-${i}"><img src="${item.src}" alt="${character.name}"></div>`;
       }
@@ -488,38 +490,107 @@
     const items=document.querySelectorAll('.story-item');
     items.forEach((item,i)=>{
       item.classList.toggle('active',i===currentStoryIndex);
+      const video=item.querySelector('video');
+      if(video){
+        if(i!==currentStoryIndex){
+          video.pause();
+          video.currentTime=0;
+        }
+      }
     });
     const bars=document.querySelectorAll('.progress-bar');
     bars.forEach((bar,i)=>{
       bar.classList.toggle('active',i===currentStoryIndex);
+      const fill=bar.querySelector('.progress-fill');
       if(i<currentStoryIndex){
-        bar.querySelector('.progress-fill').style.width='100%';
+        fill.style.width='100%';
+        fill.style.transition='none';
         bar.classList.remove('active');
       }else if(i>currentStoryIndex){
-        bar.querySelector('.progress-fill').style.width='0%';
+        fill.style.width='0%';
+        fill.style.transition='none';
+      }else{
+        fill.style.width='0%';
+        fill.style.transition='none';
       }
     });
+    
     const currentItem=character.items[currentStoryIndex];
     const storyEl=document.getElementById(`story-${currentStoryIndex}`);
+    
     if(currentItem.type==='video'){
       const video=storyEl.querySelector('video');
       video.currentTime=0;
-      video.play();
-      video.onended=()=>nextStory();
+      video.muted=false;
+      
+      const playPromise=video.play();
+      if(playPromise!==undefined){
+        playPromise.then(()=>{
+          console.log('Video playing successfully');
+          const duration=video.duration*1000;
+          const bar=document.getElementById(`progress-${currentStoryIndex}`);
+          const fill=bar.querySelector('.progress-fill');
+          fill.style.transition=`width ${duration}ms linear`;
+          fill.style.width='100%';
+          
+          video.onended=()=>{
+            if(!isPaused){
+              nextStory();
+            }
+          };
+        }).catch(err=>{
+          console.log('Video play failed, trying with muted:',err);
+          video.muted=true;
+          video.play().then(()=>{
+            const duration=video.duration*1000;
+            const bar=document.getElementById(`progress-${currentStoryIndex}`);
+            const fill=bar.querySelector('.progress-fill');
+            fill.style.transition=`width ${duration}ms linear`;
+            fill.style.width='100%';
+            video.onended=()=>{
+              if(!isPaused){
+                nextStory();
+              }
+            };
+          }).catch(err2=>{
+            console.error('Video failed completely:',err2);
+            setTimeout(()=>nextStory(),3000);
+          });
+        });
+      }
     }else{
+      const bar=document.getElementById(`progress-${currentStoryIndex}`);
+      const fill=bar.querySelector('.progress-fill');
+      setTimeout(()=>{
+        fill.style.transition='width 5000ms linear';
+        fill.style.width='100%';
+      },50);
       clearTimeout(storyTimer);
-      storyTimer=setTimeout(()=>nextStory(),5000);
+      storyTimer=setTimeout(()=>{
+        if(!isPaused){
+          nextStory();
+        }
+      },5000);
     }
   }
   
   function nextStory(){
+    clearTimeout(storyTimer);
+    const viewer=document.getElementById('storiesViewer');
+    const currentVideo=viewer.querySelector('.story-item.active video');
+    if(currentVideo){
+      currentVideo.pause();
+      currentVideo.onended=null;
+    }
     const character=storiesData[currentCharacterIndex];
     if(currentStoryIndex<character.items.length-1){
       currentStoryIndex++;
+      isPaused=false;
       showStory();
     }else if(currentCharacterIndex<storiesData.length-1){
       currentCharacterIndex++;
       currentStoryIndex=0;
+      isPaused=false;
       renderStories();
       showStory();
     }else{
@@ -529,17 +600,130 @@
   }
   
   function prevStory(){
+    clearTimeout(storyTimer);
+    const viewer=document.getElementById('storiesViewer');
+    const currentVideo=viewer.querySelector('.story-item.active video');
+    if(currentVideo){
+      currentVideo.pause();
+      currentVideo.onended=null;
+    }
     if(currentStoryIndex>0){
       currentStoryIndex--;
+      isPaused=false;
       showStory();
     }else if(currentCharacterIndex>0){
       currentCharacterIndex--;
       const character=storiesData[currentCharacterIndex];
       currentStoryIndex=character.items.length-1;
+      isPaused=false;
       renderStories();
       showStory();
     }
     updatePreviews();
+  }
+  
+  function nextCharacter(){
+    if(currentCharacterIndex<storiesData.length-1){
+      clearTimeout(storyTimer);
+      const viewer=document.getElementById('storiesViewer');
+      const currentVideo=viewer.querySelector('.story-item.active video');
+      if(currentVideo){
+        currentVideo.pause();
+        currentVideo.onended=null;
+      }
+      currentCharacterIndex++;
+      currentStoryIndex=0;
+      isPaused=false;
+      renderStories();
+      showStory();
+      updatePreviews();
+    }
+  }
+  
+  function prevCharacter(){
+    if(currentCharacterIndex>0){
+      clearTimeout(storyTimer);
+      const viewer=document.getElementById('storiesViewer');
+      const currentVideo=viewer.querySelector('.story-item.active video');
+      if(currentVideo){
+        currentVideo.pause();
+        currentVideo.onended=null;
+      }
+      currentCharacterIndex--;
+      currentStoryIndex=0;
+      isPaused=false;
+      renderStories();
+      showStory();
+      updatePreviews();
+    }
+  }
+  
+  function togglePause(){
+    isPaused=!isPaused;
+    const viewer=document.getElementById('storiesViewer');
+    const currentVideo=viewer.querySelector('.story-item.active video');
+    const currentItem=storiesData[currentCharacterIndex].items[currentStoryIndex];
+    const bar=document.getElementById(`progress-${currentStoryIndex}`);
+    const fill=bar.querySelector('.progress-fill');
+    
+    if(currentItem.type==='video' && currentVideo){
+      if(isPaused){
+        currentVideo.pause();
+        const computedStyle=window.getComputedStyle(fill);
+        const currentWidth=computedStyle.width;
+        fill.style.width=currentWidth;
+        fill.style.transition='none';
+      }else{
+        currentVideo.play();
+        const remainingTime=(currentVideo.duration-currentVideo.currentTime)*1000;
+        fill.style.transition=`width ${remainingTime}ms linear`;
+        fill.style.width='100%';
+      }
+    }else{
+      if(isPaused){
+        clearTimeout(storyTimer);
+        const computedStyle=window.getComputedStyle(fill);
+        const currentWidth=computedStyle.width;
+        fill.style.width=currentWidth;
+        fill.style.transition='none';
+      }else{
+        const currentWidth=parseFloat(window.getComputedStyle(fill).width);
+        const totalWidth=bar.offsetWidth;
+        const remainingPercent=1-(currentWidth/totalWidth);
+        const remainingTime=remainingPercent*5000;
+        fill.style.transition=`width ${remainingTime}ms linear`;
+        fill.style.width='100%';
+        storyTimer=setTimeout(()=>{
+          if(!isPaused){
+            nextStory();
+          }
+        },remainingTime);
+      }
+    }
+  }
+  
+  function handleLeftClick(e){
+    e.stopPropagation();
+    const rect=e.currentTarget.getBoundingClientRect();
+    const clickX=e.clientX-rect.left;
+    const width=rect.width;
+    if(clickX<width*0.3){
+      prevStory();
+    }else{
+      togglePause();
+    }
+  }
+  
+  function handleRightClick(e){
+    e.stopPropagation();
+    const rect=e.currentTarget.getBoundingClientRect();
+    const clickX=e.clientX-rect.left;
+    const width=rect.width;
+    if(clickX>width*0.7){
+      nextStory();
+    }else{
+      togglePause();
+    }
   }
   
   document.addEventListener('keydown',(e)=>{
@@ -548,6 +732,10 @@
       if(e.key==='Escape')closeStories();
       else if(e.key==='ArrowRight')nextStory();
       else if(e.key==='ArrowLeft')prevStory();
+      else if(e.key===' '){
+        e.preventDefault();
+        togglePause();
+      }
     }
   });
 </script>

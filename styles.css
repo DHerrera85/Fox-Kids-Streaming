@@ -1,0 +1,816 @@
+/* ========== styles.css ========== */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ff3c00;
+  font-family: 'Audiowide', sans-serif;
+  margin: 0;
+  color: #fff;
+}
+
+/* ========== BANNER ========== */
+.banner {
+  background-color: #ad0909;
+  color: white;
+  text-align: center;
+  position: relative;
+  padding: 20px 0 10px 0;
+}
+
+.banner-content {
+  display: block;
+}
+
+.foxkids-logo {
+  position: absolute;
+  top: 0;
+  left: 65px;
+  width: 70px;
+  height: auto;
+}
+
+.banner p {
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: bold;
+  background-color: #000;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* ========== LAYOUT ========== */
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.left-nav {
+  width: 200px;
+  background-color: #ff3c00;
+  padding: 10px;
+}
+
+.left-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.left-nav li {
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.left-nav li a {
+  display: block;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.left-nav li a:hover {
+  background-color: yellow;
+  color: black;
+}
+
+.main-content {
+  flex: 1;
+  padding: 10px 20px;
+}
+
+/* ========== ROUND GALLERY SECTION ========== */
+.round-gallery-section {
+  background: #f1bc00;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 12px; /* << añadido */
+}
+
+.round-gallery-section h3 {
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.round-gallery .gallery-item {
+  width: 80px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.round-gallery .gallery-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #ff3c00;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.round-gallery .gallery-item img:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.round-gallery .gallery-item span {
+  display: block;
+  font-size: 0.8em;
+  color: black;
+  margin-top: 4px;
+}
+
+/* ========== NOW PLAYING ========== */
+.now-playing-video {
+  background: #000;
+  padding: 10px;
+  margin-top: 10px;
+  border-left: 8px solid #ff3c00;
+  border-right: 8px solid #ff3c00;
+}
+
+.now-playing-video h4 {
+  color: white;
+  margin: 0 0 10px;
+  font-size: 1.1em;
+}
+
+/* ========== SHARED GALLERY STYLES ========== */
+.gallery-section {
+  margin: 30px 0;
+}
+
+.gallery-section h3 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.scroll-gallery .scroll-item {
+  width: 180px;
+  height: 270px;
+  margin: 0 auto;
+  transition: transform 0.2s;
+}
+
+.scroll-gallery .scroll-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 4px solid #ff3c00;
+  border-radius: 6px;
+}
+
+.scroll-gallery .scroll-item img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px yellow;
+}
+
+/* ========== SCHEDULE SECTION ========== */
+.schedule-slider {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.schedule-slider h3 {
+  margin-bottom: 1rem;
+}
+
+.schedule-item {
+  width: 200px;
+  height: 320px;
+  background: #fff;
+  color: #000;
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.schedule-item:hover {
+  background: #f1bc00;
+  transform: scale(1.05);
+}
+
+.schedule-time {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.schedule-image {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.schedule-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+
+.schedule-image img:hover {
+  transform: scale(1.05);
+}
+
+.schedule-title {
+  display: block;
+  text-align: center;
+}
+
+/* ========== ARTICLES SECTION ========== */
+.articles-section {
+  display: block;
+  margin: 20px 0;
+}
+
+.articles-section {
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+.articles-carousel {
+  gap: 20px;
+  padding: 20px 10px;
+}
+
+.article-card {
+  background: #fff;
+  color: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 280px;
+  height: 420px; /* MÁS COMPACTA */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  margin-right: 20px;
+}
+
+.article-card:hover {
+  transform: scale(1.05);
+}
+
+.article-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-meta {
+  font-size: 0.75em;
+  margin: 6px 10px 4px;
+}
+
+.article-title {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 4px 10px;
+}
+
+
+.article-summary {
+  font-size: 0.75em;
+  color: #444;
+  margin: 4px 10px;
+}
+
+.article-readmore {
+  display: inline-block;
+  background-color: #00bfff; /* Celeste PRÓXIMAMENTE */
+  color: white;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.65em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin: 10px;
+  text-decoration: none !important; /* Force removal of underline */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  align-self: flex-start;
+}
+
+.article-readmore a {
+  color: white;
+  text-decoration: none;
+}
+
+.article-readmore:hover {
+  background-color: #0099cc;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.article-readmore a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/* ========== FULL ARTICLE PAGE ========== */
+.full-article {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+  color: #fff;
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+.full-article h1 {
+  font-size: 2em;
+  color: #fff200;
+  margin-bottom: 10px;
+}
+
+.full-article h2 {
+  font-size: 1.4em;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.full-article .article-banner {
+  width: 100%;
+  border: 4px solid #ff3c00;
+  border-radius: 6px;
+  margin: 20px 0;
+  object-fit: cover;
+}
+
+.full-article .article-img {
+  width: 100%;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 30px;
+  font-weight: bold;
+  color: yellow;
+  text-decoration: underline;
+}
+
+/* ========== ARTICLE CONTAINER WRAPPER ========== */
+.article-content {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 10px;
+  color: #111;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== FULL ARTICLE PAGE ========== */
+.full-article {
+  max-width: 800px;
+  margin: 30px auto;
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+.full-article h1 {
+  font-size: 2em;
+  color: #FFD700;
+  margin-bottom: 10px;
+  font-family: 'Audiowide', sans-serif;
+}
+
+.full-article h2 {
+  font-size: 1.4em;
+  color: #111;
+  margin-top: 20px;
+  font-family: 'Audiowide', sans-serif;
+}
+
+.full-article p {
+  color: #111;
+  font-family: 'Poppins', sans-serif;
+}
+
+.full-article .article-meta {
+  font-size: 0.85em;
+  margin-bottom: 20px;
+  color: #555;
+  font-family: 'Poppins', sans-serif;
+}
+
+.full-article .article-banner {
+  width: 100%;
+  border: 4px solid #ff3c00;
+  border-radius: 6px;
+  margin: 20px 0;
+  object-fit: cover;
+}
+
+.full-article .article-img {
+  width: 100%;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+/* Lists in full article */
+.full-article ul {
+  font-family: 'Poppins', sans-serif;
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+.full-article ul li {
+  margin-bottom: 8px;
+}
+
+.full-article ul li strong {
+  font-weight: bold;
+}
+
+.full-article ul li em {
+  font-style: italic;
+}
+
+/* Back Button */
+.back-button {
+  display: inline-block;
+  margin-top: 30px;
+  font-family: 'Audiowide', sans-serif;
+  background-color: #00bfff;
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.75em;
+  border-radius: 4px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #008ecc;
+}
+
+/* ========== VIDEO SECTION =================== */
+
+    .video-character-bar {
+      display: flex;
+      overflow-x: auto;
+      padding: 1rem;
+      background: #ffcc00;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .video-character-bar img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 4px solid red;
+      cursor: pointer;
+    }
+    
+    .video-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .video-gallery iframe {
+      width: 360px;
+      height: 640px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .video-gallery iframe {
+        width: 280px;
+        height: 500px;
+      }
+    }
+
+/* ========== FEATURED GAME SLIDER ========== */
+.featured-game-carousel {
+  background-color: #ff3c00;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.featured-game-carousel .featured-game-box {
+  background-color: #001f4d;
+  border: 6px solid #000;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  margin-right: 15px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.featured-game-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 4px solid #ff0000;
+}
+
+.game-details {
+  background-color: #f2f2f2;
+  color: #000;
+  padding: 12px;
+  width: 100%;
+  font-size: 0.9em;
+  font-family: 'Audiowide', sans-serif;
+}
+
+.featured-tag {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background-color: #000;
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 0.7em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.game-description {
+  margin: 0;
+  color: #c00;
+  font-size: 0.85em;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .featured-game-carousel {
+    padding: 10px;
+  }
+
+  .featured-game-carousel .featured-game-box {
+    max-width: 90vw;
+    margin-right: 10px;
+  }
+
+  .game-details {
+    font-size: 0.85em;
+    text-align: center;
+  }
+
+  .featured-tag {
+    font-size: 0.65em;
+    top: 6px;
+    right: 8px;
+  }
+
+  .game-description {
+    font-size: 0.8em;
+  }
+}
+
+/* ========== RESUME WATCHING ========== */
+.resume-watching-section {
+  padding: 30px 20px; /* ← ahora tiene padding horizontal igual que .featured-game-carousel */
+  background-color: #ff3c00;
+  color: white;
+}
+
+.resume-watching-section h2 {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 1.6em;
+  margin-bottom: 20px;
+}
+
+/* .resume-gallery empty ruleset removed */
+
+.resume-card {
+  position: relative;
+  width: 320px;
+  margin-right: 20px;
+  background-color: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Audiowide', sans-serif;
+}
+
+.resume-card iframe {
+  width: 100%;
+  height: 180px;
+  border: none;
+}
+
+.resume-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border: none;
+  display: block;
+}
+
+.video-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #ff0000;
+  color: white;
+  font-size: 0.65em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.video-label.coming {
+  background-color: #007bff;
+}
+
+.video-progress {
+  height: 5px;
+  background-color: #ff0000;
+  width: 60%; /* Valor de ejemplo, podés modificar dinámicamente */
+}
+
+.video-meta {
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+}
+
+.meta-time {
+  font-size: 0.75em;
+  color: #c00;
+  margin-bottom: 4px;
+}
+
+.meta-title {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.meta-subtitle {
+  font-size: 0.75em;
+  color: #444;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .resume-watching-section {
+    padding: 30px 10px; /* Menor padding en móvil */
+  }
+
+  .resume-watching-section h2 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .resume-gallery {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .resume-card {
+    width: 100%;
+  }
+}
+
+
+
+/* Flickity arrows */
+.flickity-prev-next-button {
+  background: #000 !important;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.flickity-prev-next-button .flickity-button-icon {
+  fill: #fff;
+}
+
+.flickity-prev-next-button:hover {
+  background: #ff0 !important;
+}
+
+
+/* ========== RESPONSIVE DESIGN (MOBILE) ========== */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .left-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .left-nav li {
+    flex: 1 1 40%;
+    margin: 5px;
+    padding: 0;
+  }
+
+  .left-nav li a {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+  }
+
+  .left-nav li a:hover {
+    background: yellow;
+    color: black;
+  }
+
+  .banner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: static;
+  }
+
+  .foxkids-logo {
+    position: static;
+    margin-bottom: 10px;
+  }
+
+  .scroll-gallery .scroll-item {
+    width: 120px;
+    height: 180px;
+  }
+
+  .round-gallery .gallery-item {
+    width: 70px;
+  }
+
+  .schedule-item {
+    width: 140px;
+    height: 220px;
+    padding: 0.8rem;
+  }
+
+  .article-card {
+    width: 90%;
+    margin: 0 auto 20px;
+    padding-bottom: 10px;
+  }
+
+  .article-card img {
+    height: auto;
+  }
+
+  .article-title,
+  .article-summary,
+  .article-meta {
+    text-align: left;
+    padding: 0 8px;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  .article-readmore {
+    padding: 0 8px;
+    display: block;
+  }
+}
+
+/* === FOOTER === */
+footer {
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-family: 'Audiowide';
+  font-size: 14px;
+}
+

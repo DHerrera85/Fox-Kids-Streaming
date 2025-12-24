@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Fox Kids – Mobile App Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);--article-w:140px;--article-h:230px;--article-img-h:150px;}
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0.03em;background:var(--bg);color:#fff;}
+  .app{max-width:430px;margin:0 auto;min-height:100%;position:relative;padding-bottom:86px;}
+  .topbar{position:sticky;top:0;z-index:10;background:var(--red);padding:12px 14px;box-shadow:0 10px 18px rgba(0,0,0,.25);}
+  .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .logo{display:flex;align-items:center;gap:10px;min-width:0;}
+  .logo-badge{width:60px;height:60px;display:grid;place-items:center;}
+  .logo-badge span{font-weight:900;letter-spacing:.5px;color:#FFD200;font-size:12px;line-height:1;text-align:center;}
+  .hello{min-width:0}
+  .hello .hi{font-weight:800;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .hello .sub{font-size:12px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .icons{display:flex;gap:10px;}
+  .icon-btn{width:40px;height:40px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none;}
+  .icon{font-size:18px;transform:translateY(-.5px);}
+  .search{margin-top:10px;display:flex;gap:10px;align-items:center;}
+  .search-pill{flex:1;background:#fff;color:#111;border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 20px rgba(0,0,0,.18);}
+  .search-pill .glass{opacity:.7}
+  .search-pill input{border:0;outline:0;width:100%;font-size:14px;background:transparent;}
+  .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);white-space:nowrap;}
+  .stories-wrap{margin:14px 14px 0;background:rgba(255,196,0,.88);border-radius:var(--radius);padding:12px 10px;box-shadow:var(--shadow);border:3px solid rgba(0,0,0,.16);}
+  .stories-title{display:flex;align-items:center;justify-content:space-between;color:#111;font-weight:900;font-size:13px;padding:0 4px 10px;}
+  .stories{display:flex;gap:12px;overflow:auto;padding:2px 4px 6px;scroll-snap-type:x mandatory;}
+  .stories::-webkit-scrollbar{height:8px} .stories::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25);border-radius:999px}
+  .story{flex:0 0 auto;width:70px;text-align:center;scroll-snap-align:start;cursor:pointer;}
+  .story .ring{width:60px;height:60px;border-radius:50%;margin:0 auto 6px;padding:3px;background:conic-gradient(from 140deg,#ff0033,#ff8a00,#ffe600,#ff0033);box-shadow:0 10px 16px rgba(0,0,0,.18);}
+  .story .avatar{width:100%;height:100%;border-radius:50%;background:#f0f0f0;display:grid;place-items:center;color:#111;font-weight:400;border:3px solid rgba(0,0,0,.18);overflow:hidden;}
+  .story .avatar b{font-size:18px;letter-spacing:.5px;} .story .label{font-size:11px;font-weight:900;color:#111;line-height:1.05;}
+  .content{padding:14px;}
+  .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:10px 2px 10px;}
+  .section-title h2{margin:0;font-size:20px;letter-spacing:.2px;color:#FFD200;} .section-title .hint{font-size:12px;opacity:.8;}
+  .grid{display:grid;gap:12px;}
+  .card{background:var(--card);color:var(--ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);border:3px solid rgba(0,0,0,.10);}
+  .card .media{height:160px;background:linear-gradient(135deg,#2b5cff,#7c2cff 45%,#ff2b8a);position:relative;}
+  .chip{position:absolute;right:10px;top:10px;background:#111;color:#FFD200;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;letter-spacing:.3px;}
+  .play{position:absolute;left:12px;bottom:12px;width:44px;height:44px;border-radius:16px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;font-size:16px;}
+  .card .body{padding:12px 12px 14px;} .card .title{font-weight:400;margin:0 0 6px;font-size:15px;color:#FFD200;}
+  .meta{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px;}
+  .cta-row{display:flex;gap:10px;margin-top:10px;}
+  .btn{flex:1;border:0;border-radius:999px;padding:10px 12px;font-weight:1000;cursor:pointer;}
+  .btn.primary{background:var(--red2);color:#fff;} .btn.ghost{background:#f3f4f6;color:#111;} .btn:active{transform:scale(.98);}
+  .shorts{display:flex;gap:12px;overflow:auto;padding-bottom:4px;scroll-snap-type:x mandatory;}
+  .short{flex:0 0 auto;width:140px;height:230px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:var(--shadow);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);}
+  .short .play{left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;}
+  .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
+  .short .badge{position:absolute;top:10px;left:10px;background:rgba(255,196,0,.95);color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
+  .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px, calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
+  .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;}
+  .nav-item .ni{font-size:18px;} .nav-item.active{background:rgba(255,196,0,.95);color:#111;opacity:1;font-weight:1000;}
+  .view{display:none} .view.active{display:block}
+  .pill-row{display:flex;gap:10px;overflow:auto;padding:2px 2px 10px;}
+  .pill{flex:0 0 auto;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.22);color:#fff;padding:8px 12px;border-radius:999px;font-weight:900;font-size:12px;}
+  .pill strong{color:#FFD200;}
+
+  /* 📚 Artículos (ScreenRant-style adaptado) */
+  .articles-section{padding:14px;margin-top:18px;}
+  .articles-head{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 12px;gap:10px;}
+  .articles-head h2{margin:0;font-size:20px;letter-spacing:.2px;color:#FFD200;}
+  .articles-head a{color:#FFD200;font-weight:900;font-size:12px;display:inline-flex;align-items:center;gap:6px;text-decoration:none;}
+  .articles-head a span{font-size:14px;}
+  .articles-list{display:flex;gap:12px;overflow:auto;padding:2px 2px 10px;scroll-snap-type:x mandatory;}
+  .articles-list::-webkit-scrollbar{height:8px} .articles-list::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25);border-radius:999px}
+  .article-card{flex:0 0 auto;width:var(--article-w);height:var(--article-h);border-radius:16px;overflow:hidden;background:#fff;color:#111;box-shadow:var(--shadow);scroll-snap-align:start;position:relative;transition:transform .2s ease, box-shadow .2s ease;display:flex;flex-direction:column;}
+  .article-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.28);}
+  .article-img{position:relative;height:var(--article-img-h);overflow:hidden;}
+  .article-img img{width:100%;height:100%;object-fit:cover;display:block;}
+  .article-overlay{position:absolute;left:0;right:0;bottom:0;padding:12px;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.65) 100%);color:#fff;}
+  .article-date{font-size:11px;opacity:.9;margin-bottom:2px;}
+  .article-title{font-size:12px;font-weight:900;line-height:1.25;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .article-body{padding:8px 10px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:#444;flex:1;}
+  .article-author{font-weight:800;}
+  .article-comments{display:flex;align-items:center;gap:6px;color:#111;font-weight:900;}
+  .article-comments span{font-size:14px;}
+  .article-card.external::after{content:"ARCHIVO";position:absolute;top:10px;right:10px;background:#FFD200;color:#111;font-weight:900;font-size:10px;padding:4px 8px;border-radius:999px;box-shadow:0 6px 12px rgba(0,0,0,.18);}
+
+  /* 🎨 FOX KIDS PROMO TEXT STYLE */
+  .fox-promo-text {
+    font-family: 'Audiowide', Impact, Haettenschweiler, "Arial Narrow", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #FFD200;
+  }
+
+  /* 🖥️ DESKTOP RESPONSIVE DESIGN */
+  @media (min-width: 768px) {
+    body{padding-left:80px;transition:padding-left 0.3s ease;}
+    body.sidebar-expanded{padding-left:280px;}
+    :root{--article-w:160px;--article-h:260px;--article-img-h:170px;}
+    .app{max-width:1200px;margin:0 auto;padding:0 20px 40px;display:block;}
+    .topbar{position:sticky;top:0;border-radius:0 0 24px 24px;}
+    .topbar-row,.search{max-width:1100px;margin:0 auto;}
+    .search{margin-top:10px;}
+    .stories-wrap,.content{max-width:1100px;margin:14px auto 0;}
+    .content{padding:20px 0;}
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}
+    .section-title{margin:16px 2px 12px;}
+    .shorts{gap:14px;}
+    .short{width:160px;height:260px;}
+
+    /* Bottom nav → Sidebar lateral colapsable estilo YouTube */
+    .bottom-nav{position:fixed;left:0;top:0;transform:none;width:80px;height:100vh;background:linear-gradient(180deg,#1f0c0c,#2f0f0f 45%,#3b1500);border:none;border-right:2px solid rgba(255,255,255,.12);border-radius:0;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 8px;gap:4px;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(6px);transition:width 0.3s ease;overflow-x:hidden;}
+    .bottom-nav.expanded{width:280px;align-items:stretch;padding:24px 12px;}
+    
+    /* Botón hamburguesa para toggle */
+    .sidebar-toggle{display:flex;align-items:center;justify-content:center;padding:12px;margin-bottom:20px;cursor:pointer;background:rgba(255,255,255,.04);border-radius:12px;}
+    .sidebar-toggle .ni{font-size:24px;}
+    
+    /* Nav items colapsados (solo íconos) */
+    .nav-item{flex:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:16px 8px;font-size:10px;background:rgba(255,255,255,.04);border-radius:12px;white-space:nowrap;}    
+    .nav-item .ni{font-size:24px;}
+    .nav-item .label{display:none;}
+    .nav-item.active{background:rgba(255,196,0,.95);box-shadow:0 10px 20px rgba(0,0,0,.2);}
+    
+    /* Nav items expandidos */
+    .bottom-nav.expanded .nav-item{flex-direction:row;justify-content:flex-start;gap:14px;padding:14px 16px;font-size:14px;}
+    .bottom-nav.expanded .nav-item .ni{font-size:22px;}
+    .bottom-nav.expanded .nav-item .label{display:block;}
+  }
+
+  @media (min-width: 1200px) {
+    :root{--article-w:180px;--article-h:280px;--article-img-h:190px;}
+    .app{max-width:1400px;}
+    .topbar-row,.search,.stories-wrap,.content{max-width:1300px;}
+    .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;}
+    .stories .story{width:80px;} .story .ring{width:70px;height:70px;}
+    .shorts{gap:20px;} .short{width:180px;height:280px;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="logo">
+        <div class="logo-badge"><img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" style="width:100%;height:100%;object-fit:contain;"/></div>
+        <div class="hello">
+          <div class="hi">Hola, Daniel</div>
+          <div class="sub">Fan Mode • 1.329 puntos • Cupón retro</div>
+        </div>
+      </div>
+      <div class="icons">
+        <div class="icon-btn" title="Buscar" onclick="focusSearch()"><span class="icon">🔎</span></div>
+        <div class="icon-btn" title="Perfil"><span class="icon">👤</span></div>
+      </div>
+    </div>
+    <div class="search">
+      <div class="search-pill">
+        <span class="glass">🔍</span>
+        <input id="q" placeholder="¿Qué andás buscando? (ej: Digimon, Power Rangers)"/>
+      </div>
+      <div class="tag">LIVE</div>
+    </div>
+  </header>
+
+  <div class="stories-wrap">
+    <div class="stories-title"><span>Personajes • tocá para abrir “historias”</span><span style="opacity:.75">→</span></div>
+    <div class="stories">
+      <div class="story" onclick="toast('Abriendo historia: Spider-Man')"><div class="ring"><div class="avatar"><b>SM</b></div></div><div class="label">Spider-Man</div></div>
+      <div class="story" onclick="toast('Abriendo historia: Power Rangers')"><div class="ring"><div class="avatar"><b>PR</b></div></div><div class="label">Power Rangers</div></div>
+      <div class="story" onclick="toast('Abriendo historia: Iron Man')"><div class="ring"><div class="avatar"><b>IM</b></div></div><div class="label">Iron Man</div></div>
+      <div class="story" onclick="toast('Abriendo historia: X-Men')"><div class="ring"><div class="avatar"><b>XM</b></div></div><div class="label">X-Men</div></div>
+      <div class="story" onclick="toast('Abriendo historia: Fantastic Four')"><div class="ring"><div class="avatar"><b>FF</b></div></div><div class="label">Fantastic Four</div></div>
+      <div class="story" onclick="toast('Abriendo historia: Digimon')"><div class="ring"><div class="avatar"><b>D</b></div></div><div class="label">Digimon</div></div>
+    </div>
+  </div>
+
+  <main class="content">
+    <section class="view active" id="view-home">
+      <div class="section-title"><h2>Explorá</h2><div class="hint">Cards grandes • estilo app</div></div>
+      <div class="pill-row">
+        <div class="pill"><strong>🔴</strong> Ahora en vivo</div>
+        <div class="pill">🎮 Juegos</div>
+        <div class="pill">📰 News</div>
+        <div class="pill">⭐ Top 5</div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="media"><div class="chip">FEATURED GAME</div><div class="play">▶</div></div>
+          <div class="body">
+            <p class="title">Jugar ahora: “Fox Kids Universe”</p>
+            <div class="meta"><span>Nuevo desafío • 2 min</span><span>🎯 +50 puntos</span></div>
+            <div class="cta-row">
+              <button class="btn primary" onclick="toast('Abriendo juego…')">Jugar</button>
+              <button class="btn ghost" onclick="toast('Guardado en favoritos')">Guardar</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media" style="background:radial-gradient(circle at 25% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(135deg,#00c2ff,#00ff88 55%,#ffd000);">
+            <div class="chip">NOW PLAYING</div><div class="play">▶</div>
+          </div>
+          <div class="body">
+            <p class="title">Ahora: Digimon (13:30)</p>
+            <div class="meta"><span>Siguiente: Power Rangers (14:00)</span><span>🗓️ Schedule</span></div>
+            <div class="cta-row">
+              <button class="btn primary" onclick="go('schedule')">Ver programación</button>
+              <button class="btn ghost" onclick="toast('Recordatorio activado')">Recordarme</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-title" style="margin-top:16px"><h2>Shorts</h2><div class="hint">vertical • tipo YouTube</div></div>
+      <div class="shorts">
+        <div class="short" onclick="toast('Abrir Short #1 (demo)')"><div class="badge">SHORT</div><div class="play">▶</div><div class="t">Opening clásico • 20s</div></div>
+        <div class="short" onclick="toast('Abrir Short #2 (demo)')" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#ef4444 55%,#ffd000);"><div class="badge">TRIVIA</div><div class="play">▶</div><div class="t">¿Sabías que…? • 15s</div></div>
+        <div class="short" onclick="toast('Abrir Short #3 (demo)')" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#3b82f6 55%,#a78bfa);"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Promo retro • 10s</div></div>
+      </div>
+
+      <section class="articles-section" aria-label="Artículos">
+        <div class="articles-head">
+          <h2>Exclusive Stories</h2>
+          <a href="articles.html">Ver más <span>→</span></a>
+        </div>
+        <div class="articles-list" id="articles-list">
+          <!-- Contenido generado vía data/articles.json -->
+        </div>
+      </section>
+    </section>
+
+    <section class="view" id="view-schedule">
+      <div class="section-title"><h2>Schedule</h2><div class="hint">cards • no tabla</div></div>
+      <div class="grid">
+        <article class="card"><div class="body"><p class="title">Ahora • 13:30 — Digimon</p><div class="meta"><span>En vivo</span><span>⏱️ 24 min</span></div><div class="cta-row"><button class="btn primary" onclick="toast('Reproduciendo…')">Ver</button><button class="btn ghost" onclick="toast('Alarma: 13:55')">Recordar</button></div></div></article>
+        <article class="card"><div class="body"><p class="title">Siguiente • 14:00 — Power Rangers</p><div class="meta"><span>Acción</span><span>📌 30 min</span></div><div class="cta-row"><button class="btn primary" onclick="toast('Vista previa…')">Preview</button><button class="btn ghost" onclick="toast('Agendado')">Agendar</button></div></div></article>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav" id="sidebar" aria-label="Navegación inferior">
+  <div class="sidebar-toggle" onclick="toggleSidebar()">
+    <div class="ni">☰</div>
+  </div>
+  <div class="nav-item active" data-tab="home" onclick="go(this.dataset.tab)"><div class="ni">🏠</div><div class="label">Inicio</div></div>
+  <div class="nav-item" data-tab="schedule" onclick="go(this.dataset.tab)"><div class="ni">🗓️</div><div class="label">Schedule</div></div>
+</nav>
+
+<script>
+  const views = {home: document.getElementById('view-home'), schedule: document.getElementById('view-schedule')};
+  
+  function toggleSidebar(){
+    const sidebar = document.getElementById('sidebar');
+    const body = document.body;
+    sidebar.classList.toggle('expanded');
+    body.classList.toggle('sidebar-expanded');
+  }
+  
+  function go(tab){
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    document.querySelectorAll(`.nav-item[data-tab="${tab}"]`).forEach(n=>n.classList.add('active'));
+    Object.values(views).forEach(v=>v.classList.remove('active'));
+    (views[tab]||views.home).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    toast('Sección: '+tab);
+  }
+  async function loadArticles(){
+    const wrap=document.getElementById('articles-list');
+    if(!wrap) return;
+    try{
+      const res=await fetch('data/articles.json');
+      const items=await res.json();
+      wrap.innerHTML=items.map(a=>{
+        const link=a.sourceUrl||a.url||'#';
+        const external=Boolean(a.sourceUrl);
+        return `
+          <article class="article-card ${external?'external':''}">
+            <a href="${link}" target="${external?'_blank':'_self'}" rel="${external?'noopener noreferrer':''}" style="color:inherit;text-decoration:none;display:block;">
+              <div class="article-img">
+                <img src="${a.image||'img/articles/article-01.png'}" alt="${a.title||'Artículo'}" loading="lazy"/>
+                <div class="article-overlay">
+                  <div class="article-date">${a.date||''}</div>
+                  <p class="article-title">${a.title||''}</p>
+                </div>
+              </div>
+              <div class="article-body">
+                <div class="article-author">By ${a.author||'Fox Kids'}</div>
+              </div>
+            </a>
+          </article>`;
+      }).join('');
+    }catch(err){
+      wrap.innerHTML='<div style="color:#fff;opacity:.85">No pudimos cargar los artículos.</div>';
+      console.error(err);
+    }
+  }
+  loadArticles();
+  function focusSearch(){document.getElementById('q').focus(); toast('Buscador listo');}
+  let tmr;
+  function toast(msg){
+    clearTimeout(tmr);
+    let el=document.getElementById('toast');
+    if(!el){
+      el=document.createElement('div'); el.id='toast';
+      Object.assign(el.style,{position:'fixed',left:'50%',transform:'translateX(-50%)',bottom:'100px',background:'rgba(0,0,0,.86)',color:'#fff',padding:'10px 14px',borderRadius:'999px',fontWeight:'900',fontSize:'12px',border:'1px solid rgba(255,255,255,.15)',boxShadow:'0 12px 28px rgba(0,0,0,.28)',zIndex:'999'});
+      document.body.appendChild(el);
+    }
+    el.textContent=msg; el.style.opacity='1';
+    tmr=setTimeout(()=>{el.style.opacity='0';},1200);
+  }
+</script>
+</body>
+</html>

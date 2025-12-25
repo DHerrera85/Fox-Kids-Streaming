@@ -186,3 +186,138 @@ feat: agregar filtros de secciones y opción "Todas"
 - Remover menú duplicado de estado en vivo y mantener la barra única
 - Conservar enlaces de Series (Ver más) y sección Artículos
 ```
+
+---
+
+### Carrusel "Ahora en Vivo" y Sistema de Recordatorios
+- Implementar carrusel horizontal de 3 cards en versión móvil para la sección "Ahora en Vivo"
+- Vincular cada card con videos de YouTube (Power Rangers, Goosebumps, Spider-Man)
+- Unificar botones secundarios como "Recordarme" con tipografía Audiowide
+- Reducir tamaños de fuente y pesos en titles/meta para mejor legibilidad en móvil
+- Crear sistema de recordatorios persistente con localStorage
+- Agregar modal flotante elegante para gestionar recordatorios
+- Implementar campana 🔔 en topbar con badge de contador
+- Optimizar topbar: reducir texto hello section y restaurar tamaño logo-badge
+- Mejorar animaciones de modal (scale + slideIn)
+- Agregar funcionalidad de eliminar recordatorios individuales
+
+### Mensaje de Commit Sugerido
+```
+feat: implementar carrusel en vivo con sistema completo de recordatorios
+
+Carrusel "Ahora en Vivo":
+- Agregar carrusel horizontal de 3 cards en versión móvil
+- Vincular cards con videos de YouTube (Power Rangers, Goosebumps, Spider-Man)
+- Unificar tipografía de botón "Recordarme" con fuente Audiowide
+
+Recordatorios y Sistema de Notificaciones:
+- Crear sistema de recordatorios persistente usando localStorage
+- Implementar modal flotante elegante para gestionar recordatorios
+- Agregar campana 🔔 con badge de contador en topbar
+- Permitir eliminación individual de recordatorios desde el modal
+
+Optimizaciones UI/UX:
+- Reducir tamaños de fuente y pesos en titles/meta para mejor legibilidad móvil
+- Optimizar topbar: reducir texto "hello section" y restaurar tamaño correcto de logo-badge
+- Mejorar animaciones de modal (scale + slideIn para mejor transición)
+- Responsive design mejorado para secciones Live
+```
+
+---
+
+## Sesión: 25 Diciembre 2025 (Segunda parte)
+
+### Mejoras UI/UX y Sistema Interactivo de Carrusel
+
+#### Cambios en "Ahora en Vivo"
+- Unificar chips: Cambiar "NOW PLAYING", "LIVE EVENT" y "PREVIEW" por "EN VIVO"
+- Eliminar meta tags duplicados (🔴 EN VIVO, 🎟️ Pases limitados, 🔴 LIVE)
+- Mantener solo la descripción principal del productor/estudio en el meta
+
+#### Efectos Hover en Botones
+- **Botones Primarios** (Ver ahora, Entrar):
+  - Hover: cambio de color a rojo más oscuro (#c91111)
+  - Efecto lift: translación -2px hacia arriba
+  - Sombra elegante con opacity variable
+  
+- **Botones Ghost** (Recordarme):
+  - Hover normal: fondo blanco con sombra suave
+  - **Hover activo** (con recordatorio): fondo amarillo #FFD200
+  - Transiciones suaves de 0.2s
+
+#### Sistema de Recordatorios Toggle
+- Implementar toggle en `addReminder()`: primer click activa, segundo desactiva
+- Marcar botones como `active` cuando hay recordatorio persistente
+- Detectar apóstrofes escapados en títulos (ej: Spider-Man's)
+- Función `updateReminderButtons()` para sincronizar estado visual con localStorage
+
+#### Sección Shorts - Mejoras
+- **Remover texto descriptivo**: Eliminar "Vertical • tipo YouTube" del hint
+- **Expandir carrusel**: Agregar 3 shorts adicionales (total 6):
+  - Opening clásico • 20s (SHORT)
+  - ¿Sabías que…? • 15s (TRIVIA)
+  - Promo retro • 10s (PROMO)
+  - Transformación • 25s (SHORT) ✨ NUEVO
+  - Batalla épica • 18s (CLIP) ✨ NUEVO
+  - Quiz rápido • 12s (TRIVIA) ✨ NUEVO
+
+#### Carrusel con Botones de Navegación
+- Reemplazar scrollbar por botones de navegación elegantes
+- Botones (‹ ›) posicionados en los lados del carrusel
+- Hover effects con escala 1.1 y sombra
+- Scroll amount: 160px por click
+- Responsive: se adaptan a dispositivos móviles
+
+#### Drag Scroll (Click and Drag)
+- Implementar arrastre de ratón en el carrusel
+- Cursor cambia a `grab` (reposo) y `grabbing` (arrastrando)
+- Detección de arrastre vs click:
+  - Movimiento > 5px = arrastre (sin redirect)
+  - Movimiento < 5px = click (redirect a videos.html)
+- Variable `hasDragged` rastrea movimiento
+- Función `handleShortClick()` valida antes de redirigir
+
+#### Comportamiento Inteligente del Carrusel
+- Durante arrastre: `scrollBehavior: 'auto'` para respuesta inmediata
+- Al soltar: `scrollBehavior: 'smooth'` para scroll fluido
+- Multiplicador de movimiento: 1.5x para mejor control
+- Previene selección de texto durante arrastre
+
+### Mensaje de Commit Sugerido
+```
+feat: mejorar sección "Ahora en Vivo" y carrusel Shorts con interactividad avanzada
+
+Cambios en "Ahora en Vivo":
+- Unificar chips por "EN VIVO" en las 3 cards
+- Eliminar meta tags duplicados (EN VIVO, Pases limitados, LIVE)
+- Mantener solo descripción principal en meta
+
+Sistema de Recordatorios:
+- Implementar toggle en botones (activar/desactivar)
+- Agregar clase CSS .active para estado visual amarillo (#FFD200)
+- Detectar correctamente apóstrofes escapados en títulos
+- Sincronizar estado botones con localStorage en tiempo real
+
+Efectos Hover:
+- Botones primarios: color #c91111, translateY(-2px), sombra variable
+- Botones ghost: fondo blanco hover, amarillo cuando activo
+- Transición suave 0.2s en todos los efectos
+
+Carrusel Shorts:
+- Remover "Vertical • tipo YouTube" del hint
+- Agregar 3 shorts adicionales para completar fila horizontal
+- Implementar botones de navegación elegantes (‹ ›) con efectos hover
+- Agregar drag scroll con detección inteligente
+
+Drag Scroll Avanzado:
+- Detectar arrastre vs click (umbral 5px)
+- Cursor grab/grabbing para mejor UX
+- Arrastre = scroll solo, Click = redirect a videos.html
+- Scroll behavior inteligente (auto durante drag, smooth al soltar)
+- Multiplicador 1.5x para mejor control de movimiento
+
+Estilos Responsivos:
+- Botones navegación se adaptan a móviles
+- Carrusel oculta scrollbar nativa
+- Cursor y user-select optimizados para drag
+```

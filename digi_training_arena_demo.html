@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Digi-Training Arena – Fox Kids (Demo)</title>
+<style>
+  :root{
+    --bg:#ff4a00; --bg2:#ff5b1a; --red:#b00000; --red2:#e20000; --yellow:#ffc400;
+    --black:#0b0b0f; --card:#ffffff; --ink:#0e0f14; --muted:#6b7280;
+    --radius:18px; --shadow:0 14px 30px rgba(0,0,0,.22);
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),var(--bg2));color:#fff;}
+  .app{max-width:430px;margin:0 auto;min-height:100%;padding-bottom:16px;}
+  .topbar{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,#7b0000,var(--red));padding:12px 14px;box-shadow:0 10px 18px rgba(0,0,0,.25);}
+  .toprow{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .brand{display:flex;align-items:center;gap:10px;min-width:0;}
+  .badge{width:44px;height:44px;border-radius:14px;background:#111;display:grid;place-items:center;border:2px solid rgba(255,255,255,.18);}
+  .badge span{font-weight:900;letter-spacing:.5px;color:var(--yellow);font-size:12px;line-height:1;text-align:center;}
+  .ttl{min-width:0}
+  .ttl .h{font-weight:1000;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ttl .s{font-size:12px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .iconbtn{width:40px;height:40px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none}
+  .iconbtn:active{transform:scale(.98)}
+  .content{padding:14px;}
+  .card{background:var(--card);color:var(--ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);border:3px solid rgba(0,0,0,.10);}
+  .card.pad{padding:12px;}
+  .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:10px 2px 10px;}
+  .section-title h2{margin:0;font-size:18px;letter-spacing:.2px;}
+  .hint{font-size:12px;color:rgba(255,255,255,.85)}
+  .statbox{display:flex;gap:10px;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.26);border:1px solid rgba(255,255,255,.18);color:#fff;padding:8px 10px;border-radius:999px;font-weight:900;font-size:12px;}
+  .pill b{color:var(--yellow)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .digicard{position:relative;border-radius:18px;background:linear-gradient(135deg,#111827,#7c3aed 55%,#ff3b86);color:#fff;border:3px solid rgba(0,0,0,.10);box-shadow:var(--shadow);padding:10px;cursor:pointer;user-select:none}
+  .digicard:active{transform:scale(.99)}
+  .digicard .name{font-weight:1000;margin:0;font-size:13px}
+  .digicard .sub{font-size:11px;opacity:.9;margin-top:4px}
+  .avatar{width:52px;height:52px;border-radius:16px;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.8), rgba(255,255,255,.15)), rgba(0,0,0,.20);
+          border:2px solid rgba(255,255,255,.18);display:grid;place-items:center;margin-bottom:8px;font-weight:1000;color:#111;}
+  .tag{position:absolute;top:10px;right:10px;background:rgba(255,196,0,.95);color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
+  .btnrow{display:flex;gap:10px;margin-top:10px}
+  .btn{flex:1;border:0;border-radius:999px;padding:10px 12px;font-weight:1000;cursor:pointer;}
+  .btn.primary{background:var(--red2);color:#fff;}
+  .btn.ghost{background:#f3f4f6;color:#111;}
+  .btn:active{transform:scale(.98)}
+  .arena{margin-top:12px}
+  .arena .banner{background:rgba(255,196,0,.88);border-radius:18px;padding:12px;border:3px solid rgba(0,0,0,.16);box-shadow:var(--shadow);color:#111}
+  .banner .t{font-weight:1000;margin:0 0 6px}
+  .banner .d{margin:0;font-size:12px;opacity:.9}
+  .panel{margin-top:12px}
+  .panel .hdr{display:flex;align-items:center;justify-content:space-between;margin:0 2px 10px}
+  .panel .hdr h3{margin:0;font-size:16px}
+  .panel .hdr .small{font-size:12px;opacity:.9}
+  .challenge{background:#fff;color:#111;border-radius:18px;box-shadow:var(--shadow);border:3px solid rgba(0,0,0,.10);overflow:hidden}
+  .challenge .top{padding:12px;border-bottom:2px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .challenge .top .title{font-weight:1000;margin:0;font-size:14px}
+  .challenge .top .meta{font-size:12px;color:var(--muted)}
+  .challenge .body{padding:12px}
+  .meter{height:12px;border-radius:999px;background:#e5e7eb;overflow:hidden}
+  .meter > div{height:100%;width:0%}
+  .stage{display:none}
+  .stage.active{display:block}
+  .bigTap{height:120px;border-radius:18px;border:3px dashed rgba(0,0,0,.12);display:grid;place-items:center;
+          background:linear-gradient(135deg,#f3f4f6,#fff);cursor:pointer;user-select:none}
+  .bigTap span{font-weight:1000}
+  .seq{display:flex;gap:10px;flex-wrap:wrap}
+  .seqbtn{flex:0 0 auto;min-width:72px;padding:12px 10px;border-radius:16px;border:2px solid rgba(0,0,0,.10);
+          background:#f3f4f6;cursor:pointer;font-weight:1000}
+  .seqbtn:active{transform:scale(.98)}
+  .seqbtn.good{background:rgba(34,197,94,.16);border-color:rgba(34,197,94,.35)}
+  .seqbtn.bad{background:rgba(239,68,68,.14);border-color:rgba(239,68,68,.35)}
+  .timingBox{padding:14px;border-radius:18px;background:#0b0b0f;color:#fff;border:2px solid rgba(255,255,255,.12)}
+  .track{height:14px;border-radius:999px;background:rgba(255,255,255,.14);position:relative;overflow:hidden}
+  .zone{position:absolute;top:0;bottom:0;left:40%;width:20%;background:rgba(255,196,0,.95)}
+  .dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff}
+  .kbd{font-size:12px;opacity:.85;margin-top:8px}
+  .footerNote{margin-top:10px;font-size:12px;opacity:.85}
+  .evo{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .evo .stamp{width:62px;height:62px;border-radius:18px;background:conic-gradient(from 160deg,#ff0033,#ff8a00,#ffe600,#ff0033);
+              padding:3px;box-shadow:0 10px 16px rgba(0,0,0,.18)}
+  .evo .stamp .inner{width:100%;height:100%;border-radius:16px;background:#111;color:#fff;display:grid;place-items:center;font-weight:1000}
+  .evo .txt{color:#111}
+  .evo .txt .a{font-weight:1000}
+  .evo .txt .b{font-size:12px;opacity:.85;margin-top:2px}
+  #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:rgba(0,0,0,.86);color:#fff;padding:10px 14px;border-radius:999px;font-weight:900;font-size:12px;border:1px solid rgba(255,255,255,.15);box-shadow:0 12px 28px rgba(0,0,0,.28);z-index:999;opacity:0;transition:opacity .15s ease;}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="toprow">
+      <div class="brand">
+        <div class="badge"><span>FOX<br/>KIDS</span></div>
+        <div class="ttl">
+          <div class="h">Digi‑Training Arena</div>
+          <div class="s">Featured Game • Demo web (sin backend)</div>
+        </div>
+      </div>
+      <button class="iconbtn" onclick="resetAll()" title="Reset">↻</button>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="section-title">
+      <h2>Elegí tu compañero</h2>
+      <div class="hint">Puntos + evolución (guardado local)</div>
+    </div>
+
+    <div class="grid3" id="picker"></div>
+
+    <div class="arena">
+      <div class="banner">
+        <p class="t" id="bannerTitle">🎮 Entrená, ganá puntos y desbloqueá evolución</p>
+        <p class="d" id="bannerDesc">Seleccioná un Digimon para comenzar. Cada sesión tiene 3 pruebas: Velocidad, Memoria y Timing.</p>
+        <div class="evo" id="evoBox" style="display:none">
+          <div class="stamp"><div class="inner" id="evoStamp">I</div></div>
+          <div class="txt">
+            <div class="a" id="evoName">Evolución: Iniciando</div>
+            <div class="b" id="evoNext">Siguiente mejora a 250 pts</div>
+          </div>
+        </div>
+        <div class="btnrow">
+          <button class="btn primary" id="btnStart" onclick="startSession()" disabled>Empezar sesión</button>
+          <button class="btn ghost" onclick="howTo()">Cómo jugar</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="hdr">
+          <h3>Sesión de entrenamiento</h3>
+          <div class="small" id="sessionMeta">0/3 pruebas</div>
+        </div>
+
+        <div class="challenge">
+          <div class="top">
+            <div>
+              <p class="title" id="challengeTitle">Esperando…</p>
+              <div class="meta" id="challengeMeta">Elegí un Digimon y tocá “Empezar sesión”</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:1000" id="challengePts">+0</div>
+              <div class="meta">ganados</div>
+            </div>
+          </div>
+          <div class="body">
+            <div class="meter" title="Progreso de sesión"><div id="sessionBar"></div></div>
+
+            <div class="stage" id="st-tap">
+              <div class="footerNote">⚡ Velocidad: tocá lo más rápido posible durante <b>5s</b>.</div>
+              <div class="bigTap" id="tapPad" onclick="tap()">
+                <div style="text-align:center">
+                  <div style="font-size:28px;font-weight:1000" id="tapCount">0</div>
+                  <span>TOCÁ</span>
+                </div>
+              </div>
+              <div class="footerNote">Tiempo: <b id="tapTime">5.0</b>s • Objetivo: <b>35+</b> taps</div>
+            </div>
+
+            <div class="stage" id="st-mem">
+              <div class="footerNote">🧠 Memoria: mirá la secuencia y repetila.</div>
+              <div class="timingBox" style="margin-bottom:10px">
+                <div style="font-weight:1000" id="memShow">Secuencia: —</div>
+                <div class="kbd">Se muestra 1 vez. Luego tocás los botones en el mismo orden.</div>
+              </div>
+              <div class="seq" id="memBtns"></div>
+              <div class="footerNote">Progreso: <b id="memProg">0</b>/<b id="memLen">0</b></div>
+            </div>
+
+            <div class="stage" id="st-time">
+              <div class="footerNote">🥊 Timing: tocá <b>¡NOW!</b> cuando el punto esté dentro de la zona amarilla.</div>
+              <div class="timingBox">
+                <div class="track" id="track">
+                  <div class="zone"></div>
+                  <div class="dot" id="dot"></div>
+                </div>
+                <div class="kbd">Tip: en mobile, tocá el botón NOW. En desktop, clic / barra espaciadora.</div>
+              </div>
+              <div class="btnrow">
+                <button class="btn primary" onclick="hitTiming()">¡NOW!</button>
+                <button class="btn ghost" onclick="skipTiming()">Reintentar</button>
+              </div>
+              <div class="footerNote">Precisión: <b id="acc">—</b></div>
+            </div>
+
+            <div class="stage" id="st-done">
+              <div class="footerNote" style="font-size:14px">
+                ✅ Sesión terminada. Sumaste <b id="sumPts">0</b> puntos.
+              </div>
+              <div class="btnrow">
+                <button class="btn primary" onclick="startSession()">Jugar otra sesión</button>
+                <button class="btn ghost" onclick="goHome()">Cambiar Digimon</button>
+              </div>
+              <div class="footerNote">Los puntos quedan guardados en este dispositivo (localStorage).</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:14px">
+          <h2>Tu progreso</h2>
+          <div class="hint">por Digimon</div>
+        </div>
+
+        <div class="card pad">
+          <div class="statbox" id="stats"></div>
+          <div class="footerNote" style="color:#111;opacity:.8">
+            *Demo. No usa imágenes con derechos: los “avatares” son placeholders.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+  const DIGI = [
+    {id:'agu', name:'Agumon',  role:'Balance',  color:'linear-gradient(135deg,#111827,#f97316 55%,#ffd000)', abbr:'AG'},
+    {id:'gab', name:'Gabumon', role:'Defensa',  color:'linear-gradient(135deg,#111827,#3b82f6 55%,#a78bfa)', abbr:'GA'},
+    {id:'pat', name:'Patamon', role:'Soporte',  color:'linear-gradient(135deg,#111827,#22c55e 55%,#ffd000)', abbr:'PA'}
+  ];
+
+  const EVO = [
+    {pts:0,    label:'Rookie',     stamp:'I'},
+    {pts:250,  label:'Champion',   stamp:'II'},
+    {pts:700,  label:'Ultimate',   stamp:'III'},
+    {pts:1400, label:'Mega',       stamp:'IV'}
+  ];
+
+  const LS_KEY = 'foxkids_digitraining_v1';
+  let state = loadState();
+  let selected = state.selected || null;
+
+  let session = null;
+  let tapClicks = 0, tapTimer = null, tapLeft = 5.0;
+  let memSeq = [], memIndex = 0;
+  let timingRAF = null, timingStart = 0, timingSpeed = 0.9, timingPos = 0.0;
+
+  const picker = document.getElementById('picker');
+  DIGI.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'digicard';
+    el.style.background = d.color;
+    el.innerHTML = `
+      <div class="tag">${d.role}</div>
+      <div class="avatar"><span>${d.abbr}</span></div>
+      <p class="name">${d.name}</p>
+      <div class="sub">Elegí para entrenar</div>
+    `;
+    el.onclick = () => pick(d.id);
+    picker.appendChild(el);
+  });
+
+  function pick(id){
+    selected = id;
+    state.selected = id;
+    saveState();
+    toast('Seleccionado: ' + getD(id).name);
+    document.getElementById('btnStart').disabled = false;
+    updateBanner();
+    renderStats();
+  }
+
+  function getD(id){ return DIGI.find(x=>x.id===id); }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(LS_KEY);
+      if(!raw) return {scores:{}};
+      const obj = JSON.parse(raw);
+      obj.scores ||= {};
+      return obj;
+    }catch(e){ return {scores:{}}; }
+  }
+  function saveState(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+  function pointsFor(id){ return (state.scores[id] || 0); }
+
+  function evoFor(points){
+    let cur = EVO[0];
+    for(const e of EVO){ if(points >= e.pts) cur = e; }
+    const idx = EVO.indexOf(cur);
+    const next = EVO[idx+1] || null;
+    return {cur, next};
+  }
+
+  function updateBanner(){
+    const d = selected ? getD(selected) : null;
+    const title = document.getElementById('bannerTitle');
+    const desc  = document.getElementById('bannerDesc');
+    const evoBox = document.getElementById('evoBox');
+
+    if(!d){
+      title.textContent = '🎮 Entrená, ganá puntos y desbloqueá evolución';
+      desc.textContent  = 'Seleccioná un Digimon para comenzar. Cada sesión tiene 3 pruebas: Velocidad, Memoria y Timing.';
+      evoBox.style.display = 'none';
+      return;
+    }
+
+    const pts = pointsFor(d.id);
+    const {cur, next} = evoFor(pts);
+    title.textContent = `🎮 ${d.name} listo para entrenar`;
+    desc.textContent  = `Rol: ${d.role} • Puntos: ${pts} • Próxima sesión: 3 pruebas rápidas (≈ 1 min).`;
+    evoBox.style.display = 'flex';
+    document.getElementById('evoStamp').textContent = cur.stamp;
+    document.getElementById('evoName').textContent = `Evolución: ${cur.label}`;
+    document.getElementById('evoNext').textContent = next ? `Siguiente mejora a ${next.pts} pts` : 'Máximo nivel alcanzado ✨';
+  }
+
+  function renderStats(){
+    const box = document.getElementById('stats');
+    box.innerHTML = '';
+    DIGI.forEach(d=>{
+      const pts = pointsFor(d.id);
+      const {cur} = evoFor(pts);
+      const item = document.createElement('div');
+      item.className = 'pill';
+      item.innerHTML = `${d.name}: <b>${pts}</b> pts • ${cur.label}`;
+      box.appendChild(item);
+    });
+  }
+
+  const sessionMeta = document.getElementById('sessionMeta');
+  const bar = document.getElementById('sessionBar');
+  const chTitle = document.getElementById('challengeTitle');
+  const chMeta  = document.getElementById('challengeMeta');
+  const chPts   = document.getElementById('challengePts');
+
+  const stages = {
+    tap: document.getElementById('st-tap'),
+    mem: document.getElementById('st-mem'),
+    time: document.getElementById('st-time'),
+    done: document.getElementById('st-done')
+  };
+
+  function showStage(key){
+    Object.values(stages).forEach(s=>s.classList.remove('active'));
+    stages[key].classList.add('active');
+  }
+
+  function startSession(){
+    if(!selected){ toast('Elegí un Digimon primero'); return; }
+    stopAll();
+    session = {step:0, total:3, earned:0};
+    sessionMeta.textContent = `0/3 pruebas`;
+    bar.style.width = '0%';
+    bar.style.background = 'linear-gradient(90deg,#ef4444,#ffd000)';
+    chPts.textContent = '+0';
+    nextChallenge();
+  }
+
+  function nextChallenge(){
+    if(!session) return;
+    session.step += 1;
+    const progress = Math.min(100, ((session.step-1)/session.total)*100);
+    bar.style.width = progress + '%';
+    sessionMeta.textContent = `${session.step-1}/${session.total} pruebas`;
+
+    if(session.step === 1) initTap();
+    else if(session.step === 2) initMemory();
+    else if(session.step === 3) initTiming();
+    else endSession();
+  }
+
+  function award(points, label){
+    session.earned += points;
+    chPts.textContent = `+${points}`;
+    toast(`+${points} pts (${label})`);
+    bar.style.width = Math.min(100, ((session.step)/session.total)*100) + '%';
+    sessionMeta.textContent = `${Math.min(session.step,session.total)}/${session.total} pruebas`;
+    setTimeout(()=>nextChallenge(), 650);
+  }
+
+  const tapCountEl = document.getElementById('tapCount');
+  const tapTimeEl  = document.getElementById('tapTime');
+  function initTap(){
+    chTitle.textContent = 'Prueba 1/3 — Velocidad';
+    chMeta.textContent  = 'Tocá el panel durante 5s. Cuantos más taps, más puntos.';
+    chPts.textContent   = '+0';
+    showStage('tap');
+
+    tapClicks = 0; tapLeft = 5.0;
+    tapCountEl.textContent = '0';
+    tapTimeEl.textContent = tapLeft.toFixed(1);
+    const start = performance.now();
+    tapTimer = setInterval(()=>{
+      const now = performance.now();
+      const elapsed = (now-start)/1000;
+      tapLeft = Math.max(0, 5.0 - elapsed);
+      tapTimeEl.textContent = tapLeft.toFixed(1);
+      if(tapLeft <= 0){
+        clearInterval(tapTimer); tapTimer=null;
+        const score = Math.max(0, Math.min(100, Math.round((tapClicks/50)*100)));
+        const pts = Math.round(40 + (score*0.8));
+        award(pts, `Taps: ${tapClicks}`);
+      }
+    }, 50);
+  }
+  function tap(){
+    if(!tapTimer) return;
+    tapClicks += 1;
+    tapCountEl.textContent = tapClicks;
+  }
+
+  const memShow = document.getElementById('memShow');
+  const memBtns = document.getElementById('memBtns');
+  const memProg = document.getElementById('memProg');
+  const memLen  = document.getElementById('memLen');
+
+  const MEM_KEYS = [
+    {k:'⚡', name:'Thunder'},
+    {k:'🔥', name:'Flame'},
+    {k:'💧', name:'Aqua'},
+    {k:'🌪️', name:'Wind'}
+  ];
+
+  function initMemory(){
+    chTitle.textContent = 'Prueba 2/3 — Memoria';
+    chMeta.textContent  = 'Recordá la secuencia y repetila. Fallar resta precisión.';
+    chPts.textContent   = '+0';
+    showStage('mem');
+
+    memBtns.innerHTML = '';
+    memIndex = 0;
+    memSeq = [];
+    const len = 4;
+    for(let i=0;i<len;i++){
+      memSeq.push(MEM_KEYS[Math.floor(Math.random()*MEM_KEYS.length)]);
+    }
+
+    memLen.textContent = String(len);
+    memProg.textContent = '0';
+    memShow.textContent = 'Secuencia: ' + memSeq.map(x=>x.k).join(' ');
+
+    setTimeout(()=>{ memShow.textContent = 'Secuencia: (oculta)'; }, 1200);
+
+    MEM_KEYS.forEach(item=>{
+      const b = document.createElement('button');
+      b.className = 'seqbtn';
+      b.textContent = item.k + ' ' + item.name;
+      b.onclick = ()=>pressMem(item, b);
+      memBtns.appendChild(b);
+    });
+  }
+
+  function pressMem(item, btn){
+    if(!session || session.step !== 2) return;
+    const expected = memSeq[memIndex];
+    if(item.k === expected.k){
+      btn.classList.remove('bad'); btn.classList.add('good');
+      memIndex += 1;
+      memProg.textContent = String(memIndex);
+      if(memIndex >= memSeq.length){
+        award(110, 'Memoria OK');
+      }
+    } else {
+      btn.classList.remove('good'); btn.classList.add('bad');
+      award(60, 'Memoria (con error)');
+    }
+  }
+
+  const dot = document.getElementById('dot');
+  const accEl = document.getElementById('acc');
+
+  function initTiming(){
+    chTitle.textContent = 'Prueba 3/3 — Timing';
+    chMeta.textContent  = 'Tocá NOW cuando el punto esté en la zona amarilla.';
+    chPts.textContent   = '+0';
+    accEl.textContent = '—';
+    showStage('time');
+
+    timingStart = performance.now();
+    timingPos = Math.random();
+    timingSpeed = 0.85 + Math.random()*0.6;
+    startTimingLoop();
+    window.addEventListener('keydown', onKey);
+  }
+
+  function onKey(e){
+    if(e.code === 'Space'){ e.preventDefault(); hitTiming(); }
+  }
+
+  function startTimingLoop(){
+    stopTimingLoop();
+    const loop = (t)=>{
+      const dt = (t - timingStart) / 1000;
+      const x = (timingPos + dt*timingSpeed) % 2;
+      const pos = x <= 1 ? x : (2-x);
+      dot.style.left = (pos*100) + '%';
+      timingRAF = requestAnimationFrame(loop);
+    };
+    timingRAF = requestAnimationFrame(loop);
+  }
+
+  function stopTimingLoop(){
+    if(timingRAF){ cancelAnimationFrame(timingRAF); timingRAF=null; }
+  }
+
+  function hitTiming(){
+    if(!session || session.step !== 3) return;
+    const left = parseFloat(dot.style.left || '0');
+    const pos = left / 100;
+    const dist = Math.abs(pos - 0.5);
+    const inZone = pos >= 0.40 && pos <= 0.60;
+
+    let pts, acc;
+    if(inZone){
+      const closeness = Math.max(0, 1 - (dist/0.10));
+      pts = Math.round(90 + closeness*40);
+      acc = Math.round(closeness*100) + '%';
+    } else {
+      pts = 55;
+      acc = 'Fuera';
+    }
+    accEl.textContent = acc;
+    stopTimingLoop();
+    window.removeEventListener('keydown', onKey);
+    award(pts, 'Timing');
+  }
+
+  function skipTiming(){
+    if(!session || session.step !== 3) return;
+    timingStart = performance.now();
+    timingPos = Math.random();
+    timingSpeed = 0.85 + Math.random()*0.6;
+    accEl.textContent = '—';
+    startTimingLoop();
+    toast('Reintento');
+  }
+
+  function endSession(){
+    stopAll();
+    showStage('done');
+    const earned = session ? session.earned : 0;
+    document.getElementById('sumPts').textContent = String(earned);
+
+    state.scores[selected] = pointsFor(selected) + earned;
+    saveState();
+    renderStats();
+    updateBanner();
+
+    chTitle.textContent = 'Sesión completa';
+    chMeta.textContent  = '¡Buen trabajo! Tus puntos quedaron guardados.';
+    chPts.textContent   = `+${earned}`;
+    bar.style.width = '100%';
+    sessionMeta.textContent = '3/3 pruebas';
+    session = null;
+  }
+
+  function goHome(){
+    stopAll();
+    chTitle.textContent = 'Esperando…';
+    chMeta.textContent  = 'Elegí un Digimon y tocá “Empezar sesión”';
+    chPts.textContent   = '+0';
+    bar.style.width = '0%';
+    sessionMeta.textContent = '0/3 pruebas';
+    document.getElementById('btnStart').disabled = !selected;
+    Object.values(stages).forEach(s=>s.classList.remove('active'));
+  }
+
+  function stopAll(){
+    if(tapTimer){ clearInterval(tapTimer); tapTimer=null; }
+    stopTimingLoop();
+    window.removeEventListener('keydown', onKey);
+  }
+
+  function resetAll(){
+    stopAll();
+    localStorage.removeItem(LS_KEY);
+    state = {scores:{}};
+    selected = null;
+    document.getElementById('btnStart').disabled = true;
+    goHome();
+    renderStats();
+    updateBanner();
+    toast('Reset OK');
+  }
+
+  function howTo(){
+    toast('Tip: 1 sesión = 3 pruebas (~1 min)');
+    alert(
+`Digi‑Training Arena (Demo)
+1) Elegí un Digimon.
+2) Tocá “Empezar sesión”.
+3) Jugás 3 pruebas: Velocidad, Memoria, Timing.
+4) Sumás puntos y subís de nivel (Rookie → Mega).
+Los puntos se guardan en este dispositivo (localStorage).`
+    );
+  }
+
+  let toastT;
+  function toast(msg){
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.style.opacity = '1';
+    clearTimeout(toastT);
+    toastT = setTimeout(()=>{ el.style.opacity='0'; }, 1200);
+  }
+
+  renderStats();
+  updateBanner();
+  if(selected){
+    document.getElementById('btnStart').disabled = false;
+    toast('Continuando con: ' + getD(selected).name);
+  }
+</script>
+</body>
+</html>

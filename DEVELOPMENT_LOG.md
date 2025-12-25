@@ -165,3 +165,24 @@ Preparado para migración a Cloudinary cuando URLs estén verificadas
 
 ### Para Continuar en Próxima Sesión
 Simplemente abre este archivo y tendrás todo el contexto de lo que hemos trabajado.
+
+---
+
+## Sesión: 25 Diciembre 2025
+
+### Home con filtros tipo YouTube
+- Reemplacé el menú de píldoras de estado (En vivo/Siguiente/Grilla) por una barra de filtros con la fuente Fox Kids.
+- Agregué la opción “Todas las opciones” que muestra todas las secciones en el index; es el estado inicial.
+- Cada filtro (Ahora en Vivo, Shorts, Series, Juegos, Artículos) oculta/muestra su sección usando `filterSections()` con `data-section`.
+- Eliminé el primer menú duplicado y mantuve el segundo menú con la tipografía correcta.
+- Mantengo el “Ver más →” de Series apuntando a `series.html` y la sección de artículos renombrada.
+
+### Mensaje de Commit Sugerido
+```
+feat: agregar filtros de secciones y opción "Todas"
+
+- Agregar barra de filtros tipo YouTube con fuente Fox Kids y opción "Todas las opciones"
+- Alternar visibilidad de secciones (live, shorts, series, juegos, artículos) mediante filterSections
+- Remover menú duplicado de estado en vivo y mantener la barra única
+- Conservar enlaces de Series (Ver más) y sección Artículos
+```

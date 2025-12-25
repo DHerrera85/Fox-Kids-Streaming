@@ -380,33 +380,32 @@
       <div class="content-section" data-section="shorts">
         <div class="section-title" style="margin-top:16px"><h2>Shorts</h2><a href="videos.html" style="color:#FFD200;font-weight:900;font-size:12px;text-decoration:none;">Ver más →</a></div>
         
-        <!-- Openings -->
-        <div style="margin-bottom:20px;">
-          <div style="font-size:12px;font-weight:900;color:#FFD200;margin-bottom:12px;margin-left:2px;">📺 OPENINGS</div>
-          <div class="shorts-wrapper">
-            <div class="shorts" id="shortsCarouselOpenings">
-              <div class="short" onclick="playShort('videos/shorts/openings/fantastic-four.mp4', event)" data-type="opening"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Fantastic Four • Opening</div></div>
-              <div class="short" onclick="playShort('videos/shorts/openings/iron-man-short.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#dc2626 55%,#fbbf24);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Iron Man • Opening</div></div>
-              <div class="short" onclick="playShort('videos/shorts/openings/power rangers.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#ef4444 55%,#fbbf24);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Power Rangers • Opening</div></div>
-              <div class="short" onclick="playShort('videos/shorts/openings/x-men-short.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#3b82f6 55%,#a855f7);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">X-Men • Opening</div></div>
-            </div>
-            <div class="shorts-nav left" onclick="scrollShortsLeft('shortsCarouselOpenings')" title="Anterior">‹</div>
-            <div class="shorts-nav right" onclick="scrollShortsRight('shortsCarouselOpenings')" title="Siguiente">›</div>
+        <!-- Mixed Openings & Promos -->
+        <div class="shorts-wrapper">
+          <div class="shorts" id="shortsCarousel">
+            <!-- 1. Fantastic Four Opening -->
+            <div class="short" onclick="playShort('videos/shorts/openings/fantastic-four.mp4', event)" data-type="opening"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Fantastic Four • Opening</div></div>
+            
+            <!-- 2. Digimon Tamers Promo -->
+            <div class="short" onclick="playShort('videos/shorts/promos/digimon-tamers-promo-2002.mp4', event)" data-type="promo"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Digimon Tamers • Promo</div></div>
+            
+            <!-- 3. Iron Man Opening -->
+            <div class="short" onclick="playShort('videos/shorts/openings/iron-man-short.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#dc2626 55%,#fbbf24);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Iron Man • Opening</div></div>
+            
+            <!-- 4. Escaflowne Promo -->
+            <div class="short" onclick="playShort('videos/shorts/promos/escaflowne-promo-2002.mp4', event)" data-type="promo" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#8b5cf6 55%,#ec4899);"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Escaflowne • Promo</div></div>
+            
+            <!-- 5. Power Rangers Opening -->
+            <div class="short" onclick="playShort('videos/shorts/openings/power rangers.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#ef4444 55%,#fbbf24);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Power Rangers • Opening</div></div>
+            
+            <!-- 6. Transformers Promo -->
+            <div class="short" onclick="playShort('videos/shorts/promos/transformers-promo-2002.mp4', event)" data-type="promo" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#f59e0b 55%,#ef4444);"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Transformers • Promo</div></div>
+            
+            <!-- 7. X-Men Opening -->
+            <div class="short" onclick="playShort('videos/shorts/openings/x-men-short.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#3b82f6 55%,#a855f7);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">X-Men • Opening</div></div>
           </div>
-        </div>
-
-        <!-- Promos -->
-        <div>
-          <div style="font-size:12px;font-weight:900;color:#FFD200;margin-bottom:12px;margin-left:2px;">🎬 PROMOS</div>
-          <div class="shorts-wrapper">
-            <div class="shorts" id="shortsCarouselPromos">
-              <div class="short" onclick="playShort('videos/shorts/promos/digimon-tamers-promo-2002.mp4', event)" data-type="promo"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Digimon Tamers • Promo</div></div>
-              <div class="short" onclick="playShort('videos/shorts/promos/escaflowne-promo-2002.mp4', event)" data-type="promo" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#8b5cf6 55%,#ec4899);"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Escaflowne • Promo</div></div>
-              <div class="short" onclick="playShort('videos/shorts/promos/transformers-promo-2002.mp4', event)" data-type="promo" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#f59e0b 55%,#ef4444);"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Transformers • Promo</div></div>
-            </div>
-            <div class="shorts-nav left" onclick="scrollShortsLeft('shortsCarouselPromos')" title="Anterior">‹</div>
-            <div class="shorts-nav right" onclick="scrollShortsRight('shortsCarouselPromos')" title="Siguiente">›</div>
-          </div>
+          <div class="shorts-nav left" onclick="scrollShortsLeft('shortsCarousel')" title="Anterior">‹</div>
+          <div class="shorts-nav right" onclick="scrollShortsRight('shortsCarousel')" title="Siguiente">›</div>
         </div>
       </div>
 
@@ -659,9 +658,8 @@
     carousel.addEventListener('selectstart',()=>false);
   }
 
-  // Inicializar drag scroll para ambos carruseles
-  setupDragScroll('shortsCarouselOpenings');
-  setupDragScroll('shortsCarouselPromos');
+  // Inicializar drag scroll para carrusel de Shorts
+  setupDragScroll('shortsCarousel');
 
   function focusSearch(){document.getElementById('q').focus(); toast('Buscador listo');}
   let tmr;

@@ -1,0 +1,19 @@
+# Videos (demasiado grandes para GitHub)
+videos/shorts/openings/*.mp4
+videos/shorts/promos/*.mp4
+videos/stories/*.mp4
+
+# Node modules
+node_modules/
+npm-debug.log
+
+# Editor files
+.DS_Store
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build files
+dist/
+build/

@@ -379,17 +379,34 @@
 
       <div class="content-section" data-section="shorts">
         <div class="section-title" style="margin-top:16px"><h2>Shorts</h2><a href="videos.html" style="color:#FFD200;font-weight:900;font-size:12px;text-decoration:none;">Ver más →</a></div>
-        <div class="shorts-wrapper">
-          <div class="shorts" id="shortsCarousel">
-            <div class="short" onclick="handleShortClick(event)"><div class="badge">SHORT</div><div class="play">▶</div><div class="t">Opening clásico • 20s</div></div>
-            <div class="short" onclick="handleShortClick(event)" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#ef4444 55%,#ffd000);"><div class="badge">TRIVIA</div><div class="play">▶</div><div class="t">¿Sabías que…? • 15s</div></div>
-            <div class="short" onclick="handleShortClick(event)" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#3b82f6 55%,#a78bfa);"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Promo retro • 10s</div></div>
-            <div class="short" onclick="handleShortClick(event)" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#10b981 55%,#06b6d4);"><div class="badge">SHORT</div><div class="play">▶</div><div class="t">Transformación • 25s</div></div>
-            <div class="short" onclick="handleShortClick(event)" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#f59e0b 55%,#ec4899);"><div class="badge">CLIP</div><div class="play">▶</div><div class="t">Batalla épica • 18s</div></div>
-            <div class="short" onclick="handleShortClick(event)" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#8b5cf6 55%,#0ea5e9);"><div class="badge">TRIVIA</div><div class="play">▶</div><div class="t">Quiz rápido • 12s</div></div>
+        
+        <!-- Openings -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:12px;font-weight:900;color:#FFD200;margin-bottom:12px;margin-left:2px;">📺 OPENINGS</div>
+          <div class="shorts-wrapper">
+            <div class="shorts" id="shortsCarouselOpenings">
+              <div class="short" onclick="playShort('videos/shorts/openings/fantastic-four.mp4', event)" data-type="opening"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Fantastic Four • Opening</div></div>
+              <div class="short" onclick="playShort('videos/shorts/openings/iron-man-short.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#dc2626 55%,#fbbf24);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Iron Man • Opening</div></div>
+              <div class="short" onclick="playShort('videos/shorts/openings/power rangers.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#ef4444 55%,#fbbf24);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Power Rangers • Opening</div></div>
+              <div class="short" onclick="playShort('videos/shorts/openings/x-men-short.mp4', event)" data-type="opening" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#3b82f6 55%,#a855f7);"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">X-Men • Opening</div></div>
+            </div>
+            <div class="shorts-nav left" onclick="scrollShortsLeft('shortsCarouselOpenings')" title="Anterior">‹</div>
+            <div class="shorts-nav right" onclick="scrollShortsRight('shortsCarouselOpenings')" title="Siguiente">›</div>
           </div>
-          <div class="shorts-nav left" onclick="scrollShortsLeft()" title="Anterior">‹</div>
-          <div class="shorts-nav right" onclick="scrollShortsRight()" title="Siguiente">›</div>
+        </div>
+
+        <!-- Promos -->
+        <div>
+          <div style="font-size:12px;font-weight:900;color:#FFD200;margin-bottom:12px;margin-left:2px;">🎬 PROMOS</div>
+          <div class="shorts-wrapper">
+            <div class="shorts" id="shortsCarouselPromos">
+              <div class="short" onclick="playShort('videos/shorts/promos/digimon-tamers-promo-2002.mp4', event)" data-type="promo"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Digimon Tamers • Promo</div></div>
+              <div class="short" onclick="playShort('videos/shorts/promos/escaflowne-promo-2002.mp4', event)" data-type="promo" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#8b5cf6 55%,#ec4899);"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Escaflowne • Promo</div></div>
+              <div class="short" onclick="playShort('videos/shorts/promos/transformers-promo-2002.mp4', event)" data-type="promo" style="background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.65), rgba(255,255,255,.08)),linear-gradient(180deg,#111827,#f59e0b 55%,#ef4444);"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Transformers • Promo</div></div>
+            </div>
+            <div class="shorts-nav left" onclick="scrollShortsLeft('shortsCarouselPromos')" title="Anterior">‹</div>
+            <div class="shorts-nav right" onclick="scrollShortsRight('shortsCarouselPromos')" title="Siguiente">›</div>
+          </div>
         </div>
       </div>
 
@@ -572,61 +589,79 @@
     }
   }
 
-  function scrollShortsLeft(){
-    const carousel=document.getElementById('shortsCarousel');
+  function scrollShortsLeft(carouselId='shortsCarousel'){
+    const carousel=document.getElementById(carouselId);
     carousel.scrollBy({left:-160,behavior:'smooth'});
   }
 
-  function scrollShortsRight(){
-    const carousel=document.getElementById('shortsCarousel');
+  function scrollShortsRight(carouselId='shortsCarousel'){
+    const carousel=document.getElementById(carouselId);
     carousel.scrollBy({left:160,behavior:'smooth'});
   }
 
-  // Drag Scroll para Shorts
-  const shortsCarousel=document.getElementById('shortsCarousel');
-  let isDown=false,startX,scrollLeft,hasDragged=false;
-
-  shortsCarousel.addEventListener('mousedown',(e)=>{
-    isDown=true;
-    hasDragged=false;
-    startX=e.pageX-shortsCarousel.offsetLeft;
-    scrollLeft=shortsCarousel.scrollLeft;
-    shortsCarousel.style.cursor='grabbing';
-    shortsCarousel.style.scrollBehavior='auto';
-  });
-
-  shortsCarousel.addEventListener('mouseleave',()=>{
-    isDown=false;
-    shortsCarousel.style.cursor='grab';
-  });
-
-  shortsCarousel.addEventListener('mouseup',()=>{
-    isDown=false;
-    shortsCarousel.style.cursor='grab';
-    shortsCarousel.style.scrollBehavior='smooth';
-  });
-
-  shortsCarousel.addEventListener('mousemove',(e)=>{
-    if(!isDown)return;
-    e.preventDefault();
-    const x=e.pageX-shortsCarousel.offsetLeft;
-    const walk=(x-startX)*1.5;
-    if(Math.abs(walk)>5)hasDragged=true; // Considera arrastre si se movió más de 5px
-    shortsCarousel.scrollLeft=scrollLeft-walk;
-  });
-
-  // Prevenir selección de texto mientras se arrastra
-  shortsCarousel.addEventListener('selectstart',()=>false);
-
-  // Función para manejar clicks en los shorts
-  function handleShortClick(event){
-    if(hasDragged){
-      event.preventDefault();
-      hasDragged=false;
-      return; // No redirige si hubo arrastre
-    }
-    location.href='videos.html'; // Solo redirige si fue un click simple
+  // Función para reproducir shorts locales
+  function playShort(videoPath, event){
+    event.stopPropagation();
+    const video = document.createElement('video');
+    video.src = videoPath;
+    video.controls = true;
+    video.autoplay = true;
+    video.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:500px;height:auto;z-index:9999;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);';
+    
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9998;cursor:pointer;';
+    overlay.onclick = () => {
+      video.pause();
+      video.remove();
+      overlay.remove();
+    };
+    
+    document.body.appendChild(overlay);
+    document.body.appendChild(video);
   }
+
+  // Drag Scroll para cada carrusel de Shorts
+  function setupDragScroll(carouselId){
+    const carousel = document.getElementById(carouselId);
+    if(!carousel) return;
+    
+    let isDown=false,startX,scrollLeft,hasDragged=false;
+
+    carousel.addEventListener('mousedown',(e)=>{
+      isDown=true;
+      hasDragged=false;
+      startX=e.pageX-carousel.offsetLeft;
+      scrollLeft=carousel.scrollLeft;
+      carousel.style.cursor='grabbing';
+      carousel.style.scrollBehavior='auto';
+    });
+
+    carousel.addEventListener('mouseleave',()=>{
+      isDown=false;
+      carousel.style.cursor='grab';
+    });
+
+    carousel.addEventListener('mouseup',()=>{
+      isDown=false;
+      carousel.style.cursor='grab';
+      carousel.style.scrollBehavior='smooth';
+    });
+
+    carousel.addEventListener('mousemove',(e)=>{
+      if(!isDown)return;
+      e.preventDefault();
+      const x=e.pageX-carousel.offsetLeft;
+      const walk=(x-startX)*1.5;
+      if(Math.abs(walk)>5)hasDragged=true;
+      carousel.scrollLeft=scrollLeft-walk;
+    });
+
+    carousel.addEventListener('selectstart',()=>false);
+  }
+
+  // Inicializar drag scroll para ambos carruseles
+  setupDragScroll('shortsCarouselOpenings');
+  setupDragScroll('shortsCarouselPromos');
 
   function focusSearch(){document.getElementById('q').focus(); toast('Buscador listo');}
   let tmr;

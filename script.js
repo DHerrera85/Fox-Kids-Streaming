@@ -174,3 +174,25 @@ setupCarouselFixedCount({
   visibleCount: 5
 });
 
+/**
+ * Toggle Sidebar - Expande/Contrae la navegación lateral (Desktop)
+ */
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar') || document.getElementById('bottomNav');
+  const app = document.querySelector('.app');
+  
+  if (sidebar) {
+    sidebar.classList.toggle('expanded');
+    
+    // En desktop, ajustar el margen del .app cuando la sidebar se expande
+    if (window.innerWidth >= 768) {
+      if (app) {
+        if (sidebar.classList.contains('expanded')) {
+          app.style.marginLeft = '200px';
+        } else {
+          app.style.marginLeft = '80px';
+        }
+      }
+    }
+  }
+}

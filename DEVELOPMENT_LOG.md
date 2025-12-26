@@ -695,3 +695,109 @@ Result:
 ✅ **Referencias internas:** El archivo se autorefiere correctamente
 
 ```
+
+---
+
+## Sesión: 26 Diciembre 2025
+
+### Bug Fix - Stories Viewer en articles.html
+
+#### Problemas Reportados
+1. **Historias no visibles en móvil**: El contenido era todo negro, aunque el header (avatar + nombre + X) se veía
+2. **Close button inoperativo en desktop**: El botón X no respondía a clicks; había que refrescar la página para cerrar
+3. **Problemas de layout responsive**: El CSS de desktop se aplicaba en móvil también
+
+#### Causa Raíz Identificada
+- **Problema móvil**: El `.stories-content` tenía `height:100%` pero no había `padding-top` para dejar espacio al header `position:fixed` de 70px (avatar 40px + padding)
+- **Problema desktop close button**: El `.story-nav-area` (position:absolute;inset:0) cubría el área del close button, bloqueando clicks (issue de z-index y pointer-events)
+- **Problema media query**: El `.story-side-preview` (oculto en móvil) no tenía `display:none`, creando conflictos de layout con grid de 3 columnas (200px + 1fr + 200px > viewport móvil de 430px)
+
+#### Solución Implementada
+
+**1. CSS Base (Móvil - Mobile-First)**
+```css
+.stories-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-top: 80px;  /* ✅ NUEVO: Deja espacio para header fijo */
+  overflow: hidden;
+}
+.story-side-preview {
+  display: none;  /* ✅ NUEVO: Oculta previews en móvil */
+}
+.stories-header {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  right: 20px;  /* Mantiene ancho completo en móvil */
+  z-index: 10001;
+}
+.stories-close {
+  z-index: 10002;  /* ✅ Mayor que header z-index: 10001 */
+  pointer-events: auto;
+}
+.story-nav-area {
+  pointer-events: none;  /* ✅ NUEVO: Permite clicks pasar al header */
+}
+.story-nav-btn {
+  pointer-events: auto;  /* ✅ NUEVO: Pero permite clicks en botones nav */
+}
+```
+
+**2. CSS Media Query Desktop (768px+)**
+```css
+@media (min-width: 768px) {
+  .stories-content {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    padding-top: 0;  /* ✅ Reinicia padding en desktop */
+    gap: 20px;
+  }
+  .story-side-preview {
+    display: flex;  /* ✅ Muestra previews en desktop */
+  }
+  .stories-header {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);  /* Centra en desktop */
+    max-width: 700px;
+  }
+  .story-nav-area {
+    grid-column: 2;  /* Posiciona en la columna central */
+    pointer-events: none;
+  }
+}
+```
+
+#### Cambios Realizados en articles.html
+
+**Líneas 93-104: CSS Base (Móvil)**
+- ✅ Agregado `padding-top: 80px` a `.stories-content`
+- ✅ Agregado `display: none` a `.story-side-preview`
+- ✅ Aumentado z-index: `10001` para `.stories-header` y `.stories-progress`
+- ✅ Aumentado z-index: `10002` para `.stories-close`
+- ✅ Agregado `pointer-events: auto` a `.stories-close`
+- ✅ Agregado `pointer-events: none` a `.story-nav-area`
+- ✅ Agregado `pointer-events: auto` a `.story-nav-btn`
+- ✅ Agregado `overflow: hidden` a `.stories-content`
+
+**Línea 125: CSS Media Query Desktop**
+- ✅ Sobrescrito `.stories-content` con `display: grid` y `padding-top: 0`
+- ✅ Agregado `display: flex` a `.story-side-preview`
+- ✅ Actualizado `.stories-header` con centering de desktop
+- ✅ Mantener pointer-events correctos para interactividad
+
+#### Resultado Final
+✅ **Móvil**: Las historias se visualizan correctamente con contenido centrado, header fijo arriba, close button funcional  
+✅ **Desktop**: Layout de 3 columnas con vistas previas laterales, close button clickeable  
+✅ **Responsive**: Transición suave entre móvil y desktop sin errores de layout  
+✅ **Interactividad**: Todos los botones y áreas clickeables funcionan correctamente  
+
+#### Lecciones Aprendidas
+1. **Layouts absolutos + fixed**: Necesitan padding o margin en el contenedor para evitar solapamientos
+2. **Pointer-events**: Crítico en overlays; usar `pointer-events: none` en contenedores que no necesitan clicks
+3. **Media queries**: El CSS base debe ser móvil-first; media queries solo deben SOBRESCRIBIR, no crear conflictos
+4. **Z-index**: En elementos fixed, mantener jerarquía clara (overlay < content < header < buttons)
+
+```

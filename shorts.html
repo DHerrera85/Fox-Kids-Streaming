@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Fox Kids – Shorts</title>
+<link rel="icon" type="image/png" href="img/FOX_Kids_logo-_200___176-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);}
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0.03em;background:var(--bg);color:#fff;}
+  .app{max-width:430px;margin:0 auto;min-height:100%;position:relative;padding-bottom:86px;}
+  .topbar{position:sticky;top:0;z-index:10;background:var(--red);padding:12px 14px;box-shadow:0 10px 18px rgba(0,0,0,.25);}
+  .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .logo{display:flex;align-items:center;gap:10px;min-width:0;}
+  .logo-badge{width:60px;height:60px;display:grid;place-items:center;flex-shrink:0;}
+  .logo-badge img{width:100%;height:100%;object-fit:contain;}
+  .hello{min-width:0}
+  .hello .hi{font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .hello .sub{font-size:10px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .icons{display:flex;gap:10px;}
+  .icon-btn{width:40px;height:40px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none;position:relative;}
+  .icon{font-size:18px;transform:translateY(-.5px);}
+  .search{margin-top:10px;display:flex;gap:10px;align-items:center;}
+  .search-pill{flex:1;background:#fff;color:#111;border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 20px rgba(0,0,0,.18);}
+  .search-pill .glass{opacity:.7}
+  .search-pill input{border:0;outline:0;width:100%;font-size:14px;background:transparent;}
+  .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);white-space:nowrap;}
+  .content{padding:14px;}
+  .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:8px 2px 10px;gap:6px;}
+  .section-title h2{margin:0;font-size:14px;letter-spacing:.1px;color:#FFD200;}
+  .section-title .hint{font-size:9px;opacity:.8;white-space:nowrap;}
+  .shorts{display:flex;gap:12px;overflow:auto;scroll-snap-type:x mandatory;cursor:grab;user-select:none;height:280px;align-items:center;}
+  .shorts::-webkit-scrollbar{display:none;}
+  .shorts{-ms-overflow-style:none;scrollbar-width:none;}
+  @media (max-width:600px){.shorts{height:240px;align-items:flex-start;padding-top:5px;}}
+  .shorts-wrapper{position:relative;margin:0 0 10px;}
+  .shorts-nav{position:absolute;bottom:50%;transform:translateY(50%);width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.65);border:2px solid rgba(255,255,255,.2);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:16px;z-index:10;transition:all .2s ease;user-select:none;}
+  .shorts-nav:hover{background:rgba(0,0,0,.85);transform:translateY(50%) scale(1.1);box-shadow:0 6px 16px rgba(0,0,0,.4);}
+  .shorts-nav:active{transform:translateY(50%) scale(.95);}
+  .shorts-nav.left{left:8px;}
+  .shorts-nav.right{right:8px;}
+  @media (max-width:600px){.shorts-nav{width:30px;height:30px;font-size:14px;}}
+  .short{flex:0 0 auto;width:140px;height:255px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:var(--shadow);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);background-size:cover;background-position:center;}
+  .short[data-aspect-ratio="vertical"]{background-size:contain;background-repeat:no-repeat;}
+  .short[data-aspect-ratio="horizontal"]{background-size:cover;background-position:center;}
+  @media (max-width:600px){.short{width:135px;height:225px;}}
+  .short .play{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;font-size:16px;}
+  .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
+  .short .badge{position:absolute;top:10px;left:10px;background:rgba(255,196,0,.95);color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
+  .short .add{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:12px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#FFD200;font-size:18px;font-weight:1000;cursor:pointer;}
+  .short .add:hover{background:rgba(0,0,0,.75);transform:scale(1.05);}  
+  
+  /* VIEW MORE CARD */
+  .view-more-card{background:linear-gradient(135deg,#1f1f1f,#2a2a2a)!important;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s ease;}
+  .view-more-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.4);}
+  .view-more-text{font-size:14px;font-weight:1000;color:#FFD200;margin-bottom:8px;text-align:center;}
+  .view-more-icon{font-size:32px;color:#FFD200;}
+  
+  /* REMINDER MODAL */
+  .reminder-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9998;display:none;opacity:0;transition:opacity .3s ease;}
+  .reminder-overlay.active{display:flex;opacity:1;align-items:center;justify-content:center;}
+  .reminder-modal{position:relative;background:#fff;border-radius:24px;padding:32px 24px;max-width:360px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.4);transform:scale(.95);transition:transform .3s ease;animation:modalSlideIn .4s cubic-bezier(0.34,1.56,0.64,1);}
+  .reminder-overlay.active .reminder-modal{transform:scale(1);}
+  @keyframes modalSlideIn{from{transform:scale(.95) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+  .reminder-text{font-size:16px;font-weight:700;color:#111;font-family:'Audiowide',Impact,sans-serif;text-align:center;margin-bottom:24px;line-height:1.4;}
+  .reminder-btn{width:100%;background:#0066ff;color:#fff;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:900;font-family:'Audiowide',Impact,sans-serif;cursor:pointer;transition:all .2s ease;text-transform:uppercase;}
+  .reminder-btn:hover{background:#0052cc;transform:scale(1.02);box-shadow:0 6px 18px rgba(0,102,255,.3);}
+  
+  .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px, calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
+  .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;}
+  .nav-item .ni{font-size:18px;}
+  .nav-item.active{background:rgba(255,196,0,.95);color:#111;opacity:1;font-weight:1000;}
+
+  /* VIDEO GALLERY */
+  .video-gallery{padding:10px 0;}
+  .video-frame{position:relative;width:100%;border-radius:12px;background:#000;overflow:hidden;}
+  .video-frame::before{content:"";display:block;width:100%;padding-top:56.25%;}
+  .video-frame .video-inner{position:absolute;inset:0;}
+  .video-frame video{width:100%;height:100%;border-radius:12px;background:#000;object-fit:contain;}
+  .video-frame video.horizontal{object-fit:cover;}
+  .video-toolbar{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;}
+  .video-controls{display:flex;gap:8px;}
+  .ctrl-btn{background:rgba(0,0,0,.55);color:#fff;border:2px solid rgba(255,255,255,.25);border-radius:12px;padding:10px 12px;font-size:12px;font-weight:900;cursor:pointer;}
+  .ctrl-btn:hover{background:rgba(0,0,0,.75);}  
+  .queue-badge{display:inline-block;background:#FFD200;color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
+
+  /* QUEUE PANEL */
+  .queue-panel{margin-top:10px;background:#f9fafb;border:2px solid #e5e7eb;border-radius:14px;padding:12px;}
+  .queue-title{font-size:13px;font-weight:900;color:#111;margin-bottom:8px;}
+  .queue-list{display:flex;flex-direction:column;gap:8px;}
+  .queue-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;background:#fff;border:2px solid #e5e7eb;border-radius:12px;transition:all .2s ease;}
+  .queue-item.playing{background:#fff3cd;border-color:#FFD200;box-shadow:0 4px 12px rgba(255,212,0,.25);}
+  .queue-item-left{display:flex;align-items:center;gap:8px;color:#111;font-size:12px;font-weight:900;flex:1;min-width:0;}
+  .queue-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#111;flex-shrink:0;}
+  .queue-item-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;}
+  .queue-index{display:inline-block;background:#111;color:#fff;border-radius:8px;padding:4px 8px;font-size:11px;flex-shrink:0;}
+  .queue-item-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .queue-item-controls{display:flex;gap:8px;flex-shrink:0;}
+  .q-btn{background:#f2f3f5;color:#111;border:2px solid rgba(0,0,0,.12);border-radius:10px;padding:8px 10px;font-size:11px;font-weight:900;cursor:pointer;}
+  .q-btn.play{background:#16a34a;color:#fff;border-color:#15803d;}
+  .q-btn.remove{background:#e20000;color:#fff;border-color:#b00000;}
+  .q-btn:hover{opacity:.9}
+
+  /* TOAST */
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#111;color:#FFD200;border:2px solid #FFD200;border-radius:12px;padding:10px 14px;font-size:12px;font-weight:900;box-shadow:0 10px 24px rgba(0,0,0,.35);display:none;z-index:10000;}
+
+  @media (min-width:768px){
+    body{padding-left:80px;transition:padding-left 0.3s ease;}
+    .app{max-width:1200px;margin:0 auto;padding:0 20px 40px;display:block;}
+    .topbar{border-radius:0 0 24px 24px;}
+    .topbar-row,.search{max-width:1100px;margin:0 auto;}
+    .search{margin-top:10px;}
+    .content{max-width:1100px;margin:20px auto 0;padding:20px 0;}
+    .shorts{gap:14px;}
+    .short{width:160px;height:260px;}
+    .video-frame{max-width:900px;margin:0 auto;}
+    .bottom-nav{position:fixed;left:0;top:0;transform:none;width:80px;height:100vh;background:linear-gradient(180deg,#1f0c0c,#2f0f0f 45%,#3b1500);border:none;border-right:2px solid rgba(255,255,255,.12);border-radius:0;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 8px;gap:4px;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(6px);}
+    .nav-item{flex:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:16px 8px;font-size:10px;background:rgba(255,255,255,.04);border-radius:12px;white-space:nowrap;}
+    .nav-item .ni{font-size:24px;}
+    .nav-item .label{display:none;}
+    .nav-item.active{background:rgba(255,196,0,.95);}
+  }
+
+  @media (min-width:1200px){
+    .app{max-width:1400px;}
+    .topbar-row,.search,.content{max-width:1300px;}
+    .shorts{gap:20px;}
+    .short{width:180px;height:280px;}
+    .video-frame{max-width:900px;margin:0 auto;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="logo">
+        <div class="logo-badge"><img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" style="width:100%;height:100%;object-fit:contain;"/></div>
+        <div class="hello">
+          <div class="hi">Hola, Daniel</div>
+          <div class="sub">Fan Mode • 1.329 puntos • Cupón retro</div>
+        </div>
+      </div>
+      <div class="icons">
+        <div class="icon-btn" title="Buscar"><span class="icon">🔎</span></div>
+        <div class="icon-btn" title="Notificaciones"><span class="icon">🔔</span></div>
+        <div class="icon-btn" title="Perfil"><span class="icon">👤</span></div>
+      </div>
+    </div>
+    <div class="search">
+      <div class="search-pill">
+        <span class="glass">🔍</span>
+        <input id="q" placeholder="¿Qué andás buscando? (ej: Digimon, Power Rangers)"/>
+      </div>
+      <div class="tag">LIVE</div>
+    </div>
+  </header>
+
+  <main class="content">
+    <!-- VIDEO PLAYER SECTION -->
+    <section class="video-gallery" style="margin-top:10px;">
+      <div class="section-title" style="margin-bottom:10px;">
+        <h2>Reproductor</h2>
+        <span class="hint" id="playerTitle">Selecciona un video</span>
+      </div>
+      <div class="video-frame">
+        <div class="video-inner">
+          <video id="mainVideo" class="horizontal" style="display:none;" controls playsinline>
+            Tu navegador no soporta videos HTML5
+          </video>
+          <div id="playerPlaceholder" style="position:absolute;inset:0;background:#111;border-radius:12px;padding:40px;text-align:center;color:#FFD200;display:flex;align-items:center;justify-content:center;">
+            👆 Selecciona un video del carrusel para reproducir
+          </div>
+        </div>
+      </div>
+      <div class="video-toolbar">
+        <div class="video-controls">
+          <button class="ctrl-btn" onclick="prevInQueue()">⟵ Anterior</button>
+          <button class="ctrl-btn" onclick="togglePlayPause()" id="playPauseBtn">▶ Reproducir</button>
+          <button class="ctrl-btn" onclick="nextInQueue()">Siguiente ⟶</button>
+        </div>
+        <div>
+          <span class="queue-badge" id="queueBadge" onclick="toggleQueuePanel()">Cola: 0</span>
+        <!-- TOAST -->
+        <div class="toast" id="toast">Añadido a la cola ✓</div>
+
+        </div>
+      </div>
+      <div class="queue-panel" id="queuePanel" style="display:none;">
+        <div class="queue-title">Cola de reproducción</div>
+        <div class="queue-list" id="queueList"></div>
+      </div>
+    </section>
+    
+    <!-- OPENINGS -->
+    <section>
+      <div class="section-title" style="margin-bottom:10px;">
+        <h2>Openings</h2>
+        <span class="hint">Swipe para navegar</span>
+      </div>
+      
+      <div class="shorts-wrapper">
+        <div class="shorts" id="openingsCarousel">
+          <div class="short" data-aspect-ratio="vertical" onclick="playShort('videos/shorts/openings/fantastic-four.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/fantastic-four.jpg');background-size:contain;background-position:center;"><div class="badge">OPENING</div><div class="add" onclick="addToQueue('videos/shorts/openings/fantastic-four.mp4','Fantastic Four • Opening','vertical',event)">＋</div><div class="play">▶</div><div class="t">Fantastic Four • Opening</div></div>
+          <div class="short" data-aspect-ratio="vertical" onclick="playShort('videos/shorts/openings/iron-man-short.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/iron-man-short.jpg');background-size:contain;background-position:center;"><div class="badge">OPENING</div><div class="add" onclick="addToQueue('videos/shorts/openings/iron-man-short.mp4','Iron Man • Opening','vertical',event)">＋</div><div class="play">▶</div><div class="t">Iron Man • Opening</div></div>
+          <div class="short" data-aspect-ratio="vertical" onclick="playShort('videos/shorts/openings/power rangers.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/power rangers.jpg');background-size:contain;background-position:center;"><div class="badge">OPENING</div><div class="add" onclick="addToQueue('videos/shorts/openings/power rangers.mp4','Power Rangers • Opening','vertical',event)">＋</div><div class="play">▶</div><div class="t">Power Rangers • Opening</div></div>
+          <div class="short" data-aspect-ratio="vertical" onclick="playShort('videos/shorts/openings/x-men-short.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/x-men-short.jpg');background-size:contain;background-position:center;"><div class="badge">OPENING</div><div class="add" onclick="addToQueue('videos/shorts/openings/x-men-short.mp4','X-Men • Opening','vertical',event)">＋</div><div class="play">▶</div><div class="t">X-Men • Opening</div></div>
+          <div class="short view-more-card" onclick="showReminderModal('Lista completa de Openings próximamente')"><div class="view-more-text">Ver Lista completa</div><div class="view-more-icon">➜</div></div>
+        </div>
+        <div class="shorts-nav left" onclick="scrollShortsLeft('openingsCarousel')" title="Anterior">‹</div>
+        <div class="shorts-nav right" onclick="scrollShortsRight('openingsCarousel')" title="Siguiente">›</div>
+      </div>
+    </section>
+
+    <!-- PROMOS FOX KIDS USA -->
+    <section style="margin-top:30px;">
+      <div class="section-title" style="margin-bottom:10px;">
+        <h2>Promos Fox Kids USA</h2>
+        <span class="hint">Swipe para navegar</span>
+      </div>
+      
+      <div class="shorts-wrapper">
+        <div class="shorts" id="promosUSACarousel">
+          <div class="short" onclick="playShort('videos/shorts/promos/US/digimon-tamers-promo-US-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/US/digimon-tamers-promo-US-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/digimon-tamers-promo-US-2002.mp4','Digimon Tamers • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Digimon Tamers • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/US/escaflowne-US-promo-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/US/escaflowne-US-promo-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/escaflowne-US-promo-2002.mp4','Escaflowne • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Escaflowne • Promo</div></div>
+          <div class="short view-more-card" onclick="showReminderModal('Lista completa de Promos USA próximamente')"><div class="view-more-text">Ver Lista completa</div><div class="view-more-icon">➜</div></div>
+        </div>
+        <div class="shorts-nav left" onclick="scrollShortsLeft('promosUSACarousel')" title="Anterior">‹</div>
+        <div class="shorts-nav right" onclick="scrollShortsRight('promosUSACarousel')" title="Siguiente">›</div>
+      </div>
+    </section>
+
+    <!-- PROMOS FOX KIDS LATINOAMÉRICA -->
+    <section style="margin-top:30px;">
+      <div class="section-title" style="margin-bottom:10px;">
+        <h2>Promos Fox Kids Latinoamérica</h2>
+        <span class="hint">Swipe para navegar</span>
+      </div>
+      
+      <div class="shorts-wrapper">
+        <div class="shorts" id="promosLatamCarousel">
+          <div class="short" onclick="playShort('videos/shorts/promos/latam/transformers-2002-latam-promo.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/latam/transformers-2002-latam-promo.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/latam/transformers-2002-latam-promo.mp4','Transformers • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Transformers • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/latam/fox-kids-com-latam-promo-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/latam/fox-kids-com-latam-promo-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/latam/fox-kids-com-latam-promo-2002.mp4','Fox Kids.com • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Fox Kids.com • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/latam/masked-rider-latam-2002-promo.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/latam/masked-rider-latam-2002-promo.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/latam/masked-rider-latam-2002-promo.mp4','Masked Rider • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Masked Rider • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/latam/shin-chan-latam-2002-promo.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/latam/shin-chan-latam-2002-promo.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/latam/shin-chan-latam-2002-promo.mp4','Shin-Chan • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Shin-Chan • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/latam/shaman-king-latam-promo-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/latam/shaman-king-latam-promo-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/latam/shaman-king-latam-promo-2002.mp4','Shaman King • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Shaman King • Promo</div></div>
+          <div class="short view-more-card" onclick="showReminderModal('Lista completa de Promos LATAM próximamente')"><div class="view-more-text">Ver Lista completa</div><div class="view-more-icon">➜</div></div>
+        </div>
+        <div class="shorts-nav left" onclick="scrollShortsLeft('promosLatamCarousel')" title="Anterior">‹</div>
+        <div class="shorts-nav right" onclick="scrollShortsRight('promosLatamCarousel')" title="Siguiente">›</div>
+      </div>
+    </section>
+
+    
+  </main>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" id="bottomNav">
+    <div class="nav-item" onclick="location.href='index.html'" title="Inicio">
+      <div class="ni">🏠</div>
+      <div class="label">Inicio</div>
+    </div>
+    <div class="nav-item" onclick="location.href='series.html'" title="Series">
+      <div class="ni">📺</div>
+      <div class="label">Series</div>
+    </div>
+    <div class="nav-item active" onclick="location.href='shorts.html'" title="Shorts">
+      <div class="ni">🎬</div>
+      <div class="label">Shorts</div>
+    </div>
+    <div class="nav-item" onclick="location.href='schedule.html'" title="Schedule">
+      <div class="ni">📅</div>
+      <div class="label">Schedule</div>
+    </div>
+    <div class="nav-item" onclick="location.href='articles.html'" title="Artículos">
+      <div class="ni">📰</div>
+      <div class="label">Artículos</div>
+    </div>
+  </nav>
+</div>
+
+<!-- REMINDER MODAL -->
+<div class="reminder-overlay" id="reminderOverlay" onclick="closeReminderModal()">
+  <div class="reminder-modal" onclick="event.stopPropagation()">
+    <div class="reminder-text" id="reminderText">Lista completa próximamente</div>
+    <button class="reminder-btn" onclick="closeReminderModal()">Aceptar</button>
+  </div>
+</div>
+
+<script>
+  let currentlyPlayingShort = null;
+  let queue = [];
+  let currentIndex = -1;
+  let dragFromIndex = null;
+
+  function playShort(videoSrc, event) {
+    event?.stopPropagation();
+    const mainVideo = document.getElementById('mainVideo');
+    const playerPlaceholder = document.getElementById('playerPlaceholder');
+    const playerTitle = document.getElementById('playerTitle');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+
+    const aspect = event?.currentTarget?.dataset?.aspectRatio || 'horizontal';
+    setVideoAspect(aspect);
+    
+    mainVideo.src = videoSrc;
+    playerPlaceholder.style.display = 'none';
+    mainVideo.style.display = 'block';
+    mainVideo.load();
+    mainVideo.play().catch(()=>{ try { showToast('Pulsa ▶ para continuar'); } catch(_){} });
+    playPauseBtn.textContent = '⏸ Pausar';
+    
+    const filename = videoSrc.split('/').pop().replace('.mp4', '').replace(/-/g, ' ').toUpperCase();
+    playerTitle.textContent = filename;
+    
+    currentlyPlayingShort = videoSrc;
+    const idx = queue.findIndex(q => q.src === videoSrc);
+    if(idx !== -1){
+      currentIndex = idx;
+      try{ localStorage.setItem('shortsCurrentIndex', String(currentIndex)); }catch(err){}
+    }
+  }
+
+  function setVideoAspect(aspect){
+    const mainVideo = document.getElementById('mainVideo');
+    mainVideo.classList.remove('vertical','horizontal');
+    if(aspect === 'vertical') mainVideo.classList.add('vertical'); else mainVideo.classList.add('horizontal');
+  }
+
+  function scrollShortsLeft(carouselId) {
+    const carousel = document.getElementById(carouselId);
+    carousel.scrollBy({ left: -160, behavior: 'smooth' });
+  }
+
+  function scrollShortsRight(carouselId) {
+    const carousel = document.getElementById(carouselId);
+    carousel.scrollBy({ left: 160, behavior: 'smooth' });
+  }
+
+  function addToQueue(src, title, aspect, e){
+    e?.stopPropagation();
+    const thumb = src.replace('.mp4', '.jpg');
+    queue.push({src, title, aspect, thumb});
+    updateQueueBadge();
+    renderQueue();
+    saveQueueToStorage();
+    showToast('Añadido a la cola ✓');
+  }
+
+  function updateQueueBadge(){
+    const badge = document.getElementById('queueBadge');
+    badge.textContent = `Cola: ${queue.length}`;
+  }
+
+  function renderQueue(){
+    const list = document.getElementById('queueList');
+    if(!list) return;
+    list.innerHTML = queue.map((item, i) => {
+      const isPlaying = (i === currentIndex && currentlyPlayingShort === item.src);
+      const playingClass = isPlaying ? ' playing' : '';
+      const thumb = item.thumb || item.src.replace('.mp4', '.jpg');
+      return `
+      <div class="queue-item${playingClass}" draggable="true" ondragstart="handleDragStart(${i})" ondragover="handleDragOver(event)" ondrop="handleDrop(${i})">
+        <div class="queue-item-left">
+          <span class="queue-index">${i+1}</span>
+          <img src="${thumb}" class="queue-thumb" alt="${item.title}" onerror="this.style.display='none'">
+          <div class="queue-item-info">
+            <div class="queue-item-title">${item.title}</div>
+            ${isPlaying ? '<div style="font-size:10px;color:#16a34a;font-weight:900;">▶ REPRODUCIENDO</div>' : ''}
+          </div>
+        </div>
+        <div class="queue-item-controls">
+          <button class="q-btn play" onclick="playFromQueue(${i})">▶ Reproducir</button>
+          <button class="q-btn remove" onclick="removeFromQueue(${i})">✖ Quitar</button>
+        </div>
+      </div>
+    `}).join('');
+  }
+
+  function toggleQueuePanel(){
+    const panel = document.getElementById('queuePanel');
+    if(!panel) return;
+    const visible = panel.style.display !== 'none';
+    panel.style.display = visible ? 'none' : 'block';
+    renderQueue();
+  }
+
+  function removeFromQueue(index){
+    if(index < 0 || index >= queue.length) return;
+    queue.splice(index,1);
+    if(currentIndex === index) currentIndex = -1;
+    else if(index < currentIndex) currentIndex -= 1;
+    updateQueueBadge();
+    renderQueue();
+    saveQueueToStorage();
+    try{ localStorage.setItem('shortsCurrentIndex', String(currentIndex)); }catch(err){}
+  }
+
+  function handleDragStart(i){
+    dragFromIndex = i;
+  }
+  function handleDragOver(e){
+    e.preventDefault();
+  }
+  function handleDrop(targetIndex){
+    if(dragFromIndex === null || targetIndex === dragFromIndex) return;
+    const [moved] = queue.splice(dragFromIndex,1);
+    queue.splice(targetIndex,0,moved);
+    dragFromIndex = null;
+    renderQueue();
+    updateQueueBadge();
+    saveQueueToStorage();
+    // sync and persist index after reorder
+    if(currentlyPlayingShort){
+      const idx = queue.findIndex(q => q.src === currentlyPlayingShort);
+      currentIndex = (idx !== -1) ? idx : -1;
+      try{ localStorage.setItem('shortsCurrentIndex', String(currentIndex)); }catch(err){}
+    }
+  }
+
+  function saveQueueToStorage(){
+    try{ localStorage.setItem('shortsQueue', JSON.stringify(queue)); }catch(err){}
+  }
+  function loadQueueFromStorage(){
+    try{
+      const raw = localStorage.getItem('shortsQueue');
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      if(Array.isArray(data)){
+        queue = data;
+        updateQueueBadge();
+        renderQueue();
+      }
+    }catch(err){}
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    // load queue
+    loadQueueFromStorage();
+    // restore index
+    try{
+      const rawIdx = localStorage.getItem('shortsCurrentIndex');
+      const idx = rawIdx === null ? -1 : parseInt(rawIdx, 10);
+      if(!Number.isNaN(idx)) currentIndex = idx;
+    }catch(err){}
+    // attach auto-advance on ended
+    const mv = document.getElementById('mainVideo');
+    if(mv){ mv.addEventListener('ended', () => { nextInQueue(); }); }
+    // restore playback state if valid
+    if(currentIndex >= 0 && currentIndex < queue.length){
+      playFromQueue(currentIndex);
+    }
+  });
+
+  function showToast(msg){
+    const toast = document.getElementById('toast');
+    if(!toast) return;
+    toast.textContent = msg;
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 1600);
+  }
+
+  function playFromQueue(index){
+    if(index < 0 || index >= queue.length) return;
+    currentIndex = index;
+    const item = queue[currentIndex];
+    
+    // Update player
+    const mainVideo = document.getElementById('mainVideo');
+    const playerPlaceholder = document.getElementById('playerPlaceholder');
+    const playerTitle = document.getElementById('playerTitle');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    
+    setVideoAspect(item.aspect);
+    mainVideo.src = item.src;
+    playerPlaceholder.style.display = 'none';
+    mainVideo.style.display = 'block';
+    mainVideo.load();
+    mainVideo.play().catch(()=>{ try { showToast('Pulsa ▶ para continuar'); } catch(_){} });
+    playPauseBtn.textContent = '⏸ Pausar';
+    playerTitle.textContent = item.title.toUpperCase();
+    
+    currentlyPlayingShort = item.src;
+    try{ localStorage.setItem('shortsCurrentIndex', String(currentIndex)); }catch(err){}
+    renderQueue();
+  }
+
+  function nextInQueue(){
+    if(queue.length === 0) return;
+    if(currentIndex < queue.length - 1){
+      playFromQueue(currentIndex + 1);
+    } else {
+      playFromQueue(0);
+    }
+  }
+
+  function prevInQueue(){
+    if(queue.length === 0) return;
+    if(currentIndex > 0){
+      playFromQueue(currentIndex - 1);
+    } else {
+      playFromQueue(queue.length - 1);
+    }
+  }
+
+  function togglePlayPause(){
+    const mainVideo = document.getElementById('mainVideo');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    if(mainVideo.paused){
+      mainVideo.play();
+      playPauseBtn.textContent = '⏸ Pausar';
+    } else {
+      mainVideo.pause();
+      playPauseBtn.textContent = '▶ Reproducir';
+    }
+  }
+
+  function showReminderModal(message) {
+    const overlay = document.getElementById('reminderOverlay');
+    const text = document.getElementById('reminderText');
+    text.textContent = message;
+    overlay.classList.add('active');
+  }
+
+  function closeReminderModal() {
+    const overlay = document.getElementById('reminderOverlay');
+    overlay.classList.remove('active');
+  }
+</script>
+
+</body>
+</html>

@@ -273,7 +273,7 @@ Optimizaciones UI/UX:
 - Cursor cambia a `grab` (reposo) y `grabbing` (arrastrando)
 - Detección de arrastre vs click:
   - Movimiento > 5px = arrastre (sin redirect)
-  - Movimiento < 5px = click (redirect a videos.html)
+  - Movimiento < 5px = click (redirect a shorts.html)
 - Variable `hasDragged` rastrea movimiento
 - Función `handleShortClick()` valida antes de redirigir
 
@@ -312,7 +312,7 @@ Carrusel Shorts:
 Drag Scroll Avanzado:
 - Detectar arrastre vs click (umbral 5px)
 - Cursor grab/grabbing para mejor UX
-- Arrastre = scroll solo, Click = redirect a videos.html
+- Arrastre = scroll solo, Click = redirect a shorts.html
 - Scroll behavior inteligente (auto durante drag, smooth al soltar)
 - Multiplicador 1.5x para mejor control de movimiento
 
@@ -512,5 +512,186 @@ Si necesitas agregar más contenido vertical:
 1. Simplemente agrega `data-aspect-ratio="vertical"` al elemento `.short`
 2. El CSS se encargará automáticamente del sizing correcto
 3. No necesitas tocar JavaScript ni hacer cambios complejos
+
+---
+
+## Reorganización de URLs: videos.html → shorts.html
+
+### Cambio Realizado
+Se renombró `videos.html` a `shorts.html` para mantener coherencia semántica con la sección de **Shorts** en la aplicación.
+
+### Archivos Actualizados (11 referencias)
+
+| Archivo | Link Original | Link Nuevo |
+|---------|---------------|-----------|
+| [index.html](index.html) | `videos.html` | `shorts.html` |
+| [articles.html](articles.html) | `videos.html` | `shorts.html` |
+| [article01.html](article01.html) | `videos.html` | `shorts.html` |
+| [article02.html](article02.html) | `videos.html` | `shorts.html` |
+| [article03.html](article03.html) | `videos.html` | `shorts.html` |
+| [article04.html](article04.html) | `videos.html` | `shorts.html` |
+| [article05.html](article05.html) | `videos.html` | `shorts.html` |
+| [article06.html](article06.html) | `videos.html` | `shorts.html` |
+| [series.html](series.html) | `videos.html` | `shorts.html` |
+| [schedule.html](schedule.html) | `videos.html` | `shorts.html` |
+| shorts.html (interno) | `videos.html` | `shorts.html` |
+
+### Cambios en DEVELOPMENT_LOG.md
+- Actualizado redirect en drag scroll: `videos.html` → `shorts.html` (2 referencias)
+
+### Estructura de Navegación Final
+```
+Todos los botones "Videos" ahora redirigen a:
+🎬 index.html → "Ver más" en Shorts → shorts.html
+🎬 articles.html → Botón navegación → shorts.html
+🎬 series.html → Menú lateral → shorts.html
+🎬 schedule.html → Menú lateral → shorts.html
+🎬 article0X.html → Menú lateral (6 archivos) → shorts.html
+```
+
+---
+
+## Unificación de UI: shorts.html
+
+### Modernización de la Página Shorts
+
+Se reescribió completamente `shorts.html` para unificar el diseño con `index.html`:
+
+#### Cambios Principales
+
+**1. Barra Superior Idéntica (Topbar)**
+- ✅ Logo badge con imagen Fox Kids
+- ✅ Saludo "Hola, Daniel" + "Fan Mode • 1.329 puntos • Cupón retro"
+- ✅ Barra de búsqueda con placeholder "¿Qué andás buscando?"
+- ✅ Iconos: 🔎 Buscar, 🔔 Notificaciones, 👤 Perfil
+- ✅ Tag LIVE en naranja/amarillo
+- ✅ Sticky position con sombra
+
+**2. Navegación Inferior Unificada (Bottom Nav)**
+- ✅ 5 botones de navegación (Inicio, Series, Shorts, Schedule, Artículos)
+- ✅ Iconos: 🏠 📺 🎬 📅 📰
+- ✅ Responsive: compacto en móvil, expandible en desktop
+- ✅ Estado active en Shorts (amarillo #FFD200)
+- ✅ Ubicación fija en bottom con blur backdrop
+
+**3. Galería de Personajes**
+- Sección amarilla con 6 personajes (Spider-Man, Power Rangers, Iron Man, X-Men, Fantastic Four, Digimon)
+- Efectos hover: escala 1.1 + brightness 1.2
+- Click directo a filtrado (placeholder para futura funcionalidad)
+
+**4. Carrusel de Shorts Mejorado**
+- Todos los 11 shorts con datos completos
+- Support para videos verticales (`data-aspect-ratio="vertical"`)
+- Support para videos horizontales (default `background-size:cover`)
+- Botones de navegación (‹ ›) con efectos hover
+- Smooth scroll con multiplicador de 160px
+
+**5. Reproductor de Video**
+- Elemento `<video>` HTML5 nativo (no iframes de YouTube)
+- Controles nativos del navegador
+- Placeholder inteligente: "👆 Selecciona un video del carrusel para reproducir"
+- Título dinámico basado en nombre del archivo
+- Display toggleado: oculto hasta seleccionar video
+
+**6. Responsividad Completa**
+- CSS variables para theme colors (--red, --yellow, --bg, etc.)
+- Media queries para desktop (768px+) y large screens (1200px+)
+- Topbar con max-width centrada en desktop
+- Bottom nav → Sidebar lateral en desktop (80px colapsado)
+- Shorts responsivo: 140px (móvil) → 160px (tablet) → 180px (desktop)
+
+#### JavaScript Funcional
+
+```javascript
+playShort(videoSrc, event)
+// - Carga el video en el reproductor
+// - Extrae y muestra el nombre del archivo como título
+// - Oculta placeholder y muestra video player
+// - Play automático
+
+scrollShortsLeft/Right(carouselId)
+// - Scroll suave de 160px en cada dirección
+// - Navegación fluida del carrusel
+
+filterByCharacter(character)
+// - Log del carácter seleccionado
+// - Scroll a carrusel shorts para visual feedback
+// - Placeholder para implementar filtrado real
+```
+
+#### Eliminación de Dependencias Viejas
+- ✅ Eliminado: Flickity carrusel de personajes (usando galería simple)
+- ✅ Eliminado: styles.css externo (CSS inlineado para performance)
+- ✅ Eliminado: Banner navegación antigua
+- ✅ Removido: Sidebar de navegación desktop antigua
+
+#### Ventajas de la Unificación
+
+✅ **Coherencia visual:** Mismo topbar y bottom nav que index.html
+✅ **Navegación consistente:** Los 5 botones en todos lados
+✅ **Performance mejorado:** CSS inlineado, menos requests HTTP
+✅ **Responsive nativo:** Adaptable a cualquier dispositivo
+✅ **Reproductor mejorado:** HTML5 video en lugar de iframes
+✅ **Escalabilidad:** Fácil agregar más shorts o personajes
+✅ **User feedback:** Estados visuales claros (active, hover)
+✅ **Accesibilidad mejorada:** Títulos descriptivos, placeholders útiles
+
+#### Estructura de Archivos
+```
+shorts.html
+├── Topbar (sticky)
+│   ├── Logo + Hello
+│   ├── Icons (search, notifications, profile)
+│   └── Search pill + LIVE tag
+├── Content Area
+│   ├── Title + Back link
+│   ├── Gallery (6 personajes)
+│   ├── Shorts Carousel (11 videos)
+│   │   ├── 4 Openings (vertical)
+│   │   └── 7 Promos (horizontal)
+│   └── Video Player (HTML5)
+└── Bottom Navigation (5 items)
+```
+
+#### Mensaje de Commit
+```
+feat: unificar interfaz shorts.html con topbar y bottom nav de index.html
+
+Interfaz Unificada:
+- Reescribir shorts.html con topbar idéntica a index.html
+- Agregar bottom navigation con 5 opciones (Inicio, Series, Shorts, Schedule, Artículos)
+- Implementar responsive design: móvil, tablet, desktop
+- Remover banner y sidebar navegación antigua
+
+Contenido Mejorado:
+- Galería de 6 personajes con efectos hover
+- Carrusel de 11 shorts con navegación mediante botones
+- Reproductor HTML5 nativo (no iframes)
+- Placeholder inteligente para mejor UX
+
+Funcionalidades:
+- playShort(): Cargar y reproducir video con título dinámico
+- scrollShortsLeft/Right(): Navegación fluida del carrusel
+- filterByCharacter(): Placeholder para filtrado futuro
+
+CSS Inlineado:
+- Variables de color para tema Fox Kids
+- Media queries para dispositivos (768px, 1200px)
+- Effectos hover/active consistentes
+
+Result:
+- Experiencia consistente en toda la app
+- Navegación unificada en todas las páginas
+- Mejor performance con CSS inlineado
+- Listo para agregar más contenido o features
+```
+
+```
+
+### Ventajas
+✅ **Semántica mejorada:** El nombre refleja el contenido (Shorts)
+✅ **Consistencia:** Alineado con nomenclatura del proyecto
+✅ **Navegación centralizada:** Todos los links apuntan a la misma página
+✅ **Referencias internas:** El archivo se autorefiere correctamente
 
 ```

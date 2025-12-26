@@ -800,4 +800,50 @@ Result:
 3. **Media queries**: El CSS base debe ser móvil-first; media queries solo deben SOBRESCRIBIR, no crear conflictos
 4. **Z-index**: En elementos fixed, mantener jerarquía clara (overlay < content < header < buttons)
 
+---
+
+## 📋 Tareas Pendientes
+
+### Próxima Sesión (27 Dic 2025)
+
+#### 1. Aplicar patrón de navegación a páginas legacy ⏳
+**Páginas afectadas**: `series.html`, `schedule.html`
+**Cambios requeridos**:
+- ✅ Unificar topbar (logo badge, greeting, search pill, LIVE tag)
+- ✅ Mover `<nav class="bottom-nav">` fuera de `.app` (como sibling)
+- ✅ Agregar sidebar colapsable estilo YouTube (toggleSidebar)
+- ✅ Verificar que `<script src="script.js"></script>` esté presente
+- ✅ Aplicar media query de desktop (768px+) con sidebar styling
+
+**Estimado**: ~30 min
+
+#### 2. Actualizar archivos de artículos individuales ⏳
+**Páginas afectadas**: `article01.html` - `article06.html` (6 archivos)
+**Cambios requeridos**:
+- ✅ Mismo patrón de navegación que articles.html
+- ✅ Asegurar topbar + bottom-nav + sidebar
+- ✅ Verificar script.js referenciado
+
+**Estimado**: ~45 min (7.5 min/archivo)
+
+#### 3. Investigar problema de videos verticales en móvil ⚠️
+**Estado**: Deprioritizado pero aún pendiente
+**Análisis previo**:
+- ✅ Codec H.264 verificado (correcto)
+- ✅ Faststart MP4 atoms verificados (correcto)
+- ❓ Problema puede ser: viewport, orientación, autoplay, o mediaquery CSS
+
+**Archivos potenciales**:
+- `videos/shorts/openings/` (fantastic-four.mp4, iron-man-short.mp4, etc.)
+- `shorts.html` (player y visualización)
+
+**Estimado**: ~20 min
+
+#### ⏱️ Tiempo total estimado: ~1.5 horas
+
+#### 🎯 Prioridad
+1. **ALTA**: series.html + schedule.html (navegación)
+2. **MEDIA**: article01-06.html (consistencia)
+3. **BAJA**: Videos verticales (original issue, deprioritizado)
+
 ```

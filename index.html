@@ -86,7 +86,11 @@
   .shorts-nav.left{left:8px;}
   .shorts-nav.right{right:8px;}
   @media (max-width:600px){.shorts-nav{width:30px;height:30px;font-size:14px;}}
-  .short{flex:0 0 auto;width:140px;height:255px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:var(--shadow);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);}
+  .short{flex:0 0 auto;width:140px;height:255px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:var(--shadow);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);background-size:cover;background-position:center;}
+  /* Contenido Vertical: Usar contain en lugar de cover para respetar aspecto */
+  .short[data-aspect-ratio="vertical"]{background-size:contain;background-repeat:no-repeat;}
+  /* Contenido Horizontal: Mantener cover por defecto */
+  .short[data-aspect-ratio="horizontal"]{background-size:cover;background-position:center;}
   @media (max-width:600px){.short{width:135px;height:225px;}}
   .short .play{left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;}
   .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
@@ -386,25 +390,25 @@
         <div class="shorts-wrapper">
           <div class="shorts" id="shortsCarousel">
             <!-- 1. Fantastic Four Opening -->
-            <div class="short" onclick="playShort('videos/shorts/openings/fantastic-four.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/fantastic-four.jpg');background-size:cover;background-position:center;"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Fantastic Four • Opening</div></div>
+            <div class="short" data-aspect-ratio="vertical" onclick="playShort('videos/shorts/openings/fantastic-four.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/fantastic-four.jpg');background-size:contain;background-position:center;"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Fantastic Four • Opening</div></div>
             
             <!-- 2. Digimon Tamers Promo -->
             <div class="short" onclick="playShort('videos/shorts/promos/US/digimon-tamers-promo-US-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/US/digimon-tamers-promo-US-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Digimon Tamers • Promo</div></div>
             
             <!-- 3. Iron Man Opening -->
-            <div class="short" onclick="playShort('videos/shorts/openings/iron-man-short.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/iron-man-short.jpg');background-size:cover;background-position:center;"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Iron Man • Opening</div></div>
+            <div class="short" data-aspect-ratio="vertical" onclick="playShort('videos/shorts/openings/iron-man-short.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/iron-man-short.jpg');background-size:contain;background-position:center;"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Iron Man • Opening</div></div>
             
             <!-- 4. Escaflowne Promo -->
             <div class="short" onclick="playShort('videos/shorts/promos/US/escaflowne-US-promo-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/US/escaflowne-US-promo-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Escaflowne • Promo</div></div>
             
             <!-- 5. Power Rangers Opening -->
-            <div class="short" onclick="playShort('videos/shorts/openings/power rangers.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/power rangers.jpg');background-size:cover;background-position:center;"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Power Rangers • Opening</div></div>
+            <div class="short" data-aspect-ratio="vertical" onclick="playShort('videos/shorts/openings/power rangers.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/power rangers.jpg');background-size:contain;background-position:center;"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">Power Rangers • Opening</div></div>
             
             <!-- 6. Transformers Promo LATAM -->
             <div class="short" onclick="playShort('videos/shorts/promos/latam/transformers-2002-latam-promo.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/latam/transformers-2002-latam-promo.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Transformers • Promo</div></div>
             
             <!-- 7. X-Men Opening -->
-            <div class="short" onclick="playShort('videos/shorts/openings/x-men-short.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/x-men-short.jpg');background-size:cover;background-position:center;"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">X-Men • Opening</div></div>
+            <div class="short" data-aspect-ratio="vertical" onclick="playShort('videos/shorts/openings/x-men-short.mp4', event)" data-type="opening" style="background-image:url('videos/shorts/openings/x-men-short.jpg');background-size:contain;background-position:center;"><div class="badge">OPENING</div><div class="play">▶</div><div class="t">X-Men • Opening</div></div>
             
             <!-- 8. Fox Kids Promo LATAM -->
             <div class="short" onclick="playShort('videos/shorts/promos/latam/fox-kids-com-latam-promo-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/latam/fox-kids-com-latam-promo-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="play">▶</div><div class="t">Fox Kids • Promo LATAM</div></div>

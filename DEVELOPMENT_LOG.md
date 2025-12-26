@@ -419,3 +419,98 @@ Resultado Visual:
 - Mejor identificación visual de cada video
 - Experiencia de usuario mejorada con información visual clara
 ```
+
+---
+
+## Sesión: 25 Diciembre 2025 (Cuarta parte)
+
+### Soporte para Videos con Diferentes Relaciones de Aspecto
+
+#### Problema Identificado
+Los 4 videos Openings (Fantastic Four, Iron Man, Power Rangers, X-Men) tienen relación de aspecto vertical (9:16) y no se visualizaban en las cards de Shorts que estaban configuradas con `background-size:cover`.
+
+**Causa técnica:**
+- Las cards `.short` tienen tamaño fijo: 140px × 255px (relación vertical 9:16)
+- Los thumbnails JPEG de videos verticales generados tienen relación de aspecto diferente
+- `background-size:cover` intenta llenar todo el espacio, recortando la imagen
+- Esto causaba que los videos verticales se recortaran incorrectamente
+
+#### Solución Implementada
+
+**1. Nueva Regla CSS con Data Attributes**
+```css
+/* Contenido Vertical: Usar contain en lugar de cover para respetar aspecto */
+.short[data-aspect-ratio="vertical"]{
+  background-size:contain;
+  background-repeat:no-repeat;
+}
+
+/* Contenido Horizontal: Mantener cover por defecto */
+.short[data-aspect-ratio="horizontal"]{
+  background-size:cover;
+  background-position:center;
+}
+```
+
+**2. Cambios en HTML**
+- Agregado atributo `data-aspect-ratio="vertical"` a las 4 cards verticales
+- Actualizado `background-size:contain` en inline styles para redundancia CSS
+- Mantener otros videos con `data-aspect-ratio="horizontal"` o sin el atributo (fallback a cover)
+
+**3. Videos Afectados**
+```
+✅ fantastic-four.mp4 → data-aspect-ratio="vertical"
+✅ iron-man-short.mp4 → data-aspect-ratio="vertical"
+✅ power rangers.mp4 → data-aspect-ratio="vertical"
+✅ x-men-short.mp4 → data-aspect-ratio="vertical"
+
+Los otros 7 videos (promos) mantienen comportamiento cover (horizontal)
+```
+
+#### Ventajas de la Solución
+
+1. **Flexible:** Sistema escalable para otros contenidos verticales futuro
+2. **No-invasivo:** No requiere cambios en JavaScript o estructura HTML existente
+3. **Responsive:** Funciona perfectamente en desktop y móvil
+4. **Selector-based:** CSS puro sin dependencies externas
+5. **Fallback seguro:** Videos sin el atributo mantienen comportamiento `cover` original
+
+#### CSS Properties Clave
+
+| Propiedad | Vertical | Horizontal |
+|-----------|----------|-----------|
+| `background-size` | `contain` | `cover` |
+| `background-repeat` | `no-repeat` | (default) |
+| `background-position` | `center` | `center` |
+
+**¿Por qué `contain` vs `cover`?**
+- `contain`: Escala la imagen para que quepa completamente dentro del área (sin recortes)
+- `cover`: Escala la imagen para cubrir todo el área (puede recortar)
+
+Para contenido vertical, `contain` + `no-repeat` garantiza que se vea el video completo sin distorsión.
+
+#### Mensaje de Commit Sugerido
+```
+fix: agregar soporte para videos verticales en carrusel Shorts
+
+- Implementar sistema de data-attribute para diferenciar aspect-ratios
+- Agregar regla CSS para contenido vertical: background-size:contain + no-repeat
+- Mantener regla para contenido horizontal: background-size:cover (default)
+- Aplicar data-aspect-ratio="vertical" a 4 Openings (F4, Iron Man, Power Rangers, X-Men)
+- Otros 7 videos (promos horizontales) mantienen cover automáticamente
+- Solución escalable para futuro contenido vertical
+
+Result:
+- Videos verticales ahora se visualizan correctamente sin recortes
+- Mantiene visual consistency con contenido horizontal
+- CSS-based: sin cambios a JavaScript o estructura
+- Responsive en desktop y móvil
+```
+
+#### Para Próximas Sesiones
+Si necesitas agregar más contenido vertical:
+1. Simplemente agrega `data-aspect-ratio="vertical"` al elemento `.short`
+2. El CSS se encargará automáticamente del sizing correcto
+3. No necesitas tocar JavaScript ni hacer cambios complejos
+
+```

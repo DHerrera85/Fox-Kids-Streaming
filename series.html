@@ -35,7 +35,7 @@
   .round-gallery-section{display:none;}
   
   /* FILTROS DINÁMICOS - Mismo formato que index.html */
-  .filters-row{display:flex;gap:10px;overflow:auto;padding:12px 2px 6px;scroll-snap-type:x mandatory;position:sticky;top:64px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.95));z-index:9;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+  .filters-row{display:flex;gap:10px;overflow:auto;padding:12px 2px 6px;scroll-snap-type:x mandatory;position:sticky;top:64px;z-index:9;}
   .filters-row::-webkit-scrollbar{display:none;}
   .filters-row{-ms-overflow-style:none;scrollbar-width:none;}
   .filter-btn{flex:0 0 auto;background:#f2f3f5;color:#111;padding:9px 14px;border-radius:14px;font-weight:900;font-size:12px;border:1px solid rgba(0,0,0,.08);cursor:pointer;white-space:nowrap;scroll-snap-align:start;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;transition:all 0.2s ease;}
@@ -111,13 +111,13 @@
 
       <!-- FILTROS DINÁMICOS -->
       <div class="filters-row" role="tablist" aria-label="Filtros de series">
-        <button class="filter-btn active" data-filter-type="all" onclick="filterSeriesByAll()">Todas las series</button>
-        <button class="filter-btn" data-filter-type="genre-action" onclick="filterSeriesByGenre('action')">⚔️ Action</button>
-        <button class="filter-btn" data-filter-type="genre-anime" onclick="filterSeriesByGenre('anime')">🎌 Anime</button>
-        <button class="filter-btn" data-filter-type="genre-comedy" onclick="filterSeriesByGenre('comedy')">😂 Comedy</button>
-        <button class="filter-btn" data-filter-type="genre-drama" onclick="filterSeriesByGenre('drama')">🎭 Drama</button>
-        <button class="filter-btn" data-filter-type="era-90s" onclick="filterSeriesByEra('90s')">📺 90s</button>
-        <button class="filter-btn" data-filter-type="era-00s" onclick="filterSeriesByEra('00s')">📺 00s</button>
+        <button class="filter-btn active" data-filter-type="todas" onclick="filterSeriesByCategory('todas')">Todas</button>
+        <button class="filter-btn" data-filter-type="supersentai" onclick="filterSeriesByCategory('supersentai')">Super Sentai</button>
+        <button class="filter-btn" data-filter-type="anime" onclick="filterSeriesByCategory('anime')">Anime</button>
+        <button class="filter-btn" data-filter-type="comics" onclick="filterSeriesByCategory('comics')">Comics</button>
+        <button class="filter-btn" data-filter-type="liveaction" onclick="filterSeriesByCategory('liveaction')">Live Action</button>
+        <button class="filter-btn" data-filter-type="comedia" onclick="filterSeriesByCategory('comedia')">Comedia</button>
+        <button class="filter-btn" data-filter-type="movies" onclick="filterSeriesByCategory('movies')">Movies</button>
       </div>
 
       <!-- SUPER SENTAI -->
@@ -275,61 +275,51 @@
     }
     
     // FILTROS DINÁMICOS
-    let currentGenreFilter = '';
-    let currentEraFilter = '';
+    let currentCategoryFilter = '';
     const filterButtons = document.querySelectorAll('.filter-btn');
     const gallerySections = document.querySelectorAll('.gallery-section');
+    const categoryMap = {
+      'supersentai': ['superSentai'],
+      'anime': ['invasionAnime'],
+      'comics': ['comicAnimated'],
+      'liveaction': ['liveAction'],
+      'comedia': ['comedy'],
+      'movies': ['movies']
+    };
     
     function updateActiveFilters() {
       filterButtons.forEach(btn => {
         btn.classList.remove('active');
       });
       
-      // Marcar "Todas las series" como activo si no hay filtros
-      if (!currentGenreFilter && !currentEraFilter) {
-        document.querySelector('[data-filter-type="all"]').classList.add('active');
+      if (!currentCategoryFilter) {
+        document.querySelector('[data-filter-type="todas"]').classList.add('active');
       } else {
-        // Marcar botones de filtro activos
-        if (currentGenreFilter) {
-          document.querySelector(`[data-filter-type="genre-${currentGenreFilter}"]`).classList.add('active');
-        }
-        if (currentEraFilter) {
-          document.querySelector(`[data-filter-type="era-${currentEraFilter}"]`).classList.add('active');
-        }
+        document.querySelector(`[data-filter-type="${currentCategoryFilter}"]`).classList.add('active');
       }
     }
     
     function applyFilters() {
       gallerySections.forEach(section => {
-        const sectionGenre = section.getAttribute('data-genre');
-        const sectionEra = section.getAttribute('data-era');
+        const sectionId = section.id;
         
-        let matchesGenre = !currentGenreFilter || sectionGenre === currentGenreFilter;
-        let matchesEra = !currentEraFilter || sectionEra.includes(currentEraFilter);
-        
-        if (matchesGenre && matchesEra) {
+        if (!currentCategoryFilter) {
           section.classList.remove('hidden');
         } else {
-          section.classList.add('hidden');
+          const categoryIds = categoryMap[currentCategoryFilter] || [];
+          if (categoryIds.includes(sectionId)) {
+            section.classList.remove('hidden');
+          } else {
+            section.classList.add('hidden');
+          }
         }
       });
       
       updateActiveFilters();
     }
     
-    function filterSeriesByAll() {
-      currentGenreFilter = '';
-      currentEraFilter = '';
-      applyFilters();
-    }
-    
-    function filterSeriesByGenre(genre) {
-      currentGenreFilter = currentGenreFilter === genre ? '' : genre;
-      applyFilters();
-    }
-    
-    function filterSeriesByEra(era) {
-      currentEraFilter = currentEraFilter === era ? '' : era;
+    function filterSeriesByCategory(category) {
+      currentCategoryFilter = currentCategoryFilter === category ? '' : category;
       applyFilters();
     }
   </script>

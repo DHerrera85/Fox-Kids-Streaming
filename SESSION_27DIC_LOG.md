@@ -198,8 +198,7 @@ Usuario solicita agregar interactividad a **schedule.html** con botones de acci�
 
 ### Commits
 ```
-<pendiente de confirmar hash>
-WIP: Programación historia con datos completos; scroll wheel desktop aún pendiente
+2050517 Update programación historia mockup data; wheel scroll still pending
 ```
 
 ### Notas rápidas

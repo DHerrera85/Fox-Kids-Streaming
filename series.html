@@ -33,6 +33,18 @@
   .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);white-space:nowrap;}
   .content{padding:14px;}
   .round-gallery-section{display:none;}
+  
+  /* FILTROS DINÁMICOS - Mismo formato que index.html */
+  .filters-row{display:flex;gap:10px;overflow:auto;padding:12px 2px 6px;scroll-snap-type:x mandatory;position:sticky;top:64px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.95));z-index:9;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+  .filters-row::-webkit-scrollbar{display:none;}
+  .filters-row{-ms-overflow-style:none;scrollbar-width:none;}
+  .filter-btn{flex:0 0 auto;background:#f2f3f5;color:#111;padding:9px 14px;border-radius:14px;font-weight:900;font-size:12px;border:1px solid rgba(0,0,0,.08);cursor:pointer;white-space:nowrap;scroll-snap-align:start;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;transition:all 0.2s ease;}
+  .filter-btn:hover{background:#e0e1e5;transform:translateY(-2px);}
+  .filter-btn.active{background:#111;color:#fff;border-color:#111;box-shadow:0 4px 12px rgba(0,0,0,.2);}
+  
+  .gallery-section{transition:opacity 0.3s ease;}
+  .gallery-section.hidden{display:none;}
+  
   .gallery-section h3{color:#fff;font-size:18px;font-weight:900;margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.05em;}
   .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px, calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
   .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;}
@@ -97,8 +109,19 @@
 
   <div class="content">
 
+      <!-- FILTROS DINÁMICOS -->
+      <div class="filters-row" role="tablist" aria-label="Filtros de series">
+        <button class="filter-btn active" data-filter-type="all" onclick="filterSeriesByAll()">Todas las series</button>
+        <button class="filter-btn" data-filter-type="genre-action" onclick="filterSeriesByGenre('action')">⚔️ Action</button>
+        <button class="filter-btn" data-filter-type="genre-anime" onclick="filterSeriesByGenre('anime')">🎌 Anime</button>
+        <button class="filter-btn" data-filter-type="genre-comedy" onclick="filterSeriesByGenre('comedy')">😂 Comedy</button>
+        <button class="filter-btn" data-filter-type="genre-drama" onclick="filterSeriesByGenre('drama')">🎭 Drama</button>
+        <button class="filter-btn" data-filter-type="era-90s" onclick="filterSeriesByEra('90s')">📺 90s</button>
+        <button class="filter-btn" data-filter-type="era-00s" onclick="filterSeriesByEra('00s')">📺 00s</button>
+      </div>
+
       <!-- SUPER SENTAI -->
-      <section class="gallery-section" id="superSentai">
+      <section class="gallery-section" id="superSentai" data-genre="action" data-era="90s">
         <h3>SUPER SENTAI</h3>
         <div
           class="scroll-gallery flickity"
@@ -119,7 +142,7 @@
       </section>
 
       <!-- INVASIÓN ANIME -->
-      <section class="gallery-section" id="invasionAnime">
+      <section class="gallery-section" id="invasionAnime" data-genre="anime" data-era="90s-00s">
         <h3>INVASIÓN ANIME</h3>
         <div
           class="scroll-gallery flickity"
@@ -141,7 +164,7 @@
       </section>
 
       <!-- COMIC-BASED SERIES -->
-      <section class="gallery-section" id="comicAnimated">
+      <section class="gallery-section" id="comicAnimated" data-genre="action" data-era="90s-00s">
         <h3>COMIC-BASED ANIMATED SERIES</h3>
         <div
           class="scroll-gallery flickity"
@@ -166,7 +189,7 @@
       </section>
 
       <!-- LIVE ACTION -->
-      <section class="gallery-section" id="liveAction">
+      <section class="gallery-section" id="liveAction" data-genre="drama" data-era="90s-00s">
         <h3>LIVE ACTION</h3>
         <div
           class="scroll-gallery flickity"
@@ -188,7 +211,7 @@
       </section>
 
       <!-- COMEDY -->
-      <section class="gallery-section" id="comedy">
+      <section class="gallery-section" id="comedy" data-genre="comedy" data-era="90s-00s">
         <h3>COMEDY</h3>
         <div
           class="scroll-gallery flickity"
@@ -249,6 +272,65 @@
       const body = document.body;
       sidebar.classList.toggle('expanded');
       body.classList.toggle('sidebar-expanded');
+    }
+    
+    // FILTROS DINÁMICOS
+    let currentGenreFilter = '';
+    let currentEraFilter = '';
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const gallerySections = document.querySelectorAll('.gallery-section');
+    
+    function updateActiveFilters() {
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Marcar "Todas las series" como activo si no hay filtros
+      if (!currentGenreFilter && !currentEraFilter) {
+        document.querySelector('[data-filter-type="all"]').classList.add('active');
+      } else {
+        // Marcar botones de filtro activos
+        if (currentGenreFilter) {
+          document.querySelector(`[data-filter-type="genre-${currentGenreFilter}"]`).classList.add('active');
+        }
+        if (currentEraFilter) {
+          document.querySelector(`[data-filter-type="era-${currentEraFilter}"]`).classList.add('active');
+        }
+      }
+    }
+    
+    function applyFilters() {
+      gallerySections.forEach(section => {
+        const sectionGenre = section.getAttribute('data-genre');
+        const sectionEra = section.getAttribute('data-era');
+        
+        let matchesGenre = !currentGenreFilter || sectionGenre === currentGenreFilter;
+        let matchesEra = !currentEraFilter || sectionEra.includes(currentEraFilter);
+        
+        if (matchesGenre && matchesEra) {
+          section.classList.remove('hidden');
+        } else {
+          section.classList.add('hidden');
+        }
+      });
+      
+      updateActiveFilters();
+    }
+    
+    function filterSeriesByAll() {
+      currentGenreFilter = '';
+      currentEraFilter = '';
+      applyFilters();
+    }
+    
+    function filterSeriesByGenre(genre) {
+      currentGenreFilter = currentGenreFilter === genre ? '' : genre;
+      applyFilters();
+    }
+    
+    function filterSeriesByEra(era) {
+      currentEraFilter = currentEraFilter === era ? '' : era;
+      applyFilters();
     }
   </script>
 </body>

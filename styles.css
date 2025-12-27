@@ -149,7 +149,12 @@ body {
 
 .gallery-section h3 {
   color: white;
-  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 20px 0 12px 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,.4);
 }
 
 .scroll-gallery .scroll-item {
@@ -179,7 +184,13 @@ body {
 }
 
 .schedule-slider h3 {
-  margin-bottom: 1rem;
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 20px 0 12px 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,.4);
 }
 
 .schedule-item {

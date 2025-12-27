@@ -1,44 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Schedule - Fox Kids</title>
-  <link rel="icon" type="image/png" href="img/FOX_Kids_logo-_200___176-transparent.png">
-  
-  <!-- Flickity CSS (CDN) -->
-  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-  
-  <!-- Your Custom Styles -->
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Schedule - Fox Kids</title>
+<link rel="icon" type="image/png" href="img/FOX_Kids_logo-_200___176-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+<link rel="stylesheet" href="styles.css">
+<style>
+  :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);}
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0.03em;background:var(--bg);color:#fff;}
+  .app{max-width:430px;margin:0 auto;min-height:100%;position:relative;padding-bottom:100px;}
+  .topbar{position:sticky;top:0;z-index:10;background:var(--red);padding:12px 14px;box-shadow:0 10px 18px rgba(0,0,0,.25);}
+  .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .logo{display:flex;align-items:center;gap:10px;min-width:0;}
+  .logo-badge{width:60px;height:60px;display:grid;place-items:center;flex-shrink:0;}
+  .logo-badge img{width:100%;height:100%;object-fit:contain;}
+  .hello{min-width:0}
+  .hello .hi{font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .hello .sub{font-size:10px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .icons{display:flex;gap:10px;}
+  .icon-btn{width:40px;height:40px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none;position:relative;}
+  .icon{font-size:18px;transform:translateY(-.5px);}
+  .search{margin-top:10px;display:flex;gap:10px;align-items:center;}
+  .search-pill{flex:1;background:#fff;color:#111;border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 20px rgba(0,0,0,.18);}
+  .search-pill .glass{opacity:.7}
+  .search-pill input{border:0;outline:0;width:100%;font-size:14px;background:transparent;}
+  .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);white-space:nowrap;}
+  .content{padding:14px;}
+  .gallery-section h3{color:#fff;font-size:18px;font-weight:900;margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.05em;}
+  .schedule-slider h3{color:#fff;font-size:18px;font-weight:900;margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.05em;}
+  .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px, calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
+  .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;}
+  .nav-item .ni{font-size:18px;} 
+  .nav-item.active{background:rgba(255,196,0,.95);color:#111;opacity:1;font-weight:1000;}
+
+  /* 🖥️ DESKTOP LAYOUT (768px+) */
+  @media (min-width: 768px) {
+    .app{max-width:100%;padding-bottom:0;margin-left:80px;transition:margin-left 0.3s ease;}
+    .sidebar-expanded .app{margin-left:280px;}
+    .topbar{position:fixed;top:0;left:80px;right:0;width:calc(100% - 80px);z-index:10;transition:left 0.3s ease;}
+    .sidebar-expanded .topbar{left:280px;width:calc(100% - 280px);}
+    
+    /* Bottom nav → Sidebar lateral colapsable estilo YouTube */
+    .bottom-nav{position:fixed;left:0;top:0;transform:none;width:80px;height:100vh;background:linear-gradient(180deg,#1f0c0c,#2f0f0f 45%,#3b1500);border:none;border-right:2px solid rgba(255,255,255,.12);border-radius:0;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 8px;gap:4px;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(6px);transition:width 0.3s ease;overflow-x:hidden;z-index:100;}
+    .bottom-nav.expanded{width:280px;align-items:stretch;padding:24px 12px;}
+    
+    /* Botón hamburguesa para toggle */
+    .sidebar-toggle{display:flex;align-items:center;justify-content:center;padding:12px;margin-bottom:20px;cursor:pointer;background:rgba(255,255,255,.04);border-radius:12px;}
+    .sidebar-toggle .ni{font-size:24px;}
+    
+    /* Nav items colapsados (solo íconos) */
+    .nav-item{flex:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:16px 8px;font-size:10px;background:rgba(255,255,255,.04);border-radius:12px;white-space:nowrap;}    
+    .nav-item .ni{font-size:24px;}
+    .nav-item .label{display:none;}
+    .nav-item.active{background:rgba(255,196,0,.95);box-shadow:0 10px 20px rgba(0,0,0,.2);}
+    
+    /* Nav items expandidos */
+    .bottom-nav.expanded .nav-item{flex-direction:row;justify-content:flex-start;gap:14px;padding:14px 16px;font-size:14px;}
+    .bottom-nav.expanded .nav-item .ni{font-size:22px;}
+    .bottom-nav.expanded .nav-item .label{display:block;}
+    
+    .content{padding:20px;margin-top:60px;max-width:100%;margin-left:0;margin-right:0;}
+    .gallery-section h3{margin-top:30px;margin-left:20px;margin-right:20px;margin-bottom:16px;}
+    .schedule-slider h3{margin-top:30px;margin-left:20px;margin-right:20px;margin-bottom:16px;}
+  }
+</style>
 </head>
 <body>
-
-  <!-- HEADER BANNER -->
-  <header class="banner">
-    <div class="banner-content">
-      <a href="index.html">
-        <img class="foxkids-logo" src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids Logo" />
-      </a>
-      <p>FOX KIDS TO THE RESCUE!</p>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="logo">
+        <div class="logo-badge"><img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" /></div>
+        <div class="hello">
+          <div class="hi">Hola, Daniel</div>
+          <div class="sub">Programación</div>
+        </div>
+      </div>
+      <div class="icons">
+        <div class="icon-btn" title="Buscar"><span class="icon">🔎</span></div>
+        <div class="icon-btn" title="Perfil"><span class="icon">👤</span></div>
+      </div>
     </div>
-  </header>  
+    <div class="search">
+      <div class="search-pill">
+        <span class="glass">🔍</span>
+        <input placeholder="¿Qué horario buscas?"/>
+      </div>
+      <div class="tag">LIVE</div>
+    </div>
+  </header>
 
-  <!-- MAIN LAYOUT -->
-  <div class="container">
-
-    <!-- SIDEBAR -->
-    <aside class="left-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="series.html">Shows</a></li>
-          <li><a href="articles.html">Articles</a></li>
-          <li><a href="shorts.html">Videos</a></li>
-          <li><a href="schedule.html">Schedule</a></li>
-        </ul>
-    </aside>
-
-    <main class="main-content">
+  <div class="content">
 
       <!-- ROUND SCHEDULE GALLERY (Flickity) -->
       <section class="round-gallery-section">
@@ -1126,10 +1184,19 @@
 
         </div>
       </section>
-      
-
     </main>
   </div>
+
+<nav class="bottom-nav" id="sidebar" aria-label="Navegación inferior">
+  <div class="sidebar-toggle" onclick="toggleSidebar()">
+    <div class="ni">☰</div>
+  </div>
+  <div class="nav-item" onclick="location.href='index.html'"><div class="ni">🏠</div><div class="label">Inicio</div></div>
+  <div class="nav-item active" data-tab="schedule" onclick="location.href='schedule.html'"><div class="ni">🗓️</div><div class="label">Schedule</div></div>
+  <div class="nav-item" data-tab="series" onclick="location.href='series.html'"><div class="ni">📺</div><div class="label">Series</div></div>
+  <div class="nav-item" onclick="location.href='articles.html'"><div class="ni">📚</div><div class="label">Artículos</div></div>
+  <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni">🎬</div><div class="label">Videos</div></div>
+</nav>
 
   <!-- Scripts: jQuery first, then Flickity, then FitText, then inline script -->
   <!-- jQuery -->
@@ -1140,14 +1207,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.min.js"></script>
   <script>
     $(document).ready(function(){
-      // Lower compression factor => bigger text for shorter titles
-      // Increase minFontSize => short titles won't go below 14px
       $(".schedule-title").fitText(1.0, { minFontSize: '15px', maxFontSize: '16px' });
     });
-  </script>  
-</body>
-</html>
-
-
+    
+    function toggleSidebar(){
+      const sidebar = document.getElementById('sidebar');
+      const body = document.body;
+      sidebar.classList.toggle('expanded');
+      body.classList.toggle('sidebar-expanded');
+    }
+  </script>
 </body>
 </html>

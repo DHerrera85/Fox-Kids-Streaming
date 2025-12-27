@@ -3,167 +3,516 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Mockup Programacion Historia</title>
+<title>Mockup - Programación Historia - Fox Kids</title>
+<link rel="icon" type="image/png" href="img/FOX_Kids_logo-_200___176-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
-  :root{
-    --bg:#ff4a00;
-    --red:#b00000;
-    --yellow:#ffc400;
-    --ink:#0e0f14;
-    --muted:#6b7280;
-    --card:#ffffff;
-    --radius:12px;
-    --shadow:0 10px 24px rgba(0,0,0,0.18);
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;
-    background:var(--bg);
-    color:#fff;
-    padding:16px;
-  }
-  .wrap{max-width:1200px;margin:0 auto;}
-  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-  header h1{margin:0;font-size:20px;letter-spacing:0.05em;text-transform:uppercase;}
-  .hint{font-size:12px;opacity:0.8;text-transform:none;}
+  :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);}
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0.03em;background:var(--bg);color:#fff;}
+  .app{max-width:430px;margin:0 auto;min-height:100%;position:relative;padding-bottom:100px;}
+  .topbar{position:sticky;top:0;z-index:10;background:var(--red);padding:12px 14px;box-shadow:0 10px 18px rgba(0,0,0,.25);}
+  .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .logo{display:flex;align-items:center;gap:10px;min-width:0;}
+  .logo-badge{width:60px;height:60px;display:grid;place-items:center;flex-shrink:0;}
+  .logo-badge img{width:100%;height:100%;object-fit:contain;}
+  .hello{min-width:0}
+  .hello .hi{font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .hello .sub{font-size:10px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .icons{display:flex;gap:10px;}
+  .icon-btn{width:40px;height:40px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none;position:relative;}
+  .icon{font-size:18px;transform:translateY(-.5px);}
+  .search{margin-top:10px;display:flex;gap:10px;align-items:center;}
+  .search-pill{flex:1;background:#fff;color:#111;border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 20px rgba(0,0,0,.18);}
+  .search-pill .glass{opacity:.7}
+  .search-pill input{border:0;outline:0;width:100%;font-size:14px;background:transparent;}
+  .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);white-space:nowrap;}
+  .content{padding:14px;}
+  
+  /* NUEVO DISEÑO: Bloques destacados horizontal scroll */
+  .schedule-section{margin-bottom:40px;}
+  .schedule-section h2{color:#fff;font-size:22px;font-weight:900;margin:0 0 16px 14px;text-transform:uppercase;letter-spacing:0.05em;}
+  .schedule-scroll{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;padding:0 14px 14px;scrollbar-width:none;-ms-overflow-style:none;}
+  .schedule-scroll::-webkit-scrollbar{display:none;}
+  .schedule-card{flex:0 0 220px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.22);scroll-snap-align:start;transition:transform .2s ease, box-shadow .2s ease;cursor:pointer;}
+  .schedule-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(0,0,0,.3);}
+  .schedule-card-image{width:100%;height:140px;position:relative;overflow:hidden;background:#000;}
+  .schedule-card-image img{width:100%;height:100%;object-fit:cover;display:block;}
+  .schedule-card-content{padding:14px 16px 18px;}
+  .schedule-card-time{font-size:13px;color:var(--muted);margin:0 0 6px;letter-spacing:0.05em;}
+  .schedule-card-title{font-size:18px;color:var(--ink);font-weight:900;margin:0 0 8px;line-height:1.2;text-transform:uppercase;}
+  .schedule-card-genre{font-size:12px;color:var(--muted);font-weight:600;margin:0;text-transform:capitalize;}
 
-  /* Grid estilo Pluto */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
-  .slot{
-    background:var(--card);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    overflow:hidden;
-    position:relative;
-    transition:transform .18s ease, box-shadow .18s ease;
-    cursor:pointer;
-    min-height:220px;
-  }
-  .slot:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(0,0,0,0.25);}
-  .slot:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}
-  .thumb{height:140px;background:#111;overflow:hidden;}
-  .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-  .slot-body{padding:12px;display:flex;flex-direction:column;gap:6px;}
-  .time{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;}
-  .title{font-size:15px;color:var(--ink);margin:0;font-weight:900;text-transform:uppercase;line-height:1.3;}
-  .meta{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);}
-  .badge{position:absolute;top:10px;left:10px;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.05em;backdrop-filter:blur(6px);}
-  .badge.live{background:rgba(176,0,0,0.9);color:#fff;}
-  .badge.special{background:rgba(255,196,0,0.95);color:#000;}
-  .duration{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.82);color:#fff;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700;}
+  .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px, calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
+  .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;}
+  .nav-item .ni{font-size:18px;} 
+  .nav-item.active{background:rgba(255,196,0,.95);color:#111;opacity:1;font-weight:1000;}
 
-  /* Slider histórico pequeño */
-  .slider-head{display:flex;align-items:center;justify-content:space-between;margin:24px 0 10px;}
-  .slider{display:flex;gap:12px;overflow:auto;padding-bottom:8px;scroll-snap-type:x mandatory;}
-  .slider::-webkit-scrollbar{display:none;}
-  .tile{flex:0 0 160px;background:var(--card);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;scroll-snap-align:start;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease;}
-  .tile:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,0,0,0.22);}
-  .tile .thumb{height:110px;}
-  .tile .slot-body{padding:10px;}
-  .tile .time{font-size:11px;}
-  .tile .title{font-size:13px;}
-
-  /* Preferencia de movimiento reducido */
-  @media (prefers-reduced-motion: reduce){
-    .slot,.tile{transition:none;}
+  /* 🖥️ DESKTOP LAYOUT (768px+) */
+  @media (min-width: 768px) {
+    .app{max-width:100%;padding-bottom:0;margin-left:80px;transition:margin-left 0.3s ease;}
+    .sidebar-expanded .app{margin-left:280px;}
+    .topbar{position:fixed;top:0;left:80px;right:0;width:calc(100% - 80px);z-index:10;transition:left 0.3s ease, width 0.3s ease;}
+    .sidebar-expanded .topbar{left:280px;width:calc(100% - 280px);}
+    
+    .bottom-nav{position:fixed;left:0;top:0;transform:none;width:80px;height:100vh;background:linear-gradient(180deg,#1f0c0c,#2f0f0f 45%,#3b1500);border:none;border-right:2px solid rgba(255,255,255,.12);border-radius:0;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 8px;gap:4px;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(6px);transition:width 0.3s ease;overflow-x:hidden;z-index:100;}
+    .bottom-nav.expanded{width:280px;align-items:stretch;padding:24px 12px;}
+    
+    .sidebar-toggle{display:flex;align-items:center;justify-content:center;padding:12px;margin-bottom:20px;cursor:pointer;background:rgba(255,255,255,.04);border-radius:12px;}
+    .sidebar-toggle .ni{font-size:24px;}
+    
+    .nav-item{flex:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:16px 8px;font-size:10px;background:rgba(255,255,255,.04);border-radius:12px;white-space:nowrap;}    
+    .nav-item .ni{font-size:24px;}
+    .nav-item .label{display:none;}
+    .nav-item.active{background:rgba(255,196,0,.95);box-shadow:0 10px 20px rgba(0,0,0,.2);}
+    
+    .bottom-nav.expanded .nav-item{flex-direction:row;justify-content:flex-start;gap:14px;padding:14px 16px;font-size:14px;}
+    .bottom-nav.expanded .nav-item .ni{font-size:22px;}
+    .bottom-nav.expanded .nav-item .label{display:block;}
+    
+    .content{padding:20px;margin-top:100px;max-width:100%;margin-left:0;margin-right:0;}
+    .schedule-section h2{margin-left:20px;margin-right:20px;}
+    .schedule-scroll{padding:0 20px 14px;}
+    .schedule-card{flex:0 0 240px;}
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <h1>Programaciones Pasadas</h1>
-      <div class="hint">Inspirado en grillas tipo Pluto TV</div>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="logo">
+        <div class="logo-badge"><img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" /></div>
+        <div class="hello">
+          <div class="hi">Hola, Daniel</div>
+          <div class="sub">Programación Historia</div>
+        </div>
+      </div>
+      <div class="icons">
+        <div class="icon-btn" title="Buscar"><span class="icon">🔎</span></div>
+        <div class="icon-btn" title="Perfil"><span class="icon">👤</span></div>
+      </div>
     </div>
-    <div class="hint">Mockup / Vista previa</div>
+    <div class="search">
+      <div class="search-pill">
+        <span class="glass">🔍</span>
+        <input placeholder="¿Qué horario buscas?"/>
+      </div>
+      <div class="tag">LIVE</div>
+    </div>
   </header>
 
-  <!-- Grilla principal -->
-  <div class="grid">
-    <div class="slot" tabindex="0">
-      <div class="thumb"><img src="img/schedule-slider/power-rangers-in-space-200x200px.png" alt="Power Rangers" loading="lazy"></div>
-      <span class="badge live">1999</span>
-      <span class="duration">24 min</span>
-      <div class="slot-body">
-        <div class="time">Sábado • 10:00</div>
-        <p class="title">Power Rangers in Space</p>
-        <div class="meta"><span>Acción</span><span>Bloque mañana</span></div>
-      </div>
-    </div>
-    <div class="slot" tabindex="0">
-      <div class="thumb"><img src="img/schedule-slider/digimon-02-200x200px.png" alt="Digimon 02" loading="lazy"></div>
-      <span class="badge special">Especial</span>
-      <span class="duration">22 min</span>
-      <div class="slot-body">
-        <div class="time">Sábado • 10:30</div>
-        <p class="title">Digimon Adventure 02</p>
-        <div class="meta"><span>Anime</span><span>Bloque Kids</span></div>
-      </div>
-    </div>
-    <div class="slot" tabindex="0">
-      <div class="thumb"><img src="img/schedule-slider/x-men-200x200px.png" alt="X-Men" loading="lazy"></div>
-      <span class="duration">22 min</span>
-      <div class="slot-body">
-        <div class="time">Sábado • 11:00</div>
-        <p class="title">X-Men Animated</p>
-        <div class="meta"><span>Marvel</span><span>Acción</span></div>
-      </div>
-    </div>
-    <div class="slot" tabindex="0">
-      <div class="thumb"><img src="img/schedule-slider/oggy-cockroaches-200x200px.png" alt="Oggy" loading="lazy"></div>
-      <span class="duration">11 min</span>
-      <div class="slot-body">
-        <div class="time">Sábado • 11:30</div>
-        <p class="title">Oggy & the Cockroaches</p>
-        <div class="meta"><span>Comedia</span><span>Cartoon</span></div>
-      </div>
-    </div>
-  </div>
+  <div class="content">
+    <!-- PROGRAMACIÓN NOVIEMBRE 1996 -->
+    <section class="schedule-section">
+      <h2>Programación Noviembre 1996</h2>
+      <div class="schedule-scroll">
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/samurai-pizza-cats-200-200px.png" alt="Samurai Pizza Cats">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 10:00</div>
+            <div class="schedule-card-title">Samurai Pizza Cats</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
 
-  <!-- Slider histórico -->
-  <div class="slider-head">
-    <h2 style="margin:0;font-size:16px;letter-spacing:0.05em;text-transform:uppercase;">Bloques destacados</h2>
-    <div class="hint">Scroll horizontal</div>
-  </div>
-  <div class="slider">
-    <div class="tile">
-      <div class="thumb"><img src="img/schedule-slider/beyblade-200-200px.png" alt="Beyblade" loading="lazy"></div>
-      <div class="slot-body">
-        <div class="time">2002 • 17:00</div>
-        <p class="title">Beyblade</p>
-        <div class="meta"><span>Anime</span></div>
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/underdog-200-200px.png" alt="Underdog">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 10:30</div>
+            <div class="schedule-card-title">Underdog</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/ocean-girl-200-200px.png" alt="Ocean Girl">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 11:00</div>
+            <div class="schedule-card-title">Ocean Girl</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/wishbone-200-200px.png" alt="Wishbone">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 11:30</div>
+            <div class="schedule-card-title">Wishbone</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/bobbys-world-200x200px.png" alt="Bobby's World">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 12:00</div>
+            <div class="schedule-card-title">Bobby's World</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/kimba-200-200px.png" alt="Kimba">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 12:30</div>
+            <div class="schedule-card-title">Kimba</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/biker-mice-from-mars-200-200px.png" alt="Biker Mice from Mars">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 15:30</div>
+            <div class="schedule-card-title">Biker Mice from Mars</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/x-men-200x200px.png" alt="X-Men">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 16:00</div>
+            <div class="schedule-card-title">X-Men</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/vr-troopers-200-200px.png" alt="VR Troopers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 16:30</div>
+            <div class="schedule-card-title">VR Troopers</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/mighty-morphin-power-rangers-200x200px.png" alt="Mighty Morphin Power Rangers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1996 · 17:00</div>
+            <div class="schedule-card-title">Power Rangers</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="tile">
-      <div class="thumb"><img src="img/schedule-slider/vr-troopers-200-200px.png" alt="VR Troopers" loading="lazy"></div>
-      <div class="slot-body">
-        <div class="time">1995 • 18:30</div>
-        <p class="title">VR Troopers</p>
-        <div class="meta"><span>Acción</span></div>
+    </section>
+
+    <!-- PROGRAMACIÓN JULIO 1999 -->
+    <section class="schedule-section">
+      <h2>Programación Julio 1999</h2>
+      <div class="schedule-scroll">
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/bobbys-world-200x200px.png" alt="Bobby's World">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1999 · 10:00</div>
+            <div class="schedule-card-title">Bobby's World</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/bobbys-world-200x200px.png" alt="Bobby's World">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1999 · 10:30</div>
+            <div class="schedule-card-title">Bobby's World</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-in-space-200x200px.png" alt="Power Rangers in Space">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1999 · 11:00</div>
+            <div class="schedule-card-title">Power Rangers in Space</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/teenage-mutant-ninja-turtles-200-200px.png" alt="Ninja Turtles">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1999 · 11:30</div>
+            <div class="schedule-card-title">Ninja Turtles: The Next Mutation</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/spider-man-200x200px.png" alt="The Mask">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1999 · 12:00</div>
+            <div class="schedule-card-title">The Mask</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/spider-man-200x200px.png" alt="Spider-Man Unlimited">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1999 · 12:30</div>
+            <div class="schedule-card-title">Spider-Man Unlimited</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/digimon-02-200x200px.png" alt="Digimon">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1999 · 13:00</div>
+            <div class="schedule-card-title">Digimon Adventure</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/medabots-200x200px.png" alt="Monster Rancher">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">1999 · 13:30</div>
+            <div class="schedule-card-title">Monster Rancher</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="tile">
-      <div class="thumb"><img src="img/schedule-slider/eerie-indiana-200-200px.png" alt="Eerie Indiana" loading="lazy"></div>
-      <div class="slot-body">
-        <div class="time">1998 • 20:00</div>
-        <p class="title">Eerie Indiana</p>
-        <div class="meta"><span>Live Action</span></div>
+    </section>
+
+    <!-- PROGRAMACIÓN NOVIEMBRE 2002 -->
+    <section class="schedule-section">
+      <h2>Programación Noviembre 2002</h2>
+      <div class="schedule-scroll">
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/medabots-200x200px.png" alt="Medabots">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2002 · 10:00</div>
+            <div class="schedule-card-title">Medabots</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/shaman-king-200x200px.png" alt="Shaman King">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2002 · 10:30</div>
+            <div class="schedule-card-title">Shaman King</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/digimon-tamers-200x200px.png" alt="Digimon Tamers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2002 · 11:00</div>
+            <div class="schedule-card-title">Digimon Tamers</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/gargoyles-200-200px.png" alt="Galidor">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2002 · 11:30</div>
+            <div class="schedule-card-title">Galidor</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/beyblade-200-200px.png" alt="Beyblade">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2002 · 17:00</div>
+            <div class="schedule-card-title">Beyblade</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-wild-force-200x200px.png" alt="Power Rangers Wild Force">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2002 · 17:30</div>
+            <div class="schedule-card-title">Power Rangers Wild Force</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/fillmore-200-200px.png" alt="Fighting Foodons">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2002 · 18:00</div>
+            <div class="schedule-card-title">Fighting Foodons</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="tile">
-      <div class="thumb"><img src="img/schedule-slider/totally-spies-200-200px.png" alt="Totally Spies" loading="lazy"></div>
-      <div class="slot-body">
-        <div class="time">2003 • 15:00</div>
-        <p class="title">Totally Spies</p>
-        <div class="meta"><span>Animación</span></div>
+    </section>
+
+    <!-- PROGRAMACIÓN NOVIEMBRE 2004 -->
+    <section class="schedule-section">
+      <h2>Programación Noviembre 2004</h2>
+      <div class="schedule-scroll">
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/sonicx-200-200px.png" alt="Sonic X">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2004 · 10:00</div>
+            <div class="schedule-card-title">Sonic X</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/shaman-king-200x200px.png" alt="Shaman King">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2004 · 10:30</div>
+            <div class="schedule-card-title">Shaman King</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/kamen-rider-200x200px.png" alt="Kirby">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2004 · 11:00</div>
+            <div class="schedule-card-title">Kirby: Right Back at Ya!</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/kinnikuman-200-200px.png" alt="Ultimate Muscle">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2004 · 11:30</div>
+            <div class="schedule-card-title">Ultimate Muscle</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/teenage-mutant-ninja-turtles-200-200px.png" alt="TMNT">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2004 · 18:00</div>
+            <div class="schedule-card-title">TMNT</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-ninja-storm-200-200px.png" alt="Power Rangers Dino Thunder">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2004 · 18:30</div>
+            <div class="schedule-card-title">Power Rangers Dino Thunder</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/whats-with-andy-200-200px.png" alt="Winx Club">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2004 · 19:00</div>
+            <div class="schedule-card-title">Winx Club</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/braceface-200-200px.png" alt="Braceface">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">2004 · 19:30</div>
+            <div class="schedule-card-title">Braceface</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 </div>
+
+<nav class="bottom-nav" id="sidebar" aria-label="Navegación inferior">
+  <div class="sidebar-toggle" onclick="toggleSidebar()">
+    <div class="ni">☰</div>
+  </div>
+  <div class="nav-item" onclick="location.href='index.html'"><div class="ni">🏠</div><div class="label">Inicio</div></div>
+  <div class="nav-item active" data-tab="schedule" onclick="location.href='programacion-historia.html'"><div class="ni">🗓️</div><div class="label">Schedule</div></div>
+  <div class="nav-item" data-tab="series" onclick="location.href='series.html'"><div class="ni">📺</div><div class="label">Series</div></div>
+  <div class="nav-item" onclick="location.href='articles.html'"><div class="ni">📚</div><div class="label">Artículos</div></div>
+  <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni">🎬</div><div class="label">Videos</div></div>
+</nav>
+
+<script>
+  function toggleSidebar(){
+    const sidebar = document.getElementById('sidebar');
+    const body = document.body;
+    sidebar.classList.toggle('expanded');
+    body.classList.toggle('sidebar-expanded');
+  }
+</script>
 </body>
 </html>

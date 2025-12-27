@@ -33,13 +33,18 @@
   .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);white-space:nowrap;}
   .content{padding:14px;}
   .gallery-section h3{color:#fff;font-size:18px;font-weight:900;margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.05em;}
-  .schedule-slider h3{color:#fff;font-size:18px;font-weight:900;margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.05em;}
-  /* Scroll horizontal estilo tarjetas (sin cambiar estructura Flickity) */
-  .schedule-slider{margin-bottom:10px;}
-  .schedule-slider .flickity{display:flex;gap:14px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:8px;}
-  .schedule-slider .flickity::-webkit-scrollbar{display:none;}
-  .schedule-slider .flickity-button,.schedule-slider .flickity-page-dots{display:none!important;}
-  .schedule-item{flex:0 0 240px;background:var(--card);border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,.18);padding:10px;display:flex;flex-direction:column;gap:10px;scroll-snap-align:start;transition:transform .18s ease, box-shadow .18s ease;}
+  .schedule-slider h3{color:#fff;font-size:18px;font-weight:900;margin:20px 14px 12px 14px;text-transform:uppercase;letter-spacing:0.05em;}
+  /* Scroll horizontal estilo tarjetas compatible con Flickity */
+  .schedule-slider{margin-bottom:30px;}
+  .schedule-slider .flickity-viewport{overflow:hidden;}
+  .schedule-slider .flickity-slider{display:flex;gap:14px;}
+  .schedule-slider .flickity-button{top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.7);border:2px solid rgba(255,255,255,.2);}
+  .schedule-slider .flickity-button:hover{background:rgba(0,0,0,.85);}
+  .schedule-slider .flickity-button.previous{left:-22px;}
+  .schedule-slider .flickity-button.next{right:-22px;}
+  .schedule-slider .flickity-button svg{fill:#fff;}
+  .schedule-slider .flickity-page-dots{display:none;}
+  .schedule-item{width:240px;background:var(--card);border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,.18);padding:10px;display:flex;flex-direction:column;gap:10px;transition:transform .18s ease, box-shadow .18s ease;}
   .schedule-item:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(0,0,0,.24);}  
   .schedule-item:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}
   .schedule-time{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin:0;}
@@ -47,7 +52,7 @@
   .schedule-image img{width:100%;height:100%;object-fit:cover;display:block;}
   .schedule-title{font-size:15px;color:var(--ink);font-weight:900;text-transform:uppercase;margin:0;line-height:1.3;}
   @media (max-width: 480px){
-    .schedule-item{flex-basis:210px;}
+    .schedule-item{width:210px;}
     .schedule-image{height:150px;}
   }
   @media (prefers-reduced-motion: reduce){

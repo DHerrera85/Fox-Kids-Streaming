@@ -46,6 +46,18 @@
   .gallery-section.hidden{display:none;}
   
   .gallery-section h3{color:#fff;font-size:18px;font-weight:900;margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.05em;}
+  
+  /* SERIE CARD CON OVERLAY */
+  .serie-card{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;}
+  .serie-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease;display:block;}
+  .serie-card h4{padding:10px;background:rgba(0,0,0,.85);color:#fff;margin:0;font-size:13px;font-weight:900;position:absolute;bottom:0;left:0;right:0;}
+  .serie-info-overlay{position:absolute;top:0;left:0;right:0;bottom:40px;background:rgba(255,74,0,.92);padding:20px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;z-index:5;}
+  .info-content{color:#fff;font-size:13px;line-height:1.8;text-align:center;}
+  .info-content p{margin:6px 0;}
+  .info-content strong{font-size:15px;font-weight:900;display:block;margin-bottom:4px;}
+  .serie-card:hover .serie-info-overlay{opacity:1;}
+  .serie-card:hover img{transform:scale(1.05);}
+  
   .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px, calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
   .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;}
   .nav-item .ni{font-size:18px;} 
@@ -132,7 +144,19 @@
             "pageDots": false
           }'
         >
-          <div class="scroll-item"><img src="img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg" alt=""></div>
+          <div class="scroll-item">
+            <div class="serie-card">
+              <img src="img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg" alt="Mighty Morphin Power Rangers">
+              <h4>Mighty Morphin Power Rangers</h4>
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>3 temporadas</strong>
+                  <p>145 episodios</p>
+                  <p>1993 – 1995</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="scroll-item"><img src="img/sentai/beetleborgs-02-280x420.png" alt=""></div>
           <div class="scroll-item"><img src="img/sentai/masked-rider-02-280x420.png" alt=""></div>
           <div class="scroll-item"><img src="img/sentai/vr-troopers-vertical-280x420.jpg" alt=""></div>

@@ -23,7 +23,8 @@
   .hello .sub{font-size:10px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .icons{display:flex;gap:10px;}
   .icon-btn{width:40px;height:40px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none;position:relative;}
-  .notification-badge{position:absolute;top:-4px;right:-4px;background:#ff0033;color:#fff;border-radius:999px;min-width:18px;height:18px;display:none;align-items:center;justify-content:center;font-size:10px;font-weight:900;padding:2px 4px;border:2px solid var(--red);box-shadow:0 4px 12px rgba(255,0,51,.6);}
+  .notification-badge{position:absolute;top:-4px;right:-4px;background:#ff0033;color:#fff;border-radius:999px;min-width:18px;height:18px;display:none;align-items:center;justify-content:center;font-size:10px;font-weight:900;padding:2px 4px;border:2px solid var(--red);box-shadow:0 4px 12px rgba(255,0,51,.6);animation:badgePulse 2s ease-in-out infinite;}
+  @keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
   .icon{font-size:18px;transform:translateY(-.5px);}
   .search{margin-top:10px;display:flex;gap:10px;align-items:center;}
   .search-pill{flex:1;background:#fff;color:#111;border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 20px rgba(0,0,0,.18);}
@@ -466,6 +467,353 @@
       animation: slideDown 0.3s ease;
     }
   }
+
+  /* YouTube-style Schedule Cards */
+  .schedule-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .schedule-card-yt {
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .schedule-card-yt:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+  }
+
+  .card-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.92;
+  }
+
+  .status-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  .status-badge.live {
+    background: rgba(176,0,0,0.95);
+    color: #fff;
+    animation: livePulse 1.5s ease-in-out infinite;
+  }
+
+  .status-badge.upcoming {
+    background: rgba(255,196,0,0.95);
+    color: #000;
+  }
+
+  .status-badge.later {
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+
+  .duration-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .action-dot-yt {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background: var(--red);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 900;
+    box-shadow: 0 4px 12px rgba(176,0,0,0.4);
+    border: 2px solid #fff;
+    transition: all 0.2s ease;
+    z-index: 5;
+  }
+
+  .action-dot-yt:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(176,0,0,0.5);
+  }
+
+  .card-content-yt {
+    padding: 14px;
+  }
+
+  .card-time {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .card-title-yt {
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+
+  .card-meta-yt {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .card-meta-yt span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Notifications Modal */
+  .notifications-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1100;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .notifications-modal.active {
+    display: flex !important;
+  }
+
+  .modal-content {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: slideDown 0.3s ease;
+    margin-top: 60px;
+  }
+
+  .modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+
+  .close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    border: none;
+    color: var(--ink);
+    font-size: 20px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s;
+  }
+
+  .close-btn:hover {
+    background: #e5e5e5;
+    transform: rotate(90deg);
+  }
+
+  .modal-body {
+    padding: 16px;
+  }
+
+  .reminder-item {
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .reminder-thumb {
+    width: 60px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .reminder-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .reminder-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .reminder-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--ink);
+    margin: 0 0 6px 0;
+    text-transform: uppercase;
+  }
+
+  .reminder-meta {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+    text-transform: none;
+    line-height: 1.4;
+  }
+
+  .reminder-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .reminder-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+
+  .reminder-btn.watch {
+    background: var(--red);
+    color: #fff;
+  }
+
+  .reminder-btn.watch:hover {
+    background: #c00000;
+    transform: scale(1.05);
+  }
+
+  .reminder-btn.delete {
+    background: #f5f5f5;
+    color: var(--muted);
+  }
+
+  .reminder-btn.delete:hover {
+    background: #ff3333;
+    color: #fff;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+  }
+
+  .empty-state .icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.3;
+  }
+
+  .empty-state p {
+    margin: 0;
+    font-size: 13px;
+    text-transform: none;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 767px) {
+    .schedule-grid {
+      gap: 12px;
+    }
+    .card-thumbnail {
+      height: 160px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .schedule-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -671,10 +1019,58 @@
     </section>
 
     <section class="view" id="view-schedule">
-      <div class="section-title"><h2>Schedule</h2><div class="hint">cards • no tabla</div></div>
-      <div class="grid">
-        <article class="card schedule-card" onclick="openScheduleSheet(this)" data-title="Digimon" data-time="13:30" data-duration="24 min" data-status="En vivo"><div class="body"><p class="title">Ahora • 13:30 — Digimon</p><div class="meta"><span>En vivo</span><span>⏱️ 24 min</span></div><div class="action-dot">+</div></div></article>
-        <article class="card schedule-card" onclick="openScheduleSheet(this)" data-title="Power Rangers" data-time="14:00" data-duration="30 min" data-status="Acción"><div class="body"><p class="title">Siguiente • 14:00 — Power Rangers</p><div class="meta"><span>Acción</span><span>📌 30 min</span></div><div class="action-dot">+</div></div></article>
+      <div class="section-title"><h2>Schedule</h2><div class="hint">Próximos programas</div></div>
+      <div class="schedule-grid">
+        <article class="schedule-card-yt" onclick="openScheduleSheet(this)" data-title="Digimon Adventure" data-time="13:30" data-duration="24 min" data-status="En vivo" data-thumbnail="img/invasion-anime/digimon-280x420.jpg" data-genre="Anime" data-season="Temporada 1">
+          <div class="card-thumbnail">
+            <img src="img/invasion-anime/digimon-280x420.jpg" alt="Digimon" loading="lazy">
+            <div class="status-badge live">🔴 EN VIVO</div>
+            <div class="duration-badge">24 min</div>
+            <div class="action-dot-yt">+</div>
+          </div>
+          <div class="card-content-yt">
+            <div class="card-time">Ahora • 13:30</div>
+            <h3 class="card-title-yt">Digimon Adventure</h3>
+            <div class="card-meta-yt">
+              <span>🎬 Anime</span>
+              <span>📺 Temporada 1</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="schedule-card-yt" onclick="openScheduleSheet(this)" data-title="Power Rangers" data-time="14:00" data-duration="30 min" data-status="Próximo" data-thumbnail="img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg" data-genre="Acción" data-season="Super Sentai">
+          <div class="card-thumbnail">
+            <img src="img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg" alt="Power Rangers" loading="lazy">
+            <div class="status-badge upcoming">⏰ PRÓXIMO</div>
+            <div class="duration-badge">30 min</div>
+            <div class="action-dot-yt">+</div>
+          </div>
+          <div class="card-content-yt">
+            <div class="card-time">Siguiente • 14:00</div>
+            <h3 class="card-title-yt">Power Rangers</h3>
+            <div class="card-meta-yt">
+              <span>⚡ Acción</span>
+              <span>🦸 Sentai</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="schedule-card-yt" onclick="openScheduleSheet(this)" data-title="X-Men: The Animated Series" data-time="16:00" data-duration="22 min" data-status="En 2h 30m" data-thumbnail="img/marvel/x-men-animated-280 X 420.jpg" data-genre="Marvel" data-season="Temporada 3">
+          <div class="card-thumbnail">
+            <img src="img/marvel/x-men-animated-280 X 420.jpg" alt="X-Men" loading="lazy">
+            <div class="status-badge later">En 2h 30m</div>
+            <div class="duration-badge">22 min</div>
+            <div class="action-dot-yt">+</div>
+          </div>
+          <div class="card-content-yt">
+            <div class="card-time">Hoy • 16:00</div>
+            <h3 class="card-title-yt">X-Men: The Animated Series</h3>
+            <div class="card-meta-yt">
+              <span>🦸 Marvel</span>
+              <span>📺 Temporada 3</span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   </main>
@@ -698,6 +1094,22 @@
     <div class="action-item" onclick="handleSheetAction('remember')">
       <span class="icon">🔔</span>
       <span class="label">Recordar</span>
+    </div>
+  </div>
+</div>
+
+<!-- Notifications Modal -->
+<div class="notifications-modal" id="notificationsModal" style="display:none;" onclick="closeIfBackdrop(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>🔔 Mis Recordatorios</h2>
+      <button class="close-btn" onclick="closeReminders()">×</button>
+    </div>
+    <div class="modal-body" id="remindersList">
+      <div class="empty-state" id="emptyState">
+        <div class="icon">🔔</div>
+        <p>No tienes recordatorios activos.<br>Agrega shows para recibir notificaciones.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -1433,7 +1845,136 @@
       if (sheet.style.display !== 'none') {
         closeScheduleSheet();
       }
+      const modal = document.getElementById('notificationsModal');
+      if (modal.style.display !== 'none') {
+        closeReminders();
+      }
     }
+  });
+
+  /* Reminders System */
+  function showReminders() {
+    const modal = document.getElementById('notificationsModal');
+    modal.classList.add('active');
+    modal.style.display = 'flex';
+    loadReminders();
+  }
+
+  function closeReminders() {
+    const modal = document.getElementById('notificationsModal');
+    modal.classList.remove('active');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+  }
+
+  function closeIfBackdrop(event) {
+    if (event.target === event.currentTarget) {
+      closeReminders();
+    }
+  }
+
+  function loadReminders() {
+    const reminders = JSON.parse(localStorage.getItem('foxkids-reminders') || '[]');
+    const container = document.getElementById('remindersList');
+    const emptyState = document.getElementById('emptyState');
+    
+    if (reminders.length === 0) {
+      emptyState.style.display = 'block';
+      container.querySelectorAll('.reminder-item').forEach(item => item.remove());
+    } else {
+      emptyState.style.display = 'none';
+      container.innerHTML = '';
+      
+      reminders.forEach((reminder, index) => {
+        const item = document.createElement('div');
+        item.className = 'reminder-item';
+        item.innerHTML = `
+          <div class="reminder-thumb">
+            <img src="${reminder.thumbnail}" alt="${reminder.title}" loading="lazy">
+          </div>
+          <div class="reminder-info">
+            <h4 class="reminder-title">${reminder.title}</h4>
+            <div class="reminder-meta">
+              ${reminder.time} • ${reminder.duration}<br>
+              ${reminder.genre} • ${reminder.season}
+            </div>
+          </div>
+          <div class="reminder-actions">
+            <button class="reminder-btn watch" onclick="watchFromReminder(${index})" title="Ver ahora">▶️</button>
+            <button class="reminder-btn delete" onclick="deleteReminder(${index})" title="Eliminar">🗑️</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+    
+    updateReminderBadge();
+  }
+
+  function deleteReminder(index) {
+    const reminders = JSON.parse(localStorage.getItem('foxkids-reminders') || '[]');
+    reminders.splice(index, 1);
+    localStorage.setItem('foxkids-reminders', JSON.stringify(reminders));
+    loadReminders();
+    showToast('🗑️ Recordatorio eliminado');
+  }
+
+  function watchFromReminder(index) {
+    const reminders = JSON.parse(localStorage.getItem('foxkids-reminders') || '[]');
+    const reminder = reminders[index];
+    showToast(`▶️ Iniciando ${reminder.title}...`);
+    closeReminders();
+  }
+
+  function updateReminderBadge() {
+    const reminders = JSON.parse(localStorage.getItem('foxkids-reminders') || '[]');
+    const badge = document.getElementById('reminder-badge');
+    badge.textContent = reminders.length;
+    badge.style.display = reminders.length > 0 ? 'flex' : 'none';
+  }
+
+  // Update handleSheetAction to save reminders
+  const originalHandleSheetAction = handleSheetAction;
+  handleSheetAction = function(action) {
+    if (action === 'remember') {
+      const title = document.getElementById('sheetTitle').textContent;
+      const element = document.querySelector('.schedule-card-yt[data-title*="' + title.split(' • ')[0] + '"]');
+      
+      if (element) {
+        const reminder = {
+          title: element.getAttribute('data-title'),
+          time: element.getAttribute('data-time'),
+          duration: element.getAttribute('data-duration'),
+          status: element.getAttribute('data-status'),
+          thumbnail: element.getAttribute('data-thumbnail'),
+          genre: element.getAttribute('data-genre'),
+          season: element.getAttribute('data-season'),
+          timestamp: Date.now()
+        };
+        
+        const reminders = JSON.parse(localStorage.getItem('foxkids-reminders') || '[]');
+        
+        // Check if already exists
+        const exists = reminders.some(r => r.title === reminder.title && r.time === reminder.time);
+        if (!exists) {
+          reminders.push(reminder);
+          localStorage.setItem('foxkids-reminders', JSON.stringify(reminders));
+          showToast('🔔 Recordatorio guardado');
+          updateReminderBadge();
+        } else {
+          showToast('ℹ️ Ya tienes este recordatorio');
+        }
+      }
+      closeScheduleSheet();
+    } else {
+      originalHandleSheetAction(action);
+    }
+  };
+
+  // Initialize badge on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    updateReminderBadge();
   });
 </script>
 </body>

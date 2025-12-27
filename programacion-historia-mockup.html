@@ -33,10 +33,13 @@
   .content{padding:14px;}
   
   /* NUEVO DISEÑO: Bloques destacados horizontal scroll */
-  .schedule-section{margin-bottom:40px;}
-  .schedule-section h2{color:#fff;font-size:22px;font-weight:900;margin:0 0 16px 14px;text-transform:uppercase;letter-spacing:0.05em;}
-  .schedule-scroll{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;padding:0 14px 14px;scrollbar-width:none;-ms-overflow-style:none;}
-  .schedule-scroll::-webkit-scrollbar{display:none;}
+  .schedule-section{margin-bottom:40px;overflow:visible;}
+  .schedule-section h2{color:#fff;font-size:22px;font-weight:900;margin:0 0 16px 14px;text-transform:uppercase;letter-spacing:0.05em;white-space:normal;overflow:visible;text-overflow:clip;}
+  .schedule-scroll{display:flex;gap:16px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;padding:0 14px 14px;scrollbar-width:thin;-ms-overflow-style:auto;}
+  .schedule-scroll::-webkit-scrollbar{height:8px;}
+  .schedule-scroll::-webkit-scrollbar-track{background:rgba(255,255,255,.1);border-radius:4px;}
+  .schedule-scroll::-webkit-scrollbar-thumb{background:rgba(255,196,0,.7);border-radius:4px;}
+  .schedule-scroll::-webkit-scrollbar-thumb:hover{background:rgba(255,196,0,.9);}
   .schedule-card{flex:0 0 220px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.22);scroll-snap-align:start;transition:transform .2s ease, box-shadow .2s ease;cursor:pointer;}
   .schedule-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(0,0,0,.3);}
   .schedule-card-image{width:100%;height:140px;position:relative;overflow:hidden;background:#000;}
@@ -73,9 +76,11 @@
     .bottom-nav.expanded .nav-item .ni{font-size:22px;}
     .bottom-nav.expanded .nav-item .label{display:block;}
     
-    .content{padding:20px;margin-top:100px;max-width:100%;margin-left:0;margin-right:0;}
-    .schedule-section h2{margin-left:20px;margin-right:20px;}
-    .schedule-scroll{padding:0 20px 14px;}
+    .content{padding:20px;margin-top:140px;max-width:100%;margin-left:0;margin-right:0;}
+    .schedule-section{overflow:visible;}
+    .schedule-section h2{margin-left:20px;margin-right:20px;white-space:normal;overflow:visible;}
+    .schedule-scroll{padding:0 20px 14px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+    .schedule-scroll::-webkit-scrollbar{display:none;}
     .schedule-card{flex:0 0 240px;}
   }
 </style>
@@ -115,7 +120,7 @@
             <img src="img/schedule-slider/samurai-pizza-cats-200-200px.png" alt="Samurai Pizza Cats">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 10:00</div>
+            <div class="schedule-card-time">10:00</div>
             <div class="schedule-card-title">Samurai Pizza Cats</div>
             <div class="schedule-card-genre">Anime</div>
           </div>
@@ -126,7 +131,7 @@
             <img src="img/schedule-slider/underdog-200-200px.png" alt="Underdog">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 10:30</div>
+            <div class="schedule-card-time">10:30</div>
             <div class="schedule-card-title">Underdog</div>
             <div class="schedule-card-genre">Animación</div>
           </div>
@@ -137,7 +142,7 @@
             <img src="img/schedule-slider/ocean-girl-200-200px.png" alt="Ocean Girl">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 11:00</div>
+            <div class="schedule-card-time">11:00</div>
             <div class="schedule-card-title">Ocean Girl</div>
             <div class="schedule-card-genre">Live Action</div>
           </div>
@@ -148,7 +153,7 @@
             <img src="img/schedule-slider/wishbone-200-200px.png" alt="Wishbone">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 11:30</div>
+            <div class="schedule-card-time">11:30</div>
             <div class="schedule-card-title">Wishbone</div>
             <div class="schedule-card-genre">Live Action</div>
           </div>
@@ -159,7 +164,7 @@
             <img src="img/schedule-slider/bobbys-world-200x200px.png" alt="Bobby's World">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 12:00</div>
+            <div class="schedule-card-time">12:00</div>
             <div class="schedule-card-title">Bobby's World</div>
             <div class="schedule-card-genre">Animación</div>
           </div>
@@ -170,9 +175,64 @@
             <img src="img/schedule-slider/kimba-200-200px.png" alt="Kimba">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 12:30</div>
+            <div class="schedule-card-time">12:30</div>
             <div class="schedule-card-title">Kimba</div>
             <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/pinocchio-200-200px.png" alt="Pinocchio">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">13:00</div>
+            <div class="schedule-card-title">Pinocchio</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/hallo-spencer-200-200px.png" alt="Hallo Spencer">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">13:30</div>
+            <div class="schedule-card-title">Hallo Spencer</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/eek-the-cat-200-200px.png" alt="Eek! The Cat">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">14:00</div>
+            <div class="schedule-card-title">Eek! The Cat</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/samurai-pizza-cats-200-200px.png" alt="Samurai Pizza Cats">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">14:30</div>
+            <div class="schedule-card-title">Samurai Pizza Cats</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/wishbone-200-200px.png" alt="Wishbone">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">15:00</div>
+            <div class="schedule-card-title">Wishbone</div>
+            <div class="schedule-card-genre">Live Action</div>
           </div>
         </div>
 
@@ -181,7 +241,7 @@
             <img src="img/schedule-slider/biker-mice-from-mars-200-200px.png" alt="Biker Mice from Mars">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 15:30</div>
+            <div class="schedule-card-time">15:30</div>
             <div class="schedule-card-title">Biker Mice from Mars</div>
             <div class="schedule-card-genre">Animación</div>
           </div>
@@ -192,7 +252,7 @@
             <img src="img/schedule-slider/x-men-200x200px.png" alt="X-Men">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 16:00</div>
+            <div class="schedule-card-time">16:00</div>
             <div class="schedule-card-title">X-Men</div>
             <div class="schedule-card-genre">Animación</div>
           </div>
@@ -203,7 +263,7 @@
             <img src="img/schedule-slider/vr-troopers-200-200px.png" alt="VR Troopers">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 16:30</div>
+            <div class="schedule-card-time">16:30</div>
             <div class="schedule-card-title">VR Troopers</div>
             <div class="schedule-card-genre">Acción</div>
           </div>
@@ -214,9 +274,152 @@
             <img src="img/schedule-slider/mighty-morphin-power-rangers-200x200px.png" alt="Mighty Morphin Power Rangers">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1996 · 17:00</div>
+            <div class="schedule-card-time">17:00</div>
+            <div class="schedule-card-title">Mighty Morphin Power Rangers</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/ocean-girl-200-200px.png" alt="Ocean Girl">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">17:30</div>
+            <div class="schedule-card-title">Ocean Girl</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/sweet-valley-high-200x200px.png" alt="Sweet Valley High">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">18:00</div>
+            <div class="schedule-card-title">Sweet Valley High</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/riding-high-200-200px.png" alt="Riding High">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">18:30</div>
+            <div class="schedule-card-title">Riding High</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/studio-sud-200-200px.png" alt="Studio Sud">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">19:00</div>
+            <div class="schedule-card-title">Studio Sud</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/madison-200-200px.png" alt="Madison">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">19:30</div>
+            <div class="schedule-card-title">Madison</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/underdog-200-200px.png" alt="Underdog">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">20:00</div>
+            <div class="schedule-card-title">Underdog</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/eek-the-cat-200-200px.png" alt="Eek! The Cat">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">20:30</div>
+            <div class="schedule-card-title">Eek! The Cat</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/x-men-200x200px.png" alt="X-Men">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">21:00</div>
+            <div class="schedule-card-title">X-Men</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/vr-troopers-200-200px.png" alt="VR Troopers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">21:30</div>
+            <div class="schedule-card-title">VR Troopers</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/mighty-morphin-power-rangers-200x200px.png" alt="Mighty Morphin Power Rangers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">22:00</div>
             <div class="schedule-card-title">Power Rangers</div>
             <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/biker-mice-from-mars-200-200px.png" alt="Biker Mice from Mars">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">22:30</div>
+            <div class="schedule-card-title">Biker Mice from Mars</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/sweet-valley-high-200x200px.png" alt="Sweet Valley High">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">23:00</div>
+            <div class="schedule-card-title">Sweet Valley High</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/riding-high-200-200px.png" alt="Riding High">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">23:30</div>
+            <div class="schedule-card-title">Riding High</div>
+            <div class="schedule-card-genre">Live Action</div>
           </div>
         </div>
       </div>
@@ -228,11 +431,11 @@
       <div class="schedule-scroll">
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/bobbys-world-200x200px.png" alt="Bobby's World">
+            <img src="img/schedule-slider/jim-button-200x200px.png" alt="Jim Button">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1999 · 10:00</div>
-            <div class="schedule-card-title">Bobby's World</div>
+            <div class="schedule-card-time">10:00</div>
+            <div class="schedule-card-title">Jim Button</div>
             <div class="schedule-card-genre">Animación</div>
           </div>
         </div>
@@ -242,9 +445,42 @@
             <img src="img/schedule-slider/bobbys-world-200x200px.png" alt="Bobby's World">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1999 · 10:30</div>
+            <div class="schedule-card-time">10:30</div>
             <div class="schedule-card-title">Bobby's World</div>
             <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/kamen-rider-200x200px.png" alt="Masked Rider">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">11:00</div>
+            <div class="schedule-card-title">Masked Rider</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/oggy-cockroaches-200x200px.png" alt="Oggy and The Coackroaches">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">11:30</div>
+            <div class="schedule-card-title">Oggy and The Coackroaches</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/mighty-morphin-power-rangers-200x200px.png" alt="Mighty Morphin Power Rangers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">12:00</div>
+            <div class="schedule-card-title">Power Rangers</div>
+            <div class="schedule-card-genre">Acción</div>
           </div>
         </div>
 
@@ -253,7 +489,7 @@
             <img src="img/schedule-slider/power-rangers-in-space-200x200px.png" alt="Power Rangers in Space">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1999 · 11:00</div>
+            <div class="schedule-card-time">12:30</div>
             <div class="schedule-card-title">Power Rangers in Space</div>
             <div class="schedule-card-genre">Acción</div>
           </div>
@@ -261,56 +497,243 @@
 
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/teenage-mutant-ninja-turtles-200-200px.png" alt="Ninja Turtles">
+            <img src="img/schedule-slider/goosebumps-200x200px.png" alt="Goosebumps">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1999 · 11:30</div>
-            <div class="schedule-card-title">Ninja Turtles: The Next Mutation</div>
+            <div class="schedule-card-time">13:00</div>
+            <div class="schedule-card-title">Goosebumps</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/beetleborgs-200x200px.png" alt="Big Bad Beetleborgs">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">13:30</div>
+            <div class="schedule-card-title">Beetleborgs</div>
             <div class="schedule-card-genre">Acción</div>
           </div>
         </div>
 
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/spider-man-200x200px.png" alt="The Mask">
+            <img src="img/schedule-slider/alex-mack-200x200px.png" alt="Alex Mack">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1999 · 12:00</div>
-            <div class="schedule-card-title">The Mask</div>
+            <div class="schedule-card-time">14:00</div>
+            <div class="schedule-card-title">Alex Mack</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/shirley-holmes-200x200px.png" alt="Shirley Holmes">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">14:30</div>
+            <div class="schedule-card-title">Shirley Holmes</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/woody-woodpecker-200x200px.png" alt="Woody Woodpecker">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">15:00</div>
+            <div class="schedule-card-title">Woody Woodpecker</div>
             <div class="schedule-card-genre">Animación</div>
           </div>
         </div>
 
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/spider-man-200x200px.png" alt="Spider-Man Unlimited">
+            <img src="img/schedule-slider/diabolik-200x200px.png" alt="Diabolik">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1999 · 12:30</div>
-            <div class="schedule-card-title">Spider-Man Unlimited</div>
+            <div class="schedule-card-time">15:30</div>
+            <div class="schedule-card-title">Diabolik</div>
             <div class="schedule-card-genre">Animación</div>
           </div>
         </div>
 
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/digimon-02-200x200px.png" alt="Digimon">
+            <img src="img/schedule-slider/the-magician-200x200px.png" alt="The Magician">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1999 · 13:00</div>
-            <div class="schedule-card-title">Digimon Adventure</div>
-            <div class="schedule-card-genre">Anime</div>
+            <div class="schedule-card-time">16:00</div>
+            <div class="schedule-card-title">The Magician</div>
+            <div class="schedule-card-genre">Animación</div>
           </div>
         </div>
 
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/medabots-200x200px.png" alt="Monster Rancher">
+            <img src="img/schedule-slider/iron-man-200x200px.png" alt="Iron Man">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">1999 · 13:30</div>
-            <div class="schedule-card-title">Monster Rancher</div>
-            <div class="schedule-card-genre">Anime</div>
+            <div class="schedule-card-time">16:30</div>
+            <div class="schedule-card-title">Iron Man</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/spider-man-200x200px.png" alt="Spider-Man">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">17:00</div>
+            <div class="schedule-card-title">Spider-Man</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/x-men-200x200px.png" alt="X-Men">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">17:30</div>
+            <div class="schedule-card-title">X-Men</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/mighty-morphin-power-rangers-200x200px.png" alt="Mighty Morphin Power Rangers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">18:00</div>
+            <div class="schedule-card-title">Power Rangers</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-in-space-200x200px.png" alt="Power Rangers in Space">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">18:30</div>
+            <div class="schedule-card-title">Power Rangers in Space</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/c-bear-and-jamal-200x200px.png" alt="C-Bear and Jamal">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">19:00</div>
+            <div class="schedule-card-title">C-Bear and Jamal</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/spy-dogs-200x200px.png" alt="Spy Dogs">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">19:30</div>
+            <div class="schedule-card-title">Spy Dogs</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/alex-mack-200x200px.png" alt="Alex Mack">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">20:00</div>
+            <div class="schedule-card-title">Alex Mack</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/shirley-holmes-200x200px.png" alt="Shirley Holmes">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">20:30</div>
+            <div class="schedule-card-title">Shirley Holmes</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/goosebumps-200x200px.png" alt="Goosebumps">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">21:00</div>
+            <div class="schedule-card-title">Goosebumps</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/beetleborgs-200x200px.png" alt="Big Bad Beetleborgs">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">21:30</div>
+            <div class="schedule-card-title">Beetleborgs</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/mighty-morphin-power-rangers-200x200px.png" alt="Mighty Morphin Power Rangers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">22:00</div>
+            <div class="schedule-card-title">Power Rangers</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-in-space-200x200px.png" alt="Power Rangers in Space">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">22:30</div>
+            <div class="schedule-card-title">Power Rangers in Space</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/sweet-valley-high-200x200px.png" alt="Sweet Valley High">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">23:00</div>
+            <div class="schedule-card-title">Sweet Valley High</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/eerie-indiana-200x200px.png" alt="Eerie Indiana">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">23:30</div>
+            <div class="schedule-card-title">Eerie Indiana</div>
+            <div class="schedule-card-genre">Live Action</div>
           </div>
         </div>
       </div>
@@ -322,10 +745,197 @@
       <div class="schedule-scroll">
         <div class="schedule-card">
           <div class="schedule-card-image">
+            <img src="img/schedule-slider/wheel-squad-200x200px.png" alt="Wheel Squad">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">10:00</div>
+            <div class="schedule-card-title">Wheel Squad</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/braceface-200-200px.png" alt="Braceface">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">10:30</div>
+            <div class="schedule-card-title">Braceface</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/marykate-ashley-200x200px.png" alt="Marie-Kate y Ashley En Acción">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">11:00</div>
+            <div class="schedule-card-title">Marie-Kate & Ashley In Action</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/angela anaconda-200-200px.png" alt="Ángela Anaconda">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">11:30</div>
+            <div class="schedule-card-title">Ángela Anaconda</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/super-duper-sumos-200x200px.png" alt="Súper Sumos">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">12:00</div>
+            <div class="schedule-card-title">Súper Duper Sumos</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/woody-woodpecker-200x200px.png" alt="El Pájaro Loco">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">12:30</div>
+            <div class="schedule-card-title">Woody Woodpecker</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/mimi-200x200px.png" alt="Mimi">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">13:00</div>
+            <div class="schedule-card-title">Mimi</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/whats-with-andy-200-200px.png" alt="What's With Andy?">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">13:30</div>
+            <div class="schedule-card-title">What's With Andy?</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/patos-extremos-200x200px.png" alt="X-DuckX">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">14:00</div>
+            <div class="schedule-card-title">X-DuckX</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/thekidsfromroom402-200-200px.png" alt="The Kids from Room 402">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">14:30</div>
+            <div class="schedule-card-title">The Kids from Room 402</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/shin-chan-200x200px.png" alt="Shin-Chan">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">15:00</div>
+            <div class="schedule-card-title">Shin-Chan</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/gargoyles-200-200px.png" alt="Gargoyles">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">15:30</div>
+            <div class="schedule-card-title">Gargoyles</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/heavy-gear-200x200px.png" alt="Heavy Gear">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">16:00</div>
+            <div class="schedule-card-title">Heavy Gear</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-time-force-200x200px.png" alt="Power Rangers Fuerza de Tiempo">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">16:30</div>
+            <div class="schedule-card-title">Power Rangers Time Force</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-wild-force-200x200px.png" alt="Power Rangers Fuerza Salvaje">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">17:00</div>
+            <div class="schedule-card-title">Power Rangers Wild Force</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/digimon-tamers-200x200px.png" alt="Digimon 3">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">17:30</div>
+            <div class="schedule-card-title">Digimon 3</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/beyblade-200-200px.png" alt="Beyblade">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">18:00</div>
+            <div class="schedule-card-title">Beyblade</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
             <img src="img/schedule-slider/medabots-200x200px.png" alt="Medabots">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">2002 · 10:00</div>
+            <div class="schedule-card-time">18:30</div>
             <div class="schedule-card-title">Medabots</div>
             <div class="schedule-card-genre">Anime</div>
           </div>
@@ -336,7 +946,7 @@
             <img src="img/schedule-slider/shaman-king-200x200px.png" alt="Shaman King">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">2002 · 10:30</div>
+            <div class="schedule-card-time">19:00</div>
             <div class="schedule-card-title">Shaman King</div>
             <div class="schedule-card-genre">Anime</div>
           </div>
@@ -344,56 +954,100 @@
 
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/digimon-tamers-200x200px.png" alt="Digimon Tamers">
+            <img src="img/schedule-slider/shinzo-200x200px.png" alt="Shinzo">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">2002 · 11:00</div>
-            <div class="schedule-card-title">Digimon Tamers</div>
+            <div class="schedule-card-time">19:30</div>
+            <div class="schedule-card-title">Shinzo</div>
             <div class="schedule-card-genre">Anime</div>
           </div>
         </div>
 
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/gargoyles-200-200px.png" alt="Galidor">
+            <img src="img/schedule-slider/mon-cole-knights-200x200px.png" alt="Los Caballeros del Mundo Mon">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">2002 · 11:30</div>
-            <div class="schedule-card-title">Galidor</div>
+            <div class="schedule-card-time">20:00</div>
+            <div class="schedule-card-title">Los Caballeros del Mundo Mon</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/transformers-car-robots-200x200px.png" alt="Transformers Car Robots">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">20:30</div>
+            <div class="schedule-card-title">Transformers Car Robots</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/digimon-02-200x200px.png" alt="Digimon 02">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">21:00</div>
+            <div class="schedule-card-title">Digimon 02</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/digimon-tamers-200x200px.png" alt="Digimon 3">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">21:30</div>
+            <div class="schedule-card-title">Digimon 3</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/shin-chan-200x200px.png" alt="Shin Chan">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">22:00</div>
+            <div class="schedule-card-title">Shin Chan</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/los-tres-chiflados-200x200px.png" alt="Los Tres Chiflados">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">22:30</div>
+            <div class="schedule-card-title">Los Tres Chiflados</div>
+            <div class="schedule-card-genre">Comedia</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/zorro-200x200px.png" alt="Zorro">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">23:00</div>
+            <div class="schedule-card-title">Zorro</div>
             <div class="schedule-card-genre">Live Action</div>
           </div>
         </div>
 
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/beyblade-200-200px.png" alt="Beyblade">
+            <img src="img/schedule-slider/batman-200x200px.png" alt="Batman">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">2002 · 17:00</div>
-            <div class="schedule-card-title">Beyblade</div>
-            <div class="schedule-card-genre">Anime</div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-card-image">
-            <img src="img/schedule-slider/power-rangers-wild-force-200x200px.png" alt="Power Rangers Wild Force">
-          </div>
-          <div class="schedule-card-content">
-            <div class="schedule-card-time">2002 · 17:30</div>
-            <div class="schedule-card-title">Power Rangers Wild Force</div>
-            <div class="schedule-card-genre">Acción</div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-card-image">
-            <img src="img/schedule-slider/fillmore-200-200px.png" alt="Fighting Foodons">
-          </div>
-          <div class="schedule-card-content">
-            <div class="schedule-card-time">2002 · 18:00</div>
-            <div class="schedule-card-title">Fighting Foodons</div>
-            <div class="schedule-card-genre">Anime</div>
+            <div class="schedule-card-time">23:30</div>
+            <div class="schedule-card-title">Batman</div>
+            <div class="schedule-card-genre">Animación</div>
           </div>
         </div>
       </div>
@@ -405,77 +1059,11 @@
       <div class="schedule-scroll">
         <div class="schedule-card">
           <div class="schedule-card-image">
-            <img src="img/schedule-slider/sonicx-200-200px.png" alt="Sonic X">
+            <img src="img/schedule-slider/teenage-mutant-ninja-turtles-200-200px.png" alt="Teenage Mutant Ninja Turtles">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">2004 · 10:00</div>
-            <div class="schedule-card-title">Sonic X</div>
-            <div class="schedule-card-genre">Anime</div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-card-image">
-            <img src="img/schedule-slider/shaman-king-200x200px.png" alt="Shaman King">
-          </div>
-          <div class="schedule-card-content">
-            <div class="schedule-card-time">2004 · 10:30</div>
-            <div class="schedule-card-title">Shaman King</div>
-            <div class="schedule-card-genre">Anime</div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-card-image">
-            <img src="img/schedule-slider/kamen-rider-200x200px.png" alt="Kirby">
-          </div>
-          <div class="schedule-card-content">
-            <div class="schedule-card-time">2004 · 11:00</div>
-            <div class="schedule-card-title">Kirby: Right Back at Ya!</div>
-            <div class="schedule-card-genre">Anime</div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-card-image">
-            <img src="img/schedule-slider/kinnikuman-200-200px.png" alt="Ultimate Muscle">
-          </div>
-          <div class="schedule-card-content">
-            <div class="schedule-card-time">2004 · 11:30</div>
-            <div class="schedule-card-title">Ultimate Muscle</div>
-            <div class="schedule-card-genre">Anime</div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-card-image">
-            <img src="img/schedule-slider/teenage-mutant-ninja-turtles-200-200px.png" alt="TMNT">
-          </div>
-          <div class="schedule-card-content">
-            <div class="schedule-card-time">2004 · 18:00</div>
-            <div class="schedule-card-title">TMNT</div>
-            <div class="schedule-card-genre">Animación</div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-card-image">
-            <img src="img/schedule-slider/power-rangers-ninja-storm-200-200px.png" alt="Power Rangers Dino Thunder">
-          </div>
-          <div class="schedule-card-content">
-            <div class="schedule-card-time">2004 · 18:30</div>
-            <div class="schedule-card-title">Power Rangers Dino Thunder</div>
-            <div class="schedule-card-genre">Acción</div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-card-image">
-            <img src="img/schedule-slider/whats-with-andy-200-200px.png" alt="Winx Club">
-          </div>
-          <div class="schedule-card-content">
-            <div class="schedule-card-time">2004 · 19:00</div>
-            <div class="schedule-card-title">Winx Club</div>
+            <div class="schedule-card-time">10:00</div>
+            <div class="schedule-card-title">Teenage Mutant Ninja Turtles</div>
             <div class="schedule-card-genre">Animación</div>
           </div>
         </div>
@@ -485,9 +1073,295 @@
             <img src="img/schedule-slider/braceface-200-200px.png" alt="Braceface">
           </div>
           <div class="schedule-card-content">
-            <div class="schedule-card-time">2004 · 19:30</div>
+            <div class="schedule-card-time">10:30</div>
             <div class="schedule-card-title">Braceface</div>
             <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/totally-spies-200-200px.png" alt="Totally Spies">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">11:00</div>
+            <div class="schedule-card-title">Totally Spies</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/gadget and the gagetinis-200-200px.png" alt="Gadget and the Gadgetinis">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">11:30</div>
+            <div class="schedule-card-title">Gadget and the Gadgetinis</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/fillmore-200-200px.png" alt="Fillmore">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">12:00</div>
+            <div class="schedule-card-title">Fillmore</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/code-lyoko-200-200px.png" alt="Code Lyoko">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">12:30</div>
+            <div class="schedule-card-title">Code Lyoko</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/fairly-oddParents-200-200px.png" alt="The Fairly OddParents">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">13:00</div>
+            <div class="schedule-card-title">The Fairly OddParents</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/fairly-oddParents-200-200px.png" alt="The Fairly OddParents">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">13:30</div>
+            <div class="schedule-card-title">The Fairly OddParents</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/mighty-morphin-power-rangers-200x200px.png" alt="Generación Power Rangers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">14:00</div>
+            <div class="schedule-card-title">Generación Power Rangers</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/mighty-morphin-power-rangers-200x200px.png" alt="Generación Power Rangers">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">14:30</div>
+            <div class="schedule-card-title">Generación Power Rangers</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/sonicx-200-200px.png" alt="Sonic X">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">15:00</div>
+            <div class="schedule-card-title">Sonic X</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/kinnikuman-200-200px.png" alt="Kinnikuman">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">15:30</div>
+            <div class="schedule-card-title">Kinnikuman</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-wild-force-200x200px.png" alt="Power Rangers Wild Force">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">16:00</div>
+            <div class="schedule-card-title">Power Rangers Wild Force</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-ninja-storm-200-200px.png" alt="Power Rangers Ninja Storm">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">16:30</div>
+            <div class="schedule-card-title">Power Rangers Ninja Storm</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-ninja-storm-200-200px.png" alt="Power Rangers Ninja Storm">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">17:00</div>
+            <div class="schedule-card-title">Power Rangers Ninja Storm</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/code-lyoko-200-200px.png" alt="Code Lyoko">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">17:30</div>
+            <div class="schedule-card-title">Code Lyoko</div>
+            <div class="schedule-card-genre">Animación</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/beyblade-200-200px.png" alt="Beyblade">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">18:00</div>
+            <div class="schedule-card-title">Beyblade</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/digimon4-200-200px.png" alt="Digimon 4">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">18:30</div>
+            <div class="schedule-card-title">Digimon 4</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/megaman-200-200px.png" alt="Megaman">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">19:00</div>
+            <div class="schedule-card-title">Megaman</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/medabots-200x200px.png" alt="Medabots">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">19:30</div>
+            <div class="schedule-card-title">Medabots</div>
+            <div class="schedule-card-genre">Anime</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-wild-force-200x200px.png" alt="Power Rangers Wild Force">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">20:00</div>
+            <div class="schedule-card-title">Power Rangers Wild Force</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-ninja-storm-200-200px.png" alt="Power Rangers Ninja Storm">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">20:30</div>
+            <div class="schedule-card-title">Power Rangers Ninja Storm</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/power-rangers-ninja-storm-200-200px.png" alt="Power Rangers Ninja Storm">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">21:00</div>
+            <div class="schedule-card-title">Power Rangers Ninja Storm</div>
+            <div class="schedule-card-genre">Acción</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/black-hole-high-200-200px.png" alt="Black Hole High">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">21:30</div>
+            <div class="schedule-card-title">Black Hole High</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/weird-science-200-200px.png" alt="Weird Science">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">22:00</div>
+            <div class="schedule-card-title">Weird Science</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/so-weird-200-200px.png" alt="So Weird">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">22:30</div>
+            <div class="schedule-card-title">So Weird</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/goosebumps-200x200px.png" alt="Goosebumps">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">23:00</div>
+            <div class="schedule-card-title">Goosebumps</div>
+            <div class="schedule-card-genre">Live Action</div>
+          </div>
+        </div>
+
+        <div class="schedule-card">
+          <div class="schedule-card-image">
+            <img src="img/schedule-slider/goosebumps-200x200px.png" alt="Goosebumps">
+          </div>
+          <div class="schedule-card-content">
+            <div class="schedule-card-time">23:30</div>
+            <div class="schedule-card-title">Goosebumps</div>
+            <div class="schedule-card-genre">Live Action</div>
           </div>
         </div>
       </div>
@@ -513,6 +1387,20 @@
     sidebar.classList.toggle('expanded');
     body.classList.toggle('sidebar-expanded');
   }
+
+  // Desplaza horizontal con rueda de mouse en desktop (global listener para evitar misses en hijos)
+  function handleWheelToX(evt){
+    if (window.innerWidth < 768) return; // no tocar móvil
+    const scroller = evt.target.closest('.schedule-scroll');
+    if (!scroller) return;
+    const absY = Math.abs(evt.deltaY);
+    const absX = Math.abs(evt.deltaX);
+    if (absY <= absX) return; // si ya hay desplazamiento horizontal nativo, no intervenir
+    evt.preventDefault();
+    scroller.scrollLeft += evt.deltaY;
+  }
+
+  document.addEventListener('wheel', handleWheelToX, { passive:false, capture:true });
 </script>
 </body>
 </html>

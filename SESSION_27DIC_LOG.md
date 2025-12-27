@@ -182,3 +182,27 @@ Usuario solicita agregar interactividad a **schedule.html** con botones de acci�
 - **Filtros Dinámicos**: ✅ Implementados y refinados
 - **Próximo Feature**: Schedule Interactivity (botones Ver/Preview/Recordar)
 
+---
+
+## 🕐 SESIÓN NOCHE (Programación Historia)
+
+### ✅ Hecho
+- Actualizado programacion-historia-mockup.html con la data completa de 1996, 1999, 2002 y 2004 (alineado al schedule original)
+- Ajustado layout desktop: margen superior para no cortar el título y ocultar la línea de la barra de scroll
+- Intento de scroll horizontal con rueda en desktop usando listener global en captura (pendiente de validar)
+
+### ⚠️ Pendiente
+- El scroll con rueda en desktop sigue sin quedar perfecto; revisar manejador global y eventos pasivos
+- Mejorar visibilidad de las tarjetas (contraste/jerarquía) en schedule mockup
+- Commit/push realizados con scroll todavía pendiente de resolver
+
+### Commits
+```
+<pendiente de confirmar hash>
+WIP: Programación historia con datos completos; scroll wheel desktop aún pendiente
+```
+
+### Notas rápidas
+- Probar scroll horizontal en desktop (wheel→scrollLeft) y revisar si algún otro listener bloquea
+- Evaluar mejorar contraste de tarjetas: fondo menos blanco, bordes/marcos más fuertes, overlays sutiles o sombras más claras
+

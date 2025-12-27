@@ -58,6 +58,11 @@
   .serie-card:hover .serie-info-overlay{opacity:1;}
   .serie-card:hover img{transform:scale(1.05);}
   
+  /* Mobile - Overlay interactivo al hacer click */
+  @media (max-width: 768px) {
+    .serie-card.active .serie-info-overlay{opacity:1;}
+  }
+  
   .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px, calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
   .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;}
   .nav-item .ni{font-size:18px;} 
@@ -297,6 +302,22 @@
       sidebar.classList.toggle('expanded');
       body.classList.toggle('sidebar-expanded');
     }
+    
+    // SERIE CARD OVERLAY - Mobile interaction
+    document.querySelectorAll('.serie-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        e.stopPropagation();
+        // Toggle overlay al hacer click en mobile
+        this.classList.toggle('active');
+      });
+    });
+    
+    // Cerrar overlay si haces click fuera
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.serie-card.active').forEach(card => {
+        card.classList.remove('active');
+      });
+    });
     
     // FILTROS DINÁMICOS
     let currentCategoryFilter = '';

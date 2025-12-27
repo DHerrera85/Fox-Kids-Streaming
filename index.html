@@ -278,6 +278,194 @@
     .stories .story{width:95px;} .story .ring{width:70px;height:70px;} .story .label{font-size:9px;line-height:1.25;}
     .shorts{gap:20px;} .short{width:180px;height:280px;}
   }
+
+  /* Bottom Sheet Styling */
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  .bottom-sheet-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .bottom-sheet-backdrop.closing {
+    animation: fadeOut 0.3s ease;
+  }
+
+  .bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-radius: 16px 16px 0 0;
+    padding: 0;
+    z-index: 1000;
+    animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .bottom-sheet.closing {
+    animation: slideDown 0.3s ease;
+  }
+
+  .sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: #e5e5e5;
+    border-radius: 999px;
+    margin: 12px auto;
+  }
+
+  .bottom-sheet h3 {
+    margin: 16px 20px 8px;
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bottom-sheet p {
+    margin: 0 20px 20px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .sheet-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 20px 28px;
+  }
+
+  .action-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    border: 2px solid transparent;
+  }
+
+  .action-item:hover {
+    background: #eeeeee;
+    transform: translateX(4px);
+  }
+
+  .action-item:active {
+    transform: translateX(4px) scale(0.98);
+  }
+
+  .action-item .icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .action-item .label {
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    flex: 1;
+  }
+
+  /* Action Dot Button on Cards */
+  .action-dot {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    background: var(--red);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(176, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    border: 2px solid #fff;
+    z-index: 5;
+  }
+
+  .action-dot:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(176, 0, 0, 0.4);
+  }
+
+  .action-dot:active {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 767px) {
+    .bottom-sheet {
+      max-height: 85vh;
+    }
+    .sheet-handle {
+      margin: 10px auto;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .bottom-sheet {
+      max-width: 500px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 16px;
+    }
+    .bottom-sheet.closing {
+      animation: slideDown 0.3s ease;
+    }
+  }
 </style>
 </head>
 <body>
@@ -485,11 +673,33 @@
     <section class="view" id="view-schedule">
       <div class="section-title"><h2>Schedule</h2><div class="hint">cards • no tabla</div></div>
       <div class="grid">
-        <article class="card"><div class="body"><p class="title">Ahora • 13:30 — Digimon</p><div class="meta"><span>En vivo</span><span>⏱️ 24 min</span></div><div class="cta-row"><button class="btn primary" onclick="toast('Reproduciendo…')">Ver</button><button class="btn ghost" onclick="toast('Alarma: 13:55')">Recordar</button></div></div></article>
-        <article class="card"><div class="body"><p class="title">Siguiente • 14:00 — Power Rangers</p><div class="meta"><span>Acción</span><span>📌 30 min</span></div><div class="cta-row"><button class="btn primary" onclick="toast('Vista previa…')">Preview</button><button class="btn ghost" onclick="toast('Agendado')">Agendar</button></div></div></article>
+        <article class="card schedule-card" onclick="openScheduleSheet(this)" data-title="Digimon" data-time="13:30" data-duration="24 min" data-status="En vivo"><div class="body"><p class="title">Ahora • 13:30 — Digimon</p><div class="meta"><span>En vivo</span><span>⏱️ 24 min</span></div><div class="action-dot">+</div></div></article>
+        <article class="card schedule-card" onclick="openScheduleSheet(this)" data-title="Power Rangers" data-time="14:00" data-duration="30 min" data-status="Acción"><div class="body"><p class="title">Siguiente • 14:00 — Power Rangers</p><div class="meta"><span>Acción</span><span>📌 30 min</span></div><div class="action-dot">+</div></div></article>
       </div>
     </section>
   </main>
+</div>
+
+<!-- Bottom Sheet for Schedule -->
+<div class="bottom-sheet-backdrop" id="sheetBackdrop" style="display:none;" onclick="closeScheduleSheet()"></div>
+<div class="bottom-sheet" id="scheduleSheet" style="display:none;">
+  <div class="sheet-handle"></div>
+  <h3 id="sheetTitle">Digimon • 13:30</h3>
+  <p id="sheetMeta">En vivo • 24 min</p>
+  <div class="sheet-actions">
+    <div class="action-item" onclick="handleSheetAction('play')">
+      <span class="icon">▶️</span>
+      <span class="label">Ver Ahora</span>
+    </div>
+    <div class="action-item" onclick="handleSheetAction('preview')">
+      <span class="icon">👁️</span>
+      <span class="label">Preview</span>
+    </div>
+    <div class="action-item" onclick="handleSheetAction('remember')">
+      <span class="icon">🔔</span>
+      <span class="label">Recordar</span>
+    </div>
+  </div>
 </div>
 
 <nav class="bottom-nav" id="sidebar" aria-label="Navegación inferior">
@@ -1119,6 +1329,109 @@
       else if(e.key===' '){
         e.preventDefault();
         togglePause();
+      }
+    }
+  });
+
+  /* Bottom Sheet Functions */
+  function openScheduleSheet(element) {
+    const title = element.getAttribute('data-title');
+    const time = element.getAttribute('data-time');
+    const duration = element.getAttribute('data-duration');
+    const status = element.getAttribute('data-status');
+
+    const sheetTitle = document.getElementById('sheetTitle');
+    const sheetMeta = document.getElementById('sheetMeta');
+    const backdrop = document.getElementById('sheetBackdrop');
+    const sheet = document.getElementById('scheduleSheet');
+
+    sheetTitle.textContent = `${title} • ${time}`;
+    sheetMeta.textContent = `${status} • ${duration}`;
+
+    backdrop.style.display = 'block';
+    sheet.style.display = 'block';
+    sheet.classList.remove('closing');
+    backdrop.classList.remove('closing');
+
+    // Add to history for back button
+    history.pushState({ sheet: true }, '');
+  }
+
+  function closeScheduleSheet() {
+    const backdrop = document.getElementById('sheetBackdrop');
+    const sheet = document.getElementById('scheduleSheet');
+
+    sheet.classList.add('closing');
+    backdrop.classList.add('closing');
+
+    setTimeout(() => {
+      backdrop.style.display = 'none';
+      sheet.style.display = 'none';
+      sheet.classList.remove('closing');
+      backdrop.classList.remove('closing');
+    }, 300);
+  }
+
+  function handleSheetAction(action) {
+    const title = document.getElementById('sheetTitle').textContent;
+    
+    switch(action) {
+      case 'play':
+        console.log(`Reproduciendo: ${title}`);
+        showToast('▶️ Iniciando reproducción...');
+        break;
+      case 'preview':
+        console.log(`Preview: ${title}`);
+        showToast('👁️ Mostrando preview...');
+        break;
+      case 'remember':
+        console.log(`Recordar: ${title}`);
+        showToast('🔔 Recordatorio guardado');
+        break;
+    }
+    
+    closeScheduleSheet();
+  }
+
+  function showToast(message) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      z-index: 1100;
+      animation: slideUp 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    `;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.animation = 'slideDown 0.3s ease';
+      setTimeout(() => toast.remove(), 300);
+    }, 2000);
+  }
+
+  // Handle back button to close sheet
+  window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.sheet) {
+      closeScheduleSheet();
+    }
+  });
+
+  // Close sheet when pressing Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const sheet = document.getElementById('scheduleSheet');
+      if (sheet.style.display !== 'none') {
+        closeScheduleSheet();
       }
     }
   });

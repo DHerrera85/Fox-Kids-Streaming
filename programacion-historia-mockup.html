@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Mockup Programacion Historia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ff4a00;
+    --red:#b00000;
+    --yellow:#ffc400;
+    --ink:#0e0f14;
+    --muted:#6b7280;
+    --card:#ffffff;
+    --radius:12px;
+    --shadow:0 10px 24px rgba(0,0,0,0.18);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;
+    background:var(--bg);
+    color:#fff;
+    padding:16px;
+  }
+  .wrap{max-width:1200px;margin:0 auto;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  header h1{margin:0;font-size:20px;letter-spacing:0.05em;text-transform:uppercase;}
+  .hint{font-size:12px;opacity:0.8;text-transform:none;}
+
+  /* Grid estilo Pluto */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+  .slot{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    position:relative;
+    transition:transform .18s ease, box-shadow .18s ease;
+    cursor:pointer;
+    min-height:220px;
+  }
+  .slot:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(0,0,0,0.25);}
+  .slot:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}
+  .thumb{height:140px;background:#111;overflow:hidden;}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .slot-body{padding:12px;display:flex;flex-direction:column;gap:6px;}
+  .time{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;}
+  .title{font-size:15px;color:var(--ink);margin:0;font-weight:900;text-transform:uppercase;line-height:1.3;}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);}
+  .badge{position:absolute;top:10px;left:10px;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.05em;backdrop-filter:blur(6px);}
+  .badge.live{background:rgba(176,0,0,0.9);color:#fff;}
+  .badge.special{background:rgba(255,196,0,0.95);color:#000;}
+  .duration{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.82);color:#fff;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700;}
+
+  /* Slider histórico pequeño */
+  .slider-head{display:flex;align-items:center;justify-content:space-between;margin:24px 0 10px;}
+  .slider{display:flex;gap:12px;overflow:auto;padding-bottom:8px;scroll-snap-type:x mandatory;}
+  .slider::-webkit-scrollbar{display:none;}
+  .tile{flex:0 0 160px;background:var(--card);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;scroll-snap-align:start;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease;}
+  .tile:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,0,0,0.22);}
+  .tile .thumb{height:110px;}
+  .tile .slot-body{padding:10px;}
+  .tile .time{font-size:11px;}
+  .tile .title{font-size:13px;}
+
+  /* Preferencia de movimiento reducido */
+  @media (prefers-reduced-motion: reduce){
+    .slot,.tile{transition:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Programaciones Pasadas</h1>
+      <div class="hint">Inspirado en grillas tipo Pluto TV</div>
+    </div>
+    <div class="hint">Mockup / Vista previa</div>
+  </header>
+
+  <!-- Grilla principal -->
+  <div class="grid">
+    <div class="slot" tabindex="0">
+      <div class="thumb"><img src="img/schedule-slider/power-rangers-in-space-200x200px.png" alt="Power Rangers" loading="lazy"></div>
+      <span class="badge live">1999</span>
+      <span class="duration">24 min</span>
+      <div class="slot-body">
+        <div class="time">Sábado • 10:00</div>
+        <p class="title">Power Rangers in Space</p>
+        <div class="meta"><span>Acción</span><span>Bloque mañana</span></div>
+      </div>
+    </div>
+    <div class="slot" tabindex="0">
+      <div class="thumb"><img src="img/schedule-slider/digimon-02-200x200px.png" alt="Digimon 02" loading="lazy"></div>
+      <span class="badge special">Especial</span>
+      <span class="duration">22 min</span>
+      <div class="slot-body">
+        <div class="time">Sábado • 10:30</div>
+        <p class="title">Digimon Adventure 02</p>
+        <div class="meta"><span>Anime</span><span>Bloque Kids</span></div>
+      </div>
+    </div>
+    <div class="slot" tabindex="0">
+      <div class="thumb"><img src="img/schedule-slider/x-men-200x200px.png" alt="X-Men" loading="lazy"></div>
+      <span class="duration">22 min</span>
+      <div class="slot-body">
+        <div class="time">Sábado • 11:00</div>
+        <p class="title">X-Men Animated</p>
+        <div class="meta"><span>Marvel</span><span>Acción</span></div>
+      </div>
+    </div>
+    <div class="slot" tabindex="0">
+      <div class="thumb"><img src="img/schedule-slider/oggy-cockroaches-200x200px.png" alt="Oggy" loading="lazy"></div>
+      <span class="duration">11 min</span>
+      <div class="slot-body">
+        <div class="time">Sábado • 11:30</div>
+        <p class="title">Oggy & the Cockroaches</p>
+        <div class="meta"><span>Comedia</span><span>Cartoon</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slider histórico -->
+  <div class="slider-head">
+    <h2 style="margin:0;font-size:16px;letter-spacing:0.05em;text-transform:uppercase;">Bloques destacados</h2>
+    <div class="hint">Scroll horizontal</div>
+  </div>
+  <div class="slider">
+    <div class="tile">
+      <div class="thumb"><img src="img/schedule-slider/beyblade-200-200px.png" alt="Beyblade" loading="lazy"></div>
+      <div class="slot-body">
+        <div class="time">2002 • 17:00</div>
+        <p class="title">Beyblade</p>
+        <div class="meta"><span>Anime</span></div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="thumb"><img src="img/schedule-slider/vr-troopers-200-200px.png" alt="VR Troopers" loading="lazy"></div>
+      <div class="slot-body">
+        <div class="time">1995 • 18:30</div>
+        <p class="title">VR Troopers</p>
+        <div class="meta"><span>Acción</span></div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="thumb"><img src="img/schedule-slider/eerie-indiana-200-200px.png" alt="Eerie Indiana" loading="lazy"></div>
+      <div class="slot-body">
+        <div class="time">1998 • 20:00</div>
+        <p class="title">Eerie Indiana</p>
+        <div class="meta"><span>Live Action</span></div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="thumb"><img src="img/schedule-slider/totally-spies-200-200px.png" alt="Totally Spies" loading="lazy"></div>
+      <div class="slot-body">
+        <div class="time">2003 • 15:00</div>
+        <p class="title">Totally Spies</p>
+        <div class="meta"><span>Animación</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

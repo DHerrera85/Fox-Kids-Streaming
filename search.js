@@ -587,8 +587,15 @@ class FoxKidsSearch {
 
     switch (result.resultType) {
       case 'video':
-        // Abrir reproductor de video en modal
-        this.playVideo(result);
+        // Abrir reproductor de video en página dedicada
+        const params = new URLSearchParams({
+          file: result.file,
+          title: result.name,
+          series: result.series,
+          duration: result.duration,
+          category: result.category
+        });
+        window.location.href = `player.html?${params.toString()}`;
         break;
       case 'character':
         // Redirigir a shorts.html con filtro de personaje

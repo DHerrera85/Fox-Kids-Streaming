@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reproduciendo Video - Fox Kids</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Audiowide', Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .header {
+      background: #b00000;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo { font-weight: 800; font-size: 18px; }
+    .title { font-size: 14px; }
+    .back-btn {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .player-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      padding: 20px;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+    .info-panel {
+      background: #1a1a1a;
+      padding: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .video-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .video-meta {
+      font-size: 14px;
+      color: #999;
+      display: flex;
+      gap: 15px;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-box">
+      <div class="logo">FOX KIDS</div>
+      <div class="title" id="videoTitle">Reproduciendo...</div>
+    </div>
+    <button class="back-btn" onclick="goBack()">← Volver</button>
+  </div>
+
+  <div class="player-container">
+    <video id="videoPlayer" controls autoplay></video>
+  </div>
+
+  <div class="info-panel">
+    <div class="video-title" id="titleLabel">-</div>
+    <div class="video-meta">
+      <div class="meta-item">
+        <span>📺 Series:</span>
+        <span id="seriesLabel">-</span>
+      </div>
+      <div class="meta-item">
+        <span>⏱️ Duración:</span>
+        <span id="durationLabel">-</span>
+      </div>
+      <div class="meta-item">
+        <span>📂 Categoría:</span>
+        <span id="categoryLabel">-</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Obtener parámetros de la URL
+    const params = new URLSearchParams(window.location.search);
+    const videoFile = params.get('file');
+    const videoTitle = params.get('title');
+    const videoSeries = params.get('series');
+    const videoDuration = params.get('duration');
+    const videoCategory = params.get('category');
+
+    // Configurar el reproductor
+    const player = document.getElementById('videoPlayer');
+    const titleLabel = document.getElementById('titleLabel');
+    const seriesLabel = document.getElementById('seriesLabel');
+    const durationLabel = document.getElementById('durationLabel');
+    const categoryLabel = document.getElementById('categoryLabel');
+    const pageTitle = document.getElementById('videoTitle');
+
+    if (videoFile) {
+      player.src = videoFile;
+      titleLabel.textContent = videoTitle || 'Video';
+      seriesLabel.textContent = videoSeries || 'Desconocida';
+      durationLabel.textContent = videoDuration || '-';
+      categoryLabel.textContent = videoCategory || 'Sin categoría';
+      pageTitle.textContent = videoTitle || 'Video';
+    } else {
+      titleLabel.textContent = 'Error: No se especificó el archivo de video';
+      document.querySelector('.player-container').innerHTML = '<div style="color: red; text-align: center;">⚠️ Error: Parámetro de video faltante</div>';
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    // Reproducir al cargar
+    setTimeout(() => {
+      player.play().catch(err => console.log('Auto-play blocked:', err));
+    }, 500);
+  </script>
+</body>
+</html>

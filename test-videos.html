@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test de Videos - Fox Kids</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 20px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { margin-bottom: 30px; color: #ffc400; }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .video-card {
+      background: #222;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .video-card:hover {
+      transform: scale(1.05);
+    }
+    .video-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #000;
+    }
+    .video-info {
+      padding: 15px;
+    }
+    .video-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .video-series {
+      font-size: 12px;
+      color: #999;
+    }
+    .test-section {
+      background: #222;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    .test-section h2 {
+      color: #ffc400;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    .test-code {
+      background: #000;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      margin-bottom: 10px;
+      border-left: 3px solid #ffc400;
+    }
+    .test-result {
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    .test-result.success {
+      background: rgba(76, 175, 80, 0.2);
+      border-left: 3px solid #4caf50;
+    }
+    .test-result.error {
+      background: rgba(244, 67, 54, 0.2);
+      border-left: 3px solid #f44336;
+    }
+    .button {
+      background: #ffc400;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .button:hover {
+      background: #ffb300;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Test de Videos - Fox Kids Streaming</h1>
+
+    <!-- SECCIÓN DE TEST -->
+    <div class="test-section">
+      <h2>✅ Diagnóstico del Sistema</h2>
+      
+      <button class="button" onclick="testSearchIndex()">Test: Cargar search-index.json</button>
+      <button class="button" onclick="testVideoFiles()">Test: Verificar archivos de video</button>
+      <button class="button" onclick="testBrowser()">Test: API del Navegador</button>
+      
+      <div id="testResults"></div>
+    </div>
+
+    <!-- SECCIÓN DE VIDEOS -->
+    <h2 style="color: #ffc400; margin-bottom: 20px;">📺 Videos Disponibles</h2>
+    <div class="video-grid" id="videoGrid"></div>
+  </div>
+
+  <script>
+    // Cargar datos de search-index.json
+    let searchIndex = null;
+
+    fetch('data/search-index.json')
+      .then(r => r.json())
+      .then(data => {
+        searchIndex = data;
+        console.log('✅ Search index cargado:', data);
+        loadVideos();
+      })
+      .catch(err => {
+        console.error('❌ Error cargando search-index.json:', err);
+        document.getElementById('videoGrid').innerHTML = '<p style="color: red;">Error: No se pudo cargar el índice de búsqueda</p>';
+      });
+
+    // Cargar videos en la cuadrícula
+    function loadVideos() {
+      const grid = document.getElementById('videoGrid');
+      const videos = searchIndex?.videos || [];
+      
+      grid.innerHTML = videos.map(video => `
+        <div class="video-card" onclick="playVideoTest('${video.file}', '${video.name}')">
+          <img src="${video.image}" alt="${video.name}" onerror="this.src='img/placeholder.jpg'">
+          <div class="video-info">
+            <div class="video-title">${video.name}</div>
+            <div class="video-series">${video.series} • ${video.duration}</div>
+          </div>
+        </div>
+      `).join('');
+      
+      console.log(`✅ ${videos.length} videos cargados`);
+    }
+
+    // Reproducir video en modal simple
+    function playVideoTest(filepath, title) {
+      console.log('🎬 Intentando reproducir:', filepath);
+      
+      // Crear modal simple
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+      `;
+      
+      modal.innerHTML = `
+        <div style="width: 90%; max-width: 900px; background: #1a1a1a; border-radius: 8px; overflow: hidden;">
+          <div style="padding: 15px; background: #000; display: flex; justify-content: space-between; align-items: center;">
+            <div style="color: #fff; font-weight: bold;">📹 ${title}</div>
+            <button onclick="this.closest('[style*=position]').remove()" style="background: #ffc400; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">✕ Cerrar</button>
+          </div>
+          <video style="width: 100%; height: auto; background: #000;" controls autoplay>
+            <source src="${filepath}" type="video/mp4">
+            Tu navegador no soporta video HTML5
+          </video>
+          <div style="padding: 15px; color: #999; font-size: 12px;">
+            Ruta: <code style="background: #000; padding: 5px; border-radius: 3px;">${filepath}</code>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+    }
+
+    // Tests de diagnóstico
+    function testSearchIndex() {
+      const results = document.getElementById('testResults');
+      results.innerHTML = '';
+      
+      const test1 = document.createElement('div');
+      test1.className = 'test-result ' + (searchIndex ? 'success' : 'error');
+      test1.innerHTML = `
+        <strong>${searchIndex ? '✅' : '❌'} Search Index</strong><br>
+        ${searchIndex ? `✓ Cargado con ${searchIndex.videos?.length || 0} videos` : '✗ No se cargó'}
+      `;
+      results.appendChild(test1);
+
+      if (searchIndex?.videos) {
+        const test2 = document.createElement('div');
+        test2.className = 'test-result success';
+        test2.style.marginTop = '10px';
+        test2.innerHTML = `
+          <strong>✅ Videos en Index</strong><br>
+          ${searchIndex.videos.map(v => `• ${v.name} → ${v.file}`).join('<br>')}
+        `;
+        results.appendChild(test2);
+      }
+    }
+
+    function testVideoFiles() {
+      const results = document.getElementById('testResults');
+      const videos = [
+        'videos/stories/digimon.mp4',
+        'videos/stories/spider-man-01.mp4',
+        'videos/stories/iron-man.mp4',
+        'videos/stories/x-men.mp4',
+        'videos/stories/power-rangers.mp4'
+      ];
+
+      results.innerHTML = '<strong style="display: block; margin-bottom: 10px;">Verificando archivos de video...</strong>';
+      
+      videos.forEach(file => {
+        fetch(file, { method: 'HEAD' })
+          .then(r => {
+            const test = document.createElement('div');
+            test.className = 'test-result ' + (r.ok ? 'success' : 'error');
+            test.innerHTML = `${r.ok ? '✅' : '❌'} ${file}`;
+            results.appendChild(test);
+          })
+          .catch(() => {
+            const test = document.createElement('div');
+            test.className = 'test-result error';
+            test.innerHTML = `❌ ${file} (No encontrado)`;
+            results.appendChild(test);
+          });
+      });
+    }
+
+    function testBrowser() {
+      const results = document.getElementById('testResults');
+      results.innerHTML = `
+        <div class="test-result success">
+          <strong>✅ Información del Navegador</strong><br>
+          Navegador: ${navigator.userAgent.split(' ').slice(-2).join(' ')}<br>
+          Soporte Video HTML5: ${document.createElement('video').canPlayType ? '✓ Sí' : '✗ No'}<br>
+          LocalStorage: ${typeof localStorage !== 'undefined' ? '✓ Disponible' : '✗ No'}<br>
+          Fetch API: ${typeof fetch !== 'undefined' ? '✓ Disponible' : '✗ No'}
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

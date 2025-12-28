@@ -1,0 +1,271 @@
+<!-- 
+  ARCHIVO DE DIAGNÓSTICO DEL BUSCADOR
+  Abre este archivo en el navegador para verificar el estado del buscador
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico del Buscador Fox Kids</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .container {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      border-bottom: 3px solid #FF4A00;
+      padding-bottom: 10px;
+    }
+    h2 {
+      color: #555;
+      margin-top: 30px;
+    }
+    .status {
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .status.ok {
+      background: #d4edda;
+      color: #155724;
+      border-left: 4px solid #28a745;
+    }
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border-left: 4px solid #dc3545;
+    }
+    .status.warning {
+      background: #fff3cd;
+      color: #856404;
+      border-left: 4px solid #ffc107;
+    }
+    .test-button {
+      background: #FF4A00;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px 5px 10px 0;
+    }
+    .test-button:hover {
+      background: #E53A00;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+    .console-log {
+      background: #000;
+      color: #0f0;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Diagnóstico del Buscador Fox Kids Streaming</h1>
+    
+    <h2>1. Verificación de Archivos</h2>
+    <div id="fileStatus"></div>
+    
+    <h2>2. Verificación de Scripts</h2>
+    <div id="scriptStatus"></div>
+    
+    <h2>3. Verificación de Funciones</h2>
+    <div id="functionStatus"></div>
+    
+    <h2>4. Pruebas de Búsqueda</h2>
+    <button class="test-button" onclick="testSearch('Spider')">Test: Buscar "Spider"</button>
+    <button class="test-button" onclick="testSearch('digi')">Test: Buscar "digi"</button>
+    <button class="test-button" onclick="testSearch('araña')">Test: Buscar "araña"</button>
+    <button class="test-button" onclick="testSearch('Marvel')">Test: Buscar "Marvel"</button>
+    <div id="testResults"></div>
+    
+    <h2>5. Console Log</h2>
+    <div class="console-log" id="consolelog"></div>
+    
+    <h2>6. Estado del Modal</h2>
+    <button class="test-button" onclick="testOpenSearch()">Abrir Modal de Búsqueda</button>
+    <div id="modalStatus"></div>
+  </div>
+
+  <script>
+    // Capturar console.log
+    const logs = [];
+    const originalLog = console.log;
+    console.log = function(...args) {
+      logs.push(args.join(' '));
+      originalLog.apply(console, args);
+      updateConsoleLog();
+    };
+
+    function updateConsoleLog() {
+      const consoleDiv = document.getElementById('consolelog');
+      consoleDiv.innerHTML = logs.map(log => log + '<br>').join('');
+      consoleDiv.scrollTop = consoleDiv.scrollHeight;
+    }
+
+    // Test 1: Verificar archivos
+    function checkFiles() {
+      const fileStatus = document.getElementById('fileStatus');
+      const checks = [];
+      
+      // Verificar search.js
+      if (typeof FoxKidsSearch !== 'undefined') {
+        checks.push('<div class="status ok">✅ search.js está cargado correctamente</div>');
+      } else {
+        checks.push('<div class="status error">❌ search.js NO está cargado</div>');
+      }
+      
+      // Verificar search-styles.css
+      const styles = document.styleSheets;
+      let cssFound = false;
+      for (let i = 0; i < styles.length; i++) {
+        if (styles[i].href && styles[i].href.includes('search-styles.css')) {
+          cssFound = true;
+          break;
+        }
+      }
+      if (cssFound) {
+        checks.push('<div class="status ok">✅ search-styles.css está cargado</div>');
+      } else {
+        checks.push('<div class="status warning">⚠️ search-styles.css podría no estar cargado</div>');
+      }
+      
+      fileStatus.innerHTML = checks.join('');
+    }
+
+    // Test 2: Verificar scripts
+    function checkScripts() {
+      const scriptStatus = document.getElementById('scriptStatus');
+      const checks = [];
+      
+      if (typeof foxSearch !== 'undefined') {
+        checks.push('<div class="status ok">✅ foxSearch object está disponible</div>');
+        
+        if (typeof foxSearch.openSearch === 'function') {
+          checks.push('<div class="status ok">✅ foxSearch.openSearch() está disponible</div>');
+        } else {
+          checks.push('<div class="status error">❌ foxSearch.openSearch() NO está disponible</div>');
+        }
+        
+        if (foxSearch.index) {
+          const charCount = foxSearch.index.characters ? foxSearch.index.characters.length : 0;
+          const seriesCount = foxSearch.index.series ? foxSearch.index.series.length : 0;
+          checks.push(`<div class="status ok">✅ Index cargado: ${charCount} personajes, ${seriesCount} series</div>`);
+        } else {
+          checks.push('<div class="status warning">⚠️ Index aún cargándose...</div>');
+        }
+      } else {
+        checks.push('<div class="status error">❌ foxSearch object NO está definido</div>');
+      }
+      
+      scriptStatus.innerHTML = checks.join('');
+    }
+
+    // Test 3: Verificar funciones
+    function checkFunctions() {
+      const functionStatus = document.getElementById('functionStatus');
+      const checks = [];
+      
+      if (typeof foxSearch !== 'undefined') {
+        const methods = ['openSearch', 'closeSearch', 'performSearch', 'handleSearch', 'selectResult'];
+        methods.forEach(method => {
+          if (typeof foxSearch[method] === 'function') {
+            checks.push(`<div class="status ok">✅ foxSearch.${method}() ✓</div>`);
+          } else {
+            checks.push(`<div class="status error">❌ foxSearch.${method}() ✗</div>`);
+          }
+        });
+      } else {
+        checks.push('<div class="status error">❌ foxSearch no está disponible</div>');
+      }
+      
+      functionStatus.innerHTML = checks.join('');
+    }
+
+    // Test 4: Buscar
+    function testSearch(query) {
+      const testResults = document.getElementById('testResults');
+      if (typeof foxSearch === 'undefined' || !foxSearch.index) {
+        testResults.innerHTML = '<div class="status error">❌ foxSearch no está listo aún</div>';
+        return;
+      }
+      
+      console.log(`🔍 Buscando: "${query}"`);
+      foxSearch.performSearch(query.toLowerCase());
+      
+      const results = foxSearch.results;
+      let html = `<div class="status ok">✅ Búsqueda completada: ${results.length} resultados</div>`;
+      
+      if (results.length > 0) {
+        html += '<div style="margin-top: 10px; padding: 10px; background: #f9f9f9; border-radius: 5px;">';
+        html += '<strong>Resultados encontrados:</strong><br>';
+        results.slice(0, 5).forEach((r, i) => {
+          html += `<div style="padding: 5px;">${i+1}. <strong>${r.name}</strong> (${r.type}, score: ${r.relevance})</div>`;
+        });
+        if (results.length > 5) {
+          html += `<div style="padding: 5px; color: #666;">... y ${results.length - 5} más</div>`;
+        }
+        html += '</div>';
+      } else {
+        html += '<div class="status warning">⚠️ No se encontraron resultados</div>';
+      }
+      
+      testResults.innerHTML = html;
+    }
+
+    // Test 5: Abrir modal
+    function testOpenSearch() {
+      const modalStatus = document.getElementById('modalStatus');
+      
+      if (typeof foxSearch === 'undefined') {
+        modalStatus.innerHTML = '<div class="status error">❌ foxSearch no está disponible</div>';
+        return;
+      }
+      
+      try {
+        foxSearch.openSearch();
+        modalStatus.innerHTML = '<div class="status ok">✅ Modal abierto exitosamente</div>';
+      } catch (error) {
+        modalStatus.innerHTML = `<div class="status error">❌ Error al abrir modal: ${error.message}</div>`;
+      }
+    }
+
+    // Esperar a que la página cargue
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        console.log('🔍 Iniciando diagnóstico del buscador...');
+        checkFiles();
+        checkScripts();
+        checkFunctions();
+        console.log('✅ Diagnóstico completado');
+      }, 500);
+    });
+  </script>
+</body>
+</html>

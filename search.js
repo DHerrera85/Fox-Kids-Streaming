@@ -14,14 +14,61 @@ class FoxKidsSearch {
 
   async init() {
     try {
-      // Cargar search-index.json
+      // Intentar cargar search-index.json
       const response = await fetch('data/search-index.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       this.index = await response.json();
-      this.setupUI();
-      this.setupEventListeners();
+      console.log('✅ search-index.json cargado exitosamente');
     } catch (error) {
-      console.error('Error loading search index:', error);
+      console.error('Error loading search-index.json:', error);
+      // Usar datos embebidos como fallback
+      this.index = window.SEARCH_INDEX_FALLBACK || this.getDefaultIndex();
+      console.log('⚠️ Usando índice por defecto');
     }
+    this.setupUI();
+    this.setupEventListeners();
+  }
+
+  getDefaultIndex() {
+    // Índice por defecto embebido como fallback
+    return {
+      "characters": [
+        {"id": "spider-man", "name": "Spider-Man", "type": "character", "avatar": "img/round/spider-man-100px-100px.png", "relatedSeries": ["Marvel", "Comics"], "tags": ["superhero", "marvel", "araña"], "searchTerms": ["spiderman", "spider man", "araña", "marvel"]},
+        {"id": "power-rangers", "name": "Power Rangers", "type": "character", "avatar": "img/round/mighty-morphin-power-rangers-100px-100px.png", "relatedSeries": ["Super Sentai", "Acción"], "tags": ["sentai", "superheroes", "rangers"], "searchTerms": ["power rangers", "rangers", "sentai"]},
+        {"id": "iron-man", "name": "Iron Man", "type": "character", "avatar": "img/round/iron-man-100px-100px.png", "relatedSeries": ["Marvel", "Comics"], "tags": ["superhero", "marvel"], "searchTerms": ["ironman", "iron man", "tony stark"]},
+        {"id": "x-men", "name": "X-Men", "type": "character", "avatar": "img/round/x-men-100px-100px.png", "relatedSeries": ["Marvel", "Comics"], "tags": ["superhero", "marvel"], "searchTerms": ["xmen", "x-men", "mutantes"]},
+        {"id": "fantastic-four", "name": "Fantastic Four", "type": "character", "avatar": "img/round/fantastic-four-100px-100px.png", "relatedSeries": ["Marvel", "Comics"], "tags": ["superhero", "marvel"], "searchTerms": ["fantastic four", "4 fantásticos"]},
+        {"id": "digimon", "name": "Digimon", "type": "character", "avatar": "img/round/digimon-100px-100px.png", "relatedSeries": ["Anime", "Aventura"], "tags": ["anime", "digital"], "searchTerms": ["digimon", "digital monsters"]},
+        {"id": "shaman-king", "name": "Shaman King", "type": "character", "avatar": "img/round/shaman-king-100px-100px.png", "relatedSeries": ["Anime", "Acción"], "tags": ["anime", "shamanes"], "searchTerms": ["shaman king"]},
+        {"id": "bobbys-world", "name": "Bobby's World", "type": "character", "avatar": "img/round/bobbys-world-100px-100px.png", "relatedSeries": ["Comedia", "Infantil"], "tags": ["comedy", "infantil"], "searchTerms": ["bobbys world", "bobby"]},
+        {"id": "incredible-hulk", "name": "Incredible Hulk", "type": "character", "avatar": "img/round/hulk-100px-100px.png", "relatedSeries": ["Marvel", "Acción"], "tags": ["superhero", "marvel"], "searchTerms": ["incredible hulk", "hulk", "bruce banner"]},
+        {"id": "goosebumps", "name": "Goosebumps", "type": "character", "avatar": "img/round/goosebumps-100px-100px.png", "relatedSeries": ["Live Action", "Misterio"], "tags": ["live action", "misterio"], "searchTerms": ["goosebumps", "escalofríos"]},
+        {"id": "woody-woodpecker", "name": "Woody Woodpecker", "type": "character", "avatar": "img/round/woody-woodpecker-100px-100px.png", "relatedSeries": ["Comedia", "Clásicos"], "tags": ["comedy", "vintage"], "searchTerms": ["woody woodpecker", "woody"]}
+      ],
+      "series": [
+        {"id": "power-rangers", "name": "Mighty Morphin Power Rangers", "type": "series", "category": "Super Sentai", "image": "img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg", "tags": ["acción", "sentai"], "characters": ["power-rangers"], "searchTerms": ["power rangers", "mighty morphin"]},
+        {"id": "digimon", "name": "Digimon", "type": "series", "category": "Anime", "image": "img/invasion-anime/digimon-280x420.jpg", "tags": ["anime", "aventura"], "characters": ["digimon"], "searchTerms": ["digimon"]},
+        {"id": "x-men", "name": "X-Men", "type": "series", "category": "Comics", "image": "img/marvel/x-men-animated-280x420.jpg", "tags": ["acción", "marvel"], "characters": ["x-men"], "searchTerms": ["x-men", "xmen", "marvel"]},
+        {"id": "goosebumps", "name": "Goosebumps", "type": "series", "category": "Live Action", "image": "img/live-action/goosebumps-280x420.jpg", "tags": ["live action", "misterio"], "characters": ["goosebumps"], "searchTerms": ["goosebumps"]},
+        {"id": "angela-anaconda", "name": "Angela Anaconda", "type": "series", "category": "Comedia", "image": "img/comedy/angela-anaconda-280x420.jpg", "tags": ["comedia", "infantil"], "characters": ["angela"], "searchTerms": ["angela anaconda"]},
+        {"id": "braceface", "name": "Braceface", "type": "series", "category": "Comedia", "image": "img/comedy/braceface-280x420.jpg", "tags": ["comedia", "adolescentes"], "characters": ["sharon"], "searchTerms": ["braceface"]},
+        {"id": "oggy", "name": "Oggy and the Cockroaches", "type": "series", "category": "Comedia", "image": "img/comedy/oggy-cockroaches-280x420.jpg", "tags": ["comedia", "infantil"], "characters": ["oggy"], "searchTerms": ["oggy"]},
+        {"id": "space-goofs", "name": "Space Goofs", "type": "series", "category": "Comedia", "image": "img/comedy/space-goofs-280x420.png", "tags": ["comedia", "aliens"], "characters": ["space"], "searchTerms": ["space goofs"]},
+        {"id": "the-tick", "name": "The Tick", "type": "series", "category": "Comedia", "image": "img/comedy/the-tick-280x420.png", "tags": ["comedia", "acción"], "characters": ["tick"], "searchTerms": ["the tick"]},
+        {"id": "toonsylvania", "name": "Toonsylvania", "type": "series", "category": "Comedia", "image": "img/comedy/toonsylvania-280x420.jpg", "tags": ["comedia", "misterio"], "characters": ["toonsylvania"], "searchTerms": ["toonsylvania"]},
+        {"id": "eek", "name": "Eek! The Cat", "type": "series", "category": "Comedia", "image": "img/comedy/eek-the-cat-280x420.png", "tags": ["comedia", "infantil"], "characters": ["eek"], "searchTerms": ["eek the cat"]}
+      ],
+      "categories": [
+        {"id": "comics", "name": "Comics", "icon": "🎨", "description": "Superhéroes y aventuras de cómics"},
+        {"id": "super-sentai", "name": "Super Sentai", "icon": "⚡", "description": "Series de acción y rangers"},
+        {"id": "anime", "name": "Anime", "icon": "🎌", "description": "Animación japonesa"},
+        {"id": "live-action", "name": "Live Action", "icon": "🎬", "description": "Series de acción real"},
+        {"id": "comedy", "name": "Comedia", "icon": "😂", "description": "Comedias infantiles"},
+        {"id": "movies", "name": "Películas", "icon": "🎥", "description": "Películas de Fox Kids"}
+      ]
+    };
   }
 
   setupUI() {
@@ -65,29 +112,31 @@ class FoxKidsSearch {
     const input = document.getElementById('searchInput');
     const modal = document.getElementById('searchModal');
 
-    // Agregar botón de búsqueda a la navegación
-    document.addEventListener('DOMContentLoaded', () => {
-      this.addSearchButtonToNav();
-    });
+    // Agregar event listeners al input cuando esté disponible
+    setTimeout(() => {
+      const inputElement = document.getElementById('searchInput');
+      if (inputElement) {
+        inputElement.addEventListener('input', (e) => this.handleSearch(e));
+        inputElement.addEventListener('keydown', (e) => this.handleKeydown(e));
+        console.log('✅ Event listeners agregados al input');
+      }
+    }, 100);
 
-    if (input) {
-      input.addEventListener('input', (e) => this.handleSearch(e));
-      input.addEventListener('keydown', (e) => this.handleKeydown(e));
-    }
-
+    // Event listener al modal
     if (modal) {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) this.closeSearch();
       });
     }
-  }
 
-  addSearchButtonToNav() {
-    // Este método se llamará desde index.html para agregar el botón de búsqueda
-    const searchBtn = document.querySelector('.search-icon-btn');
-    if (searchBtn) {
-      searchBtn.addEventListener('click', () => this.openSearch());
-    }
+    // Agregar listener al botón de búsqueda
+    setTimeout(() => {
+      const searchBtn = document.querySelector('.search-icon-btn');
+      if (searchBtn) {
+        searchBtn.onclick = () => this.openSearch();
+        console.log('✅ Botón de búsqueda configurado');
+      }
+    }, 100);
   }
 
   openSearch() {

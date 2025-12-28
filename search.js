@@ -616,10 +616,10 @@ class FoxKidsSearch {
         <div class="video-modal-content">
           <div class="video-modal-header">
             <div class="video-modal-title">📹 Reproduciendo</div>
-            <button class="video-modal-close" onclick="document.getElementById('videoModal').style.display='none'">✕</button>
+            <button class="video-modal-close" type="button">✕</button>
           </div>
           <div class="video-player-wrapper">
-            <video id="videoPlayer" class="video-player" controls>
+            <video id="videoPlayer" class="video-player" controls autoplay>
               Tu navegador no soporta video HTML5
             </video>
           </div>
@@ -630,6 +630,25 @@ class FoxKidsSearch {
         </div>
       `;
       document.body.appendChild(videoModal);
+
+      // Agregar evento al botón cerrar
+      videoModal.querySelector('.video-modal-close').addEventListener('click', () => {
+        videoModal.style.display = 'none';
+      });
+
+      // Cerrar modal al hacer clic en el fondo
+      videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+          videoModal.style.display = 'none';
+        }
+      });
+
+      // Cerrar modal con ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && videoModal.style.display === 'flex') {
+          videoModal.style.display = 'none';
+        }
+      });
     }
 
     // Configurar y reproducir video
@@ -637,20 +656,19 @@ class FoxKidsSearch {
     const videoTitle = document.getElementById('videoTitle');
     const videoMeta = document.getElementById('videoMeta');
 
-    videoPlayer.src = video.file;
-    videoTitle.textContent = video.name;
-    videoMeta.textContent = `${video.series} • ${video.duration}`;
-
-    videoModal.style.display = 'flex';
-    videoPlayer.focus();
-    videoPlayer.play();
-
-    // Cerrar modal al hacer clic en el fondo
-    videoModal.addEventListener('click', (e) => {
-      if (e.target === videoModal) {
-        videoModal.style.display = 'none';
-      }
-    });
+    if (videoPlayer && videoTitle && videoMeta) {
+      videoPlayer.src = video.file;
+      videoTitle.textContent = video.name;
+      videoMeta.textContent = `${video.series} • ${video.duration}`;
+      
+      // Mostrar modal
+      videoModal.style.display = 'flex';
+      
+      // Reproducir video
+      setTimeout(() => {
+        videoPlayer.play().catch((err) => console.log('Error playing video:', err));
+      }, 100);
+    }
   }
 }
 

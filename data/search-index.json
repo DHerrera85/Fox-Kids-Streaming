@@ -105,133 +105,205 @@
       "id": "spider-man-01",
       "name": "Spider-Man Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Spider-Man",
       "character": "spider-man",
       "file": "videos/stories/spider-man-01.mp4",
       "duration": "22:00",
       "image": "img/marvel/spiderman-animated-280x420.jpg",
-      "searchTerms": ["spider-man", "spiderman", "spider", "araña", "episode", "episodio", "video"]
+      "searchTerms": ["spider-man", "spiderman", "spider", "araña", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "spider-man-02",
       "name": "Spider-Man Episodio 2",
       "type": "video",
+      "category": "Stories",
       "series": "Spider-Man",
       "character": "spider-man",
       "file": "videos/stories/spider-man-02.mp4",
       "duration": "22:00",
       "image": "img/marvel/spiderman-animated-280x420.jpg",
-      "searchTerms": ["spider-man", "spiderman", "spider", "araña", "episode", "episodio", "video"]
+      "searchTerms": ["spider-man", "spiderman", "spider", "araña", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "iron-man-video",
       "name": "Iron Man Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Iron Man",
       "character": "iron-man",
       "file": "videos/stories/iron-man.mp4",
       "duration": "22:00",
       "image": "img/marvel/iron-man-vertical-280x420px.png",
-      "searchTerms": ["iron-man", "ironman", "iron", "hombre de hierro", "episode", "episodio", "video"]
+      "searchTerms": ["iron-man", "ironman", "iron", "hombre de hierro", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "x-men-video",
       "name": "X-Men Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "X-Men",
       "character": "x-men",
       "file": "videos/stories/x-men.mp4",
       "duration": "22:00",
       "image": "img/marvel/x-men-animated-280x420.jpg",
-      "searchTerms": ["x-men", "xmen", "x men", "episode", "episodio", "video"]
+      "searchTerms": ["x-men", "xmen", "x men", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "fantastic-four-video",
       "name": "Fantastic Four Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Fantastic Four",
       "character": "fantastic-four",
       "file": "videos/stories/fantastic-four.mp4",
       "duration": "22:00",
       "image": "img/marvel/fantastic-four-animated-280x420.jpg",
-      "searchTerms": ["fantastic-four", "fantastic four", "los 4 fantásticos", "episode", "episodio", "video"]
+      "searchTerms": ["fantastic-four", "fantastic four", "los 4 fantásticos", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "incredible-hulk-video",
       "name": "Incredible Hulk Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Incredible Hulk",
       "character": "incredible-hulk",
       "file": "videos/stories/incredible-hulk.mp4",
       "duration": "22:00",
       "image": "img/marvel/incredible-hulk-280x420.jpg",
-      "searchTerms": ["incredible-hulk", "incredible hulk", "hulk", "verde", "episode", "episodio", "video"]
+      "searchTerms": ["incredible-hulk", "incredible hulk", "hulk", "verde", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "power-rangers-video",
       "name": "Power Rangers Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Power Rangers",
       "character": "power-rangers",
       "file": "videos/stories/power-rangers.mp4",
       "duration": "22:00",
       "image": "img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg",
-      "searchTerms": ["power-rangers", "power rangers", "rangers", "episode", "episodio", "video"]
+      "searchTerms": ["power-rangers", "power rangers", "rangers", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "digimon-video",
       "name": "Digimon Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Digimon",
       "character": "digimon",
       "file": "videos/stories/digimon.mp4",
       "duration": "22:00",
       "image": "img/invasion-anime/digimon-280x420.jpg",
-      "searchTerms": ["digimon", "digi", "digital monster", "episode", "episodio", "video"]
+      "searchTerms": ["digimon", "digi", "digital monster", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "shaman-king-video",
       "name": "Shaman King Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Shaman King",
       "character": "shaman-king",
       "file": "videos/stories/shaman-king.mp4",
       "duration": "22:00",
       "image": "img/invasion-anime/shaman king-280x420.png",
-      "searchTerms": ["shaman-king", "shaman king", "shamán", "episode", "episodio", "video"]
+      "searchTerms": ["shaman-king", "shaman king", "shamán", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "goosebumps-video",
       "name": "Goosebumps Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Goosebumps",
       "character": "goosebumps",
       "file": "videos/stories/goosebumps.mp4",
       "duration": "22:00",
       "image": "img/live-action/goosebumps-280x420.jpg",
-      "searchTerms": ["goosebumps", "escalofríos", "miedo", "episode", "episodio", "video"]
+      "searchTerms": ["goosebumps", "escalofríos", "miedo", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "bobbys-world-video",
       "name": "Bobby's World Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Bobby's World",
       "character": "bobbys-world",
       "file": "videos/stories/bobbys-world.mp4",
       "duration": "22:00",
       "image": "img/",
-      "searchTerms": ["bobbys-world", "bobby's world", "bobby", "mundo de bobby", "episode", "episodio", "video"]
+      "searchTerms": ["bobbys-world", "bobby's world", "bobby", "mundo de bobby", "episode", "episodio", "video", "stories"]
     },
     {
       "id": "woody-woodpecker-video",
       "name": "Woody Woodpecker Episodio 1",
       "type": "video",
+      "category": "Stories",
       "series": "Woody Woodpecker",
       "character": "woody-woodpecker",
       "file": "videos/stories/woody-woodpecker.mp4",
       "duration": "22:00",
       "image": "img/",
-      "searchTerms": ["woody-woodpecker", "woody woodpecker", "woody", "pájaro carpintero", "episode", "episodio", "video"]
+      "searchTerms": ["woody-woodpecker", "woody woodpecker", "woody", "pájaro carpintero", "episode", "episodio", "video", "stories"]
+    },
+    {
+      "id": "fantastic-four-opening",
+      "name": "Fantastic Four - Apertura",
+      "type": "video",
+      "category": "Openings",
+      "series": "Fantastic Four",
+      "character": "fantastic-four",
+      "file": "videos/shorts/openings/fantastic-four.mp4",
+      "duration": "1:30",
+      "image": "videos/shorts/openings/fantastic-four.jpg",
+      "searchTerms": ["fantastic-four", "fantastic four", "opening", "apertura", "intro", "short", "video"]
+    },
+    {
+      "id": "iron-man-opening",
+      "name": "Iron Man - Apertura",
+      "type": "video",
+      "category": "Openings",
+      "series": "Iron Man",
+      "character": "iron-man",
+      "file": "videos/shorts/openings/iron-man-short.mp4",
+      "duration": "1:30",
+      "image": "videos/shorts/openings/iron-man-short.jpg",
+      "searchTerms": ["iron-man", "ironman", "opening", "apertura", "intro", "short", "video"]
+    },
+    {
+      "id": "power-rangers-opening",
+      "name": "Power Rangers - Apertura",
+      "type": "video",
+      "category": "Openings",
+      "series": "Power Rangers",
+      "character": "power-rangers",
+      "file": "videos/shorts/openings/power rangers.mp4",
+      "duration": "1:30",
+      "image": "videos/shorts/openings/power rangers.jpg",
+      "searchTerms": ["power-rangers", "power rangers", "rangers", "opening", "apertura", "intro", "short", "video"]
+    },
+    {
+      "id": "x-men-opening",
+      "name": "X-Men - Apertura",
+      "type": "video",
+      "category": "Openings",
+      "series": "X-Men",
+      "character": "x-men",
+      "file": "videos/shorts/openings/x-men-short.mp4",
+      "duration": "1:30",
+      "image": "videos/shorts/openings/x-men-short.jpg",
+      "searchTerms": ["x-men", "xmen", "opening", "apertura", "intro", "short", "video"]
+    },
+    {
+      "id": "transformers-promo",
+      "name": "Transformers - Promo",
+      "type": "video",
+      "category": "Promos",
+      "series": "Transformers",
+      "character": "transformers",
+      "file": "videos/shorts/promos/transformers-promo-2002.mp4",
+      "duration": "0:30",
+      "image": "img/",
+      "searchTerms": ["transformers", "promo", "promotional", "video", "2002"]
     }
   ],
   "series": [

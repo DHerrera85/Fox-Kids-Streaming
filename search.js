@@ -21,11 +21,23 @@ class FoxKidsSearch {
       }
       this.index = await response.json();
       console.log('✅ search-index.json cargado exitosamente');
+      console.log('📊 Datos cargados:', {
+        characters: this.index.characters?.length || 0,
+        videos: this.index.videos?.length || 0,
+        series: this.index.series?.length || 0,
+        categories: this.index.categories?.length || 0
+      });
     } catch (error) {
-      console.error('Error loading search-index.json:', error);
+      console.error('❌ Error loading search-index.json:', error);
       // Usar datos embebidos como fallback
       this.index = window.SEARCH_INDEX_FALLBACK || this.getDefaultIndex();
       console.log('⚠️ Usando índice por defecto');
+      console.log('📊 Datos fallback:', {
+        characters: this.index.characters?.length || 0,
+        videos: this.index.videos?.length || 0,
+        series: this.index.series?.length || 0,
+        categories: this.index.categories?.length || 0
+      });
     }
     this.setupUI();
     this.setupEventListeners();
@@ -131,7 +143,15 @@ class FoxKidsSearch {
       if (inputElement) {
         inputElement.addEventListener('input', (e) => this.handleSearch(e));
         inputElement.addEventListener('keydown', (e) => this.handleKeydown(e));
-        console.log('✅ Event listeners agregados al input');
+        console.log('✅ Event listeners agregados al input del modal');
+      }
+      
+      // Conectar el campo del topbar para abrir modal
+      const topbarInput = document.getElementById('q');
+      if (topbarInput) {
+        topbarInput.addEventListener('focus', () => this.openSearch());
+        topbarInput.addEventListener('click', () => this.openSearch());
+        console.log('✅ Campo de búsqueda del topbar conectado');
       }
     }, 100);
 
@@ -186,6 +206,7 @@ class FoxKidsSearch {
 
   handleSearch(event) {
     const query = event.target.value.toLowerCase().trim();
+    console.log('🔤 handleSearch llamado con:', query);
     const clearBtn = document.getElementById('searchClear');
     
     if (clearBtn) {
@@ -193,11 +214,13 @@ class FoxKidsSearch {
     }
 
     if (query.length === 0) {
+      console.log('⚠️ Query vacía, mostrando sugerencias');
       this.showSuggestions();
       return;
     }
 
     if (query.length < 2) {
+      console.log('⚠️ Query muy corta (<2), limpiando resultados');
       document.getElementById('searchResults').innerHTML = '';
       return;
     }
@@ -206,17 +229,22 @@ class FoxKidsSearch {
   }
 
   performSearch(query) {
+    console.log('🔍 Buscando:', query);
     this.results = [];
     this.selectedIndex = 0;
 
     // Buscar en vídeos (prioridad más alta)
     const videoMatches = this.searchVideos(query);
+    console.log('📹 Videos encontrados:', videoMatches.length);
     // Buscar en caracteres
     const characterMatches = this.searchCharacters(query);
+    console.log('👤 Personajes encontrados:', characterMatches.length);
     // Buscar en series
     const seriesMatches = this.searchSeries(query);
+    console.log('📺 Series encontradas:', seriesMatches.length);
     // Buscar en categorías
     const categoryMatches = this.searchCategories(query);
+    console.log('📂 Categorías encontradas:', categoryMatches.length);
 
     this.results = [
       ...videoMatches,
@@ -224,6 +252,8 @@ class FoxKidsSearch {
       ...seriesMatches,
       ...categoryMatches
     ];
+
+    console.log('✅ Total resultados:', this.results.length);
 
     // Ordenar por relevancia
     this.results.sort((a, b) => b.relevance - a.relevance);

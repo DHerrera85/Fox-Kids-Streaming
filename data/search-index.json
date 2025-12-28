@@ -246,6 +246,48 @@
       "searchTerms": ["woody-woodpecker", "woody woodpecker", "woody", "pájaro carpintero", "episode", "episodio", "video", "stories"]
     },
     {
+      "id": "angela-anaconda-promo-us-2000",
+      "name": "Angela Anaconda Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Angela Anaconda",
+      "file": "videos/shorts/promos/US/angela-anaconda-promo-US-2000.mp4",
+      "duration": "0:30",
+      "image": "img/comedy/angela-anaconda-280x420.jpg",
+      "year": "2000",
+      "region": "US",
+      "searchTerms": ["angela anaconda", "promo", "2000", "fox kids us", "comercial"]
+    },
+    {
+      "id": "diabolik-promo-latam-2000",
+      "name": "Diabolik Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Diabolik",
+      "file": "videos/shorts/promos/latam/diabolik-promo-LATAM-2000.mp4",
+      "duration": "0:30",
+      "image": "img/marvel/diabolik-280x420px.png",
+      "year": "2000",
+      "region": "LATAM",
+      "searchTerms": ["diabolik", "promo", "2000", "fox kids latam", "comercial", "latinoamerica"]
+    },
+    {
+      "id": "the-magician-promo-us-1999",
+      "name": "The Magician Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "The Magician",
+      "file": "videos/shorts/promos/US/the-magician-promo-US-1999.mp4",
+      "duration": "0:30",
+      "image": "img/marvel/the-magician-280x420px.png",
+      "year": "1999",
+      "region": "US",
+      "searchTerms": ["the magician", "magician", "promo", "1999", "fox kids us", "comercial"]
+    },
+    {
       "id": "fantastic-four-opening",
       "name": "Fantastic Four - Apertura",
       "type": "video",

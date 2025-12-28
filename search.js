@@ -615,12 +615,12 @@ class FoxKidsSearch {
         window.location.href = `shorts.html?character=${result.id}`;
         break;
       case 'series':
-        // Redirigir a series-clean.html
-        window.location.href = 'series-clean.html';
+        // Redirigir a series.html
+        window.location.href = 'series.html';
         break;
       case 'category':
-        // Redirigir a series-clean.html con scroll a categoría
-        window.location.href = `series-clean.html#${result.id}`;
+        // Redirigir a series.html con scroll a categoría
+        window.location.href = `series.html#${result.id}`;
         break;
     }
   }

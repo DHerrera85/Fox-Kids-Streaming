@@ -120,6 +120,7 @@
     const videoSeries = params.get('series');
     const videoDuration = params.get('duration');
     const videoCategory = params.get('category');
+    const returnTo = params.get('returnTo'); // Parámetro para volver a una página específica
 
     // Configurar el reproductor
     const player = document.getElementById('videoPlayer');
@@ -142,7 +143,12 @@
     }
 
     function goBack() {
-      window.history.back();
+      // Si hay parámetro returnTo, usarlo; si no, volver atrás
+      if (returnTo) {
+        window.location.href = returnTo;
+      } else {
+        window.history.back();
+      }
     }
 
     // Reproducir al cargar

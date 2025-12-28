@@ -615,8 +615,8 @@ class FoxKidsSearch {
         window.location.href = `shorts.html?character=${result.id}`;
         break;
       case 'series':
-        // Redirigir a series.html
-        window.location.href = 'series.html';
+        // Redirigir a serie.html con el ID de la serie
+        window.location.href = `serie.html?id=${result.id}`;
         break;
       case 'category':
         // Redirigir a series.html con scroll a categoría

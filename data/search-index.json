@@ -313,9 +313,26 @@
       "type": "series",
       "category": "Super Sentai",
       "image": "img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg",
+      "description": "5 jóvenes adolescentes son elegidos por Zordon para convertirse en Power Rangers y defender la Tierra contra el mal. Con sus trajes y zords, luchan contra las fuerzas del Ranger Rojo y sus enemigos.",
+      "year": 1993,
+      "rating": "10+",
       "tags": ["acción", "sentai", "superhéroes", "rangers"],
       "characters": ["power-rangers"],
-      "searchTerms": ["power rangers", "mighty morphin", "rangers", "sentai"]
+      "searchTerms": ["power rangers", "mighty morphin", "rangers", "sentai"],
+      "seasons": [
+        {
+          "season": 1,
+          "episodes": [
+            {
+              "number": 1,
+              "title": "Power Rangers Episodio 1",
+              "video": "videos/stories/power-rangers.mp4",
+              "duration": "22:00",
+              "airDate": "1993"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "digimon",
@@ -323,9 +340,26 @@
       "type": "series",
       "category": "Anime",
       "image": "img/invasion-anime/digimon-280x420.jpg",
+      "description": "Un grupo de niños es transportado a un mundo digital donde usan dispositivos llamados Digivices para evolucionar a sus compañeros digitales y luchar contra enemigos oscuros.",
+      "year": 1997,
+      "rating": "7+",
       "tags": ["anime", "aventura", "digital", "monstruos"],
       "characters": ["digimon"],
-      "searchTerms": ["digimon", "digital monsters", "anime", "aventura"]
+      "searchTerms": ["digimon", "digital monsters", "anime", "aventura"],
+      "seasons": [
+        {
+          "season": 1,
+          "episodes": [
+            {
+              "number": 1,
+              "title": "Digimon Episodio 1",
+              "video": "videos/stories/digimon.mp4",
+              "duration": "22:00",
+              "airDate": "1997"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "x-men",
@@ -333,9 +367,26 @@
       "type": "series",
       "category": "Comics",
       "image": "img/marvel/x-men-animated-280x420.jpg",
+      "description": "Un equipo de mutantes dotados de superpoderes trabajan juntos bajo la dirección del profesor Xavier para proteger un mundo que los teme y los odia, luchando contra fuerzas del mal.",
+      "year": 1992,
+      "rating": "13+",
       "tags": ["acción", "marvel", "superhéroes", "animado"],
       "characters": ["x-men"],
-      "searchTerms": ["x-men", "xmen", "marvel", "mutantes"]
+      "searchTerms": ["x-men", "xmen", "marvel", "mutantes"],
+      "seasons": [
+        {
+          "season": 1,
+          "episodes": [
+            {
+              "number": 1,
+              "title": "X-Men Episodio 1",
+              "video": "videos/stories/x-men.mp4",
+              "duration": "22:00",
+              "airDate": "1992"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "goosebumps",
@@ -343,9 +394,26 @@
       "type": "series",
       "category": "Live Action",
       "image": "img/live-action/goosebumps-280x420.jpg",
+      "description": "Historias de terror y misterio basadas en los libros de R.L. Stine. Cada episodio presenta una nueva aventura aterradora donde lo sobrenatural se cruza con la realidad cotidiana.",
+      "year": 1995,
+      "rating": "13+",
       "tags": ["live action", "misterio", "horror", "infantil"],
       "characters": ["goosebumps"],
-      "searchTerms": ["goosebumps", "escalofríos", "misterio"]
+      "searchTerms": ["goosebumps", "escalofríos", "misterio"],
+      "seasons": [
+        {
+          "season": 1,
+          "episodes": [
+            {
+              "number": 1,
+              "title": "Goosebumps Episodio 1",
+              "video": "videos/stories/goosebumps.mp4",
+              "duration": "22:00",
+              "airDate": "1995"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "angela-anaconda",

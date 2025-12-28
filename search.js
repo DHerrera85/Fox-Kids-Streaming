@@ -196,6 +196,8 @@ class FoxKidsSearch {
     this.results = [];
     this.selectedIndex = 0;
 
+    // Buscar en vídeos (prioridad más alta)
+    const videoMatches = this.searchVideos(query);
     // Buscar en caracteres
     const characterMatches = this.searchCharacters(query);
     // Buscar en series
@@ -204,6 +206,7 @@ class FoxKidsSearch {
     const categoryMatches = this.searchCategories(query);
 
     this.results = [
+      ...videoMatches,
       ...characterMatches,
       ...seriesMatches,
       ...categoryMatches
@@ -265,6 +268,24 @@ class FoxKidsSearch {
           ...category,
           relevance: 50,
           resultType: 'category'
+        });
+      }
+    });
+
+    return matches;
+  }
+
+  searchVideos(query) {
+    const matches = [];
+    if (!this.index.videos) return matches;
+
+    this.index.videos.forEach((video) => {
+      const relevance = this.calculateRelevance(query, video.name, video.searchTerms);
+      if (relevance > 0) {
+        matches.push({
+          ...video,
+          relevance,
+          resultType: 'video'
         });
       }
     });
@@ -430,6 +451,17 @@ class FoxKidsSearch {
             <div class="result-action">➜</div>
           </div>
         `;
+      case 'video':
+        return `
+          <div class="search-result ${selectedClass}" data-id="${result.id}">
+            <img src="${result.image}" alt="${result.name}" class="result-image">
+            <div class="result-info">
+              <div class="result-name">${result.name}</div>
+              <div class="result-meta">📹 ${result.series} • ${result.duration}</div>
+            </div>
+            <div class="result-action">▶</div>
+          </div>
+        `;
       default:
         return '';
     }
@@ -439,6 +471,7 @@ class FoxKidsSearch {
     const titles = {
       'character': '👤 Personajes',
       'series': '📺 Series',
+      'video': '📹 Videos',
       'short': '🎬 Shorts',
       'category': '📂 Categorías'
     };
@@ -553,6 +586,10 @@ class FoxKidsSearch {
     if (!result) return;
 
     switch (result.resultType) {
+      case 'video':
+        // Abrir reproductor de video en modal
+        this.playVideo(result);
+        break;
       case 'character':
         // Redirigir a shorts.html con filtro de personaje
         window.location.href = `shorts.html?character=${result.id}`;
@@ -566,6 +603,54 @@ class FoxKidsSearch {
         window.location.href = `series-clean.html#${result.id}`;
         break;
     }
+  }
+
+  playVideo(video) {
+    // Crear modal de video si no existe
+    let videoModal = document.getElementById('videoModal');
+    if (!videoModal) {
+      videoModal = document.createElement('div');
+      videoModal.id = 'videoModal';
+      videoModal.className = 'video-modal';
+      videoModal.innerHTML = `
+        <div class="video-modal-content">
+          <div class="video-modal-header">
+            <div class="video-modal-title">📹 Reproduciendo</div>
+            <button class="video-modal-close" onclick="document.getElementById('videoModal').style.display='none'">✕</button>
+          </div>
+          <div class="video-player-wrapper">
+            <video id="videoPlayer" class="video-player" controls>
+              Tu navegador no soporta video HTML5
+            </video>
+          </div>
+          <div class="video-info">
+            <div class="video-title" id="videoTitle"></div>
+            <div class="video-meta" id="videoMeta"></div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(videoModal);
+    }
+
+    // Configurar y reproducir video
+    const videoPlayer = document.getElementById('videoPlayer');
+    const videoTitle = document.getElementById('videoTitle');
+    const videoMeta = document.getElementById('videoMeta');
+
+    videoPlayer.src = video.file;
+    videoTitle.textContent = video.name;
+    videoMeta.textContent = `${video.series} • ${video.duration}`;
+
+    videoModal.style.display = 'flex';
+    videoPlayer.focus();
+    videoPlayer.play();
+
+    // Cerrar modal al hacer clic en el fondo
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        videoModal.style.display = 'none';
+      }
+    });
   }
 }
 

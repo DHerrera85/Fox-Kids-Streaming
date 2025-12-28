@@ -1,0 +1,295 @@
+{
+  "characters": [
+    {
+      "id": "spider-man",
+      "name": "Spider-Man",
+      "type": "character",
+      "avatar": "img/round/spider-man-100px-100px.png",
+      "relatedSeries": ["Marvel", "Comics"],
+      "tags": ["superhero", "marvel", "araña"],
+      "searchTerms": ["spiderman", "spider man", "araña", "marvel"]
+    },
+    {
+      "id": "power-rangers",
+      "name": "Power Rangers",
+      "type": "character",
+      "avatar": "img/round/mighty-morphin-power-rangers-100px-100px.png",
+      "relatedSeries": ["Super Sentai", "Acción"],
+      "tags": ["sentai", "superheroes", "rangers", "morph"],
+      "searchTerms": ["power rangers", "rangers", "sentai", "mighty morphin"]
+    },
+    {
+      "id": "iron-man",
+      "name": "Iron Man",
+      "type": "character",
+      "avatar": "img/round/iron-man-100px-100px.png",
+      "relatedSeries": ["Marvel", "Comics"],
+      "tags": ["superhero", "marvel", "iron", "tony stark"],
+      "searchTerms": ["ironman", "iron man", "tony stark", "marvel"]
+    },
+    {
+      "id": "x-men",
+      "name": "X-Men",
+      "type": "character",
+      "avatar": "img/round/x-men-100px-100px.png",
+      "relatedSeries": ["Marvel", "Comics", "Anime"],
+      "tags": ["superhero", "marvel", "mutantes"],
+      "searchTerms": ["xmen", "x-men", "mutantes", "marvel"]
+    },
+    {
+      "id": "fantastic-four",
+      "name": "Fantastic Four",
+      "type": "character",
+      "avatar": "img/round/fantastic-four-100px-100px.png",
+      "relatedSeries": ["Marvel", "Comics"],
+      "tags": ["superhero", "marvel", "familia"],
+      "searchTerms": ["fantastic four", "4 fantásticos", "marvel"]
+    },
+    {
+      "id": "digimon",
+      "name": "Digimon",
+      "type": "character",
+      "avatar": "img/round/digimon-100px-100px.png",
+      "relatedSeries": ["Anime", "Aventura"],
+      "tags": ["anime", "digital monsters", "aventura"],
+      "searchTerms": ["digimon", "digital monsters", "digivice"]
+    },
+    {
+      "id": "shaman-king",
+      "name": "Shaman King",
+      "type": "character",
+      "avatar": "img/round/shaman-king-100px-100px.png",
+      "relatedSeries": ["Anime", "Acción"],
+      "tags": ["anime", "shamanes", "espíritus"],
+      "searchTerms": ["shaman king", "shamanes", "yoh asakura"]
+    },
+    {
+      "id": "bobbys-world",
+      "name": "Bobby's World",
+      "type": "character",
+      "avatar": "img/round/bobbys-world-100px-100px.png",
+      "relatedSeries": ["Comedia", "Infantil"],
+      "tags": ["comedy", "infantil", "aventura"],
+      "searchTerms": ["bobbys world", "bobby", "mundo de bobby"]
+    },
+    {
+      "id": "incredible-hulk",
+      "name": "Incredible Hulk",
+      "type": "character",
+      "avatar": "img/round/hulk-100px-100px.png",
+      "relatedSeries": ["Marvel", "Comics", "Acción"],
+      "tags": ["superhero", "marvel", "hulk", "bruce banner"],
+      "searchTerms": ["incredible hulk", "hulk", "bruce banner", "marvel"]
+    },
+    {
+      "id": "goosebumps",
+      "name": "Goosebumps",
+      "type": "character",
+      "avatar": "img/round/goosebumps-100px-100px.png",
+      "relatedSeries": ["Live Action", "Misterio"],
+      "tags": ["live action", "misterio", "horror", "r.l. stine"],
+      "searchTerms": ["goosebumps", "escalofríos", "r.l. stine"]
+    },
+    {
+      "id": "woody-woodpecker",
+      "name": "Woody Woodpecker",
+      "type": "character",
+      "avatar": "img/round/woody-woodpecker-100px-100px.png",
+      "relatedSeries": ["Comedia", "Clásicos"],
+      "tags": ["comedy", "vintage", "clásico", "pájaro"],
+      "searchTerms": ["woody woodpecker", "woody", "pájaro loco"]
+    }
+  ],
+  "series": [
+    {
+      "id": "power-rangers",
+      "name": "Mighty Morphin Power Rangers",
+      "type": "series",
+      "category": "Super Sentai",
+      "image": "img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg",
+      "tags": ["acción", "sentai", "superhéroes", "rangers"],
+      "characters": ["power-rangers"],
+      "searchTerms": ["power rangers", "mighty morphin", "rangers", "sentai"]
+    },
+    {
+      "id": "digimon",
+      "name": "Digimon",
+      "type": "series",
+      "category": "Anime",
+      "image": "img/invasion-anime/digimon-280x420.jpg",
+      "tags": ["anime", "aventura", "digital", "monstruos"],
+      "characters": ["digimon"],
+      "searchTerms": ["digimon", "digital monsters", "anime", "aventura"]
+    },
+    {
+      "id": "x-men",
+      "name": "X-Men",
+      "type": "series",
+      "category": "Comics",
+      "image": "img/marvel/x-men-animated-280x420.jpg",
+      "tags": ["acción", "marvel", "superhéroes", "animado"],
+      "characters": ["x-men"],
+      "searchTerms": ["x-men", "xmen", "marvel", "mutantes"]
+    },
+    {
+      "id": "goosebumps",
+      "name": "Goosebumps",
+      "type": "series",
+      "category": "Live Action",
+      "image": "img/live-action/goosebumps-280x420.jpg",
+      "tags": ["live action", "misterio", "horror", "infantil"],
+      "characters": ["goosebumps"],
+      "searchTerms": ["goosebumps", "escalofríos", "misterio"]
+    },
+    {
+      "id": "angela-anaconda",
+      "name": "Angela Anaconda",
+      "type": "series",
+      "category": "Comedia",
+      "image": "img/comedy/angela-anaconda-280x420.jpg",
+      "tags": ["comedia", "infantil", "aventura", "animado"],
+      "characters": ["angela"],
+      "searchTerms": ["angela anaconda", "angela", "comedia"]
+    },
+    {
+      "id": "brace-face",
+      "name": "Braceface",
+      "type": "series",
+      "category": "Comedia",
+      "image": "img/comedy/braceface-280x420.jpg",
+      "tags": ["comedia", "adolescentes", "infantil", "animado"],
+      "characters": ["sharon"],
+      "searchTerms": ["braceface", "brace face", "comedia"]
+    },
+    {
+      "id": "oggy-and-cockroaches",
+      "name": "Oggy and the Cockroaches",
+      "type": "series",
+      "category": "Comedia",
+      "image": "img/comedy/oggy-cockroaches-280x420.jpg",
+      "tags": ["comedia", "infantil", "aventura", "animado"],
+      "characters": ["oggy"],
+      "searchTerms": ["oggy", "oggy and the cockroaches", "cucarachas", "comedia"]
+    },
+    {
+      "id": "space-goofs",
+      "name": "Space Goofs",
+      "type": "series",
+      "category": "Comedia",
+      "image": "img/comedy/space-goofs-280x420.png",
+      "tags": ["comedia", "infantil", "aliens", "animado"],
+      "characters": ["space"],
+      "searchTerms": ["space goofs", "space", "aliens", "comedia"]
+    },
+    {
+      "id": "the-tick",
+      "name": "The Tick",
+      "type": "series",
+      "category": "Comedia",
+      "image": "img/comedy/the-tick-280x420.png",
+      "tags": ["comedia", "acción", "superhéroes", "animado"],
+      "characters": ["tick"],
+      "searchTerms": ["the tick", "tick", "superhéroe", "comedia"]
+    },
+    {
+      "id": "toonsylvania",
+      "name": "Toonsylvania",
+      "type": "series",
+      "category": "Comedia",
+      "image": "img/comedy/toonsylvania-280x420.jpg",
+      "tags": ["comedia", "infantil", "misterio", "animado"],
+      "characters": ["toonsylvania"],
+      "searchTerms": ["toonsylvania", "toons", "comedia"]
+    },
+    {
+      "id": "eek-the-cat",
+      "name": "Eek! The Cat",
+      "type": "series",
+      "category": "Comedia",
+      "image": "img/comedy/eek-the-cat-280x420.png",
+      "tags": ["comedia", "infantil", "aventura", "animado"],
+      "characters": ["eek"],
+      "searchTerms": ["eek the cat", "eek", "gato", "comedia"]
+    }
+  ],
+  "shorts": [
+    {
+      "id": "spider-man-short",
+      "name": "Spider-Man Chronicles",
+      "type": "short",
+      "character": "spider-man",
+      "tags": ["marvel", "superhero", "action"],
+      "searchTerms": ["spider-man", "spiderman", "short", "marvel"]
+    },
+    {
+      "id": "x-men-short",
+      "name": "X-Men Adventures",
+      "type": "short",
+      "character": "x-men",
+      "tags": ["marvel", "superhero", "mutantes"],
+      "searchTerms": ["x-men", "xmen", "short", "marvel"]
+    },
+    {
+      "id": "iron-man-short",
+      "name": "Iron Man Saga",
+      "type": "short",
+      "character": "iron-man",
+      "tags": ["marvel", "superhero", "tech"],
+      "searchTerms": ["iron-man", "ironman", "short", "marvel"]
+    },
+    {
+      "id": "power-rangers-short",
+      "name": "Power Rangers Battles",
+      "type": "short",
+      "character": "power-rangers",
+      "tags": ["sentai", "action", "rangers"],
+      "searchTerms": ["power-rangers", "rangers", "short", "sentai"]
+    },
+    {
+      "id": "digimon-short",
+      "name": "Digimon Evolution",
+      "type": "short",
+      "character": "digimon",
+      "tags": ["anime", "digital", "adventure"],
+      "searchTerms": ["digimon", "short", "anime"]
+    }
+  ],
+  "categories": [
+    {
+      "id": "comics",
+      "name": "Comics",
+      "icon": "🎨",
+      "description": "Superhéroes y aventuras de cómics"
+    },
+    {
+      "id": "super-sentai",
+      "name": "Super Sentai",
+      "icon": "⚡",
+      "description": "Series de acción y rangers"
+    },
+    {
+      "id": "anime",
+      "name": "Anime",
+      "icon": "🎌",
+      "description": "Animación japonesa"
+    },
+    {
+      "id": "live-action",
+      "name": "Live Action",
+      "icon": "🎬",
+      "description": "Series de acción real"
+    },
+    {
+      "id": "comedy",
+      "name": "Comedia",
+      "icon": "😂",
+      "description": "Comedias infantiles"
+    },
+    {
+      "id": "movies",
+      "name": "Películas",
+      "icon": "🎥",
+      "description": "Películas de Fox Kids"
+    }
+  ]
+}

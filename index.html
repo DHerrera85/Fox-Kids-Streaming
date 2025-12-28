@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="search-styles.css">
 <style>
   :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);--article-w:140px;--article-h:230px;--article-img-h:150px;}
   *{box-sizing:border-box} html,body{height:100%}
@@ -762,7 +763,7 @@
         </div>
       </div>
       <div class="icons">
-        <div class="icon-btn" title="Buscar" onclick="focusSearch()"><span class="icon">🔎</span></div>
+        <div class="icon-btn search-icon-btn" title="Buscar inteligente" onclick="foxSearch.openSearch()"><span class="icon">🔎</span></div>
         <div class="icon-btn" title="Recordatorios" onclick="showReminders()">
           <span class="icon">🔔</span>
           <span class="notification-badge" id="reminder-badge">0</span>
@@ -1191,11 +1192,10 @@
 
     carousel.addEventListener('selectstart',()=>false);
   }
-
   // Inicializar drag scroll para carrusel de Shorts
   setupDragScroll('shortsCarousel');
 
-  function focusSearch(){document.getElementById('q').focus(); toast('Buscador listo');}
+  function focusSearch(){if(typeof foxSearch !== 'undefined') foxSearch.openSearch(); else toast('Buscador cargando...');}
   let tmr;
   function toast(msg){
     clearTimeout(tmr);
@@ -1561,5 +1561,6 @@
     updateReminderBadge();
   });
 </script>
+<script src="search.js"></script>
 </body>
 </html>

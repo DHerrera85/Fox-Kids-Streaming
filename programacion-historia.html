@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="search-styles.css">
 <style>
   :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);}
   *{box-sizing:border-box} html,body{height:100%}
@@ -107,7 +108,7 @@
         </div>
       </div>
       <div class="icons">
-        <div class="icon-btn" title="Buscar"><span class="icon">🔎</span></div>
+        <div class="icon-btn search-icon-btn" title="Buscar inteligente" onclick="if(typeof foxSearch !== 'undefined') foxSearch.openSearch();"><span class="icon">🔎</span></div>
         <div class="icon-btn" title="Perfil"><span class="icon">👤</span></div>
       </div>
     </div>
@@ -1113,5 +1114,6 @@
       body.classList.toggle('sidebar-expanded');
     }
   </script>
+  <script src="search.js"></script>
 </body>
 </html>

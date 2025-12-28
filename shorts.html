@@ -540,6 +540,82 @@
     const overlay = document.getElementById('reminderOverlay');
     overlay.classList.remove('active');
   }
+
+  // ========== FILTRADO POR PERSONAJE ==========
+  // Mapeo de nombres de personajes a data-character
+  const characterMapping = {
+    'spider-man': 'spider-man',
+    'power-rangers': 'power-rangers',
+    'iron-man': 'iron-man',
+    'x-men': 'x-men',
+    'fantastic-four': 'fantastic-four',
+    'digimon': 'digimon',
+    'shaman-king': 'shaman-king',
+    'bobbys-world': 'bobbys-world',
+    'incredible-hulk': 'hulk',
+    'goosebumps': 'goosebumps',
+    'woody-woodpecker': 'woody-woodpecker'
+  };
+
+  // Detectar parámetro de URL al cargar la página
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const characterParam = urlParams.get('character');
+    
+    if (characterParam && characterMapping[characterParam]) {
+      filterByCharacter(characterMapping[characterParam]);
+      
+      // Mostrar mensaje de filtro activo
+      const characterName = characterParam.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ');
+      
+      showToast(`🔍 Mostrando shorts de: ${characterName}`);
+      
+      // Actualizar subtítulo del topbar
+      const subtitle = document.querySelector('.hello .sub');
+      if (subtitle) {
+        subtitle.textContent = `Shorts de ${characterName}`;
+      }
+    }
+  });
+
+  function filterByCharacter(character) {
+    const allShorts = document.querySelectorAll('.short');
+    let visibleCount = 0;
+    
+    allShorts.forEach(short => {
+      const shortCharacter = short.getAttribute('data-character');
+      if (character === 'all' || shortCharacter === character) {
+        short.style.display = 'flex';
+        visibleCount++;
+      } else {
+        short.style.display = 'none';
+      }
+    });
+    
+    // Si no hay resultados, mostrar mensaje
+    if (visibleCount === 0) {
+      showToast('❌ No hay shorts disponibles de este personaje');
+    }
+  }
+
+  function showToast(message) {
+    const toast = document.querySelector('.toast') || createToast();
+    toast.textContent = message;
+    toast.style.display = 'block';
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 3000);
+  }
+
+  function createToast() {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#111;color:#FFD200;border:2px solid #FFD200;border-radius:12px;padding:10px 14px;font-size:12px;font-weight:900;box-shadow:0 10px 24px rgba(0,0,0,.35);display:none;z-index:10000;';
+    document.body.appendChild(toast);
+    return toast;
+  }
 </script>
 
 <script src="script.js"></script>

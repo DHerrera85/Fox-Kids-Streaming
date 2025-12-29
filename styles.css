@@ -828,3 +828,15 @@ footer {
   font-size: 14px;
 }
 
+/* === FONT AWESOME ICONS === */
+.ni i {
+  font-size: 1.3em;
+  display: inline-block;
+  vertical-align: middle;
+  color: inherit;
+}
+
+.icon-btn i {
+  font-size: 1.1em;
+}
+

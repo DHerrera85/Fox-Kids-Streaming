@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="search-styles.css">
 <style>
   :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);--article-w:140px;--article-h:230px;--article-img-h:150px;}
@@ -1060,12 +1061,12 @@
 
 <nav class="bottom-nav" id="sidebar" aria-label="Navegación inferior">
   <div class="sidebar-toggle" onclick="toggleSidebar()">
-    <div class="ni">☰</div>
+    <div class="ni"><i class="fas fa-bars"></i></div>
   </div>
-  <div class="nav-item active" data-tab="home" onclick="go(this.dataset.tab)"><div class="ni">🏠</div><div class="label">Inicio</div></div>
-  <div class="nav-item" onclick="location.href='series.html'"><div class="ni">📺</div><div class="label">Series</div></div>
-  <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni">🎬</div><div class="label">Shorts</div></div>
-  <div class="nav-item" data-tab="schedule" onclick="go(this.dataset.tab)"><div class="ni">🗓️</div><div class="label">Schedule</div></div>
+  <div class="nav-item active" data-tab="home" onclick="go(this.dataset.tab)"><div class="ni"><i class="fas fa-house"></i></div><div class="label">Inicio</div></div>
+  <div class="nav-item" onclick="location.href='series.html'"><div class="ni"><i class="fas fa-tv"></i></div><div class="label">Series</div></div>
+  <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni"><i class="fas fa-film"></i></div><div class="label">Shorts</div></div>
+  <div class="nav-item" data-tab="schedule" onclick="go(this.dataset.tab)"><div class="ni"><i class="fas fa-calendar"></i></div><div class="label">Schedule</div></div>
 </nav>
 
 <!-- Reminder Modal -->

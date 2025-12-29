@@ -568,6 +568,41 @@
       "character": "digimon",
       "tags": ["anime", "digital", "adventure"],
       "searchTerms": ["digimon", "short", "anime"]
+    },
+    {
+      "id": "beetleborgs-promo",
+      "name": "Beetleborgs Promo US",
+      "type": "promo",
+      "tags": ["sentai", "action", "promo", "usa"],
+      "searchTerms": ["beetleborgs", "beetle", "borgs", "promo", "us"]
+    },
+    {
+      "id": "mystic-knights-promo",
+      "name": "Mystic Knights of Tir Na Nog Promo US",
+      "type": "promo",
+      "tags": ["live-action", "fantasy", "promo", "usa"],
+      "searchTerms": ["mystic knights", "tir na nog", "promo", "us"]
+    },
+    {
+      "id": "vr-troopers-promo",
+      "name": "VR Troopers Promo US",
+      "type": "promo",
+      "tags": ["sentai", "action", "promo", "usa", "vr"],
+      "searchTerms": ["vr troopers", "vr", "troopers", "promo", "us"]
+    },
+    {
+      "id": "diabolik-promo",
+      "name": "Diabolik Promo LATAM",
+      "type": "promo",
+      "tags": ["anime", "action", "promo", "latam"],
+      "searchTerms": ["diabolik", "promo", "latam", "latinoamerica"]
+    },
+    {
+      "id": "los-luchadores-opening",
+      "name": "Los Luchadores Opening",
+      "type": "opening",
+      "tags": ["action", "wrestling", "opening", "latam"],
+      "searchTerms": ["los luchadores", "luchadores", "opening", "lucha libre"]
     }
   ],
   "categories": [

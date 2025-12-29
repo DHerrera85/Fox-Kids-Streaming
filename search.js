@@ -236,9 +236,6 @@ class FoxKidsSearch {
     // Buscar en vídeos (prioridad más alta)
     const videoMatches = this.searchVideos(query);
     console.log('📹 Videos encontrados:', videoMatches.length);
-    // Buscar en caracteres
-    const characterMatches = this.searchCharacters(query);
-    console.log('👤 Personajes encontrados:', characterMatches.length);
     // Buscar en series
     const seriesMatches = this.searchSeries(query);
     console.log('📺 Series encontradas:', seriesMatches.length);
@@ -248,7 +245,6 @@ class FoxKidsSearch {
 
     this.results = [
       ...videoMatches,
-      ...characterMatches,
       ...seriesMatches,
       ...categoryMatches
     ];
@@ -262,24 +258,6 @@ class FoxKidsSearch {
     this.results = this.results.slice(0, 12);
 
     this.displayResults();
-  }
-
-  searchCharacters(query) {
-    const matches = [];
-    if (!this.index.characters) return matches;
-
-    this.index.characters.forEach((character) => {
-      const relevance = this.calculateRelevance(query, character.name, character.searchTerms);
-      if (relevance > 0) {
-        matches.push({
-          ...character,
-          relevance,
-          resultType: 'character'
-        });
-      }
-    });
-
-    return matches;
   }
 
   searchSeries(query) {

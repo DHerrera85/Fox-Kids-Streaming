@@ -232,22 +232,11 @@ class FoxKidsSearch {
     console.log('🔍 Buscando:', query);
     this.results = [];
     this.selectedIndex = 0;
-
-    // Buscar en vídeos (prioridad más alta)
-    const videoMatches = this.searchVideos(query);
-    console.log('📹 Videos encontrados:', videoMatches.length);
-    // Buscar en series
+    // Limitar búsqueda solo a series
     const seriesMatches = this.searchSeries(query);
     console.log('📺 Series encontradas:', seriesMatches.length);
-    // Buscar en categorías
-    const categoryMatches = this.searchCategories(query);
-    console.log('📂 Categorías encontradas:', categoryMatches.length);
 
-    this.results = [
-      ...videoMatches,
-      ...seriesMatches,
-      ...categoryMatches
-    ];
+    this.results = [...seriesMatches];
 
     console.log('✅ Total resultados:', this.results.length);
 
@@ -503,27 +492,8 @@ class FoxKidsSearch {
     const suggestionsContainer = document.getElementById('searchSuggestions');
     if (!suggestionsContainer) return;
 
-    const topCharacters = this.index.characters.slice(0, 4);
-    const topSeries = this.index.series.slice(0, 4);
-
+    const topSeries = (this.index.series || []).slice(0, 8);
     let html = `
-      <div class="suggestions-section">
-        <div class="suggestions-title">👤 Personajes Populares</div>
-        <div class="suggestions-grid">
-    `;
-
-    topCharacters.forEach((char) => {
-      html += `
-        <div class="suggestion-item" onclick="foxSearch.searchByCharacter('${char.id}')">
-          <img src="${char.avatar}" alt="${char.name}">
-          <div class="suggestion-name">${char.name}</div>
-        </div>
-      `;
-    });
-
-    html += `
-        </div>
-      </div>
       <div class="suggestions-section">
         <div class="suggestions-title">📺 Series Destacadas</div>
         <div class="suggestions-grid">
@@ -606,31 +576,8 @@ class FoxKidsSearch {
     const result = this.results[index];
     if (!result) return;
 
-    switch (result.resultType) {
-      case 'video':
-        // Abrir reproductor de video en página dedicada
-        const params = new URLSearchParams({
-          file: result.file,
-          title: result.name,
-          series: result.series,
-          duration: result.duration,
-          category: result.category
-        });
-        window.location.href = `player.html?${params.toString()}`;
-        break;
-      case 'character':
-        // Redirigir a shorts.html con filtro de personaje
-        window.location.href = `shorts.html?character=${result.id}`;
-        break;
-      case 'series':
-        // Redirigir a serie.html con el ID de la serie
-        window.location.href = `serie.html?id=${result.id}`;
-        break;
-      case 'category':
-        // Redirigir a series.html con scroll a categoría
-        window.location.href = `series.html#${result.id}`;
-        break;
-    }
+    // Redirigir siempre a la subpágina de serie
+    window.location.href = `serie.html?id=${result.id}`;
   }
 
   playVideo(video) {

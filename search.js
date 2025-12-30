@@ -67,9 +67,9 @@ class FoxKidsSearch {
       "videos": [
         {"id": "spider-man-01", "name": "Spider-Man Episodio 1", "type": "video", "category": "Stories", "series": "Spider-Man", "character": "spider-man", "file": "videos/stories/spider-man-01.mp4", "duration": "22:00", "image": "img/marvel/spiderman-animated-280x420.jpg", "searchTerms": ["spider-man", "spiderman", "video"]},
         {"id": "iron-man-video", "name": "Iron Man Episodio 1", "type": "video", "category": "Stories", "series": "Iron Man", "character": "iron-man", "file": "videos/stories/iron-man.mp4", "duration": "22:00", "image": "img/marvel/iron-man-vertical-280x420px.png", "searchTerms": ["iron-man", "ironman", "iron", "video"]},
-        {"id": "x-men-video", "name": "X-Men Episodio 1", "type": "video", "category": "Stories", "series": "X-Men", "character": "x-men", "file": "videos/stories/x-men.mp4", "duration": "22:00", "image": "img/marvel/x-men-animated-280x420.jpg", "searchTerms": ["x-men", "xmen", "video"]},
-        {"id": "fantastic-four-video", "name": "Fantastic Four Episodio 1", "type": "video", "category": "Stories", "series": "Fantastic Four", "character": "fantastic-four", "file": "videos/stories/fantastic-four.mp4", "duration": "22:00", "image": "img/marvel/fantastic-four-animated-280x420.jpg", "searchTerms": ["fantastic-four", "fantastic four", "video"]},
-        {"id": "incredible-hulk-video", "name": "Incredible Hulk Episodio 1", "type": "video", "category": "Stories", "series": "Incredible Hulk", "character": "incredible-hulk", "file": "videos/stories/incredible-hulk.mp4", "duration": "22:00", "image": "img/marvel/incredible-hulk-280x420.jpg", "searchTerms": ["incredible-hulk", "hulk", "video"]},
+        {"id": "x-men-video", "name": "X-Men Episodio 1", "type": "video", "category": "Stories", "series": "X-Men", "character": "x-men", "file": "videos/stories/x-men.mp4", "duration": "22:00", "image": "img/marvel/x-men-animated-280 X 420.jpg", "searchTerms": ["x-men", "xmen", "video"]},
+        {"id": "fantastic-four-video", "name": "Fantastic Four Episodio 1", "type": "video", "category": "Stories", "series": "Fantastic Four", "character": "fantastic-four", "file": "videos/stories/fantastic-four.mp4", "duration": "22:00", "image": "img/marvel/fantastic-four-animated-280 X 420.jpg", "searchTerms": ["fantastic-four", "fantastic four", "video"]},
+        {"id": "incredible-hulk-video", "name": "Incredible Hulk Episodio 1", "type": "video", "category": "Stories", "series": "Incredible Hulk", "character": "incredible-hulk", "file": "videos/stories/incredible-hulk.mp4", "duration": "22:00", "image": "img/marvel/incredible-hulk-280 X 420.jpg", "searchTerms": ["incredible-hulk", "hulk", "video"]},
         {"id": "power-rangers-video", "name": "Power Rangers Episodio 1", "type": "video", "category": "Stories", "series": "Power Rangers", "character": "power-rangers", "file": "videos/stories/power-rangers.mp4", "duration": "22:00", "image": "img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg", "searchTerms": ["power-rangers", "rangers", "video"]},
         {"id": "digimon-video", "name": "Digimon Episodio 1", "type": "video", "category": "Stories", "series": "Digimon", "character": "digimon", "file": "videos/stories/digimon.mp4", "duration": "22:00", "image": "img/invasion-anime/digimon-280x420.jpg", "searchTerms": ["digimon", "digi", "video"]},
         {"id": "shaman-king-video", "name": "Shaman King Episodio 1", "type": "video", "category": "Stories", "series": "Shaman King", "character": "shaman-king", "file": "videos/stories/shaman-king.mp4", "duration": "22:00", "image": "img/invasion-anime/shaman king-280x420.png", "searchTerms": ["shaman-king", "video"]},
@@ -80,7 +80,7 @@ class FoxKidsSearch {
       "series": [
         {"id": "power-rangers", "name": "Mighty Morphin Power Rangers", "type": "series", "category": "Super Sentai", "image": "img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg", "tags": ["acción", "sentai"], "characters": ["power-rangers"], "searchTerms": ["power rangers", "mighty morphin"]},
         {"id": "digimon", "name": "Digimon", "type": "series", "category": "Anime", "image": "img/invasion-anime/digimon-280x420.jpg", "tags": ["anime", "aventura"], "characters": ["digimon"], "searchTerms": ["digimon"]},
-        {"id": "x-men", "name": "X-Men", "type": "series", "category": "Comics", "image": "img/marvel/x-men-animated-280x420.jpg", "tags": ["acción", "marvel"], "characters": ["x-men"], "searchTerms": ["x-men", "xmen", "marvel"]},
+        {"id": "x-men", "name": "X-Men", "type": "series", "category": "Comics", "image": "img/marvel/x-men-animated-280 X 420.jpg", "tags": ["acción", "marvel"], "characters": ["x-men"], "searchTerms": ["x-men", "xmen", "marvel"]},
         {"id": "goosebumps", "name": "Goosebumps", "type": "series", "category": "Live Action", "image": "img/live-action/goosebumps-280x420.jpg", "tags": ["live action", "misterio"], "characters": ["goosebumps"], "searchTerms": ["goosebumps"]},
         {"id": "angela-anaconda", "name": "Angela Anaconda", "type": "series", "category": "Comedia", "image": "img/comedy/angela-anaconda-280x420.jpg", "tags": ["comedia", "infantil"], "characters": ["angela"], "searchTerms": ["angela anaconda"]},
         {"id": "braceface", "name": "Braceface", "type": "series", "category": "Comedia", "image": "img/comedy/braceface-280x420.jpg", "tags": ["comedia", "adolescentes"], "characters": ["sharon"], "searchTerms": ["braceface"]},
@@ -624,12 +624,24 @@ class FoxKidsSearch {
         this.allowedSeriesIds = null;
         return;
       }
-      // Mapear alt names a ids del índice
+      // Mapear alt names a ids del índice con coincidencia flexible (para casos como "Super Pig (Toonde Burin)")
+      const normalize = (s = '') => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
       const nameToId = new Map();
-      (this.index.series || []).forEach(s => nameToId.set(s.name.toLowerCase(), s.id));
+      (this.index.series || []).forEach(s => {
+        nameToId.set(normalize(s.name), s.id);
+        nameToId.set(normalize(s.id), s.id);
+      });
       const allowed = new Set();
       altNames.forEach(name => {
-        const id = nameToId.get(name.toLowerCase());
+        const normAlt = normalize(name);
+        let id = nameToId.get(normAlt);
+        if (!id) {
+          const candidate = (this.index.series || []).find(s => {
+            const normName = normalize(s.name);
+            return normName.includes(normAlt) || normAlt.includes(normName);
+          });
+          if (candidate) id = candidate.id;
+        }
         if (id) allowed.add(id);
       });
       if (allowed.size > 0) {

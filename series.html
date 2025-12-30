@@ -50,15 +50,17 @@
   .gallery-section h3{color:#fff;font-size:18px;font-weight:900;margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.05em;}
   
   /* SERIE CARD CON OVERLAY */
-  .serie-card{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;}
+  .serie-card{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;transition:transform 0.3s ease,box-shadow 0.3s ease;}
   .serie-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease;display:block;}
   .serie-card h4{display:none;}
   .serie-info-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(255,196,0,.92);padding:16px 12px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;z-index:5;}
   .info-content{color:#000;font-size:12px;line-height:1.6;text-align:center;}
   .info-content p{margin:4px 0;}
   .info-content strong{font-size:13px;font-weight:900;display:block;margin-bottom:3px;color:#000;}
+  .serie-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.3);}
   .serie-card:hover .serie-info-overlay{opacity:1;}
   .serie-card:hover img{transform:scale(1.05);}
+  .serie-card:active{transform:translateY(-2px) scale(0.98);}
   
   /* Mobile - Overlay interactivo al hacer click */
   @media (max-width: 768px) {
@@ -133,7 +135,7 @@
         <button class="filter-btn active" data-filter-type="todas" onclick="filterSeriesByCategory('todas')">Todas</button>
         <button class="filter-btn" data-filter-type="supersentai" onclick="filterSeriesByCategory('supersentai')">Super Sentai</button>
         <button class="filter-btn" data-filter-type="anime" onclick="filterSeriesByCategory('anime')">Anime</button>
-        <button class="filter-btn" data-filter-type="comics" onclick="filterSeriesByCategory('comics')">Comics</button>
+        <button class="filter-btn" data-filter-type="comics" onclick="filterSeriesByCategory('comics')">COMICS</button>
         <button class="filter-btn" data-filter-type="liveaction" onclick="filterSeriesByCategory('liveaction')">Live Action</button>
         <button class="filter-btn" data-filter-type="comedia" onclick="filterSeriesByCategory('comedia')">Comedia</button>
         <button class="filter-btn" data-filter-type="movies" onclick="filterSeriesByCategory('movies')">Movies</button>
@@ -340,7 +342,7 @@
 
       <!-- COMIC-BASED SERIES -->
       <section class="gallery-section" id="comicAnimated" data-genre="action" data-era="90s-00s">
-        <h3>COMIC-BASED ANIMATED SERIES</h3>
+        <h3>COMICS</h3>
         <div
           class="scroll-gallery flickity"
           data-flickity='{
@@ -713,13 +715,69 @@
       body.classList.toggle('sidebar-expanded');
     }
     
-    // SERIE CARD OVERLAY - Mobile interaction
+    // Mapeo de nombres de series a IDs (basado en search-index.json)
+    const serieNameToId = {
+      'Mighty Morphin Power Rangers': 'power-rangers',
+      'Big Bad Beetleborgs': 'beetleborgs',
+      'Masked Rider': 'masked-rider',
+      'VR Troopers': 'vr-troopers',
+      'Mystic Knights of Tir Na Nog': 'mystic-knights',
+      'Los Luchadores': 'los-luchadores',
+      'Digimon': 'digimon',
+      'Monster Rancher': 'monster-rancher',
+      'Super Pig': 'super-pig',
+      'Medabots': 'medabots',
+      'Beyblade': 'beyblade',
+      'Shaman King': 'shaman-king',
+      'Shin Chan': 'shin-chan',
+      'Escaflowne': 'escaflowne',
+      'X-Men': 'x-men',
+      'Spider-Man': 'spider-man',
+      'Iron Man': 'iron-man',
+      'Fantastic Four': 'fantastic-four',
+      'The Incredible Hulk': 'incredible-hulk',
+      'Avengers: United They Stand': 'avengers-united',
+      'Spider-Man: Unlimited': 'spider-man-unlimited',
+      'Silver Surfer': 'silver-surfer',
+      'Diabolik': 'diabolik',
+      'The Magician': 'the-magician',
+      'Goosebumps': 'goosebumps',
+      'Eerie Indiana': 'eerie-indiana',
+      'Sweet Valley High': 'sweet-valley-high',
+      'The Secret World of Alex Mack': 'alex-mack',
+      'The Mystery Files of Shelby Woo': 'shirley-holmes',
+      'Nancy Drew': 'nancy-drew',
+      'The New Addams Family Series': 'addams-family',
+      'Angela Anaconda': 'angela-anaconda',
+      'Braceface': 'braceface',
+      'Oggy and the Cockroaches': 'oggy-cockroaches',
+      'Space Goofs': 'space-goofs',
+      'The Tick': 'the-tick',
+      'Toonsylvania': 'toonsylvania',
+      'Eek! The Cat': 'eek-the-cat',
+      "Bobby's World": 'bobbys-world'
+    };
+    
+    // Hacer las tarjetas clicables y enlazarlas a serie.html
     document.querySelectorAll('.serie-card').forEach(card => {
-      card.addEventListener('click', function(e) {
-        e.stopPropagation();
-        // Toggle overlay al hacer click en mobile
-        this.classList.toggle('active');
-      });
+      const img = card.querySelector('img');
+      const serieName = img ? img.getAttribute('alt') : '';
+      const serieId = serieNameToId[serieName];
+      
+      if (serieId) {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function(e) {
+          e.stopPropagation();
+          // Navegar a la página de la serie
+          window.location.href = `serie.html?id=${serieId}`;
+        });
+      } else {
+        // Mobile: Toggle overlay al hacer click si no hay ID mapeado
+        card.addEventListener('click', function(e) {
+          e.stopPropagation();
+          this.classList.toggle('active');
+        });
+      }
     });
     
     // Cerrar overlay si haces click fuera

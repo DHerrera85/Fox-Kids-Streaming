@@ -1,532 +1,463 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fox Kids Streaming - Serie</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="search-styles.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Fox Kids – Serie</title>
+  <link rel="icon" type="image/png" href="img/FOX_Kids_logo-_200___176-transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="search-styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);}
+    body{background:var(--bg);margin:0;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;color:#fff;}
+    .app{max-width:430px;margin:0 auto;min-height:100%;position:relative;padding-bottom:100px;}
+    .topbar{position:sticky;top:0;z-index:10;background:var(--red);padding:12px 14px;box-shadow:0 10px 18px rgba(0,0,0,.25);}
+    .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .logo{display:flex;align-items:center;gap:10px;min-width:0;} 
+    .logo-badge{width:60px;height:60px;display:grid;place-items:center;flex-shrink:0;} 
+    .logo-badge img{width:100%;height:100%;object-fit:contain;}
+    .hello{min-width:0} 
+    .hello .hi{font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} 
+    .hello .sub{font-size:10px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .icons{display:flex;gap:10px;} 
+    .icon-btn{width:40px;height:40px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none;position:relative;} 
+    .icon{font-size:18px;}
+    .search{margin-top:10px;display:flex;gap:10px;align-items:center;} 
+    .search-pill{flex:1;background:#fff;color:#111;border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 20px rgba(0,0,0,.18);} 
+    .search-pill input{border:0;outline:0;width:100%;font-size:14px;background:transparent;} 
+    .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);}
 
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            font-family: 'Audiowide', Impact, Haettenschweiler, 'Arial Narrow', sans-serif;
-            min-height: 100vh;
-        }
+    .content{padding:14px;}
 
-        header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 3px solid #FFD200;
-        }
+    /* Player estilo shorts */
+    .video-gallery{padding:10px 0;}
+    .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:8px 2px 10px;gap:6px;}
+    .section-title h2{margin:0;font-size:14px;letter-spacing:.1px;color:#FFD200;}
+    .section-title .hint{font-size:11px;opacity:.8;}
+    .video-frame{position:relative;width:100%;border-radius:12px;background:#000;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.22);} 
+    .video-frame::before{content:"";display:block;width:100%;padding-top:56.25%;}
+    .video-frame .video-inner{position:absolute;inset:0;}
+    .video-frame video{width:100%;height:100%;border-radius:12px;background:#000;object-fit:contain;}
+    .video-toolbar{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;}
+    .video-controls{display:flex;gap:8px;} 
+    .ctrl-btn{background:rgba(0,0,0,.55);color:#fff;border:2px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:900;cursor:pointer;font-family:'Audiowide',sans-serif;text-transform:uppercase;} 
+    .ctrl-btn:hover{background:rgba(0,0,0,.75);} 
+    .queue-panel{margin-top:10px;background:#f9fafb;border:2px solid #e5e7eb;border-radius:14px;padding:12px;}
+    .queue-title{font-size:13px;font-weight:900;color:#111;margin-bottom:8px;} 
+    .queue-list{display:flex;flex-direction:column;gap:8px;} 
+    .queue-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;background:#fff;border:2px solid #e5e7eb;border-radius:12px;} 
+    .queue-item.playing{background:#fff3cd;border-color:#FFD200;}
+    .queue-item-left{display:flex;align-items:center;gap:8px;color:#111;font-size:12px;font-weight:900;flex:1;min-width:0;} 
+    .queue-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#111;flex-shrink:0;} 
+    .queue-item-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .q-btn{background:#f2f3f5;color:#111;border:2px solid rgba(0,0,0,.12);border-radius:10px;padding:8px 10px;font-size:11px;font-weight:900;cursor:pointer;font-family:'Audiowide',sans-serif;} 
+    .q-btn.play{background:#16a34a;color:#fff;border-color:#15803d;} 
+    .q-btn.remove{background:#e20000;color:#fff;border-color:#b00000;}
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #FFD200;
-        }
+    /* Info Card de serie */
+    .series-info-card{margin:14px 0 24px;position:relative;display:flex;align-items:center;gap:16px;}
+    .series-info-card .serie-card{position:relative;overflow:hidden;border-radius:8px;width:180px;height:270px;flex-shrink:0;} 
+    .series-info-card .serie-card img{width:100%;height:100%;object-fit:cover;display:block;}
+    .series-info-card .serie-info-overlay{position:absolute;inset:0;background:rgba(255,196,0,.92);padding:14px 10px;display:flex;align-items:center;justify-content:center;opacity:1;}
+    .series-info-card .info-content{color:#000;font-size:12px;line-height:1.6;text-align:center;} 
+    .series-info-card .info-content strong{font-size:13px;font-weight:900;display:block;margin-bottom:3px;color:#000;}
+    .series-info-card .details{display:flex;flex-direction:column;gap:8px;} 
+    .series-info-card .name{font-size:20px;color:#FFD200;font-weight:900;} 
+    .series-info-card .chips{display:flex;gap:8px;flex-wrap:wrap;} 
+    .series-info-card .chip{background:#111;color:#FFD200;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;}
 
-        .back-btn {
-            background: #FFD200;
-            color: #000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
+    /* Relacionados */
+    .related-section{margin:20px 0;} 
+    .related-title{display:flex;align-items:baseline;justify-content:space-between;margin:8px 2px 10px;gap:6px;} 
+    .related-title h2{margin:0;font-size:16px;letter-spacing:.1px;color:#FFD200;}
+    .related-title .hint{font-size:11px;opacity:.8;}
+    .shorts-wrapper{position:relative;margin:0 0 10px;} 
+    .shorts{display:flex;gap:12px;overflow:auto;scroll-snap-type:x mandatory;user-select:none;height:255px;align-items:center;} 
+    .shorts::-webkit-scrollbar{display:none;}
+    .short{flex:0 0 auto;width:140px;height:255px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:0 14px 30px rgba(0,0,0,.22);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);background-size:cover;background-position:center;cursor:pointer;}
+    .short .badge{position:absolute;top:10px;left:10px;background:rgba(255,196,0,.95);color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
+    .short .play{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;font-size:16px;}
+    .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
 
-        .back-btn:hover {
-            background: #FFF;
-            transform: scale(1.05);
-        }
+    /* Temporadas/episodios */
+    .seasons-container{margin:20px 0;}
+    .season{margin-bottom:20px;}
+    .season-title{font-size:16px;color:#FFD200;margin:10px 0;letter-spacing:.1px;}
+    .episodes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+    .episode-card{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;cursor:pointer;transition:all .2s ease;}
+    .episode-card:hover{border-color:#FFD200;transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.28);}
+    .episode-number{font-size:11px;color:#FFD200;font-weight:900;margin-bottom:4px;}
+    .episode-title{font-size:12px;font-weight:900;margin-bottom:6px;color:#fff;}
+    .episode-duration{font-size:11px;color:#d1d5db;}
 
-        .serie-header {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 30px;
-            padding: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .loading,.error{text-align:center;padding:40px 20px;font-size:16px;color:#FFD200;}
+    .error{color:#ff6b6b;}
 
-        .poster {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(255, 210, 0, 0.3);
-        }
+  /* Bottom nav */
+  .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px,calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
+  .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;transition:all .3s ease;}
+  .nav-item:hover{opacity:1;color:var(--yellow);transform:scale(1.1);}
+  .nav-item .ni{font-size:18px;}
+  .nav-item.active{background:rgba(255,196,0,.95);color:#111;opacity:1;font-weight:1000;}
+  .sidebar-toggle{display:none;}
 
-        .info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+    /* Desktop responsive */
+    @media (min-width: 768px) {
+      body{padding-left:0;}
+      .app{max-width:1200px;margin:0 auto;padding:0 20px 40px;margin-left:80px;}
+      .topbar{border-radius:0 0 24px 24px;}
+      .content{max-width:1100px;margin:20px auto 0;padding:20px 0;}
+      .series-info-card{gap:24px;}
+      .series-info-card .name{font-size:24px;}
+      .episodes-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+      .short{width:160px;height:290px;}
+      
+      /* Sidebar izquierdo */
+      .bottom-nav{position:fixed;left:0;top:0;transform:none;width:80px;height:100vh;background:linear-gradient(180deg,#1f0c0c,#2f0f0f 45%,#3b1500);border:none;border-right:2px solid rgba(255,255,255,.12);border-radius:0;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 8px;gap:4px;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(6px);}
+      .sidebar-toggle{display:flex;align-items:center;justify-content:center;padding:12px;margin-bottom:20px;cursor:pointer;background:rgba(255,255,255,.04);border-radius:12px;}
+      .sidebar-toggle .ni{font-size:24px;}
+      .nav-item{flex:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:16px 8px;font-size:10px;background:rgba(255,255,255,.04);border-radius:12px;white-space:nowrap;}
+      .nav-item .ni{font-size:24px;}
+      .nav-item .label{display:none;}
+      .nav-item.active{background:rgba(255,196,0,.95);box-shadow:0 10px 20px rgba(0,0,0,.2);}
+      .bottom-nav.expanded{width:280px;align-items:stretch;padding:24px 12px;}
+      .bottom-nav.expanded .nav-item{flex-direction:row;justify-content:flex-start;gap:14px;padding:14px 16px;font-size:14px;}
+      .bottom-nav.expanded .nav-item .ni{font-size:22px;}
+      .bottom-nav.expanded .nav-item .label{display:block;}
+    }
 
-        .title {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #FFD200;
-        }
-
-        .meta {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .meta-item {
-            background: rgba(255, 210, 0, 0.1);
-            padding: 8px 12px;
-            border-radius: 5px;
-            border-left: 3px solid #FFD200;
-        }
-
-        .description {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-
-        .seasons-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 40px;
-        }
-
-        /* Player estilo shorts.html (adaptado) */
-        .video-gallery{padding:10px 40px;}
-        .video-frame{position:relative;width:100%;border-radius:12px;background:#000;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.22);} 
-        .video-frame::before{content:"";display:block;width:100%;padding-top:56.25%;}
-        .video-frame .video-inner{position:absolute;inset:0;}
-        .video-frame video{width:100%;height:100%;border-radius:12px;background:#000;object-fit:contain;}
-        .video-toolbar{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;padding:0 40px;}
-        .video-controls{display:flex;gap:8px;}
-        .ctrl-btn{background:rgba(0,0,0,.55);color:#fff;border:2px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:900;cursor:pointer;}
-        .ctrl-btn:hover{background:rgba(0,0,0,.75);}  
-        .queue-panel{margin:10px 40px;background:#f9fafb;border:2px solid #e5e7eb;border-radius:14px;padding:12px;}
-        .queue-title{font-size:13px;font-weight:900;color:#111;margin-bottom:8px;}
-        .queue-list{display:flex;flex-direction:column;gap:8px;}
-        .queue-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;background:#fff;border:2px solid #e5e7eb;border-radius:12px;transition:all .2s ease;}
-        .queue-item.playing{background:#fff3cd;border-color:#FFD200;box-shadow:0 4px 12px rgba(255,212,0,.25);}
-        .queue-item-left{display:flex;align-items:center;gap:8px;color:#111;font-size:12px;font-weight:900;flex:1;min-width:0;}
-        .queue-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#111;flex-shrink:0;}
-        .queue-item-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        .q-btn{background:#f2f3f5;color:#111;border:2px solid rgba(0,0,0,.12);border-radius:10px;padding:8px 10px;font-size:11px;font-weight:900;cursor:pointer;}
-        .q-btn.play{background:#16a34a;color:#fff;border-color:#15803d;}
-        .q-btn.remove{background:#e20000;color:#fff;border-color:#b00000;}
-
-        /* Carouseles de relacionados */
-        .related-section{margin:20px 40px;}
-        .related-title{display:flex;align-items:baseline;justify-content:space-between;margin:8px 2px 10px;gap:6px;}
-        .related-title h2{margin:0;font-size:16px;letter-spacing:.1px;color:#FFD200;}
-        .shorts-wrapper{position:relative;margin:0 0 10px;}
-        .shorts{display:flex;gap:12px;overflow:auto;scroll-snap-type:x mandatory;user-select:none;height:255px;align-items:center;}
-        .shorts::-webkit-scrollbar{display:none;}
-        .short{flex:0 0 auto;width:140px;height:255px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:0 14px 30px rgba(0,0,0,.22);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);background-size:cover;background-position:center;}
-        .short .play{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;font-size:16px;}
-        .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
-        .short .badge{position:absolute;top:10px;left:10px;background:rgba(255,196,0,.95);color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
-
-        .season {
-            margin-bottom: 40px;
-        }
-
-        .season-title {
-            font-size: 28px;
-            color: #FFD200;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #FFD200;
-            padding-bottom: 10px;
-        }
-
-        .episodes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .episode-card {
-            background: rgba(255, 210, 0, 0.1);
-            border: 2px solid rgba(255, 210, 0, 0.3);
-            border-radius: 8px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .episode-card:hover {
-            border-color: #FFD200;
-            background: rgba(255, 210, 0, 0.2);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 210, 0, 0.2);
-        }
-
-        .episode-number {
-            font-size: 14px;
-            color: #FFD200;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .episode-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .episode-duration {
-            font-size: 13px;
-            color: #aaa;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 100px 20px;
-            font-size: 18px;
-        }
-
-        .error {
-            text-align: center;
-            padding: 100px 20px;
-            color: #ff6b6b;
-            font-size: 18px;
-        }
-
-        @media (max-width: 768px) {
-            .serie-header {
-                grid-template-columns: 1fr;
-                padding: 20px;
-            }
-
-            .title {
-                font-size: 32px;
-            }
-
-            .episodes-grid {
-                grid-template-columns: 1fr;
-            }
-
-            header {
-                padding: 10px;
-            }
-
-            .back-btn {
-                padding: 6px 12px;
-                font-size: 14px;
-            }
-        }
-    </style>
+    @media (min-width: 1024px) {
+      .app{max-width:1400px;}
+      .content{max-width:1300px;padding:24px 0;}
+      .series-info-card{margin:20px 0 30px;}
+      .series-info-card .serie-card{width:200px;height:300px;}
+      .episodes-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+      .short{width:180px;height:320px;}
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">🎬 FOX KIDS</div>
-        <button class="back-btn" onclick="goBack()">← Volver</button>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-row">
+        <div class="logo">
+          <div class="logo-badge" onclick="location.href='index.html'" style="cursor:pointer;" title="Ir al inicio">
+            <img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" />
+          </div>
+          <div class="hello">
+            <div class="hi">Fox Kids</div>
+            <div class="sub">Serie</div>
+          </div>
+        </div>
+        <div class="icons">
+          <div class="icon-btn" title="Buscar" onclick="if(typeof foxSearch!=='undefined') foxSearch.openSearch();"><span class="icon"><i class="fas fa-magnifying-glass"></i></span></div>
+          <div class="icon-btn" title="Perfil"><span class="icon"><i class="fas fa-user"></i></span></div>
+        </div>
+      </div>
+      <div class="search">
+        <div class="search-pill">
+          <span class="glass"><i class="fas fa-magnifying-glass"></i></span>
+          <input placeholder="¿Qué serie buscas?" onclick="if(typeof foxSearch!=='undefined') foxSearch.openSearch();" readonly/>
+        </div>
+        <div class="tag">LIVE</div>
+      </div>
     </header>
 
-        <div id="content">
-                <!doctype html>
-                <html lang="es">
-                <head>
-                    <meta charset="utf-8"/>
-                    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-                    <title>Fox Kids – Serie</title>
-                    <link rel="icon" type="image/png" href="img/FOX_Kids_logo-_200___176-transparent.png">
-                    <link rel="preconnect" href="https://fonts.googleapis.com">
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
-                    <link rel="stylesheet" href="search-styles.css">
-                    <style>
-                        :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);} *{box-sizing:border-box}
-                        body{margin:0;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0.03em;background:linear-gradient(180deg,#1b1c2d,#0f101c 60%);color:#fff;}
-                        .app{max-width:1200px;margin:0 auto;min-height:100vh;padding-bottom:80px;}
-                        .topbar{position:sticky;top:0;z-index:10;background:var(--red);padding:14px 16px;box-shadow:0 10px 18px rgba(0,0,0,.25);border-bottom:3px solid var(--yellow);}
-                        .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
-                        .logo{display:flex;align-items:center;gap:10px;min-width:0;cursor:pointer;}
-                        .logo-badge{width:64px;height:64px;display:grid;place-items:center;flex-shrink:0;}
-                        .logo-badge img{width:100%;height:100%;object-fit:contain;}
-                        .hello .hi{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-                        .hello .sub{font-size:11px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-                        .icons{display:flex;gap:10px;}
-                        .icon-btn{width:44px;height:44px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none;position:relative;}
-                        .icon{font-size:18px;}
-                        .search{margin-top:10px;display:flex;gap:10px;align-items:center;}
-                        .search-pill{flex:1;background:#fff;color:#111;border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 20px rgba(0,0,0,.18);}
-                        .search-pill input{border:0;outline:0;width:100%;font-size:14px;background:transparent;text-transform:none;letter-spacing:0;}
-                        .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);white-space:nowrap;}
-                        .content{padding:18px;}
+    <main class="content">
+      <section class="video-gallery" id="playerSection" style="display:none;">
+        <div class="section-title">
+          <h2>Reproductor</h2>
+          <span class="hint" id="playerTitle">Selecciona un video</span>
+        </div>
+        <div class="video-frame">
+          <div class="video-inner">
+            <video id="mainVideo" style="display:none;" controls playsinline>
+              Tu navegador no soporta videos HTML5
+            </video>
+            <div id="playerPlaceholder" style="position:absolute;inset:0;background:#111;border-radius:12px;padding:40px;text-align:center;color:#FFD200;display:flex;align-items:center;justify-content:center;">
+              👆 Selecciona un video de los relacionados para reproducir
+            </div>
+          </div>
+        </div>
+        <div class="video-toolbar">
+          <div class="video-controls">
+            <button class="ctrl-btn" onclick="prevInQueue()">⟵ Anterior</button>
+            <button class="ctrl-btn" onclick="togglePlayPause()" id="playPauseBtn">▶ Reproducir</button>
+            <button class="ctrl-btn" onclick="nextInQueue()">Siguiente ⟶</button>
+          </div>
+        </div>
+        
+        <!-- Info card de la serie (debajo del player) -->
+        <div id="seriesInfoCard" class="series-info-card" style="display:none;"></div>
+        
+        <div class="queue-panel" id="queuePanel" style="display:none;">
+          <div class="queue-title">Cola de reproducción</div>
+          <div class="queue-list" id="queueList"></div>
+        </div>
+      </section>
 
-                        /* Hero de serie */
-                        .hero{display:grid;grid-template-columns:320px 1fr;gap:26px;margin:10px auto 24px;padding:20px;background:linear-gradient(145deg,rgba(255,196,0,.08),rgba(0,0,0,.45));border-radius:24px;border:2px solid rgba(255,196,0,.12);box-shadow:0 16px 40px rgba(0,0,0,.35);max-width:1100px;}
-                        .hero-poster{width:100%;aspect-ratio:3/4;border-radius:20px;background:#111 url('') center/cover no-repeat;border:3px solid rgba(255,196,0,.25);box-shadow:0 12px 28px rgba(0,0,0,.4);}
-                        .hero-title{font-size:34px;margin:0 0 8px;color:var(--yellow);}
-                        .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 16px;}
-                        .chip{background:rgba(255,255,255,.08);border:2px solid rgba(255,196,0,.2);border-radius:12px;padding:8px 10px;font-size:12px;font-weight:900;display:flex;align-items:center;gap:8px;}
-                        .hero-desc{text-transform:none;letter-spacing:0.01em;font-size:14px;line-height:1.6;color:#dfe6f9;margin:0;}
+      <div id="relatedSections"></div>
+      <div id="seasonsContainer" class="seasons-container"></div>
+      <div id="content" class="loading">Cargando serie...</div>
+    </main>
 
-                        /* Player */
-                        .video-gallery{padding:6px 0 0;max-width:1100px;margin:0 auto 12px;}
-                        .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 10px;gap:6px;padding:0 4px;}
-                        .section-title h2{margin:0;font-size:15px;letter-spacing:.1px;color:#FFD200;}
-                        .section-title .hint{font-size:11px;opacity:.8;}
-                        .video-frame{position:relative;width:100%;border-radius:12px;background:#000;overflow:hidden;box-shadow:var(--shadow);} 
-                        .video-frame::before{content:"";display:block;width:100%;padding-top:56.25%;}
-                        .video-frame .video-inner{position:absolute;inset:0;}
-                        .video-frame video{width:100%;height:100%;border-radius:12px;background:#000;object-fit:contain;}
-                        .video-toolbar{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;padding:0 4px;}
-                        .video-controls{display:flex;gap:8px;}
-                        .ctrl-btn{background:rgba(0,0,0,.55);color:#fff;border:2px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:900;cursor:pointer;}
-                        .ctrl-btn:hover{background:rgba(0,0,0,.75);}  
-                        .queue-panel{margin-top:10px;background:#f9fafb;border:2px solid #e5e7eb;border-radius:14px;padding:12px;color:#111;}
-                        .queue-title{font-size:13px;font-weight:900;color:#111;margin-bottom:8px;}
-                        .queue-list{display:flex;flex-direction:column;gap:8px;}
-                        .queue-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;background:#fff;border:2px solid #e5e7eb;border-radius:12px;transition:all .2s ease;}
-                        .queue-item.playing{background:#fff3cd;border-color:#FFD200;box-shadow:0 4px 12px rgba(255,212,0,.25);}
-                        .queue-item-left{display:flex;align-items:center;gap:8px;color:#111;font-size:12px;font-weight:900;flex:1;min-width:0;}
-                        .queue-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#111;flex-shrink:0;}
-                        .queue-item-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-                        .q-btn{background:#f2f3f5;color:#111;border:2px solid rgba(0,0,0,.12);border-radius:10px;padding:8px 10px;font-size:11px;font-weight:900;cursor:pointer;}
-                        .q-btn.play{background:#16a34a;color:#fff;border-color:#15803d;}
-                        .q-btn.remove{background:#e20000;color:#fff;border-color:#b00000;}
+    <nav class="bottom-nav" id="sidebar" aria-label="Navegación inferior">
+      <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <div class="ni"><i class="fas fa-bars"></i></div>
+      </div>
+      <div class="nav-item" onclick="location.href='index.html'"><div class="ni"><i class="fas fa-house"></i></div><div class="label">Inicio</div></div>
+      <div class="nav-item active" data-tab="series" onclick="location.href='series.html'"><div class="ni"><i class="fas fa-tv"></i></div><div class="label">Series</div></div>
+      <div class="nav-item" data-tab="schedule" onclick="location.href='programacion-historia.html'"><div class="ni"><i class="fas fa-calendar"></i></div><div class="label">Horarios</div></div>
+      <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni"><i class="fas fa-film"></i></div><div class="label">Shorts</div></div>
+    </nav>
+  </div>
 
-                        /* Relacionados */
-                        .related-section{margin:18px auto 10px;max-width:1100px;}
-                        .related-title{display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 8px;gap:6px;}
-                        .related-title h2{margin:0;font-size:14px;letter-spacing:.1px;color:#FFD200;}
-                        .shorts-wrapper{position:relative;margin:0 0 10px;}
-                        .shorts{display:flex;gap:12px;overflow:auto;scroll-snap-type:x mandatory;user-select:none;height:255px;align-items:center;}
-                        .shorts::-webkit-scrollbar{display:none;}
-                        .short{flex:0 0 auto;width:140px;height:255px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:var(--shadow);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);background-size:cover;background-position:center;cursor:pointer;}
-                        .short .play{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;font-size:16px;}
-                        .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
-                        .short .badge{position:absolute;top:10px;left:10px;background:rgba(255,196,0,.95);color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
+  <script src="script.js"></script>
+  <script src="search.js"></script>
+  <script>
+    let searchIndex=null; 
+    let currentSerie=null; 
+    let playingQueue=[]; 
+    let currentIndex=-1;
 
-                        /* Episodios (si existieran) */
-                        .seasons-container{max-width:1100px;margin:20px auto;padding:0;}
-                        .season-title{font-size:16px;color:#FFD200;margin:10px 0;letter-spacing:.1px;}
-                        .episodes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;}
-                        .episode-card{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;cursor:pointer;transition:all .2s ease;}
-                        .episode-card:hover{border-color:#FFD200;transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.28);}
-                        .episode-number{font-size:12px;color:#FFD200;font-weight:900;margin-bottom:4px;}
-                        .episode-title{font-size:13px;font-weight:900;margin-bottom:6px;color:#fff;}
-                        .episode-duration{font-size:12px;color:#d1d5db;}
+    const norm = (s='') => s.normalize('NFD').replace(/\p{Diacritic}/gu,'').toLowerCase().trim();
 
-                        .loading,.error{text-align:center;padding:100px 20px;font-size:18px;}
-                        .error{color:#ff6b6b;}
+    async function loadIndex(){
+      try{
+        const resp=await fetch('data/search-index.json'); 
+        searchIndex=await resp.json();
+        console.log('✅ Índice cargado:', searchIndex);
+      }catch(e){
+        console.error('❌ Error cargando índice',e); 
+        showError('No se pudo cargar la serie');
+      }
+    }
 
-                        @media(max-width:900px){
-                            .hero{grid-template-columns:1fr;padding:16px;}
-                            .hero-title{font-size:28px;}
-                            .hero-desc{text-align:left;}
-                            .shorts{height:240px;}
-                        }
-                    </style>
-                </head>
-                <body>
-                <div class="app">
-                    <header class="topbar">
-                        <div class="topbar-row">
-                            <div class="logo" onclick="location.href='index.html'" title="Ir al inicio">
-                                <div class="logo-badge"><img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids"></div>
-                                <div class="hello">
-                                    <div class="hi">Fox Kids</div>
-                                    <div class="sub">Fan Mode • Streaming</div>
-                                </div>
-                            </div>
-                            <div class="icons">
-                                <div class="icon-btn search-icon-btn" title="Buscar" onclick="if(typeof foxSearch!=='undefined') foxSearch.openSearch();"><span class="icon">🔍</span></div>
-                                <div class="icon-btn" title="Volver" onclick="history.back();"><span class="icon">↩</span></div>
-                            </div>
-                        </div>
-                        <div class="search">
-                            <div class="search-pill">
-                                <span class="glass">🔍</span>
-                                <input id="q" placeholder="¿Qué andás buscando? (ej: Digimon, Power Rangers)" onclick="if(typeof foxSearch!=='undefined') foxSearch.openSearch();" readonly />
-                            </div>
-                            <div class="tag">LIVE</div>
-                        </div>
-                    </header>
+    function getParam(name){
+      return new URLSearchParams(window.location.search).get(name);
+    }
 
-                    <main class="content">
-                        <div id="heroContainer" class="hero" style="display:none;"></div>
+    function loadSerie(){
+      if(!searchIndex||!searchIndex.series||!searchIndex.series.length){
+        showError('Serie no encontrada');
+        return;
+      }
 
-                        <section class="video-gallery" id="playerSection" style="display:none;">
-                            <div class="section-title">
-                                <h2>Reproductor</h2>
-                                <span class="hint" id="playerTitle">Selecciona un video</span>
-                            </div>
-                            <div class="video-frame">
-                                <div class="video-inner">
-                                    <video id="mainVideo" style="display:none;" controls playsinline>
-                                        Tu navegador no soporta videos HTML5
-                                    </video>
-                                    <div id="playerPlaceholder" style="position:absolute;inset:0;background:#111;border-radius:12px;padding:40px;text-align:center;color:#FFD200;display:flex;align-items:center;justify-content:center;">
-                                        👆 Selecciona un video de los relacionados para reproducir
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="video-toolbar">
-                                <div class="video-controls">
-                                    <button class="ctrl-btn" onclick="prevInQueue()">⟵ Anterior</button>
-                                    <button class="ctrl-btn" onclick="togglePlayPause()" id="playPauseBtn">▶ Reproducir</button>
-                                    <button class="ctrl-btn" onclick="nextInQueue()">Siguiente ⟶</button>
-                                </div>
-                            </div>
-                            <div class="queue-panel" id="queuePanel" style="display:none;">
-                                <div class="queue-title">Cola de reproducción</div>
-                                <div class="queue-list" id="queueList"></div>
-                            </div>
-                        </section>
+      const urlId=getParam('id'); 
+      const targetId=urlId||searchIndex.series[0].id;
+      const serie=searchIndex.series.find(s=>s.id===targetId);
 
-                        <div id="relatedSections"></div>
-                        <div id="seasonsContainer" class="seasons-container"></div>
-                        <div id="content" class="loading">Cargando serie...</div>
-                    </main>
-                </div>
+      if(!serie){
+        showError('Serie no encontrada');
+        return;
+      }
 
-                <script src="search.js"></script>
-                <script>
-                    let searchIndex=null; let currentSerie=null; let playingQueue=[]; let currentIndex=-1;
+      if(!urlId){
+        const params=new URLSearchParams(window.location.search); 
+        params.set('id', serie.id); 
+        history.replaceState(null,'',`${location.pathname}?${params.toString()}`);
+      }
 
-                    const norm = (s='') => s.normalize('NFD').replace(/\p{Diacritic}/gu,'').toLowerCase().trim();
+      currentSerie=serie; 
+      renderSeasons(serie); 
+      renderRelated(serie); 
+      renderInfoCard(serie);
+      document.getElementById('playerSection').style.display='block'; 
+      document.getElementById('content').style.display='none';
+    }
 
-                    async function loadIndex(){
-                        try{const resp=await fetch('data/search-index.json'); searchIndex=await resp.json();}
-                        catch(e){console.error('No se pudo cargar índice',e); showError('No se pudo cargar la serie');}
-                    }
+    function renderSeasons(serie){
+      const cont=document.getElementById('seasonsContainer'); 
+      if(!serie.seasons||!serie.seasons.length){
+        cont.innerHTML='';
+        return;
+      }
+      cont.innerHTML=serie.seasons.map(season=>`
+        <div class="season">
+          <h3 class="season-title">Temporada ${season.season}</h3>
+          <div class="episodes-grid">
+            ${season.episodes.map(ep=>`
+              <div class="episode-card" onclick="playEpisode('${ep.video}','${serie.name} - ${ep.title}','${serie.id}')">
+                <div class="episode-number">Ep. ${ep.number}</div>
+                <div class="episode-title">${ep.title}</div>
+                <div class="episode-duration">⏱️ ${ep.duration}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
 
-                    function getParam(name){return new URLSearchParams(window.location.search).get(name);}
+    function filterRelated(serie){
+      if(!searchIndex||!searchIndex.videos) return {openings:[],promosUS:[],promosLATAM:[]};
+      const target=norm(serie.name); 
+      const rel=searchIndex.videos.filter(v=>norm(v.series||'')===target || norm(v.seriesId||'')===norm(serie.id));
+      return {
+        openings: rel.filter(v=>norm(v.category)==='openings'),
+        promosUS: rel.filter(v=>norm(v.subcategory)==='promos' && (v.region||'').toUpperCase()==='US'),
+        promosLATAM: rel.filter(v=>norm(v.subcategory)==='promos' && (v.region||'').toUpperCase()==='LATAM')
+      };
+    }
 
-                    function loadSerie(){
-                        const id=getParam('id'); if(!id||!searchIndex){showError('Serie no encontrada');return;}
-                        const serie=searchIndex.series.find(s=>s.id===id);
-                        if(!serie){showError('Serie no encontrada');return;}
-                        currentSerie=serie; renderHero(serie); renderSeasons(serie); renderRelated(serie);
-                        document.getElementById('playerSection').style.display='block';
-                        document.getElementById('content').style.display='none';
-                    }
+    function renderRelated(serie){
+      const {openings,promosUS,promosLATAM}=filterRelated(serie);
+      const container=document.getElementById('relatedSections');
+      const block=(title,list)=> list.length?`
+        <section class="related-section">
+          <div class="related-title">
+            <h2>${title}</h2>
+            <span class="hint">${list.length} videos</span>
+          </div>
+          <div class="shorts-wrapper">
+            <div class="shorts">${list.map(renderShortCard).join('')}</div>
+          </div>
+        </section>
+      `:'';
+      container.innerHTML=block('Openings',openings)+block('Promos US',promosUS)+block('Promos LATAM',promosLATAM);
+    }
 
-                    function renderHero(serie){
-                        const hero=document.getElementById('heroContainer');
-                        hero.innerHTML=`
-                            <div class="hero-poster" style="background-image:url('${serie.image||''}');"></div>
-                            <div>
-                                <h1 class="hero-title">${serie.name}</h1>
-                                <div class="hero-meta">
-                                    <div class="chip">📅 ${serie.year||'N/A'}</div>
-                                    <div class="chip">⭐ ${serie.rating||'N/A'}</div>
-                                    <div class="chip">📺 ${serie.category||'N/A'}</div>
-                                </div>
-                                <p class="hero-desc">${serie.description||'No hay descripción disponible'}</p>
-                            </div>`;
-                        hero.style.display='grid';
-                    }
+    function renderShortCard(item){
+      const bg=item.image?`background-image:url('${item.image}')`:`background:linear-gradient(135deg,#ff7a00,#ff2b70 55%,#7c3aed)`; 
+      const badge=norm(item.category)==='openings'?'OPENING':'PROMO'; 
+      const region=item.region?` • ${item.region}`:'';
+      return `<div class="short" style="${bg};" onclick='playShort(${JSON.stringify(item)})'>
+        <div class="badge">${badge}${region}</div>
+        <div class="play">▶</div>
+        <div class="t">${item.name}</div>
+      </div>`;
+    }
 
-                    function renderSeasons(serie){
-                        const cont=document.getElementById('seasonsContainer');
-                        if(!serie.seasons||!serie.seasons.length){cont.innerHTML='';return;}
-                        cont.innerHTML=serie.seasons.map(season=>`
-                            <div class="season">
-                                <h3 class="season-title">Temporada ${season.season}</h3>
-                                <div class="episodes-grid">
-                                    ${season.episodes.map(ep=>`
-                                        <div class="episode-card" onclick="playEpisode('${ep.video}','${serie.name} - ${ep.title}','${serie.id}')">
-                                            <div class="episode-number">Ep. ${ep.number}</div>
-                                            <div class="episode-title">${ep.title}</div>
-                                            <div class="episode-duration">⏱️ ${ep.duration}</div>
-                                        </div>`).join('')}
-                                </div>
-                            </div>`).join('');
-                    }
+    function renderInfoCard(serie){
+      const infoCont=document.getElementById('seriesInfoCard'); 
+      if(!infoCont) return;
+      const seasonsCount=Array.isArray(serie.seasons)?serie.seasons.length:0; 
+      const totalEpisodes=seasonsCount?serie.seasons.reduce((sum,s)=>sum+(Array.isArray(s.episodes)?s.episodes.length:0),0):0; 
+      const years=serie.year?serie.year:'N/A';
+      const overlayHtml=`<div class="serie-info-overlay"><div class="info-content"><strong>${seasonsCount} temporada${seasonsCount===1?'':'s'}</strong><p>${totalEpisodes} episodio${totalEpisodes===1?'':'s'}</p><p>${years}</p></div></div>`;
+      infoCont.innerHTML=`
+        <div class="serie-card">
+          <img src="${serie.image||''}" alt="${serie.name}"/>
+          ${overlayHtml}
+        </div>
+        <div class="details">
+          <div class="name">${serie.name}</div>
+          <div class="chips">
+            <div class="chip">📺 ${serie.category||'N/A'}</div>
+            <div class="chip">📅 ${years}</div>
+            ${serie.rating?`<div class="chip">⭐ ${serie.rating}</div>`:''}
+          </div>
+        </div>
+      `;
+      infoCont.style.display='flex';
+    }
 
-                    function filterRelated(serie){
-                        if(!searchIndex||!searchIndex.videos) return {openings:[],promosUS:[],promosLATAM:[]};
-                        const target=norm(serie.name);
-                        const rel=searchIndex.videos.filter(v=>norm(v.series||'')===target || norm(v.seriesId||'')===norm(serie.id));
-                        return {
-                            openings: rel.filter(v=>norm(v.category)==='openings'),
-                            promosUS: rel.filter(v=>norm(v.subcategory)==='promos' && (v.region||'').toUpperCase()==='US'),
-                            promosLATAM: rel.filter(v=>norm(v.subcategory)==='promos' && (v.region||'').toUpperCase()==='LATAM')
-                        };
-                    }
+    // Player helpers
+    function ensureVideo(){return document.getElementById('mainVideo');}
+    function showVideo(){
+      document.getElementById('playerPlaceholder').style.display='none';
+      const v=ensureVideo();
+      v.style.display='block';
+      return v;
+    }
+    
+    function playShort(item){
+      const idx=playingQueue.findIndex(x=>x.file===item.file);
+      if(idx===-1){
+        playingQueue.push(item); 
+        currentIndex=playingQueue.length-1; 
+        renderQueue();
+      } else {
+        currentIndex=idx;
+      }
+      const v=showVideo(); 
+      v.src=item.file; 
+      v.play().catch(()=>{}); 
+      document.getElementById('playerTitle').textContent=item.name; 
+      updatePlayPauseBtn();
+    }
+    
+    function renderQueue(){
+      const list=document.getElementById('queueList'); 
+      if(!list) return;
+      list.innerHTML=playingQueue.map((q,i)=>`
+        <div class="queue-item ${i===currentIndex?'playing':''}">
+          <div class="queue-item-left">
+            <img class="queue-thumb" src="${q.image||''}" alt=""/>
+            <div class="queue-item-title">${q.name}</div>
+          </div>
+          <div>
+            <button class="q-btn play" onclick="jumpTo(${i})">▶</button>
+            <button class="q-btn remove" onclick="removeFromQueue(${i})">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('queuePanel').style.display=playingQueue.length?'block':'none';
+    }
+    
+    function jumpTo(i){
+      if(i<0||i>=playingQueue.length) return; 
+      currentIndex=i; 
+      playShort(playingQueue[i]);
+    }
+    
+    function removeFromQueue(i){
+      playingQueue.splice(i,1); 
+      if(currentIndex>=playingQueue.length) currentIndex=playingQueue.length-1; 
+      renderQueue();
+    }
+    
+    function nextInQueue(){
+      if(!playingQueue.length) return; 
+      currentIndex=(currentIndex+1)%playingQueue.length; 
+      playShort(playingQueue[currentIndex]);
+    }
+    
+    function prevInQueue(){
+      if(!playingQueue.length) return; 
+      currentIndex=(currentIndex-1+playingQueue.length)%playingQueue.length; 
+      playShort(playingQueue[currentIndex]);
+    }
+    
+    function togglePlayPause(){
+      const v=ensureVideo(); 
+      if(v.paused){v.play();} else {v.pause();} 
+      updatePlayPauseBtn();
+    }
+    
+    function updatePlayPauseBtn(){
+      const v=ensureVideo(); 
+      document.getElementById('playPauseBtn').textContent=v.paused?'▶ Reproducir':'⏸ Pausar';
+    }
+    
+    function playEpisode(videoFile,title,serieId){
+      playShort({file:videoFile,name:title,image:currentSerie?.image||'',seriesId:serieId});
+    }
+    
+    function showError(msg){
+      const c=document.getElementById('content'); 
+      if(c){
+        c.style.display='block'; 
+        c.innerHTML=`<div class="error">${msg}</div>`;
+      }
+    }
 
-                    function renderRelated(serie){
-                        const {openings,promosUS,promosLATAM}=filterRelated(serie);
-                        const container=document.getElementById('relatedSections');
-                        const block=(title,list)=> list.length?`
-                            <section class="related-section">
-                                <div class="related-title"><h2>${title}</h2><span class="hint">${list.length} videos</span></div>
-                                <div class="shorts-wrapper"><div class="shorts">${list.map(renderShortCard).join('')}</div></div>
-                            </section>`:'';
-                        container.innerHTML=block('Openings',openings)+block('Promos US',promosUS)+block('Promos LATAM',promosLATAM);
-                    }
+    // Exponer funciones globalmente
+    window.playShort=playShort; 
+    window.prevInQueue=prevInQueue; 
+    window.nextInQueue=nextInQueue; 
+    window.togglePlayPause=togglePlayPause; 
+    window.jumpTo=jumpTo; 
+    window.removeFromQueue=removeFromQueue; 
+    window.playEpisode=playEpisode;
 
-                    function renderShortCard(item){
-                        const bg=item.image?`background-image:url('${item.image}')`:`background:linear-gradient(135deg,#ff7a00,#ff2b70 55%,#7c3aed)`;
-                        const badge=norm(item.category)==='openings'?'OPENING':'PROMO';
-                        const region=item.region?` • ${item.region}`:'';
-                        return `<div class="short" style="${bg};background-size:cover;background-position:center;" onclick='playShort(${JSON.stringify(item)})'>
-                            <div class="badge">${badge}${region}</div>
-                            <div class="play">▶</div>
-                            <div class="t">${item.name}</div>
-                        </div>`;
-                    }
-
-                    // Player helpers
-                    function ensureVideo(){return document.getElementById('mainVideo');}
-                    function showVideo(){document.getElementById('playerPlaceholder').style.display='none';const v=ensureVideo();v.style.display='block';return v;}
-                    function playShort(item){
-                        const idx=playingQueue.findIndex(x=>x.file===item.file);
-                        if(idx===-1){playingQueue.push(item); currentIndex=playingQueue.length-1; renderQueue();}
-                        else {currentIndex=idx;}
-                        const v=showVideo(); v.src=item.file; v.play().catch(()=>{}); document.getElementById('playerTitle').textContent=item.name; updatePlayPauseBtn();
-                    }
-                    function renderQueue(){
-                        const list=document.getElementById('queueList'); if(!list) return;
-                        list.innerHTML=playingQueue.map((q,i)=>`
-                            <div class="queue-item ${i===currentIndex?'playing':''}">
-                                <div class="queue-item-left">
-                                    <img class="queue-thumb" src="${q.image||''}" alt=""/>
-                                    <div class="queue-item-title">${q.name}</div>
-                                </div>
-                                <div>
-                                    <button class="q-btn play" onclick="jumpTo(${i})">▶</button>
-                                    <button class="q-btn remove" onclick="removeFromQueue(${i})">🗑️</button>
-                                </div>
-                            </div>`).join('');
-                        document.getElementById('queuePanel').style.display=playingQueue.length?'block':'none';
-                    }
-                    function jumpTo(i){if(i<0||i>=playingQueue.length) return; currentIndex=i; playShort(playingQueue[i]);}
-                    function removeFromQueue(i){playingQueue.splice(i,1); if(currentIndex>=playingQueue.length) currentIndex=playingQueue.length-1; renderQueue();}
-                    function nextInQueue(){if(!playingQueue.length) return; currentIndex=(currentIndex+1)%playingQueue.length; playShort(playingQueue[currentIndex]);}
-                    function prevInQueue(){if(!playingQueue.length) return; currentIndex=(currentIndex-1+playingQueue.length)%playingQueue.length; playShort(playingQueue[currentIndex]);}
-                    function togglePlayPause(){const v=ensureVideo(); if(v.paused){v.play();} else {v.pause();} updatePlayPauseBtn();}
-                    function updatePlayPauseBtn(){const v=ensureVideo(); document.getElementById('playPauseBtn').textContent=v.paused?'▶ Reproducir':'⏸ Pausar';}
-
-                    function playEpisode(videoFile,title,serieId){
-                        playShort({file:videoFile,name:title,image:currentSerie?.image||'',seriesId:serieId});
-                    }
-
-                    function showError(msg){const c=document.getElementById('content'); if(c){c.style.display='block'; c.innerHTML=`<div class="error">${msg}</div>`;}}
-
-                    window.playShort=playShort; window.prevInQueue=prevInQueue; window.nextInQueue=nextInQueue; window.togglePlayPause=togglePlayPause; window.jumpTo=jumpTo; window.removeFromQueue=removeFromQueue; window.playEpisode=playEpisode;
-
-                    document.addEventListener('DOMContentLoaded', async()=>{await loadIndex(); loadSerie();});
-                </script>
-                </body>
-                </html>
+    document.addEventListener('DOMContentLoaded', async()=>{
+      await loadIndex(); 
+      loadSerie();
+    });
+  </script>
+</body>
+</html>

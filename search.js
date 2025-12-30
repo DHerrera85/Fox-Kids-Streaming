@@ -9,6 +9,7 @@ class FoxKidsSearch {
     this.results = [];
     this.isOpen = false;
     this.selectedIndex = 0;
+    this.allowedSeriesIds = null; // serie.html whitelist
     this.init();
   }
 
@@ -27,6 +28,8 @@ class FoxKidsSearch {
         series: this.index.series?.length || 0,
         categories: this.index.categories?.length || 0
       });
+      // Derivar lista permitida desde series.html
+      await this.loadAllowedSeriesFromSeriesHtml();
     } catch (error) {
       console.error('❌ Error loading search-index.json:', error);
       // Usar datos embebidos como fallback
@@ -38,6 +41,8 @@ class FoxKidsSearch {
         series: this.index.series?.length || 0,
         categories: this.index.categories?.length || 0
       });
+      // Intentar aún así derivar whitelist desde series.html
+      await this.loadAllowedSeriesFromSeriesHtml();
     }
     this.setupUI();
     this.setupEventListeners();
@@ -147,11 +152,19 @@ class FoxKidsSearch {
       }
       
       // Conectar el campo del topbar para abrir modal
+      // 1) Campo con id "q" (si existe)
       const topbarInput = document.getElementById('q');
       if (topbarInput) {
         topbarInput.addEventListener('focus', () => this.openSearch());
         topbarInput.addEventListener('click', () => this.openSearch());
-        console.log('✅ Campo de búsqueda del topbar conectado');
+        console.log('✅ Campo de búsqueda del topbar conectado (#q)');
+      }
+      // 2) Cualquier input dentro de .search-pill
+      const pillInput = document.querySelector('.search-pill input');
+      if (pillInput) {
+        pillInput.addEventListener('focus', () => this.openSearch());
+        pillInput.addEventListener('click', () => this.openSearch());
+        console.log('✅ Campo de búsqueda de la pill conectado');
       }
     }, 100);
 
@@ -164,10 +177,17 @@ class FoxKidsSearch {
 
     // Agregar listener al botón de búsqueda
     setTimeout(() => {
+      // 1) Botón explícito con clase .search-icon-btn
       const searchBtn = document.querySelector('.search-icon-btn');
       if (searchBtn) {
         searchBtn.onclick = () => this.openSearch();
-        console.log('✅ Botón de búsqueda configurado');
+        console.log('✅ Botón de búsqueda configurado (.search-icon-btn)');
+      }
+      // 2) Ícono del topbar con title="Buscar"
+      const iconBtn = document.querySelector('.icon-btn[title="Buscar"]');
+      if (iconBtn) {
+        iconBtn.onclick = () => this.openSearch();
+        console.log('✅ Ícono "Buscar" del topbar conectado');
       }
     }, 100);
   }
@@ -254,6 +274,10 @@ class FoxKidsSearch {
     if (!this.index.series) return matches;
 
     this.index.series.forEach((series) => {
+      // Si hay whitelist desde series.html, aplicar restricción
+      if (this.allowedSeriesIds && !this.allowedSeriesIds.has(series.id)) {
+        return;
+      }
       const relevance = this.calculateRelevance(query, series.name, series.searchTerms);
       if (relevance > 0) {
         matches.push({
@@ -492,7 +516,12 @@ class FoxKidsSearch {
     const suggestionsContainer = document.getElementById('searchSuggestions');
     if (!suggestionsContainer) return;
 
-    const topSeries = (this.index.series || []).slice(0, 8);
+    // Restringir sugerencias a las series del series.html si está disponible
+    let availableSeries = (this.index.series || []);
+    if (this.allowedSeriesIds) {
+      availableSeries = availableSeries.filter(s => this.allowedSeriesIds.has(s.id));
+    }
+    const topSeries = availableSeries.slice(0, 8);
     let html = `
       <div class="suggestions-section">
         <div class="suggestions-title">📺 Series Destacadas</div>
@@ -578,6 +607,42 @@ class FoxKidsSearch {
 
     // Redirigir siempre a la subpágina de serie
     window.location.href = `serie.html?id=${result.id}`;
+  }
+
+  async loadAllowedSeriesFromSeriesHtml() {
+    try {
+      const resp = await fetch('series.html');
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const htmlText = await resp.text();
+      // Parsear HTML para extraer los alt de las imágenes de serie
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, 'text/html');
+      const imgs = Array.from(doc.querySelectorAll('.serie-card img'));
+      const altNames = imgs.map(img => (img.getAttribute('alt') || '').trim()).filter(Boolean);
+      if (altNames.length === 0) {
+        console.warn('⚠️ No se detectaron alt names en series.html');
+        this.allowedSeriesIds = null;
+        return;
+      }
+      // Mapear alt names a ids del índice
+      const nameToId = new Map();
+      (this.index.series || []).forEach(s => nameToId.set(s.name.toLowerCase(), s.id));
+      const allowed = new Set();
+      altNames.forEach(name => {
+        const id = nameToId.get(name.toLowerCase());
+        if (id) allowed.add(id);
+      });
+      if (allowed.size > 0) {
+        this.allowedSeriesIds = allowed;
+        console.log('✅ Series permitidas derivadas de series.html:', Array.from(allowed));
+      } else {
+        console.warn('⚠️ No se pudo mapear ninguna serie desde series.html al índice');
+        this.allowedSeriesIds = null;
+      }
+    } catch (e) {
+      console.warn('⚠️ No se pudo cargar series.html para restringir búsqueda:', e);
+      this.allowedSeriesIds = null;
+    }
   }
 
   playVideo(video) {

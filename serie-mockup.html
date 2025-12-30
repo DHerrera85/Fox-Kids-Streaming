@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Fox Kids – Serie (Mockup Unificado)</title>
+  <link rel="icon" type="image/png" href="img/FOX_Kids_logo-_200___176-transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="search-styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);} /* mantener el fondo más sobrio */
+    .app{max-width:430px;margin:0 auto;min-height:100%;position:relative;padding-bottom:100px;}
+    .topbar{position:sticky;top:0;z-index:10;background:var(--red);padding:12px 14px;box-shadow:0 10px 18px rgba(0,0,0,.25);} 
+    .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .logo{display:flex;align-items:center;gap:10px;min-width:0;} .logo-badge{width:60px;height:60px;display:grid;place-items:center;flex-shrink:0;} .logo-badge img{width:100%;height:100%;object-fit:contain;}
+    .hello{min-width:0} .hello .hi{font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} .hello .sub{font-size:10px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .icons{display:flex;gap:10px;} .icon-btn{width:40px;height:40px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(0,0,0,.18);color:#fff;display:grid;place-items:center;cursor:pointer;user-select:none;position:relative;} .icon{font-size:18px;}
+    .search{margin-top:10px;display:flex;gap:10px;align-items:center;} .search-pill{flex:1;background:#fff;color:#111;border-radius:999px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 20px rgba(0,0,0,.18);} .search-pill input{border:0;outline:0;width:100%;font-size:14px;background:transparent;} .tag{background:var(--yellow);color:#111;font-weight:900;border-radius:999px;padding:8px 10px;font-size:12px;box-shadow:0 10px 20px rgba(0,0,0,.18);}
+
+    .content{padding:14px;}
+
+    /* Player estilo shorts */
+    .video-gallery{padding:10px 0;}
+    .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:8px 2px 10px;gap:6px;}
+    .section-title h2{margin:0;font-size:14px;letter-spacing:.1px;color:#FFD200;}
+    .video-frame{position:relative;width:100%;border-radius:12px;background:#000;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.22);} 
+    .video-frame::before{content:"";display:block;width:100%;padding-top:56.25%;}
+    .video-frame .video-inner{position:absolute;inset:0;}
+    .video-frame video{width:100%;height:100%;border-radius:12px;background:#000;object-fit:contain;}
+    .video-toolbar{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;}
+    .video-controls{display:flex;gap:8px;} .ctrl-btn{background:rgba(0,0,0,.55);color:#fff;border:2px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:900;cursor:pointer;} .ctrl-btn:hover{background:rgba(0,0,0,.75);} 
+    .queue-panel{margin-top:10px;background:#f9fafb;border:2px solid #e5e7eb;border-radius:14px;padding:12px;}
+    .queue-title{font-size:13px;font-weight:900;color:#111;margin-bottom:8px;} .queue-list{display:flex;flex-direction:column;gap:8px;} .queue-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;background:#fff;border:2px solid #e5e7eb;border-radius:12px;} .queue-item.playing{background:#fff3cd;border-color:#FFD200;}
+    .queue-item-left{display:flex;align-items:center;gap:8px;color:#111;font-size:12px;font-weight:900;flex:1;min-width:0;} .queue-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#111;flex-shrink:0;} .queue-item-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .q-btn{background:#f2f3f5;color:#111;border:2px solid rgba(0,0,0,.12);border-radius:10px;padding:8px 10px;font-size:11px;font-weight:900;cursor:pointer;} .q-btn.play{background:#16a34a;color:#fff;border-color:#15803d;} .q-btn.remove{background:#e20000;color:#fff;border-color:#b00000;}
+
+    /* Info Card de serie */
+    .series-info-card{margin:14px 0 24px;position:relative;display:flex;align-items:center;gap:16px;}
+    .series-info-card .serie-card{position:relative;overflow:hidden;border-radius:8px;width:180px;height:270px;flex-shrink:0;} .series-info-card .serie-card img{width:100%;height:100%;object-fit:cover;display:block;}
+    .series-info-card .serie-info-overlay{position:absolute;inset:0;background:rgba(255,196,0,.92);padding:14px 10px;display:flex;align-items:center;justify-content:center;opacity:1;}
+    .series-info-card .info-content{color:#000;font-size:12px;line-height:1.6;text-align:center;} .series-info-card .info-content strong{font-size:13px;font-weight:900;display:block;margin-bottom:3px;color:#000;}
+    .series-info-card .details{display:flex;flex-direction:column;gap:8px;} .series-info-card .name{font-size:20px;color:#FFD200;font-weight:900;} .series-info-card .chips{display:flex;gap:8px;flex-wrap:wrap;} .series-info-card .chip{background:#111;color:#FFD200;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;}
+
+    /* Relacionados */
+    .related-section{margin:20px 0;} .related-title{display:flex;align-items:baseline;justify-content:space-between;margin:8px 2px 10px;gap:6px;} .related-title h2{margin:0;font-size:16px;letter-spacing:.1px;color:#FFD200;}
+    .shorts-wrapper{position:relative;margin:0 0 10px;} .shorts{display:flex;gap:12px;overflow:auto;scroll-snap-type:x mandatory;user-select:none;height:255px;align-items:center;} .shorts::-webkit-scrollbar{display:none;}
+    .short{flex:0 0 auto;width:140px;height:255px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:0 14px 30px rgba(0,0,0,.22);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);background-size:cover;background-position:center;}
+    .short .badge{position:absolute;top:10px;left:10px;background:rgba(255,196,0,.95);color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
+    .short .play{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;font-size:16px;}
+    .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-row">
+        <div class="logo">
+          <div class="logo-badge" onclick="location.href='index.html'" style="cursor:pointer;" title="Ir al inicio"><img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" /></div>
+          <div class="hello"><div class="hi">Serie</div><div class="sub">Página unificada</div></div>
+        </div>
+        <div class="icons">
+          <div class="icon-btn" title="Buscar"><span class="icon"><i class="fas fa-magnifying-glass"></i></span></div>
+          <div class="icon-btn" title="Perfil"><span class="icon"><i class="fas fa-user"></i></span></div>
+        </div>
+      </div>
+      <div class="search">
+        <div class="search-pill"><span class="glass">🔍</span><input placeholder="¿Qué serie buscas?"/></div>
+        <div class="tag">LIVE</div>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="video-gallery" id="playerSection" style="display:none;">
+        <div class="section-title"><h2>Reproductor</h2><span class="hint" id="playerTitle">Selecciona un video</span></div>
+        <div class="video-frame"><div class="video-inner">
+          <video id="mainVideo" style="display:none;" controls playsinline>Tu navegador no soporta videos HTML5</video>
+          <div id="playerPlaceholder" style="position:absolute;inset:0;background:#111;border-radius:12px;padding:40px;text-align:center;color:#FFD200;display:flex;align-items:center;justify-content:center;">👆 Selecciona un video de los relacionados para reproducir</div>
+        </div></div>
+        <div class="video-toolbar"><div class="video-controls">
+          <button class="ctrl-btn" onclick="prevInQueue()">⟵ Anterior</button>
+          <button class="ctrl-btn" onclick="togglePlayPause()" id="playPauseBtn">▶ Reproducir</button>
+          <button class="ctrl-btn" onclick="nextInQueue()">Siguiente ⟶</button>
+        </div></div>
+        <div id="seriesInfoCard" class="series-info-card" style="display:none;"></div>
+        <div class="queue-panel" id="queuePanel" style="display:none;">
+          <div class="queue-title">Cola de reproducción</div>
+          <div class="queue-list" id="queueList"></div>
+        </div>
+      </section>
+
+      <div id="relatedSections"></div>
+      <div id="seasonsContainer" class="seasons-container"></div>
+      <div id="content" class="loading">Cargando serie...</div>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación inferior">
+      <div class="nav-item" onclick="location.href='index.html'"><div class="ni"><i class="fas fa-house"></i></div><div class="label">Inicio</div></div>
+      <div class="nav-item active"><div class="ni"><i class="fas fa-tv"></i></div><div class="label">Series</div></div>
+      <div class="nav-item" onclick="location.href='programacion-historia.html'"><div class="ni"><i class="fas fa-calendar"></i></div><div class="label">Horarios</div></div>
+      <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni"><i class="fas fa-film"></i></div><div class="label">Videos</div></div>
+    </nav>
+  </div>
+
+  <script>
+    let searchIndex=null; let currentSerie=null; let playingQueue=[]; let currentIndex=-1;
+    const norm = (s='') => s.normalize('NFD').replace(/\p{Diacritic}/gu,'').toLowerCase().trim();
+    async function loadIndex(){try{const resp=await fetch('data/search-index.json'); searchIndex=await resp.json();}catch(e){console.error('No se pudo cargar índice',e); showError('No se pudo cargar la serie');}}
+    function getParam(name){return new URLSearchParams(window.location.search).get(name);}    
+    function loadSerie(){
+      if(!searchIndex||!searchIndex.series||!searchIndex.series.length){showError('Serie no encontrada');return;}
+      const urlId=getParam('id'); const targetId=urlId||searchIndex.series[0].id; const serie=searchIndex.series.find(s=>s.id===targetId);
+      if(!serie){showError('Serie no encontrada');return;}
+      if(!urlId){const params=new URLSearchParams(window.location.search); params.set('id', serie.id); history.replaceState(null,'',`${location.pathname}?${params.toString()}`);}      
+      currentSerie=serie; renderSeasons(serie); renderRelated(serie); renderInfoCard(serie); 
+      document.getElementById('playerSection').style.display='block'; document.getElementById('content').style.display='none';
+    }
+    function renderSeasons(serie){
+      const cont=document.getElementById('seasonsContainer'); if(!serie.seasons||!serie.seasons.length){cont.innerHTML='';return;}
+      cont.innerHTML=serie.seasons.map(season=>`
+        <div class="season"><h3 class="season-title">Temporada ${season.season}</h3>
+          <div class="episodes-grid">${season.episodes.map(ep=>`
+            <div class="episode-card" onclick="playEpisode('${ep.video}','${serie.name} - ${ep.title}','${serie.id}')">
+              <div class="episode-number">Ep. ${ep.number}</div>
+              <div class="episode-title">${ep.title}</div>
+              <div class="episode-duration">⏱️ ${ep.duration}</div>
+            </div>`).join('')}</div>
+        </div>`).join('');
+    }
+    function filterRelated(serie){
+      if(!searchIndex||!searchIndex.videos) return {openings:[],promosUS:[],promosLATAM:[]};
+      const target=norm(serie.name); const rel=searchIndex.videos.filter(v=>norm(v.series||'')===target || norm(v.seriesId||'')===norm(serie.id));
+      return {openings: rel.filter(v=>norm(v.category)==='openings'),promosUS: rel.filter(v=>norm(v.subcategory)==='promos' && (v.region||'').toUpperCase()==='US'),promosLATAM: rel.filter(v=>norm(v.subcategory)==='promos' && (v.region||'').toUpperCase()==='LATAM')};
+    }
+    function renderRelated(serie){
+      const {openings,promosUS,promosLATAM}=filterRelated(serie);
+      const container=document.getElementById('relatedSections');
+      const block=(title,list)=> list.length?`<section class="related-section"><div class="related-title"><h2>${title}</h2><span class="hint">${list.length} videos</span></div><div class="shorts-wrapper"><div class="shorts">${list.map(renderShortCard).join('')}</div></div></section>`:'';
+      container.innerHTML=block('Openings',openings)+block('Promos US',promosUS)+block('Promos LATAM',promosLATAM);
+    }
+    function renderShortCard(item){
+      const bg=item.image?`background-image:url('${item.image}')`:`background:linear-gradient(135deg,#ff7a00,#ff2b70 55%,#7c3aed)`; const badge=norm(item.category)==='openings'?'OPENING':'PROMO'; const region=item.region?` • ${item.region}`:'';
+      return `<div class="short" style="${bg};" onclick='playShort(${JSON.stringify(item)})'><div class="badge">${badge}${region}</div><div class="play">▶</div><div class="t">${item.name}</div></div>`;
+    }
+    function renderInfoCard(serie){
+      const infoCont=document.getElementById('seriesInfoCard'); if(!infoCont) return;
+      const seasonsCount=Array.isArray(serie.seasons)?serie.seasons.length:0; const totalEpisodes=seasonsCount?serie.seasons.reduce((sum,s)=>sum+(Array.isArray(s.episodes)?s.episodes.length:0),0):0; const years=serie.year?serie.year:'N/A';
+      const overlayHtml=`<div class="serie-info-overlay"><div class="info-content"><strong>${seasonsCount} temporada${seasonsCount===1?'':'s'}</strong><p>${totalEpisodes} episodio${totalEpisodes===1?'':'s'}</p><p>${years}</p></div></div>`;
+      infoCont.innerHTML=`<div class="serie-card"><img src="${serie.image||''}" alt="${serie.name}"/>${overlayHtml}</div><div class="details"><div class="name">${serie.name}</div><div class="chips"><div class="chip">📺 ${serie.category||'N/A'}</div><div class="chip">📅 ${years}</div>${serie.rating?`<div class="chip">⭐ ${serie.rating}</div>`:''}</div></div>`;
+      infoCont.style.display='flex';
+    }
+
+    // Player helpers
+    function ensureVideo(){return document.getElementById('mainVideo');}
+    function showVideo(){document.getElementById('playerPlaceholder').style.display='none';const v=ensureVideo();v.style.display='block';return v;}
+    function playShort(item){
+      const idx=playingQueue.findIndex(x=>x.file===item.file);
+      if(idx===-1){playingQueue.push(item); currentIndex=playingQueue.length-1; renderQueue();}
+      else {currentIndex=idx;}
+      const v=showVideo(); v.src=item.file; v.play().catch(()=>{}); document.getElementById('playerTitle').textContent=item.name; updatePlayPauseBtn();
+    }
+    function renderQueue(){const list=document.getElementById('queueList'); if(!list) return; list.innerHTML=playingQueue.map((q,i)=>`<div class="queue-item ${i===currentIndex?'playing':''}"><div class="queue-item-left"><img class="queue-thumb" src="${q.image||''}" alt=""/><div class="queue-item-title">${q.name}</div></div><div><button class="q-btn play" onclick="jumpTo(${i})">▶</button><button class="q-btn remove" onclick="removeFromQueue(${i})">🗑️</button></div></div>`).join(''); document.getElementById('queuePanel').style.display=playingQueue.length?'block':'none';}
+    function jumpTo(i){if(i<0||i>=playingQueue.length) return; currentIndex=i; playShort(playingQueue[i]);}
+    function removeFromQueue(i){playingQueue.splice(i,1); if(currentIndex>=playingQueue.length) currentIndex=playingQueue.length-1; renderQueue();}
+    function nextInQueue(){if(!playingQueue.length) return; currentIndex=(currentIndex+1)%playingQueue.length; playShort(playingQueue[currentIndex]);}
+    function prevInQueue(){if(!playingQueue.length) return; currentIndex=(currentIndex-1+playingQueue.length)%playingQueue.length; playShort(playingQueue[currentIndex]);}
+    function togglePlayPause(){const v=ensureVideo(); if(v.paused){v.play();} else {v.pause();} updatePlayPauseBtn();}
+    function updatePlayPauseBtn(){const v=ensureVideo(); document.getElementById('playPauseBtn').textContent=v.paused?'▶ Reproducir':'⏸ Pausar';}
+    function playEpisode(videoFile,title,serieId){playShort({file:videoFile,name:title,image:currentSerie?.image||'',seriesId:serieId});}
+    function showError(msg){const c=document.getElementById('content'); if(c){c.style.display='block'; c.innerHTML=`<div class="error">${msg}</div>`;}}
+    document.addEventListener('DOMContentLoaded', async()=>{await loadIndex(); loadSerie();});
+  </script>
+  <script src="search.js"></script>
+</body>
+</html>

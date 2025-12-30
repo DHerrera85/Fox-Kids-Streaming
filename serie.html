@@ -60,9 +60,12 @@
 
     /* Info Card de serie */
     .series-info-card{margin:14px 0 24px;position:relative;display:flex;align-items:center;gap:16px;}
-    .series-info-card .serie-card{position:relative;overflow:hidden;border-radius:8px;width:180px;height:270px;flex-shrink:0;} 
-    .series-info-card .serie-card img{width:100%;height:100%;object-fit:cover;display:block;}
-    .series-info-card .serie-info-overlay{position:absolute;inset:0;background:rgba(255,196,0,.92);padding:14px 10px;display:flex;align-items:center;justify-content:center;opacity:1;}
+    .series-info-card .serie-card{position:relative;overflow:hidden;border-radius:8px;width:180px;height:270px;flex-shrink:0;cursor:pointer;} 
+    .series-info-card .serie-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease;}
+    .series-info-card .serie-info-overlay{position:absolute;inset:0;background:rgba(255,196,0,.92);padding:14px 10px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;z-index:5;}
+    .series-info-card .serie-card:hover .serie-info-overlay{opacity:1;}
+    .series-info-card .serie-card:hover img{transform:scale(1.05);}
+    .series-info-card .serie-card.active .serie-info-overlay{opacity:1;}
     .series-info-card .info-content{color:#000;font-size:12px;line-height:1.6;text-align:center;} 
     .series-info-card .info-content strong{font-size:13px;font-weight:900;display:block;margin-bottom:3px;color:#000;}
     .series-info-card .details{display:flex;flex-direction:column;gap:8px;} 
@@ -82,17 +85,6 @@
     .short .badge{position:absolute;top:10px;left:10px;background:rgba(255,196,0,.95);color:#111;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:1000;}
     .short .play{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;font-size:16px;}
     .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
-
-    /* Temporadas/episodios */
-    .seasons-container{margin:20px 0;}
-    .season{margin-bottom:20px;}
-    .season-title{font-size:16px;color:#FFD200;margin:10px 0;letter-spacing:.1px;}
-    .episodes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
-    .episode-card{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;cursor:pointer;transition:all .2s ease;}
-    .episode-card:hover{border-color:#FFD200;transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.28);}
-    .episode-number{font-size:11px;color:#FFD200;font-weight:900;margin-bottom:4px;}
-    .episode-title{font-size:12px;font-weight:900;margin-bottom:6px;color:#fff;}
-    .episode-duration{font-size:11px;color:#d1d5db;}
 
     .loading,.error{text-align:center;padding:40px 20px;font-size:16px;color:#FFD200;}
     .error{color:#ff6b6b;}
@@ -149,8 +141,8 @@
             <img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" />
           </div>
           <div class="hello">
-            <div class="hi">Fox Kids</div>
-            <div class="sub">Serie</div>
+            <div class="hi">Hola, Daniel</div>
+            <div class="sub">Series Clásicas</div>
           </div>
         </div>
         <div class="icons">
@@ -201,7 +193,6 @@
       </section>
 
       <div id="relatedSections"></div>
-      <div id="seasonsContainer" class="seasons-container"></div>
       <div id="content" class="loading">Cargando serie...</div>
     </main>
 
@@ -263,33 +254,10 @@
       }
 
       currentSerie=serie; 
-      renderSeasons(serie); 
       renderRelated(serie); 
       renderInfoCard(serie);
       document.getElementById('playerSection').style.display='block'; 
       document.getElementById('content').style.display='none';
-    }
-
-    function renderSeasons(serie){
-      const cont=document.getElementById('seasonsContainer'); 
-      if(!serie.seasons||!serie.seasons.length){
-        cont.innerHTML='';
-        return;
-      }
-      cont.innerHTML=serie.seasons.map(season=>`
-        <div class="season">
-          <h3 class="season-title">Temporada ${season.season}</h3>
-          <div class="episodes-grid">
-            ${season.episodes.map(ep=>`
-              <div class="episode-card" onclick="playEpisode('${ep.video}','${serie.name} - ${ep.title}','${serie.id}')">
-                <div class="episode-number">Ep. ${ep.number}</div>
-                <div class="episode-title">${ep.title}</div>
-                <div class="episode-duration">⏱️ ${ep.duration}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `).join('');
     }
 
     function filterRelated(serie){
@@ -335,8 +303,19 @@
       const infoCont=document.getElementById('seriesInfoCard'); 
       if(!infoCont) return;
       const seasonsCount=Array.isArray(serie.seasons)?serie.seasons.length:0; 
-      const totalEpisodes=seasonsCount?serie.seasons.reduce((sum,s)=>sum+(Array.isArray(s.episodes)?s.episodes.length:0),0):0; 
-      const years=serie.year?serie.year:'N/A';
+      // Calcular total de episodios: si episodes es número, sumar; si es array, contar length
+      const totalEpisodes=seasonsCount?serie.seasons.reduce((sum,s)=>{
+        if(Array.isArray(s.episodes)){
+          return sum+s.episodes.length;
+        } else if(typeof s.episodes === 'number'){
+          return sum+s.episodes;
+        }
+        return sum;
+      },0):0;
+      // Mostrar rango de años si existe endYear
+      const years=serie.endYear && serie.endYear !== serie.year 
+        ? `${serie.year} – ${serie.endYear}` 
+        : (serie.year || 'N/A');
       const overlayHtml=`<div class="serie-info-overlay"><div class="info-content"><strong>${seasonsCount} temporada${seasonsCount===1?'':'s'}</strong><p>${totalEpisodes} episodio${totalEpisodes===1?'':'s'}</p><p>${years}</p></div></div>`;
       infoCont.innerHTML=`
         <div class="serie-card">
@@ -457,6 +436,20 @@
     document.addEventListener('DOMContentLoaded', async()=>{
       await loadIndex(); 
       loadSerie();
+      
+      // Toggle overlay en mobile al hacer click sobre la imagen
+      document.addEventListener('click', function(e) {
+        const serieCard = e.target.closest('.series-info-card .serie-card');
+        if(serieCard) {
+          e.stopPropagation();
+          serieCard.classList.toggle('active');
+        } else {
+          // Cerrar overlay si se hace click fuera
+          document.querySelectorAll('.series-info-card .serie-card.active').forEach(card => {
+            card.classList.remove('active');
+          });
+        }
+      });
     });
   </script>
 </body>

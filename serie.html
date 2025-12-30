@@ -83,6 +83,7 @@
     .shorts::-webkit-scrollbar{display:none;}
     .shorts{-ms-overflow-style:none;scrollbar-width:none;}
     @media (max-width:600px){.shorts{height:240px;align-items:flex-start;padding-top:5px;}}
+    @media (max-width:600px){.short{width:140px;height:210px;}}
     .short{flex:0 0 auto;width:180px;height:270px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:0 14px 30px rgba(0,0,0,.22);position:relative;scroll-snap-align:start;border:4px solid #ff3c00;background-size:cover;background-position:center;background-repeat:no-repeat;cursor:pointer;}
     .short::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.20),rgba(0,0,0,.45) 70%,rgba(0,0,0,.55));z-index:0;pointer-events:none;border-radius:inherit;}
     .short .badge,.short .play,.short .t{position:absolute;z-index:1;}

@@ -187,6 +187,12 @@
           </div>
         </div>
       </div>
+      <!-- COLA DE REPRODUCCIÓN (ARRIBA DEL REPRODUCTOR) -->
+      <div class="queue-panel" id="queuePanel" style="display:block;margin-bottom:15px;">
+        <div class="queue-title">Cola de reproducción</div>
+        <div class="queue-list" id="queueList"></div>
+      </div>
+      
       <div class="video-toolbar">
         <div class="video-controls">
           <button class="ctrl-btn" onclick="prevInQueue()">⟵ Anterior</button>
@@ -199,10 +205,6 @@
         <div class="toast" id="toast">Añadido a la cola ✓</div>
 
         </div>
-      </div>
-      <div class="queue-panel" id="queuePanel" style="display:none;">
-        <div class="queue-title">Cola de reproducción</div>
-        <div class="queue-list" id="queueList"></div>
       </div>
     </section>
     
@@ -232,24 +234,38 @@
     <section style="margin-top:30px;">
       <div class="section-title" style="margin-bottom:10px;">
         <h2>Promos Fox Kids USA</h2>
-        <span class="hint">Swipe para navegar</span>
+        <span class="hint" style="cursor:pointer;text-decoration:underline;" onclick="loadFullPlaylist('promosUSACarousel')">Ver Lista de Reproducción completa →</span>
       </div>
       
       <div class="shorts-wrapper">
         <div class="shorts" id="promosUSACarousel">
+          <!-- 2002 -->
           <div class="short" onclick="playShort('videos/shorts/promos/US/digimon-tamers-promo-US-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/US/digimon-tamers-promo-US-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/digimon-tamers-promo-US-2002.mp4','Digimon Tamers • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Digimon Tamers • Promo</div></div>
           <div class="short" onclick="playShort('videos/shorts/promos/US/escaflowne-US-promo-2002.mp4', event)" data-type="promo" style="background-image:url('videos/shorts/promos/US/escaflowne-US-promo-2002.jpg');background-size:cover;background-position:center;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/escaflowne-US-promo-2002.mp4','Escaflowne • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Escaflowne • Promo</div></div>
-          <div class="short" onclick="playShort('videos/shorts/promos/US/the-magician-promo-US-1999.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #1a1a1a 0%, #2d2d4a 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:18px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/the-magician-promo-US-1999.mp4','The Magician • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">The Magician • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/US/medabots-fox-kids-US-promo-2002.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #1e3a8a 0%, #06b6d4 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/medabots-fox-kids-US-promo-2002.mp4','Medabots • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Medabots • Promo</div></div>
+          <!-- 2000 -->
           <div class="short" onclick="playShort('videos/shorts/promos/US/angela-anaconda-promo-US-2000.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #FF6B35 0%, #FF8C5C 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:18px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/angela-anaconda-promo-US-2000.mp4','Angela Anaconda • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Angela Anaconda • Promo</div></div>
-          <div class="short" onclick="playShort('videos/shorts/promos/US/beetleborgs-US-promo-1997.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/beetleborgs-US-promo-1997.mp4','Beetleborgs • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Beetleborgs • Promo</div></div>
-          <div class="short" onclick="playShort('videos/shorts/promos/US/Mystic Knights of Tir Na Nog-FoxKids-Promo-US-1998.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #2d1b4e 0%, #4a2f7a 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:14px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/Mystic Knights of Tir Na Nog-FoxKids-Promo-US-1998.mp4','Mystic Knights • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Mystic Knights • Promo</div></div>
-          <div class="short" onclick="playShort('videos/shorts/promos/US/VR-Troopers-Promo-FoxKids-US-1994.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #0f4c81 0%, #1a6bb3 100%);display:flex;align-items:center;justify-content:center;color:#00BFFF;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/VR-Troopers-Promo-FoxKids-US-1994.mp4','VR Troopers • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">VR Troopers • Promo</div></div>
-          <div class="short" onclick="playShort('videos/shorts/promos/US/the-tick-promo-fox-kids-US-1995.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/the-tick-promo-fox-kids-US-1995.mp4','The Tick • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">The Tick • Promo</div></div>
+          <!-- 1999 -->
+          <div class="short" onclick="playShort('videos/shorts/promos/US/the-magician-promo-US-1999.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #1a1a1a 0%, #2d2d4a 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:18px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/the-magician-promo-US-1999.mp4','The Magician • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">The Magician • Promo</div></div>
           <div class="short" onclick="playShort('videos/shorts/promos/US/the-new-addams-family-promo-fox-kids-us-1999.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #166534 0%, #22c55e 100%);display:flex;align-items:center;justify-content:center;color:#000;font-weight:900;font-size:14px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/the-new-addams-family-promo-fox-kids-us-1999.mp4','The New Addams Family • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">The New Addams Family • Promo</div></div>
           <div class="short" onclick="playShort('videos/shorts/promos/US/monster-rancher-promo-fox-kids-US-1999.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #dc2626 0%, #f87171 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/monster-rancher-promo-fox-kids-US-1999.mp4','Monster Rancher • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Monster Rancher • Promo</div></div>
           <div class="short" onclick="playShort('videos/shorts/promos/US/cybersix-Promo-Fox-Kids-US-1999.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #4c1d95 0%, #8b5cf6 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/cybersix-Promo-Fox-Kids-US-1999.mp4','Cybersix • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Cybersix • Promo</div></div>
-          <div class="short" onclick="playShort('videos/shorts/promos/US/silver-surfer-promo-fox-kids-US-1998.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #525252 0%, #a3a3a3 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/silver-surfer-promo-fox-kids-US-1998.mp4','Silver Surfer • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Silver Surfer • Promo</div></div>          <div class="short" onclick="playShort('videos/shorts/promos/US/medabots-fox-kids-US-promo-2002.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #1e3a8a 0%, #06b6d4 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/medabots-fox-kids-US-promo-2002.mp4','Medabots • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Medabots • Promo</div></div>
-          <div class="short" onclick="playShort('videos/shorts/promos/US/Eerie-Indiana-Promo-FoxKids-US-1997.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #065f46 0%, #10b981 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/Eerie-Indiana-Promo-FoxKids-US-1997.mp4','Eerie Indiana • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Eerie Indiana • Promo</div></div>          <div class="short" onclick="playShort('videos/shorts/promos/US/sweet-valley-high-promo-fox-kids-US-1997.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #db2777 0%, #f472b6 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/sweet-valley-high-promo-fox-kids-US-1997.mp4','Sweet Valley High • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Sweet Valley High • Promo</div></div>          <div class="short" onclick="playShort('videos/shorts/promos/US/oggy-and-the-cockroaches-fox-kids-1998-promo-US.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/oggy-and-the-cockroaches-fox-kids-1998-promo-US.mp4','Oggy and the Cockroaches • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Oggy and the Cockroaches • Promo</div></div>          <div class="short" onclick="playShort('videos/shorts/promos/US/eek-the-cat-promo-fox-kids-US-1993.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #d97706 0%, #fbbf24 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/eek-the-cat-promo-fox-kids-US-1993.mp4','Eek! The Cat • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Eek! The Cat • Promo</div></div>          <div class="short" onclick="playShort('videos/shorts/promos/US/space-goofs-promo-fox-kids-US-1997.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #4338ca 0%, #6366f1 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/space-goofs-promo-fox-kids-US-1997.mp4','Space Goofs • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Space Goofs • Promo</div></div>          <div class="short view-more-card" onclick="showReminderModal('Lista completa de Promos USA próximamente')"><div class="view-more-text">Ver Lista completa</div><div class="view-more-icon">➜</div></div>
+          <!-- 1998 -->
+          <div class="short" onclick="playShort('videos/shorts/promos/US/Mystic Knights of Tir Na Nog-FoxKids-Promo-US-1998.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #2d1b4e 0%, #4a2f7a 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:14px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/Mystic Knights of Tir Na Nog-FoxKids-Promo-US-1998.mp4','Mystic Knights • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Mystic Knights • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/US/silver-surfer-promo-fox-kids-US-1998.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #525252 0%, #a3a3a3 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/silver-surfer-promo-fox-kids-US-1998.mp4','Silver Surfer • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Silver Surfer • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/US/oggy-and-the-cockroaches-fox-kids-1998-promo-US.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/oggy-and-the-cockroaches-fox-kids-1998-promo-US.mp4','Oggy and the Cockroaches • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Oggy and the Cockroaches • Promo</div></div>
+          <!-- 1997 -->
+          <div class="short" onclick="playShort('videos/shorts/promos/US/beetleborgs-US-promo-1997.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/beetleborgs-US-promo-1997.mp4','Beetleborgs • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Beetleborgs • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/US/Eerie-Indiana-Promo-FoxKids-US-1997.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #065f46 0%, #10b981 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/Eerie-Indiana-Promo-FoxKids-US-1997.mp4','Eerie Indiana • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Eerie Indiana • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/US/sweet-valley-high-promo-fox-kids-US-1997.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #db2777 0%, #f472b6 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/sweet-valley-high-promo-fox-kids-US-1997.mp4','Sweet Valley High • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Sweet Valley High • Promo</div></div>
+          <div class="short" onclick="playShort('videos/shorts/promos/US/space-goofs-promo-fox-kids-US-1997.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #4338ca 0%, #6366f1 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/space-goofs-promo-fox-kids-US-1997.mp4','Space Goofs • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Space Goofs • Promo</div></div>
+          <!-- 1995 -->
+          <div class="short" onclick="playShort('videos/shorts/promos/US/the-tick-promo-fox-kids-US-1995.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);display:flex;align-items:center;justify-content:center;color:#FFD200;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/the-tick-promo-fox-kids-US-1995.mp4','The Tick • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">The Tick • Promo</div></div>
+          <!-- 1994 -->
+          <div class="short" onclick="playShort('videos/shorts/promos/US/VR-Troopers-Promo-FoxKids-US-1994.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #0f4c81 0%, #1a6bb3 100%);display:flex;align-items:center;justify-content:center;color:#00BFFF;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/VR-Troopers-Promo-FoxKids-US-1994.mp4','VR Troopers • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">VR Troopers • Promo</div></div>
+          <!-- 1993 -->
+          <div class="short" onclick="playShort('videos/shorts/promos/US/eek-the-cat-promo-fox-kids-US-1993.mp4', event)" data-type="promo" style="background:linear-gradient(135deg, #d97706 0%, #fbbf24 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:16px;"><div class="badge">PROMO</div><div class="add" onclick="addToQueue('videos/shorts/promos/US/eek-the-cat-promo-fox-kids-US-1993.mp4','Eek! The Cat • Promo','horizontal',event)">＋</div><div class="play">▶</div><div class="t">Eek! The Cat • Promo</div></div>
+          <div class="short view-more-card" onclick="loadFullPlaylist('promosUSACarousel')"><div class="view-more-text">▶ Reproducir Todo</div><div class="view-more-icon">➜</div></div>
         </div>
         <div class="shorts-nav left" onclick="scrollShortsLeft('promosUSACarousel')" title="Anterior">‹</div>
         <div class="shorts-nav right" onclick="scrollShortsRight('promosUSACarousel')" title="Siguiente">›</div>
@@ -542,6 +558,57 @@
     } else {
       mainVideo.pause();
       playPauseBtn.textContent = '▶ Reproducir';
+    }
+  }
+
+  function loadFullPlaylist(carouselId) {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+    
+    // Obtener todos los videos del carrusel (excluyendo el botón view-more-card)
+    const videoCards = carousel.querySelectorAll('.short:not(.view-more-card)');
+    
+    // Limpiar cola actual
+    queue = [];
+    
+    // Agregar todos los videos a la cola
+    videoCards.forEach((card) => {
+      const playShortAttr = card.getAttribute('onclick');
+      if (!playShortAttr) return;
+      
+      // Extraer la ruta del video del atributo onclick
+      const match = playShortAttr.match(/playShort\('([^']+)'/);
+      if (!match) return;
+      
+      const videoSrc = match[1];
+      const titleElement = card.querySelector('.t');
+      const title = titleElement ? titleElement.textContent : 'Video';
+      
+      queue.push({
+        src: videoSrc,
+        title: title,
+        aspect: 'horizontal',
+        thumb: videoSrc.replace('.mp4', '.jpg')
+      });
+    });
+    
+    // Actualizar badge y renderizar cola
+    updateQueueBadge();
+    renderQueue();
+    saveQueueToStorage();
+    
+    // Mostrar toast
+    showToast(`✓ ${queue.length} videos agregados a la cola`);
+    
+    // Reproducir el primer video
+    if (queue.length > 0) {
+      playFromQueue(0);
+      
+      // Scroll suave al reproductor
+      const playerSection = document.querySelector('.player-section');
+      if (playerSection) {
+        playerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   }
 

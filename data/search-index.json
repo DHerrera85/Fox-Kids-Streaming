@@ -40,6 +40,19 @@
       "region": "US"
     },
     {
+      "id": "spider-man-opening-1994",
+      "name": "Spider-Man Opening",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Openings",
+      "series": "Spider-Man",
+      "seriesId": "spider-man",
+      "file": "videos/shorts/openings/spider-man-opening-1994.mp4",
+      "duration": "1:00",
+      "image": "img/marvel/spiderman-animated-280x420.jpg",
+      "year": 1994
+    },
+    {
       "id": "spider-man-unlimited-promo-us-1999",
       "name": "Spider-Man: Unlimited Promo",
       "type": "video",
@@ -49,7 +62,7 @@
       "seriesId": "spider-man-unlimited",
       "file": "videos/shorts/promos/US/spiderman-unlimited-fox-kids-promo-1999.mp4",
       "duration": "0:30",
-      "image": "img/marvel/spiderman-unlimited-280x420.jpg",
+      "image": "img/marvel/spiderman-unlimited-280 X 420.jpg",
       "year": 1999,
       "region": "US"
     },
@@ -68,6 +81,19 @@
       "region": "US"
     },
     {
+      "id": "iron-man-opening-1996",
+      "name": "Iron Man Opening",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Openings",
+      "series": "Iron Man",
+      "seriesId": "iron-man",
+      "file": "videos/shorts/openings/iron-man-opening-1996.mp4",
+      "duration": "1:00",
+      "image": "img/marvel/iron-man-vertical-280x420px.png",
+      "year": 1996
+    },
+    {
       "id": "x-men-promo-us-1997",
       "name": "X-Men Promo",
       "type": "video",
@@ -77,9 +103,36 @@
       "seriesId": "x-men",
       "file": "videos/shorts/promos/US/x-men-promo-fox-kids-US-1997.mp4",
       "duration": "0:30",
-      "image": "img/marvel/x-men-animated-280x420.jpg",
+      "image": "img/marvel/x-men-animated-280 X 420.jpg",
       "year": 1997,
       "region": "US"
+    },
+    {
+      "id": "x-men-opening-us-1992",
+      "name": "X-Men Opening",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Openings",
+      "series": "X-Men",
+      "seriesId": "x-men",
+      "file": "videos/shorts/openings/x-men-opening-US-1992.mp4",
+      "duration": "1:00",
+      "image": "img/marvel/x-men-animated-280 X 420.jpg",
+      "year": 1992
+    },
+    {
+      "id": "x-men-opening-japan-1994",
+      "name": "X-Men Opening (Japan)",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Openings",
+      "series": "X-Men",
+      "seriesId": "x-men",
+      "file": "videos/shorts/openings/x-men-opening-japan-1994.mp4",
+      "duration": "1:00",
+      "image": "img/marvel/x-men-animated-280 X 420.jpg",
+      "year": 1994,
+      "region": "Japan"
     },
     {
       "id": "fantastic-four-promo-us-1995",
@@ -91,9 +144,22 @@
       "seriesId": "fantastic-four",
       "file": "videos/shorts/promos/US/fantastic-four-fox-kids-promo-US-1995.mp4",
       "duration": "0:30",
-      "image": "img/marvel/fantastic-four-animated-280x420.jpg",
+      "image": "img/marvel/fantastic-four-animated-280 X 420.jpg",
       "year": 1995,
       "region": "US"
+    },
+    {
+      "id": "fantastic-four-opening-1994",
+      "name": "Fantastic Four Opening",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Openings",
+      "series": "Fantastic Four",
+      "seriesId": "fantastic-four",
+      "file": "videos/shorts/openings/fantastic-four-opening-1994.mp4",
+      "duration": "1:00",
+      "image": "img/marvel/fantastic-four-animated-280 X 420.jpg",
+      "year": 1994
     },
     {
       "id": "incredible-hulk-promo-us-1996",
@@ -105,7 +171,7 @@
       "seriesId": "incredible-hulk",
       "file": "videos/shorts/promos/US/incredible-hulk-fox-kids-promo-US-1996.mp4",
       "duration": "0:30",
-      "image": "img/marvel/incredible-hulk-280x420.jpg",
+      "image": "img/marvel/incredible-hulk-280 X 420.jpg",
       "year": 1996,
       "region": "US"
     },
@@ -136,6 +202,19 @@
       "image": "img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg",
       "year": 2002,
       "region": "US"
+    },
+    {
+      "id": "power-rangers-opening-1993",
+      "name": "Mighty Morphin Power Rangers Opening",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Openings",
+      "series": "Mighty Morphin Power Rangers",
+      "seriesId": "power-rangers",
+      "file": "videos/shorts/openings/power-rangers-opening-1993.mp4",
+      "duration": "1:00",
+      "image": "img/sentai/mighty-morphin-power-rangers-vertical-280x420.jpg",
+      "year": 1993
     },
     {
       "id": "beetleborgs-promo-us-1997",
@@ -245,7 +324,7 @@
       "seriesId": "shin-chan",
       "file": "videos/shorts/promos/latam/shin-chan-latam-2002-promo.mp4",
       "duration": "0:30",
-      "image": "img/invasion-anime/shin-chan-280x420.jpg",
+      "image": "img/invasion-anime/shin-chan-280x420.png",
       "year": 2002,
       "region": "LATAM"
     },
@@ -495,7 +574,7 @@
       "seriesId": "medabots",
       "file": "videos/shorts/promos/US/medabots-fox-kids-US-promo-2002.mp4",
       "duration": "0:30",
-      "image": "img/invasion-anime/medabots-280x420.png",
+      "image": "img/invasion-anime/medabots-280x420.jpg",
       "year": 2002,
       "region": "US"
     },
@@ -509,7 +588,7 @@
       "seriesId": "alex-mack",
       "file": "videos/shorts/promos/latam/alex-mack-promo-fox-kids-LATAM-1999.mp4",
       "duration": "0:30",
-      "image": "img/live-action/alex-mack-280x420.png",
+      "image": "img/live-action/AlexMack-280x420.jpg",
       "year": 1999,
       "region": "LATAM"
     },
@@ -523,7 +602,7 @@
       "seriesId": "eerie-indiana",
       "file": "videos/shorts/promos/US/Eerie-Indiana-Promo-FoxKids-US-1997.mp4",
       "duration": "0:30",
-      "image": "img/live-action/eerie-indiana-280x420.png",
+      "image": "img/live-action/eerie-indiana-280x420.jpg",
       "year": 1997,
       "region": "US"
     },
@@ -551,7 +630,7 @@
       "seriesId": "beyblade",
       "file": "videos/shorts/promos/latam/beyblade-fox-kids-promo-LATAM-2003.mp4",
       "duration": "0:30",
-      "image": "img/invasion-anime/beyblade-280x420.png",
+      "image": "img/invasion-anime/beyblade-280x420.jpg",
       "year": 2003,
       "region": "LATAM"
     },
@@ -565,7 +644,7 @@
       "seriesId": "braceface",
       "file": "videos/shorts/promos/latam/braceface-promo-fox-kids-LATAM-2001.mp4",
       "duration": "0:30",
-      "image": "img/comedy/braceface-280x420.png",
+      "image": "img/comedy/braceface-280x420.jpg",
       "year": 2001,
       "region": "LATAM"
     },
@@ -579,7 +658,7 @@
       "seriesId": "oggy-cockroaches",
       "file": "videos/shorts/promos/US/oggy-and-the-cockroaches-fox-kids-1998-promo-US.mp4",
       "duration": "0:30",
-      "image": "img/comedy/oggy-cockroaches-280x420.png",
+      "image": "img/comedy/oggy-cockroaches-280x420.jpg",
       "year": 1998,
       "region": "US"
     },

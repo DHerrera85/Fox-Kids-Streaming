@@ -1167,6 +1167,9 @@
     video.src = videoPath;
     video.controls = true;
     video.autoplay = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.muted = false;
     video.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:500px;height:auto;z-index:9999;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);';
     
     const overlay = document.createElement('div');

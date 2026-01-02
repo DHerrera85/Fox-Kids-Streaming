@@ -47,8 +47,7 @@
   .shorts-nav.right{right:8px;}
   @media (max-width:600px){.shorts-nav{width:30px;height:30px;font-size:14px;}}
   .short{flex:0 0 auto;width:140px;height:255px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#111827,#7c3aed 55%,#ff3b86);box-shadow:var(--shadow);position:relative;scroll-snap-align:start;border:3px solid rgba(0,0,0,.10);background-size:cover;background-position:center;}
-  .short[data-aspect-ratio="vertical"]{background-size:contain;background-repeat:no-repeat;}
-  .short[data-aspect-ratio="horizontal"]{background-size:cover;background-position:center;}
+  /* Todos los shorts usan cover para formato vertical */
   @media (max-width:600px){.short{width:135px;height:225px;}}
   .short .play{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:14px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;font-size:16px;}
   .short .t{position:absolute;left:10px;right:10px;bottom:12px;color:#fff;font-weight:1000;font-size:12px;text-shadow:0 6px 18px rgba(0,0,0,.45);padding-left:44px;line-height:1.1;}
@@ -709,6 +708,7 @@
 
 <script src="script.js"></script>
 <script src="search.js"></script>
+<script src="shorts-video-preview.js"></script>
 
 </body>
 </html>

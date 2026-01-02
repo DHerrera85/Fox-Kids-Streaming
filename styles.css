@@ -828,44 +828,6 @@ footer {
   font-size: 14px;
 }
 
-/* === GAMES SCROLL SECTION === */
-.games-scroll {
-  display: flex;
-  overflow-x: auto;
-  gap: 16px;
-  padding: 10px;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-}
-
-.games-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.games-scroll {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.games-scroll .card {
-  flex: 0 0 auto;
-  width: 280px;
-  scroll-snap-align: start;
-}
-
-@media (max-width: 768px) {
-  .games-scroll {
-    padding: 12px 8px;
-    gap: 12px;
-  }
-
-  .games-scroll .card {
-    width: 85vw;
-    max-width: 320px;
-    min-width: 200px;
-  }
-}
-
 /* === FONT AWESOME ICONS === */
 .ni i {
   font-size: 1.3em;

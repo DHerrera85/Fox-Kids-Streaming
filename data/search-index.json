@@ -1271,6 +1271,78 @@
       "seasons": [
         { "season": 1, "episodes": 25 }
       ]
+    },
+    {
+      "id": "code-lyoko",
+      "name": "Code Lyoko",
+      "type": "series",
+      "category": "Acción/Aventura",
+      "image": "https://image.tmdb.org/t/p/original/86LdmxBCP9ghdtATP4WjN29vSqP.jpg",
+      "year": 2003,
+      "endYear": 2007,
+      "rating": "10+",
+      "seasons": [
+        { "season": 1, "episodes": 26 },
+        { "season": 2, "episodes": 26 },
+        { "season": 3, "episodes": 26 },
+        { "season": 4, "episodes": 17 }
+      ]
+    },
+    {
+      "id": "gargoyles",
+      "name": "Gargoyles",
+      "type": "series",
+      "category": "Acción/Aventura",
+      "image": "https://image.tmdb.org/t/p/original/yDTZYbiRUapeWRJL6EU3ZtLUAYA.jpg",
+      "year": 1994,
+      "endYear": 1997,
+      "rating": "10+",
+      "seasons": [
+        { "season": 1, "episodes": 13 },
+        { "season": 2, "episodes": 52 },
+        { "season": 3, "episodes": 13 }
+      ]
+    },
+    {
+      "id": "atom",
+      "name": "ATOM",
+      "type": "series",
+      "category": "Acción/Aventura",
+      "image": "https://image.tmdb.org/t/p/original/bMKZ9ozob8SrAzYBKbQNTvFvvAh.jpg",
+      "year": 2005,
+      "endYear": 2006,
+      "rating": "10+",
+      "seasons": [
+        { "season": 1, "episodes": 26 }
+      ]
+    },
+    {
+      "id": "nascar-racers",
+      "name": "NASCAR Racers",
+      "type": "series",
+      "category": "Acción/Aventura",
+      "image": "https://image.tmdb.org/t/p/original/xi3XaKx0v4gpaQcWp6Rf0yA20wm.jpg",
+      "year": 1999,
+      "endYear": 2001,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 13 },
+        { "season": 2, "episodes": 13 }
+      ]
+    },
+    {
+      "id": "beast-machines",
+      "name": "Beast Machines",
+      "type": "series",
+      "category": "Acción/Aventura",
+      "image": "https://image.tmdb.org/t/p/original/pNvziasPFwBlWDpmM346OnUB6E6.jpg",
+      "year": 1999,
+      "endYear": 2000,
+      "rating": "10+",
+      "seasons": [
+        { "season": 1, "episodes": 13 },
+        { "season": 2, "episodes": 13 }
+      ]
     }
   ]
 }

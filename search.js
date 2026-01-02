@@ -496,7 +496,7 @@ class FoxKidsSearch {
             <img src="${result.image}" alt="${result.name}" class="result-image">
             <div class="result-info">
               <div class="result-name">${result.name}</div>
-              <div class="result-meta">📹 ${result.series} • ${result.duration}</div>
+              <div class="result-meta">${result.series} • ${result.duration}</div>
             </div>
             <div class="result-action">▶</div>
           </div>
@@ -508,11 +508,11 @@ class FoxKidsSearch {
 
   getCategoryTitle(type) {
     const titles = {
-      'character': '👤 Personajes',
-      'series': '📺 Series',
-      'video': '📹 Videos',
-      'short': '🎬 Shorts',
-      'category': '📂 Categorías'
+      'character': 'Personajes',
+      'series': 'Series',
+      'video': 'Videos',
+      'short': 'Shorts',
+      'category': 'Categorías'
     };
     return titles[type] || 'Resultados';
   }
@@ -521,18 +521,19 @@ class FoxKidsSearch {
     const suggestionsContainer = document.getElementById('searchSuggestions');
     if (!suggestionsContainer) return;
 
-    // Restringir sugerencias a las series del series.html si está disponible
+    // Series destacadas seleccionadas
+    const featuredSeriesIds = ['power-rangers', 'digimon', 'beyblade', 'shaman-king', 'x-men', 'spider-man', 'goosebumps', 'angela-anaconda', 'braceface'];
+
     let availableSeries = (this.index.series || []);
     if (this.allowedSeriesIds) {
       availableSeries = availableSeries.filter(s => this.allowedSeriesIds.has(s.id));
     }
-    // Ordenar por número de temporadas (mayor a menor)
-    const sortedSeries = availableSeries.sort((a, b) => {
-      const seasonsA = Array.isArray(a.seasons) ? a.seasons.length : 0;
-      const seasonsB = Array.isArray(b.seasons) ? b.seasons.length : 0;
-      return seasonsB - seasonsA;
-    });
-    const topSeries = sortedSeries.slice(0, 8);
+
+    // Filtrar solo las series destacadas y mantener el orden
+    const topSeries = featuredSeriesIds
+      .map(id => availableSeries.find(s => s.id === id))
+      .filter(Boolean);
+
     let html = `
       <div class="suggestions-section">
         <div class="suggestions-title">Series Destacadas</div>

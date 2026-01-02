@@ -895,6 +895,7 @@
       "year": 1992,
       "endYear": 1997,
       "rating": "13+",
+      "searchTerms": ["x men", "xmen", "x-men", "mutantes", "marvel"],
       "seasons": [
         { "season": 1, "episodes": 16 },
         { "season": 2, "episodes": 16 },

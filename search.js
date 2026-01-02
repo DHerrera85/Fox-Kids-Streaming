@@ -97,9 +97,9 @@ class FoxKidsSearch {
       ],
       "categories": [
         {"id": "comics", "name": "Comics", "icon": "🎨", "description": "Superhéroes y aventuras de cómics"},
-        {"id": "super-sentai", "name": "Super Sentai", "icon": "⚡", "description": "Series de acción y rangers"},
+        {"id": "super-sentai", "name": "Super Sentai", "icon": "", "description": "Series de acción y rangers"},
         {"id": "anime", "name": "Anime", "icon": "🎌", "description": "Animación japonesa"},
-        {"id": "live-action", "name": "Live Action", "icon": "🎬", "description": "Series de acción real"},
+        {"id": "live-action", "name": "Live Action", "icon": "", "description": "Series de acción real"},
         {"id": "comedy", "name": "Comedia", "icon": "😂", "description": "Comedias infantiles"},
         {"id": "movies", "name": "Películas", "icon": "🎥", "description": "Películas de Fox Kids"}
       ]

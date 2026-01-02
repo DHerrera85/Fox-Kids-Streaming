@@ -526,10 +526,16 @@ class FoxKidsSearch {
     if (this.allowedSeriesIds) {
       availableSeries = availableSeries.filter(s => this.allowedSeriesIds.has(s.id));
     }
-    const topSeries = availableSeries.slice(0, 8);
+    // Ordenar por número de temporadas (mayor a menor)
+    const sortedSeries = availableSeries.sort((a, b) => {
+      const seasonsA = Array.isArray(a.seasons) ? a.seasons.length : 0;
+      const seasonsB = Array.isArray(b.seasons) ? b.seasons.length : 0;
+      return seasonsB - seasonsA;
+    });
+    const topSeries = sortedSeries.slice(0, 8);
     let html = `
       <div class="suggestions-section">
-        <div class="suggestions-title">📺 Series Destacadas</div>
+        <div class="suggestions-title">Series Destacadas</div>
         <div class="suggestions-grid">
     `;
 

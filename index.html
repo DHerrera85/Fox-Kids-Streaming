@@ -1166,27 +1166,267 @@
   }
 
   // Funci•n para reproducir shorts locales
+  // Sistema de reproducción estilo Instagram Stories
+  let storiesPlayer = null;
+  
   function playShort(videoPath, event){
     event.stopPropagation();
-    const video = document.createElement('video');
-    video.src = videoPath;
-    video.controls = true;
-    video.autoplay = true;
-    video.playsInline = true;
-    video.setAttribute('playsinline', '');
-    video.muted = false;
-    video.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:500px;height:auto;z-index:9999;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);';
     
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9998;cursor:pointer;';
-    overlay.onclick = () => {
-      video.pause();
-      video.remove();
-      overlay.remove();
-    };
+    // Obtener todos los videos de shorts
+    const allShorts = Array.from(document.querySelectorAll('.short[onclick*="playShort"]'));
+    const videos = allShorts.map(s => {
+      const match = s.getAttribute('onclick').match(/playShort\('([^']+)'/);
+      const title = s.querySelector('.t')?.textContent || 'Short';
+      const aspectRatio = s.getAttribute('data-aspect-ratio') || 'vertical';
+      return match ? { path: match[1], title, aspectRatio } : null;
+    }).filter(Boolean);
     
-    document.body.appendChild(overlay);
-    document.body.appendChild(video);
+    const currentIndex = videos.findIndex(v => v.path === videoPath);
+    if(currentIndex === -1) return;
+    
+    storiesPlayer = new StoriesPlayer(videos, currentIndex);
+  }
+  
+  class StoriesPlayer {
+    constructor(videos, startIndex = 0) {
+      this.videos = videos;
+      this.currentIndex = startIndex;
+      this.video = null;
+      this.isPlaying = false;
+      this.touchStartX = 0;
+      this.touchStartY = 0;
+      
+      this.createPlayer();
+      this.loadVideo();
+      this.attachEvents();
+    }
+    
+    createPlayer() {
+      // Overlay de fondo
+      this.overlay = document.createElement('div');
+      this.overlay.style.cssText = 'position:fixed;inset:0;background:#000;z-index:9998;display:flex;align-items:center;justify-content:center;';
+      
+      // Contenedor principal
+      this.container = document.createElement('div');
+      this.container.style.cssText = 'position:relative;width:100%;height:100%;max-width:500px;display:flex;flex-direction:column;';
+      
+      // Barra superior con contador y botón cerrar
+      this.header = document.createElement('div');
+      this.header.style.cssText = 'position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:20px;z-index:10;background:linear-gradient(180deg,rgba(0,0,0,.7) 0%,transparent 100%);';
+      
+      this.counter = document.createElement('div');
+      this.counter.style.cssText = 'color:#fff;font-size:14px;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,.5);';
+      
+      this.closeBtn = document.createElement('button');
+      this.closeBtn.innerHTML = '✕';
+      this.closeBtn.style.cssText = 'background:rgba(255,255,255,.2);border:none;color:#fff;font-size:24px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;';
+      this.closeBtn.onmouseover = () => this.closeBtn.style.background = 'rgba(255,255,255,.3)';
+      this.closeBtn.onmouseout = () => this.closeBtn.style.background = 'rgba(255,255,255,.2)';
+      this.closeBtn.onclick = () => this.close();
+      
+      this.header.appendChild(this.counter);
+      this.header.appendChild(this.closeBtn);
+      
+      // Barra de progreso
+      this.progressBar = document.createElement('div');
+      this.progressBar.style.cssText = 'position:absolute;top:60px;left:20px;right:20px;height:3px;background:rgba(255,255,255,.3);border-radius:2px;z-index:10;overflow:hidden;';
+      
+      this.progress = document.createElement('div');
+      this.progress.style.cssText = 'height:100%;width:0%;background:#FFD200;transition:width .1s linear;';
+      this.progressBar.appendChild(this.progress);
+      
+      // Contenedor de video
+      this.videoContainer = document.createElement('div');
+      this.videoContainer.style.cssText = 'flex:1;display:flex;align-items:center;justify-content:center;position:relative;';
+      
+      // Título en la parte inferior
+      this.titleBox = document.createElement('div');
+      this.titleBox.style.cssText = 'position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(0deg,rgba(0,0,0,.7) 0%,transparent 100%);z-index:10;';
+      
+      this.title = document.createElement('div');
+      this.title.style.cssText = 'color:#fff;font-size:16px;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,.5);';
+      this.titleBox.appendChild(this.title);
+      
+      // Botones de navegación
+      this.prevBtn = document.createElement('button');
+      this.prevBtn.innerHTML = '‹';
+      this.prevBtn.style.cssText = 'position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:#fff;font-size:40px;width:50px;height:50px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s;';
+      this.prevBtn.onmouseover = () => this.prevBtn.style.background = 'rgba(255,255,255,.3)';
+      this.prevBtn.onmouseout = () => this.prevBtn.style.background = 'rgba(255,255,255,.2)';
+      this.prevBtn.onclick = () => this.prev();
+      
+      this.nextBtn = document.createElement('button');
+      this.nextBtn.innerHTML = '›';
+      this.nextBtn.style.cssText = 'position:absolute;right:20px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:#fff;font-size:40px;width:50px;height:50px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s;';
+      this.nextBtn.onmouseover = () => this.nextBtn.style.background = 'rgba(255,255,255,.3)';
+      this.nextBtn.onmouseout = () => this.nextBtn.style.background = 'rgba(255,255,255,.2)';
+      this.nextBtn.onclick = () => this.next();
+      
+      // Ensamblar
+      this.container.appendChild(this.header);
+      this.container.appendChild(this.progressBar);
+      this.container.appendChild(this.videoContainer);
+      this.container.appendChild(this.titleBox);
+      this.container.appendChild(this.prevBtn);
+      this.container.appendChild(this.nextBtn);
+      
+      this.overlay.appendChild(this.container);
+      document.body.appendChild(this.overlay);
+      
+      this.updateCounter();
+      this.updateNavButtons();
+    }
+    
+    loadVideo() {
+      // Limpiar video anterior
+      if(this.video) {
+        this.video.pause();
+        this.video.remove();
+      }
+      
+      const current = this.videos[this.currentIndex];
+      this.video = document.createElement('video');
+      this.video.src = current.path;
+      this.video.autoplay = true;
+      this.video.playsInline = true;
+      this.video.setAttribute('playsinline', '');
+      this.video.muted = false;
+      
+      // Estilo adaptativo según aspect ratio
+      const isVertical = current.aspectRatio === 'vertical';
+      if(isVertical) {
+        this.video.style.cssText = 'height:80%;width:auto;max-width:100%;';
+      } else {
+        this.video.style.cssText = 'width:90%;height:auto;max-height:80%;';
+      }
+      
+      this.videoContainer.appendChild(this.video);
+      this.title.textContent = current.title;
+      
+      // Eventos de video
+      this.video.addEventListener('timeupdate', () => this.updateProgress());
+      this.video.addEventListener('ended', () => this.next());
+      this.video.addEventListener('play', () => this.isPlaying = true);
+      this.video.addEventListener('pause', () => this.isPlaying = false);
+      
+      // Click en el video para pausar/reanudar
+      this.video.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if(this.isPlaying) {
+          this.video.pause();
+        } else {
+          this.video.play();
+        }
+      });
+      
+      // Precargar siguiente video
+      if(this.currentIndex < this.videos.length - 1) {
+        const nextVideo = document.createElement('video');
+        nextVideo.src = this.videos[this.currentIndex + 1].path;
+        nextVideo.preload = 'auto';
+      }
+    }
+    
+    updateProgress() {
+      if(!this.video) return;
+      const percent = (this.video.currentTime / this.video.duration) * 100;
+      this.progress.style.width = percent + '%';
+    }
+    
+    updateCounter() {
+      this.counter.textContent = `${this.currentIndex + 1} / ${this.videos.length}`;
+    }
+    
+    updateNavButtons() {
+      this.prevBtn.style.display = this.currentIndex > 0 ? 'flex' : 'none';
+      this.nextBtn.style.display = this.currentIndex < this.videos.length - 1 ? 'flex' : 'none';
+    }
+    
+    prev() {
+      if(this.currentIndex > 0) {
+        this.currentIndex--;
+        this.loadVideo();
+        this.updateCounter();
+        this.updateNavButtons();
+        this.progress.style.width = '0%';
+      }
+    }
+    
+    next() {
+      if(this.currentIndex < this.videos.length - 1) {
+        this.currentIndex++;
+        this.loadVideo();
+        this.updateCounter();
+        this.updateNavButtons();
+        this.progress.style.width = '0%';
+      } else {
+        this.close();
+      }
+    }
+    
+    close() {
+      if(this.video) {
+        this.video.pause();
+        this.video.remove();
+      }
+      this.overlay.remove();
+      storiesPlayer = null;
+    }
+    
+    attachEvents() {
+      // Teclado
+      this.keyHandler = (e) => {
+        if(e.key === 'Escape') this.close();
+        else if(e.key === 'ArrowLeft') this.prev();
+        else if(e.key === 'ArrowRight') this.next();
+        else if(e.key === ' ') {
+          e.preventDefault();
+          if(this.isPlaying) this.video.pause();
+          else this.video.play();
+        }
+      };
+      document.addEventListener('keydown', this.keyHandler);
+      
+      // Touch/Swipe
+      this.overlay.addEventListener('touchstart', (e) => {
+        this.touchStartX = e.touches[0].clientX;
+        this.touchStartY = e.touches[0].clientY;
+      });
+      
+      this.overlay.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const diffX = this.touchStartX - touchEndX;
+        const diffY = this.touchStartY - touchEndY;
+        
+        // Detectar swipe horizontal (más de 50px y mayor que vertical)
+        if(Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+          if(diffX > 0) {
+            // Swipe izquierda = siguiente
+            this.next();
+          } else {
+            // Swipe derecha = anterior
+            this.prev();
+          }
+        }
+        // Swipe vertical hacia abajo = cerrar
+        else if(diffY < -100 && Math.abs(diffY) > Math.abs(diffX)) {
+          this.close();
+        }
+      });
+      
+      // Click en overlay (pero no en el contenedor) para cerrar
+      this.overlay.addEventListener('click', (e) => {
+        if(e.target === this.overlay) {
+          this.close();
+        }
+      });
+      
+      // Remover eventos al cerrar
+      this.overlay.addEventListener('remove', () => {
+        document.removeEventListener('keydown', this.keyHandler);
+      });
+    }
   }
 
   // Drag Scroll para cada carrusel de Shorts
@@ -1247,7 +1487,7 @@
   // Sistema de Recordatorios
   function addReminder(title){
     // Asegurarse de que el t•tulo es correcto (sin caracteres escapados)
-    const cleanTitle=typeof title==='string' ▶ title : String(title);
+    const cleanTitle=typeof title==='string' ? title : String(title);
     
     const reminders=JSON.parse(localStorage.getItem('foxKidsReminders')||'[]');
     const exists=reminders.some(r=>r.title===cleanTitle);
@@ -1298,7 +1538,7 @@
     const badge=document.getElementById('reminder-badge');
     if(badge){
       badge.textContent=reminders.length;
-      badge.style.display=reminders.length>0▶'flex':'none';
+      badge.style.display=reminders.length>0?'flex':'none';
     }
   }
 
@@ -1536,7 +1776,7 @@
     const reminders = JSON.parse(localStorage.getItem('foxkids-reminders') || '[]');
     const badge = document.getElementById('reminder-badge');
     badge.textContent = reminders.length;
-    badge.style.display = reminders.length > 0 ▶ 'flex' : 'none';
+    badge.style.display = reminders.length > 0 ? 'flex' : 'none';
   }
 
   // Update handleSheetAction to save reminders

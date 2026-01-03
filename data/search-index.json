@@ -689,6 +689,62 @@
       "image": "img/comedy/space-goofs-280x420.png",
       "year": 1997,
       "region": "US"
+    },
+    {
+      "id": "atom-promo-us-2007",
+      "name": "ATOM Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "ATOM",
+      "seriesId": "atom",
+      "file": "videos/shorts/promos/US/ATOM-Jetix-promo-US-2007.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/bMKZ9ozob8SrAzYBKbQNTvFvvAh.jpg",
+      "year": 2007,
+      "region": "US"
+    },
+    {
+      "id": "nascar-racers-promo-us-2001",
+      "name": "NASCAR Racers Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "NASCAR Racers",
+      "seriesId": "nascar-racers",
+      "file": "videos/shorts/promos/US/NASCAR-Racers-promo-fox-kids-US-2001.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/xi3XaKx0v4gpaQcWp6Rf0yA20wm.jpg",
+      "year": 2001,
+      "region": "US"
+    },
+    {
+      "id": "beast-machines-promo-us-2000",
+      "name": "Beast Machines Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Beast Machines",
+      "seriesId": "beast-machines",
+      "file": "videos/shorts/promos/US/transformers-beast-machines-fox-kids-US-promo-2000.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/pNvziasPFwBlWDpmM346OnUB6E6.jpg",
+      "year": 2000,
+      "region": "US"
+    },
+    {
+      "id": "code-lyoko-promo-latam-2004",
+      "name": "Code Lyoko Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Code Lyoko",
+      "seriesId": "code-lyoko",
+      "file": "videos/shorts/promos/LATAM/code-lyoko-fox-kids-promo-LATAM-2004.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/86LdmxBCP9ghdtATP4WjN29vSqP.jpg",
+      "year": 2004,
+      "region": "LATAM"
     }
   ],
   "series": [

@@ -759,6 +759,20 @@
       "image": "https://image.tmdb.org/t/p/original/yDTZYbiRUapeWRJL6EU3ZtLUAYA.jpg",
       "year": 1994,
       "region": "US"
+    },
+    {
+      "id": "transformers-car-robots-promo-latam-2000",
+      "name": "Transformers: Car Robots Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Transformers: Car Robots",
+      "seriesId": "transformers-car-robots",
+      "file": "videos/shorts/promos/latam/transformers-2002-latam-promo.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/7PjuXw9A3iVqcqxCpUfi7UJjDjn.jpg",
+      "year": 2000,
+      "region": "LATAM"
     }
   ],
   "series": [
@@ -1327,20 +1341,28 @@
       "endYear": 1998,
       "rating": "7+",
       "seasons": [
-        { "season": 1, "episodes": 65 }
+        { "season": 1, "episodes": 13 },
+        { "season": 2, "episodes": 13 },
+        { "season": 3, "episodes": 13 },
+        { "season": 4, "episodes": 13 },
+        { "season": 5, "episodes": 13 },
+        { "season": 6, "episodes": 9 },
+        { "season": 7, "episodes": 7 }
       ]
     },
     {
       "id": "woody-woodpecker",
-      "name": "Woody Woodpecker",
+      "name": "The New Woody Woodpecker Show",
       "type": "series",
       "category": "Comedia",
-      "image": "img/comedy/woody-woodpecker-280x420.jpg",
-      "year": 1992,
-      "endYear": 2000,
+      "image": "https://image.tmdb.org/t/p/original/ptD1ZFlzi3T0Mijus6YBePYYVKN.jpg",
+      "year": 1999,
+      "endYear": 2002,
       "rating": "7+",
       "seasons": [
-        { "season": 1, "episodes": 25 }
+        { "season": 1, "episodes": 18 },
+        { "season": 2, "episodes": 18 },
+        { "season": 3, "episodes": 17 }
       ]
     },
     {
@@ -1413,6 +1435,19 @@
       "seasons": [
         { "season": 1, "episodes": 13 },
         { "season": 2, "episodes": 13 }
+      ]
+    },
+    {
+      "id": "transformers-car-robots",
+      "name": "Transformers: Car Robots",
+      "type": "series",
+      "category": "Anime",
+      "image": "https://image.tmdb.org/t/p/original/7PjuXw9A3iVqcqxCpUfi7UJjDjn.jpg",
+      "year": 2000,
+      "endYear": 2000,
+      "rating": "10+",
+      "seasons": [
+        { "season": 1, "episodes": 39 }
       ]
     }
   ]

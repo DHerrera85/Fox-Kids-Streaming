@@ -298,7 +298,8 @@
       const bg=item.image?`background-image:url('${item.image}');background-size:cover;background-position:center;background-repeat:no-repeat;`:`background:linear-gradient(135deg,#ff7a00,#ff2b70 55%,#7c3aed);`; 
       const badge=norm(item.category)==='openings'||norm(item.subcategory)==='openings'?'OPENING':'PROMO'; 
       const region=item.region?` • ${item.region}`:'';
-      return `<div class="short" style="${bg}" onclick='playShort(${JSON.stringify(item)})'>
+      const payload=JSON.stringify(item).replace(/"/g,'&quot;'); // encode to avoid breaking attribute when names have apostrophes
+      return `<div class="short" style="${bg}" data-item="${payload}" onclick="playShort(JSON.parse(this.dataset.item))">
         <div class="badge">${badge}${region}</div>
         <div class="play">▶</div>
         <div class="t">${item.name}</div>

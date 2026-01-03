@@ -745,6 +745,20 @@
       "image": "https://image.tmdb.org/t/p/original/86LdmxBCP9ghdtATP4WjN29vSqP.jpg",
       "year": 2004,
       "region": "LATAM"
+    },
+    {
+      "id": "gargoyles-promo-us-1994",
+      "name": "Gargoyles Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Gargoyles",
+      "seriesId": "gargoyles",
+      "file": "videos/shorts/promos/US/gargoyles-promo-fox-kids-US-1994.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/yDTZYbiRUapeWRJL6EU3ZtLUAYA.jpg",
+      "year": 1994,
+      "region": "US"
     }
   ],
   "series": [

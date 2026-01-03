@@ -90,16 +90,42 @@
    */
   function setupDesktopEvents(short, video) {
     let hoverTimeout;
+    let isHoveringButton = false;
+    
+    // Detectar hover sobre el botón "+" para pausar preview
+    const addBtn = short.querySelector('.add');
+    if (addBtn) {
+      addBtn.addEventListener('mouseenter', function(e) {
+        isHoveringButton = true;
+        e.stopPropagation(); // Evitar que dispare el hover del short
+        // Si el preview ya está activo, pausarlo temporalmente
+        if (currentActiveVideo === video && video && !video.paused) {
+          video.pause();
+        }
+      });
+      
+      addBtn.addEventListener('mouseleave', function(e) {
+        isHoveringButton = false;
+        // Reanudar preview si estaba activo
+        if (currentActiveVideo === video && video && video.paused) {
+          video.play().catch(() => {});
+        }
+      });
+    }
     
     short.addEventListener('mouseenter', function(e) {
-      // Pequeño delay antes de empezar (evita previews accidentales)
+      // Delay más largo para dar tiempo a hacer click en "+"
       hoverTimeout = setTimeout(() => {
-        startPreview(short, video);
-      }, 200);
+        // No iniciar preview si el mouse está sobre el botón
+        if (!isHoveringButton) {
+          startPreview(short, video);
+        }
+      }, 500); // Aumentado de 200ms a 500ms
     });
     
     short.addEventListener('mouseleave', function(e) {
       clearTimeout(hoverTimeout);
+      isHoveringButton = false;
       stopPreview(short, video);
     });
   }
@@ -109,16 +135,34 @@
    */
   function setupMobileEvents(short, video) {
     let isPreviewActive = false;
+    let previewTimeout;
+    
+    // Detectar tap en el botón "+" para evitar activar preview
+    const addBtn = short.querySelector('.add');
+    if (addBtn) {
+      addBtn.addEventListener('touchstart', function(e) {
+        e.stopPropagation(); // Evitar que active el preview
+        // Detener preview si está activo
+        if (isPreviewActive) {
+          isPreviewActive = false;
+          stopPreview(short, video);
+        }
+      }, { passive: false });
+    }
     
     // Usar mouseenter/mouseleave que funcionan en móviles con hover simulado
     short.addEventListener('mouseenter', function(e) {
       if (!isPreviewActive) {
-        isPreviewActive = true;
-        startPreview(short, video);
+        // Delay también en móvil para permitir tocar el botón "+"
+        previewTimeout = setTimeout(() => {
+          isPreviewActive = true;
+          startPreview(short, video);
+        }, 400); // Delay de 400ms en móvil
       }
     });
     
     short.addEventListener('mouseleave', function(e) {
+      clearTimeout(previewTimeout);
       if (isPreviewActive) {
         isPreviewActive = false;
         stopPreview(short, video);
@@ -127,6 +171,7 @@
     
     // Detener preview al hacer scroll
     short.addEventListener('touchmove', function() {
+      clearTimeout(previewTimeout);
       if (isPreviewActive) {
         isPreviewActive = false;
         stopPreview(short, video);

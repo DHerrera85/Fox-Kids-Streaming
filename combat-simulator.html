@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fox Kids - Combat Simulator</title>
+  <link rel="icon" type="image/png" href="img/FOX_Kids_logo-_200___176-transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Audiowide', Impact, sans-serif;
+      background: linear-gradient(135deg, #1a0a0a 0%, #2d0f0f 50%, #1a0a0a 100%);
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #b00000, #e20000);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .game-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #FFD200;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .back-btn {
+      background: rgba(0,0,0,0.3);
+      border: 2px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Audiowide', sans-serif;
+      font-size: 12px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      background: #FFD200;
+      color: #111;
+      transform: translateY(-2px);
+    }
+
+    /* Game Container */
+    .game-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Screens */
+    .screen {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Selection Screen */
+    .selection-screen {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .selection-title {
+      font-size: 28px;
+      color: #FFD200;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .selection-subtitle {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .heroes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, rgba(255,196,0,0.15), rgba(176,0,0,0.15));
+      border: 3px solid rgba(255,196,0,0.4);
+      border-radius: 16px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      border-color: #FFD200;
+      box-shadow: 0 12px 30px rgba(255,196,0,0.4);
+    }
+
+    .hero-card.selected {
+      background: linear-gradient(135deg, #FFD200, #ff9900);
+      border-color: #FFD200;
+      box-shadow: 0 8px 24px rgba(255,196,0,0.6);
+    }
+
+    .hero-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #111;
+      color: #FFD200;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .hero-image {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      margin: 0 auto 12px;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    }
+
+    .hero-name {
+      font-size: 14px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .hero-card.selected .hero-name {
+      color: #111;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: space-around;
+      font-size: 11px;
+      color: #ccc;
+      margin-top: 8px;
+    }
+
+    .hero-card.selected .hero-stats {
+      color: #111;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      opacity: 0.7;
+    }
+
+    .stat-value {
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .start-battle-btn {
+      background: linear-gradient(135deg, #e20000, #b00000);
+      border: 3px solid #FFD200;
+      color: #FFD200;
+      padding: 16px 40px;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: 'Audiowide', sans-serif;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(226,0,0,0.5);
+      margin-top: 30px;
+    }
+
+    .start-battle-btn:hover:not(:disabled) {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(226,0,0,0.7);
+    }
+
+    .start-battle-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Battle Screen */
+    .battle-screen {
+      padding: 20px;
+    }
+
+    .battle-arena {
+      background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(20,0,0,0.8));
+      border: 3px solid rgba(255,196,0,0.3);
+      border-radius: 20px;
+      padding: 30px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .battle-arena::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,196,0,0.03) 2px, rgba(255,196,0,0.03) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,196,0,0.03) 2px, rgba(255,196,0,0.03) 4px);
+      pointer-events: none;
+    }
+
+    .battle-header {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .round-number {
+      font-size: 24px;
+      color: #FFD200;
+      font-weight: 900;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    }
+
+    .battle-field {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .combatant {
+      flex: 1;
+      max-width: 350px;
+    }
+
+    .combatant.player {
+      text-align: left;
+    }
+
+    .combatant.enemy {
+      text-align: right;
+    }
+
+    .combatant-image {
+      width: 250px;
+      height: 250px;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6));
+      transition: all 0.3s ease;
+    }
+
+    .combatant.player .combatant-image {
+      transform: scaleX(1);
+    }
+
+    .combatant.enemy .combatant-image {
+      transform: scaleX(-1);
+    }
+
+    .combatant-image.attacking {
+      animation: attack 0.5s ease;
+    }
+
+    @keyframes attack {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(30px); }
+    }
+
+    .combatant.enemy .combatant-image.attacking {
+      animation: attackReverse 0.5s ease;
+    }
+
+    @keyframes attackReverse {
+      0%, 100% { transform: scaleX(-1) translateX(0); }
+      50% { transform: scaleX(-1) translateX(30px); }
+    }
+
+    .combatant-image.hurt {
+      animation: hurt 0.4s ease;
+    }
+
+    @keyframes hurt {
+      0%, 100% { filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6)); }
+      50% { filter: drop-shadow(0 8px 20px rgba(255,0,0,0.9)) brightness(1.3); }
+    }
+
+    .combatant-info {
+      margin-top: 16px;
+    }
+
+    .combatant-name {
+      font-size: 18px;
+      font-weight: 900;
+      color: #FFD200;
+      margin-bottom: 8px;
+    }
+
+    .health-bar-container {
+      background: rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      height: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .health-bar {
+      background: linear-gradient(90deg, #00ff00, #88ff00);
+      height: 100%;
+      transition: width 0.5s ease, background 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: #111;
+    }
+
+    .health-bar.low {
+      background: linear-gradient(90deg, #ff9900, #ffaa00);
+    }
+
+    .health-bar.critical {
+      background: linear-gradient(90deg, #ff0000, #ff4444);
+      animation: pulse 0.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Battle Actions */
+    .battle-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .action-btn {
+      background: linear-gradient(135deg, rgba(255,196,0,0.2), rgba(226,0,0,0.2));
+      border: 3px solid rgba(255,196,0,0.6);
+      color: #FFD200;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: 'Audiowide', sans-serif;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      min-width: 140px;
+    }
+
+    .action-btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #FFD200, #ff9900);
+      color: #111;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(255,196,0,0.5);
+    }
+
+    .action-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .action-btn.special {
+      border-color: #ff00ff;
+      color: #ff00ff;
+    }
+
+    .action-btn.special:hover:not(:disabled) {
+      background: linear-gradient(135deg, #ff00ff, #aa00ff);
+      color: #fff;
+      border-color: #ff00ff;
+    }
+
+    /* Battle Log */
+    .battle-log {
+      background: rgba(0,0,0,0.7);
+      border: 2px solid rgba(255,196,0,0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+      max-height: 150px;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .battle-log::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .battle-log::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+    }
+
+    .battle-log::-webkit-scrollbar-thumb {
+      background: rgba(255,196,0,0.5);
+      border-radius: 4px;
+    }
+
+    .log-entry {
+      font-size: 12px;
+      color: #ccc;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .log-entry:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .log-entry.damage {
+      color: #ff6666;
+    }
+
+    .log-entry.heal {
+      color: #66ff66;
+    }
+
+    .log-entry.critical {
+      color: #FFD200;
+      font-weight: 900;
+    }
+
+    /* Victory/Defeat Screen */
+    .result-screen {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .result-title {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      text-shadow: 3px 3px 12px rgba(0,0,0,0.8);
+    }
+
+    .result-title.victory {
+      color: #FFD200;
+      animation: victoryPulse 1.5s infinite;
+    }
+
+    .result-title.defeat {
+      color: #ff4444;
+    }
+
+    @keyframes victoryPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .result-stats {
+      background: rgba(0,0,0,0.5);
+      border: 3px solid rgba(255,196,0,0.4);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 500px;
+      margin: 30px auto;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 16px;
+    }
+
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+
+    .stat-row .label {
+      color: #ccc;
+    }
+
+    .stat-row .value {
+      color: #FFD200;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .result-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .result-btn {
+      background: linear-gradient(135deg, #e20000, #b00000);
+      border: 3px solid #FFD200;
+      color: #FFD200;
+      padding: 16px 40px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: 'Audiowide', sans-serif;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .result-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(226,0,0,0.7);
+    }
+
+    .result-btn.secondary {
+      background: rgba(255,196,0,0.2);
+      border-color: rgba(255,196,0,0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .game-title {
+        font-size: 14px;
+      }
+
+      .heroes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .hero-card {
+        padding: 12px;
+      }
+
+      .hero-image {
+        width: 100px;
+        height: 100px;
+      }
+
+      .hero-name {
+        font-size: 12px;
+      }
+
+      .battle-field {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .combatant-image {
+        width: 180px;
+        height: 180px;
+      }
+
+      .battle-actions {
+        gap: 10px;
+      }
+
+      .action-btn {
+        padding: 12px 20px;
+        font-size: 12px;
+        min-width: 120px;
+      }
+
+      .result-title {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-section">
+      <img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" class="logo-img">
+      <div class="game-title">Combat Simulator</div>
+    </div>
+    <a href="index.html" class="back-btn">◀ Volver</a>
+  </div>
+
+  <!-- Game Container -->
+  <div class="game-container">
+    <!-- Hero Selection Screen -->
+    <div class="screen active" id="selectionScreen">
+      <div class="selection-screen">
+        <h1 class="selection-title">Elige tu Héroe</h1>
+        <p class="selection-subtitle">Selecciona un héroe para comenzar el combate</p>
+        
+        <div class="heroes-grid" id="heroesGrid">
+          <!-- Heroes will be dynamically loaded -->
+        </div>
+
+        <button class="start-battle-btn" id="startBattleBtn" disabled>Iniciar Combate</button>
+      </div>
+    </div>
+
+    <!-- Battle Screen -->
+    <div class="screen" id="battleScreen">
+      <div class="battle-screen">
+        <div class="battle-arena">
+          <div class="battle-header">
+            <div class="round-number" id="roundNumber">Ronda 1</div>
+          </div>
+
+          <div class="battle-field">
+            <!-- Player -->
+            <div class="combatant player">
+              <img src="" alt="Hero" class="combatant-image" id="playerImage">
+              <div class="combatant-info">
+                <div class="combatant-name" id="playerName">Héroe</div>
+                <div class="health-bar-container">
+                  <div class="health-bar" id="playerHealth" style="width: 100%;">
+                    <span id="playerHealthText">100 / 100</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- VS Text -->
+            <div style="font-size: 48px; color: #FFD200; text-shadow: 3px 3px 8px rgba(0,0,0,0.8); font-weight: 900;">VS</div>
+
+            <!-- Enemy -->
+            <div class="combatant enemy">
+              <img src="" alt="Enemy" class="combatant-image" id="enemyImage">
+              <div class="combatant-info">
+                <div class="combatant-name" id="enemyName">Enemigo</div>
+                <div class="health-bar-container">
+                  <div class="health-bar" id="enemyHealth" style="width: 100%;">
+                    <span id="enemyHealthText">100 / 100</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Battle Actions -->
+          <div class="battle-actions">
+            <button class="action-btn" id="attackBtn">⚔ Ataque</button>
+            <button class="action-btn special" id="specialBtn">✨ Especial</button>
+            <button class="action-btn" id="defendBtn">🛡 Defender</button>
+          </div>
+
+          <!-- Battle Log -->
+          <div class="battle-log" id="battleLog">
+            <div class="log-entry">¡Combate iniciado!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen" id="resultScreen">
+      <div class="result-screen">
+        <h1 class="result-title" id="resultTitle">Victoria</h1>
+        
+        <div class="result-stats">
+          <div class="stat-row">
+            <span class="label">Rondas Completadas:</span>
+            <span class="value" id="totalRounds">0</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Daño Total Infligido:</span>
+            <span class="value" id="totalDamage">0</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Puntos Ganados:</span>
+            <span class="value" id="pointsEarned">+50</span>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="result-btn" onclick="location.reload()">🔄 Jugar de Nuevo</button>
+          <a href="index.html" class="result-btn secondary">◀ Volver al Inicio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Game Data
+    const heroes = [
+      { id: 'spiderman', name: 'Spider-Man', image: 'img/games/combat-simulator/spiderman-villain-300px-300px.png', hp: 100, attack: 25, defense: 15, special: 40 },
+      { id: 'cyclops', name: 'Cyclops', image: 'img/games/combat-simulator/cyclops-hero-300px-300px-hero.png', hp: 110, attack: 30, defense: 12, special: 45 },
+      { id: 'wolverine', name: 'Wolverine', image: 'img/games/combat-simulator/wolverine-300px-300px-hero.png', hp: 120, attack: 28, defense: 18, special: 38 },
+      { id: 'fantastic', name: 'Mr. Fantastic', image: 'img/games/combat-simulator/mr-fantastic-hero-300px-300px.png', hp: 95, attack: 22, defense: 20, special: 42 }
+    ];
+
+    const villains = [
+      { id: 'magneto', name: 'Magneto', image: 'img/games/combat-simulator/magneto-villain-300px-300px.png', hp: 130, attack: 28, defense: 15 },
+      { id: 'electro', name: 'Electro', image: 'img/games/combat-simulator/electro-villain-300px-300px.png', hp: 100, attack: 26, defense: 10 },
+      { id: 'mysterio', name: 'Mysterio', image: 'img/games/combat-simulator/mysterio-villain-300px-300px.png', hp: 105, attack: 24, defense: 14 },
+      { id: 'hobgoblin', name: 'Hobgoblin', image: 'img/games/combat-simulator/hobglobin-villain-300px-300px.png', hp: 115, attack: 27, defense: 12 },
+      { id: 'sentinel', name: 'Sentinel', image: 'img/games/combat-simulator/sentinel-villain-300px-300px.png', hp: 150, attack: 30, defense: 20 },
+      { id: 'galactus', name: 'Galactus', image: 'img/games/combat-simulator/galactus-villain-300px-300px-hero.png', hp: 200, attack: 35, defense: 25 }
+    ];
+
+    // Game State
+    let selectedHero = null;
+    let currentEnemy = null;
+    let round = 1;
+    let playerHP = 0;
+    let playerMaxHP = 0;
+    let enemyHP = 0;
+    let enemyMaxHP = 0;
+    let isDefending = false;
+    let totalDamageDealt = 0;
+    let specialCharges = 3;
+
+    // Initialize
+    function init() {
+      loadHeroes();
+      document.getElementById('startBattleBtn').addEventListener('click', startBattle);
+      document.getElementById('attackBtn').addEventListener('click', () => playerAction('attack'));
+      document.getElementById('specialBtn').addEventListener('click', () => playerAction('special'));
+      document.getElementById('defendBtn').addEventListener('click', () => playerAction('defend'));
+    }
+
+    function loadHeroes() {
+      const grid = document.getElementById('heroesGrid');
+      grid.innerHTML = '';
+      
+      heroes.forEach(hero => {
+        const card = document.createElement('div');
+        card.className = 'hero-card';
+        card.innerHTML = `
+          <img src="${hero.image}" alt="${hero.name}" class="hero-image">
+          <div class="hero-name">${hero.name}</div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-label">HP</span>
+              <span class="stat-value">${hero.hp}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">ATK</span>
+              <span class="stat-value">${hero.attack}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">DEF</span>
+              <span class="stat-value">${hero.defense}</span>
+            </div>
+          </div>
+        `;
+        
+        card.addEventListener('click', () => selectHero(hero, card));
+        grid.appendChild(card);
+      });
+    }
+
+    function selectHero(hero, cardElement) {
+      // Remove previous selection
+      document.querySelectorAll('.hero-card').forEach(c => c.classList.remove('selected'));
+      
+      // Select new hero
+      cardElement.classList.add('selected');
+      selectedHero = hero;
+      document.getElementById('startBattleBtn').disabled = false;
+    }
+
+    function startBattle() {
+      if (!selectedHero) return;
+
+      // Select random enemy based on round
+      const availableVillains = round < 3 ? villains.slice(0, 4) : villains;
+      currentEnemy = availableVillains[Math.floor(Math.random() * availableVillains.length)];
+
+      // Initialize HP
+      playerHP = selectedHero.hp;
+      playerMaxHP = selectedHero.hp;
+      enemyHP = currentEnemy.hp;
+      enemyMaxHP = currentEnemy.hp;
+      isDefending = false;
+      specialCharges = 3;
+
+      // Update UI
+      document.getElementById('playerImage').src = selectedHero.image;
+      document.getElementById('playerName').textContent = selectedHero.name;
+      document.getElementById('enemyImage').src = currentEnemy.image;
+      document.getElementById('enemyName').textContent = currentEnemy.name;
+      document.getElementById('roundNumber').textContent = `Ronda ${round}`;
+
+      updateHealthBars();
+      updateBattleLog('¡Combate iniciado! ' + selectedHero.name + ' vs ' + currentEnemy.name);
+      
+      showScreen('battleScreen');
+    }
+
+    function playerAction(action) {
+      disableActions();
+
+      if (action === 'attack') {
+        const damage = calculateDamage(selectedHero.attack, currentEnemy.defense);
+        dealDamage('enemy', damage);
+        animateAttack('player');
+        updateBattleLog(`${selectedHero.name} ataca e inflige ${damage} de daño!`, 'damage');
+      } else if (action === 'special') {
+        if (specialCharges > 0) {
+          const damage = calculateDamage(selectedHero.special, currentEnemy.defense, true);
+          dealDamage('enemy', damage);
+          animateAttack('player');
+          specialCharges--;
+          updateBattleLog(`¡${selectedHero.name} usa su ataque especial! ${damage} de daño crítico!`, 'critical');
+          
+          if (specialCharges === 0) {
+            document.getElementById('specialBtn').disabled = true;
+          }
+        }
+      } else if (action === 'defend') {
+        isDefending = true;
+        updateBattleLog(`${selectedHero.name} se defiende...`, 'heal');
+      }
+
+      // Check if enemy is defeated
+      if (enemyHP <= 0) {
+        setTimeout(() => {
+          round++;
+          if (round <= 3) {
+            updateBattleLog('¡Victoria! Preparando siguiente ronda...');
+            setTimeout(startBattle, 2000);
+          } else {
+            endBattle(true);
+          }
+        }, 1500);
+        return;
+      }
+
+      // Enemy turn
+      setTimeout(() => {
+        enemyTurn();
+      }, 1000);
+    }
+
+    function enemyTurn() {
+      const actions = ['attack', 'attack', 'special'];
+      const action = actions[Math.floor(Math.random() * actions.length)];
+
+      if (action === 'attack') {
+        let damage = calculateDamage(currentEnemy.attack, selectedHero.defense);
+        if (isDefending) {
+          damage = Math.floor(damage * 0.5);
+          updateBattleLog(`${currentEnemy.name} ataca, pero ${selectedHero.name} reduce el daño a ${damage}!`);
+        } else {
+          updateBattleLog(`${currentEnemy.name} ataca e inflige ${damage} de daño!`, 'damage');
+        }
+        dealDamage('player', damage);
+        animateAttack('enemy');
+      } else {
+        const damage = calculateDamage(currentEnemy.attack * 1.5, selectedHero.defense, true);
+        dealDamage('player', damage);
+        animateAttack('enemy');
+        updateBattleLog(`¡${currentEnemy.name} usa un ataque devastador! ${damage} de daño!`, 'critical');
+      }
+
+      isDefending = false;
+
+      // Check if player is defeated
+      if (playerHP <= 0) {
+        setTimeout(() => endBattle(false), 1500);
+        return;
+      }
+
+      setTimeout(() => enableActions(), 1000);
+    }
+
+    function calculateDamage(attack, defense, isCritical = false) {
+      const baseDamage = Math.max(5, attack - defense);
+      const variance = Math.floor(Math.random() * 10) - 5;
+      let damage = baseDamage + variance;
+      
+      if (isCritical) {
+        damage = Math.floor(damage * 1.5);
+      }
+      
+      return Math.max(5, damage);
+    }
+
+    function dealDamage(target, damage) {
+      if (target === 'player') {
+        playerHP = Math.max(0, playerHP - damage);
+        animateHurt('player');
+      } else {
+        enemyHP = Math.max(0, enemyHP - damage);
+        totalDamageDealt += damage;
+        animateHurt('enemy');
+      }
+      updateHealthBars();
+    }
+
+    function updateHealthBars() {
+      const playerPercent = (playerHP / playerMaxHP) * 100;
+      const enemyPercent = (enemyHP / enemyMaxHP) * 100;
+
+      const playerBar = document.getElementById('playerHealth');
+      const enemyBar = document.getElementById('enemyHealth');
+
+      playerBar.style.width = playerPercent + '%';
+      enemyBar.style.width = enemyPercent + '%';
+
+      document.getElementById('playerHealthText').textContent = `${playerHP} / ${playerMaxHP}`;
+      document.getElementById('enemyHealthText').textContent = `${enemyHP} / ${enemyMaxHP}`;
+
+      // Update color based on health
+      updateHealthBarColor(playerBar, playerPercent);
+      updateHealthBarColor(enemyBar, enemyPercent);
+    }
+
+    function updateHealthBarColor(bar, percent) {
+      bar.classList.remove('low', 'critical');
+      if (percent <= 25) {
+        bar.classList.add('critical');
+      } else if (percent <= 50) {
+        bar.classList.add('low');
+      }
+    }
+
+    function animateAttack(attacker) {
+      const img = document.getElementById(attacker === 'player' ? 'playerImage' : 'enemyImage');
+      img.classList.add('attacking');
+      setTimeout(() => img.classList.remove('attacking'), 500);
+    }
+
+    function animateHurt(target) {
+      const img = document.getElementById(target === 'player' ? 'playerImage' : 'enemyImage');
+      img.classList.add('hurt');
+      setTimeout(() => img.classList.remove('hurt'), 400);
+    }
+
+    function updateBattleLog(message, type = '') {
+      const log = document.getElementById('battleLog');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry' + (type ? ' ' + type : '');
+      entry.textContent = message;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function disableActions() {
+      document.getElementById('attackBtn').disabled = true;
+      document.getElementById('specialBtn').disabled = true;
+      document.getElementById('defendBtn').disabled = true;
+    }
+
+    function enableActions() {
+      document.getElementById('attackBtn').disabled = false;
+      if (specialCharges > 0) {
+        document.getElementById('specialBtn').disabled = false;
+      }
+      document.getElementById('defendBtn').disabled = false;
+    }
+
+    function endBattle(victory) {
+      const points = victory ? 50 + (round * 10) : 20;
+      
+      document.getElementById('resultTitle').textContent = victory ? '¡Victoria!' : 'Derrota';
+      document.getElementById('resultTitle').className = victory ? 'result-title victory' : 'result-title defeat';
+      document.getElementById('totalRounds').textContent = round;
+      document.getElementById('totalDamage').textContent = totalDamageDealt;
+      document.getElementById('pointsEarned').textContent = '+' + points;
+
+      showScreen('resultScreen');
+    }
+
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    // Initialize game
+    init();
+  </script>
+</body>
+</html>

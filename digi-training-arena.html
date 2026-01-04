@@ -119,6 +119,29 @@
   .evo .txt{color:#111}
   .evo .txt .a{font-weight:1000}
   .evo .txt .b{font-size:12px;opacity:.85;margin-top:2px}
+
+  /* Modal estilo Fox Kids */
+  .howto-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:1100;align-items:flex-start;justify-content:center;padding:20px;animation:fadeIn .3s ease;display:none;}
+  .howto-modal.active{display:flex !important;}
+  .howto-card{background:#fff;border-radius:16px;width:100%;max-width:440px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:slideDown .3s ease;margin-top:60px;color:var(--ink);}
+  .modal-header{padding:20px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:10;}
+  .modal-header h2{margin:0;font-size:16px;color:var(--ink);text-transform:uppercase;}
+  .close-btn{width:32px;height:32px;border-radius:50%;background:#f5f5f5;border:none;color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center;transition:all .2s;}
+  .close-btn:hover{background:#e5e5e5;transform:rotate(90deg);}
+  .modal-body{padding:16px;}
+  .howto-body{display:flex;flex-direction:column;gap:12px;}
+  .howto-lead{margin:0;color:var(--muted);font-size:13px;line-height:1.5;}
+  .howto-steps{display:flex;flex-direction:column;gap:12px;}
+  .howto-step{background:#f8f8f8;border-radius:12px;padding:12px;border:1px solid #eee;}
+  .howto-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;color:var(--ink);text-transform:uppercase;letter-spacing:.03em;}
+  .howto-num{width:24px;height:24px;border-radius:8px;background:#111;color:#fff;display:grid;place-items:center;font-weight:900;font-size:12px;}
+  .step-desc{margin:6px 0 0 0;font-size:13px;color:var(--ink);line-height:1.5;}
+  .howto-sublist{margin:8px 0 0 0;padding-left:16px;color:var(--ink);font-size:13px;line-height:1.45;}
+  .howto-sublist li{margin-bottom:6px;}
+  .howto-tip{background:#fff4d6;color:#6b4c00;border:1px solid #f1d78a;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;}
+  .howto-actions{padding:0 16px 16px;display:flex;gap:10px;}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  @keyframes slideDown{from{transform:translateY(-6px);opacity:0.95;}to{transform:translateY(0);opacity:1;}}
   #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:rgba(0,0,0,.86);color:#fff;padding:10px 14px;border-radius:999px;font-weight:900;font-size:12px;border:1px solid rgba(255,255,255,.15);box-shadow:0 12px 28px rgba(0,0,0,.28);z-index:999;opacity:0;transition:opacity .15s ease;}
 </style>
 </head>
@@ -261,6 +284,39 @@
     </div>
   </div>
 </div>
+      <div class="howto-modal" id="howtoModal" style="display:none;" onclick="closeHowTo()">
+        <div class="howto-card" onclick="event.stopPropagation()">
+          <div class="modal-header">
+            <h2>▶▶ Cómo jugar</h2>
+            <button class="close-btn" aria-label="Cerrar" onclick="closeHowTo()">•</button>
+          </div>
+          <div class="modal-body howto-body">
+            <p class="howto-lead">Sesión rápida de 3 pruebas (≈ 1 min). Entrená, sumá puntos y evoluciona de Rookie a Mega.</p>
+            <div class="howto-steps">
+              <div class="howto-step">
+                <div class="howto-badge"><span class="howto-num">1</span><span>Elegí tu Digimon</span></div>
+                <p class="step-desc">Tocá un compañero y luego presioná “Empezar sesión”. Los puntos quedan guardados por Digimon.</p>
+              </div>
+              <div class="howto-step">
+                <div class="howto-badge"><span class="howto-num">2</span><span>Completa las 3 pruebas</span></div>
+                <ul class="howto-sublist">
+                  <li>Velocidad: toca el panel lo más rápido posible durante 5 segundos.</li>
+                  <li>Memoria: mira la secuencia una vez y repítela en el mismo orden.</li>
+                  <li>Timing: toca “NOW!” cuando el punto esté dentro de la zona amarilla.</li>
+                </ul>
+              </div>
+              <div class="howto-step">
+                <div class="howto-badge"><span class="howto-num">3</span><span>Sube de nivel</span></div>
+                <p class="step-desc">Cada sesión suma puntos. Al llegar a los hitos desbloqueas la siguiente etapa de evolución.</p>
+              </div>
+            </div>
+            <div class="howto-tip">Guardamos tus puntos en este dispositivo (localStorage). Podés reiniciar desde el botón de reset en la barra superior.</div>
+          </div>
+          <div class="howto-actions">
+            <button class="btn primary" onclick="closeHowTo()">Entendido</button>
+          </div>
+        </div>
+      </div>
 <div id="toast"></div>
 
 <script>
@@ -629,15 +685,15 @@
   }
 
   function howTo(){
-    toast('Tip: 1 sesión = 3 pruebas (~1 min)');
-    alert(
-`Digi‑Training Arena (Demo)
-1) Elegí un Digimon.
-2) Tocá “Empezar sesión”.
-3) Jugás 3 pruebas: Velocidad, Memoria, Timing.
-4) Sumás puntos y subís de nivel (Rookie → Mega).
-Los puntos se guardan en este dispositivo (localStorage).`
-    );
+    const modal = document.getElementById('howtoModal');
+    modal.style.display = 'flex';
+    requestAnimationFrame(()=>modal.classList.add('active'));
+  }
+
+  function closeHowTo(){
+    const modal = document.getElementById('howtoModal');
+    modal.classList.remove('active');
+    setTimeout(()=>{ modal.style.display = 'none'; }, 240);
   }
 
   let toastT;

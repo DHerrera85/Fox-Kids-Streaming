@@ -62,6 +62,11 @@
   .live-grid::-webkit-scrollbar{display:none;}
   .live-grid{scrollbar-width:none;}
   .live-grid .card{min-width:280px;scroll-snap-align:start;}
+  /* Games grid - horizontal scroll on mobile */
+  .games-grid{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory;}
+  .games-grid::-webkit-scrollbar{display:none;}
+  .games-grid{scrollbar-width:none;}
+  .games-grid .card{min-width:calc(100vw - 40px);max-width:400px;scroll-snap-align:center;}
   .card{background:var(--card);color:var(--ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);border:3px solid rgba(0,0,0,.10);display:flex;flex-direction:column;}
   .card .media{height:160px;background:linear-gradient(135deg,#2b5cff,#7c2cff 45%,#ff2b8a);position:relative;}
   .chip{position:absolute;right:10px;top:10px;background:#111;color:#FFD200;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;letter-spacing:.3px;}
@@ -180,6 +185,9 @@
     .btn{font-size:13px;padding:11px 14px;}
     .live-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;padding-bottom:0;}
     .live-grid .card{min-width:auto;}
+    /* Games grid - convert to grid on desktop */
+    .games-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;gap:18px;}
+    .games-grid .card{min-width:auto;max-width:none;}
     .section-title{margin:16px 2px 12px;}
     .shorts{gap:14px;}
     .short{width:160px;height:260px;}
@@ -904,7 +912,7 @@
 
       <div class="content-section active" data-section="games">
         <div class="section-title" style="margin-top:16px"><h2>Juegos</h2><div class="hint">Mini-retos y puntos</div></div>
-        <div class="grid">
+        <div class="games-grid">
           <article class="card">
             <div class="media" style="background-image:url('img/digimon-slider.jpg');background-size:cover;background-position:center;"><div class="chip">FEATURED GAME</div><div class="play">▶</div></div>
             <div class="body">

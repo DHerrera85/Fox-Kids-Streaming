@@ -773,6 +773,146 @@
       "image": "https://image.tmdb.org/t/p/original/7PjuXw9A3iVqcqxCpUfi7UJjDjn.jpg",
       "year": 2000,
       "region": "LATAM"
+    },
+    {
+      "id": "samurai-pizza-cats-promo-us-1997",
+      "name": "Samurai Pizza Cats Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Samurai Pizza Cats",
+      "seriesId": "samurai-pizza-cats",
+      "file": "videos/shorts/promos/US/samurai-pizza-cats-promo-fox-kids-US-1997.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/aFiwBmMh2iZv4vUc9bzJ98xeANP.jpg",
+      "year": 1997,
+      "region": "US"
+    },
+    {
+      "id": "biker-mice-from-mars-promo-us-1996",
+      "name": "Biker Mice From Mars Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Biker Mice From Mars",
+      "seriesId": "biker-mice-from-mars",
+      "file": "videos/shorts/promos/US/biker-mice-from-mars-fox-kids-US-promo-1996.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/xtNiBDnYHNU0XIf5YFxYPykArnn.jpg",
+      "year": 1996,
+      "region": "US"
+    },
+    {
+      "id": "underdog-promo-latam-1998",
+      "name": "Underdog Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Underdog",
+      "seriesId": "underdog",
+      "file": "videos/shorts/promos/latam/underdog-promo-fox-kids-LATAM-1998.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/d011YMRe22feBwss9875rXC8Hel.jpg",
+      "year": 1998,
+      "region": "LATAM"
+    },
+    {
+      "id": "wishbone-promo-latam-1998",
+      "name": "Wishbone Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Wishbone",
+      "seriesId": "wishbone",
+      "file": "videos/shorts/promos/latam/wishbone-fox-kids-LATAM-promo-1998.mp4",
+      "duration": "0:30",
+      "image": "img/schedule-slider/wishbone-200-200px.png",
+      "year": 1998,
+      "region": "LATAM"
+    },
+    {
+      "id": "riding-high-promo-latam-1996",
+      "name": "Riding High Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Riding High",
+      "seriesId": "riding-high",
+      "file": "videos/shorts/promos/latam/riding-high-fox-kids-LATAM-promo-1996.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/bF4Pfo8dcOHUXrST9d6ANDc1ZZV.jpg",
+      "year": 1996,
+      "region": "LATAM"
+    },
+    {
+      "id": "c-bear-and-jamal-promo-us-1996",
+      "name": "C-Bear and Jamal Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "C-Bear and Jamal",
+      "seriesId": "c-bear-and-jamal",
+      "file": "videos/shorts/promos/US/c-bear-and-jamal-fox-kids-promo-US-1996.mp4",
+      "duration": "0:30",
+      "image": "img/schedule-slider/c-bear-and-jamal-200x200px.png",
+      "year": 1996,
+      "region": "US"
+    },
+    {
+      "id": "totally-spies-promo-us-2003",
+      "name": "Totally Spies! Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Totally Spies!",
+      "seriesId": "totally-spies",
+      "file": "videos/shorts/promos/US/totally-spies-fox-kids-promo-US-2003.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/mBru6b5s71dI0hjiUgnIOjcCXNS.jpg",
+      "year": 2003,
+      "region": "US"
+    },
+    {
+      "id": "teenage-mutant-ninja-turtles-promo-us-2003",
+      "name": "Teenage Mutant Ninja Turtles Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Teenage Mutant Ninja Turtles",
+      "seriesId": "teenage-mutant-ninja-turtles-2003",
+      "file": "videos/shorts/promos/US/teenage-mutant-ninja-turtles-promo-fox-kids-US-2003.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/5VdjtEHyDUeHHiyln4R4dwV8bQ0.jpg",
+      "year": 2003,
+      "region": "US"
+    },
+    {
+      "id": "sonic-x-promo-us-2003",
+      "name": "Sonic X Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Sonic X",
+      "seriesId": "sonic-x",
+      "file": "videos/shorts/promos/US/sonic-x-promo-fox-us-2003.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/707XPXlM71VOwXJLW3nuf8EELvt.jpg",
+      "year": 2003,
+      "region": "US"
+    },
+    {
+      "id": "megaman-nt-warrior-promo-latam-2004",
+      "name": "Megaman Promo",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Megaman",
+      "seriesId": "megaman-nt-warrior",
+      "file": "videos/shorts/promos/latam/Megaman NT Warrior-Fox Kids-LATAM-Promo-2004.mp4",
+      "duration": "0:30",
+      "image": "https://image.tmdb.org/t/p/original/roZllkX4mOoDAKljFtpYJzD41Kn.jpg",
+      "year": 2004,
+      "region": "LATAM"
     }
   ],
   "series": [
@@ -1448,6 +1588,154 @@
       "rating": "10+",
       "seasons": [
         { "season": 1, "episodes": 39 }
+      ]
+    },
+    {
+      "id": "samurai-pizza-cats",
+      "name": "Samurai Pizza Cats",
+      "type": "series",
+      "category": "Anime",
+      "image": "https://image.tmdb.org/t/p/original/aFiwBmMh2iZv4vUc9bzJ98xeANP.jpg",
+      "year": 1991,
+      "endYear": 1991,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 54 }
+      ]
+    },
+    {
+      "id": "sonic-x",
+      "name": "Sonic X",
+      "type": "series",
+      "category": "Anime",
+      "image": "https://image.tmdb.org/t/p/original/707XPXlM71VOwXJLW3nuf8EELvt.jpg",
+      "year": 2003,
+      "endYear": 2005,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 52 },
+        { "season": 2, "episodes": 26 }
+      ]
+    },
+    {
+      "id": "megaman-nt-warrior",
+      "name": "Megaman",
+      "type": "series",
+      "category": "Anime",
+      "image": "https://image.tmdb.org/t/p/original/roZllkX4mOoDAKljFtpYJzD41Kn.jpg",
+      "year": 2002,
+      "endYear": 2003,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 56 }
+      ]
+    },
+    {
+      "id": "biker-mice-from-mars",
+      "name": "Biker Mice From Mars",
+      "type": "series",
+      "category": "Acción/Aventura",
+      "image": "https://image.tmdb.org/t/p/original/xtNiBDnYHNU0XIf5YFxYPykArnn.jpg",
+      "year": 1993,
+      "endYear": 1996,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 22 },
+        { "season": 2, "episodes": 22 },
+        { "season": 3, "episodes": 21 }
+      ]
+    },
+    {
+      "id": "totally-spies",
+      "name": "Totally Spies!",
+      "type": "series",
+      "category": "Acción/Aventura",
+      "image": "https://image.tmdb.org/t/p/original/mBru6b5s71dI0hjiUgnIOjcCXNS.jpg",
+      "year": 2001,
+      "endYear": 2013,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 26 },
+        { "season": 2, "episodes": 26 },
+        { "season": 3, "episodes": 26 },
+        { "season": 4, "episodes": 26 },
+        { "season": 5, "episodes": 26 },
+        { "season": 6, "episodes": 26 },
+        { "season": 7, "episodes": 26 }
+      ]
+    },
+    {
+      "id": "teenage-mutant-ninja-turtles-2003",
+      "name": "Teenage Mutant Ninja Turtles",
+      "type": "series",
+      "category": "Acción/Aventura",
+      "image": "https://image.tmdb.org/t/p/original/5VdjtEHyDUeHHiyln4R4dwV8bQ0.jpg",
+      "year": 2003,
+      "endYear": 2009,
+      "rating": "10+",
+      "seasons": [
+        { "season": 1, "episodes": 26 },
+        { "season": 2, "episodes": 26 },
+        { "season": 3, "episodes": 26 },
+        { "season": 4, "episodes": 26 },
+        { "season": 5, "episodes": 13 },
+        { "season": 6, "episodes": 13 },
+        { "season": 7, "episodes": 26 }
+      ]
+    },
+    {
+      "id": "wishbone",
+      "name": "Wishbone",
+      "type": "series",
+      "category": "Live Action",
+      "image": "img/schedule-slider/wishbone-200-200px.png",
+      "year": 1995,
+      "endYear": 1997,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 25 },
+        { "season": 2, "episodes": 25 }
+      ]
+    },
+    {
+      "id": "riding-high",
+      "name": "Riding High",
+      "type": "series",
+      "category": "Live Action",
+      "image": "https://image.tmdb.org/t/p/original/bF4Pfo8dcOHUXrST9d6ANDc1ZZV.jpg",
+      "year": 1995,
+      "endYear": 1996,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 65 }
+      ]
+    },
+    {
+      "id": "underdog",
+      "name": "Underdog",
+      "type": "series",
+      "category": "Comedia",
+      "image": "https://image.tmdb.org/t/p/original/d011YMRe22feBwss9875rXC8Hel.jpg",
+      "year": 1964,
+      "endYear": 1973,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 40 },
+        { "season": 2, "episodes": 40 },
+        { "season": 3, "episodes": 44 }
+      ]
+    },
+    {
+      "id": "c-bear-and-jamal",
+      "name": "C-Bear and Jamal",
+      "type": "series",
+      "category": "Comedia",
+      "image": "img/schedule-slider/c-bear-and-jamal-200x200px.png",
+      "year": 1996,
+      "endYear": 1996,
+      "rating": "7+",
+      "seasons": [
+        { "season": 1, "episodes": 13 }
       ]
     }
   ]

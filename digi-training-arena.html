@@ -110,6 +110,10 @@
   .track{height:14px;border-radius:999px;background:rgba(255,255,255,.14);position:relative;overflow:hidden}
   .zone{position:absolute;top:0;bottom:0;left:40%;width:20%;background:rgba(255,196,0,.95)}
   .dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff}
+  .reflexPad{height:120px;border-radius:18px;border:3px solid rgba(0,0,0,.12);display:grid;place-items:center;background:#f3f4f6;cursor:pointer;user-select:none;transition:background .12s ease,color .12s ease,border-color .12s ease;}
+  .reflexPad.wait{background:#f3f4f6;color:#6b7280;}
+  .reflexPad.go{background:#22c55e;color:#0f172a;border-color:rgba(16,185,129,.5);}
+  .reflexPad.too-early{background:#fee2e2;color:#991b1b;border-color:rgba(239,68,68,.45);}
   .kbd{font-size:12px;opacity:.85;margin-top:8px}
   .footerNote{margin-top:10px;font-size:12px;opacity:.85}
   .evo{display:flex;gap:10px;align-items:center;margin-top:10px}
@@ -191,7 +195,7 @@
     <div class="arena">
       <div class="banner">
         <p class="t" id="bannerTitle">🎮 Entrená, ganá puntos y desbloqueá evolución</p>
-        <p class="d" id="bannerDesc">Seleccioná un Digimon para comenzar. Cada sesión tiene 3 pruebas: Velocidad, Memoria y Timing.</p>
+        <p class="d" id="bannerDesc">Seleccioná un Digimon para comenzar. Cada sesión tiene 3 pruebas: Velocidad, Memoria y un final rotativo (Timing o Reflejos).</p>
         <div class="evo" id="evoBox" style="display:none">
           <div class="stamp"><div class="inner" id="evoStamp">I</div></div>
           <div class="txt">
@@ -272,6 +276,18 @@
               <div class="footerNote">Precisión: <b id="acc">—</b></div>
             </div>
 
+            <div class="stage" id="st-reflex">
+              <div class="footerNote">⚡ Reflejos: tocá apenas se ponga verde.</div>
+              <div class="card" style="margin-top:8px">
+                <div style="padding:12px">
+                  <p style="margin-top:0">Espera al cambio de color. Si tocas antes, se reinicia.</p>
+                  <div id="reflex-pad" class="reflexPad wait" aria-label="Zona de reflejos" role="button" tabindex="0">Espera…</div>
+                  <p id="reflex-result" class="mt-2" aria-live="polite" style="margin:10px 0 0"></p>
+                </div>
+              </div>
+              <div class="footerNote">Tip: también podés usar barra espaciadora.</div>
+            </div>
+
             <div class="stage" id="st-done">
               <div class="footerNote" style="font-size:14px">
                 ✅ Sesión terminada. Sumaste <b id="sumPts">0</b> puntos.
@@ -319,7 +335,7 @@
                 <ul class="howto-sublist">
                   <li>Velocidad: toca el panel lo más rápido posible durante 5 segundos.</li>
                   <li>Memoria: mira la secuencia una vez y repítela en el mismo orden.</li>
-                  <li>Timing: toca “NOW!” cuando el punto esté dentro de la zona amarilla.</li>
+                  <li>Timing/Reflejos: prueba final rota entre apuntar la zona o reaccionar al cambio de color.</li>
                 </ul>
               </div>
               <div class="howto-step">
@@ -366,6 +382,7 @@
   let tapClicks = 0, tapTimer = null, tapLeft = 5.0;
   let memSeq = [], memIndex = 0;
   let timingRAF = null, timingStart = 0, timingSpeed = 0.9, timingPos = 0.0;
+  let reflexTimeout = null, reflexReady = false, reflexStart = 0;
   let howtoEscHandler = null;
   let audioCtx = null;
 
@@ -431,7 +448,7 @@
 
     if(!d){
       title.textContent = '🎮 Entrená, ganá puntos y desbloqueá evolución';
-      desc.textContent  = 'Seleccioná un Digimon para comenzar. Cada sesión tiene 3 pruebas: Velocidad, Memoria y Timing.';
+      desc.textContent  = 'Seleccioná un Digimon para comenzar. Cada sesión tiene 3 pruebas: Velocidad, Memoria y un final rotativo (Timing o Reflejos).';
       evoBox.style.display = 'none';
       return;
     }
@@ -469,6 +486,7 @@
     tap: document.getElementById('st-tap'),
     mem: document.getElementById('st-mem'),
     time: document.getElementById('st-time'),
+    reflex: document.getElementById('st-reflex'),
     done: document.getElementById('st-done')
   };
 
@@ -480,7 +498,7 @@
   function startSession(){
     if(!selected){ toast('Elegí un Digimon primero'); return; }
     stopAll();
-    session = {step:0, total:3, earned:0};
+    session = {step:0, total:3, earned:0, current:null};
     sessionMeta.textContent = `0/3 pruebas`;
     bar.style.width = '0%';
     bar.style.background = 'linear-gradient(90deg,#ef4444,#ffd000)';
@@ -497,7 +515,10 @@
 
     if(session.step === 1) initTap();
     else if(session.step === 2) initMemory();
-    else if(session.step === 3) initTiming();
+    else if(session.step === 3){
+      session.finalStage = Math.random() < 0.5 ? 'time' : 'reflex';
+      session.finalStage === 'time' ? initTiming() : initReflex();
+    }
     else endSession();
   }
 
@@ -516,6 +537,7 @@
   tapGoalEl.textContent = difficultyLabel().tapGoal;
   function initTap(){
     const diff = difficultyLabel();
+    session.current = 'tap';
     chTitle.textContent = 'Prueba 1/3 — Velocidad';
     chMeta.textContent  = 'Tocá el panel durante 5s. Cuantos más taps, más puntos.';
     chPts.textContent   = '+0';
@@ -561,6 +583,7 @@
 
   function initMemory(){
     const diff = difficultyLabel();
+    session.current = 'mem';
     chTitle.textContent = 'Prueba 2/3 — Memoria';
     chMeta.textContent  = 'Recordá la secuencia y repetila. Fallar resta precisión.';
     chPts.textContent   = '+0';
@@ -607,9 +630,19 @@
 
   const dot = document.getElementById('dot');
   const accEl = document.getElementById('acc');
+  const reflexPad = document.getElementById('reflex-pad');
+  const reflexResult = document.getElementById('reflex-result');
+  reflexPad.addEventListener('click', hitReflex);
+  reflexPad.addEventListener('keydown', (e)=>{
+    if(e.code === 'Space' || e.key === ' ' || e.key === 'Enter'){
+      e.preventDefault();
+      hitReflex();
+    }
+  });
 
   function initTiming(){
     const diff = difficultyLabel();
+    session.current = 'time';
     chTitle.textContent = 'Prueba 3/3 — Timing';
     chMeta.textContent  = 'Tocá NOW cuando el punto esté en la zona amarilla.';
     chPts.textContent   = '+0';
@@ -627,7 +660,11 @@
   }
 
   function onKey(e){
-    if(e.code === 'Space'){ e.preventDefault(); hitTiming(); }
+    if(e.code === 'Space'){
+      e.preventDefault();
+      if(session?.current === 'time') hitTiming();
+      else if(session?.current === 'reflex') hitReflex();
+    }
   }
 
   function startTimingLoop(){
@@ -681,6 +718,60 @@
     toast('Reintento');
   }
 
+  function initReflex(){
+    session.current = 'reflex';
+    chTitle.textContent = 'Prueba 3/3 — Reflejos';
+    chMeta.textContent  = 'Reacciona al pasar a verde. Si tocas antes de tiempo, se reinicia.';
+    chPts.textContent   = '+0';
+    reflexResult.textContent = '';
+    showStage('reflex');
+    scheduleReflex();
+    window.addEventListener('keydown', onKey);
+  }
+
+  function scheduleReflex(){
+    reflexReady = false;
+    reflexPad.classList.remove('go','too-early');
+    reflexPad.classList.add('wait');
+    reflexPad.textContent = 'Espera…';
+    if(reflexTimeout){ clearTimeout(reflexTimeout); }
+    const base = state.difficulty === 'hard' ? 850 : state.difficulty === 'easy' ? 1200 : 1000;
+    const jitter = 700;
+    reflexTimeout = setTimeout(()=>{
+      reflexReady = true;
+      reflexStart = performance.now();
+      reflexPad.classList.remove('wait','too-early');
+      reflexPad.classList.add('go');
+      reflexPad.textContent = '¡Ahora!';
+    }, base + Math.random()*jitter);
+  }
+
+  function hitReflex(){
+    if(!session || session.step !== 3 || session.current !== 'reflex') return;
+    if(reflexReady){
+      reflexReady = false;
+      if(reflexTimeout){ clearTimeout(reflexTimeout); reflexTimeout=null; }
+      const rt = performance.now() - reflexStart;
+      reflexPad.classList.remove('go','too-early','wait');
+      reflexPad.textContent = `${Math.round(rt)} ms`;
+      reflexResult.textContent = `Tiempo de reacción: ${Math.round(rt)} ms`;
+      const bias = state.difficulty === 'hard' ? 0 : state.difficulty === 'easy' ? 18 : 10;
+      const pts = Math.max(60, Math.min(140, Math.round(120 - rt/4 + bias)));
+      window.removeEventListener('keydown', onKey);
+      playDing();
+      haptic(16);
+      award(pts, 'Reflejos');
+    } else {
+      reflexPad.classList.add('too-early');
+      reflexPad.textContent = 'Muy pronto';
+      reflexResult.textContent = 'Tocaste antes. Reiniciamos.';
+      playClick();
+      haptic(6);
+      if(reflexTimeout){ clearTimeout(reflexTimeout); }
+      setTimeout(()=>scheduleReflex(), 420);
+    }
+  }
+
   function endSession(){
     stopAll();
     showStage('done');
@@ -716,6 +807,8 @@
   function stopAll(){
     if(tapTimer){ clearInterval(tapTimer); tapTimer=null; }
     stopTimingLoop();
+    if(reflexTimeout){ clearTimeout(reflexTimeout); reflexTimeout=null; }
+    reflexReady = false;
     window.removeEventListener('keydown', onKey);
   }
 

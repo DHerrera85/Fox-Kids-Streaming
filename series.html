@@ -50,7 +50,8 @@
   .gallery-section h3{color:#fff;font-size:18px;font-weight:900;margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.05em;}
   
   /* SERIE CARD CON OVERLAY */
-  .serie-card{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;transition:transform 0.3s ease,box-shadow 0.3s ease;}
+  .serie-card{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;transition:transform 0.3s ease,box-shadow 0.3s ease;height:100%;width:100%;}
+  .scroll-gallery .scroll-item{height:270px;}
   .serie-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease;display:block;}
   .serie-card h4{display:none;}
   .serie-info-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(255,196,0,.92);padding:16px 12px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;z-index:5;}
@@ -135,7 +136,8 @@
         <button class="filter-btn active" data-filter-type="todas" onclick="filterSeriesByCategory('todas')">Todas</button>
         <button class="filter-btn" data-filter-type="supersentai" onclick="filterSeriesByCategory('supersentai')">Super Sentai</button>
         <button class="filter-btn" data-filter-type="anime" onclick="filterSeriesByCategory('anime')">Anime</button>
-        <button class="filter-btn" data-filter-type="comics" onclick="filterSeriesByCategory('comics')">COMICS</button>
+        <button class="filter-btn" data-filter-type="comics" onclick="filterSeriesByCategory('comics')">Marvel</button>
+        <button class="filter-btn" data-filter-type="actionadventure" onclick="filterSeriesByCategory('actionadventure')">Acción/Aventura</button>
         <button class="filter-btn" data-filter-type="liveaction" onclick="filterSeriesByCategory('liveaction')">Live Action</button>
         <button class="filter-btn" data-filter-type="comedia" onclick="filterSeriesByCategory('comedia')">Comedia</button>
         <button class="filter-btn" data-filter-type="movies" onclick="filterSeriesByCategory('movies')">Movies</button>
@@ -345,6 +347,42 @@
                   <strong>1 temporada</strong>
                   <p>26 episodios</p>
                   <p>1995</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="window.location.href='serie.html?id=samurai-pizza-cats'">
+              <img src="https://image.tmdb.org/t/p/original/aFiwBmMh2iZv4vUc9bzJ98xeANP.jpg" alt="Samurai Pizza Cats">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>1 temporada</strong>
+                  <p>54 episodios</p>
+                  <p>1991</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="window.location.href='serie.html?id=sonic-x'">
+              <img src="https://image.tmdb.org/t/p/original/707XPXlM71VOwXJLW3nuf8EELvt.jpg" alt="Sonic X">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>2 temporadas</strong>
+                  <p>78 episodios</p>
+                  <p>2003 – 2005</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="window.location.href='serie.html?id=megaman-nt-warrior'">
+              <img src="https://image.tmdb.org/t/p/original/roZllkX4mOoDAKljFtpYJzD41Kn.jpg" alt="Megaman">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>1 temporada</strong>
+                  <p>56 episodios</p>
+                  <p>2002 – 2003</p>
                 </div>
               </div>
             </div>
@@ -571,6 +609,42 @@
               </div>
             </div>
           </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="location.href='serie.html?id=biker-mice-from-mars'">
+              <img src="https://image.tmdb.org/t/p/original/xtNiBDnYHNU0XIf5YFxYPykArnn.jpg" alt="Biker Mice From Mars">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>3 temporadas</strong>
+                  <p>65 episodios</p>
+                  <p>1993 – 1996</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="location.href='serie.html?id=totally-spies'">
+              <img src="https://image.tmdb.org/t/p/original/mBru6b5s71dI0hjiUgnIOjcCXNS.jpg" alt="Totally Spies!">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>7 temporadas</strong>
+                  <p>182 episodios</p>
+                  <p>2001 – 2013</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="location.href='serie.html?id=teenage-mutant-ninja-turtles-2003'">
+              <img src="https://image.tmdb.org/t/p/original/5VdjtEHyDUeHHiyln4R4dwV8bQ0.jpg" alt="Teenage Mutant Ninja Turtles">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>7 temporadas</strong>
+                  <p>156 episodios</p>
+                  <p>2003 – 2009</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -666,6 +740,30 @@
                   <strong>1 temporada</strong>
                   <p>65 episodios</p>
                   <p>1998 – 1999</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="location.href='serie.html?id=wishbone'">
+              <img src="img/schedule-slider/wishbone-200-200px.png" alt="Wishbone">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>2 temporadas</strong>
+                  <p>50 episodios</p>
+                  <p>1995 – 1997</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="location.href='serie.html?id=riding-high'">
+              <img src="https://image.tmdb.org/t/p/original/bF4Pfo8dcOHUXrST9d6ANDc1ZZV.jpg" alt="Riding High">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>1 temporada</strong>
+                  <p>65 episodios</p>
+                  <p>1995 – 1996</p>
                 </div>
               </div>
             </div>
@@ -793,6 +891,30 @@
               </div>
             </div>
           </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="window.location.href='serie.html?id=underdog'">
+              <img src="https://image.tmdb.org/t/p/original/d011YMRe22feBwss9875rXC8Hel.jpg" alt="Underdog">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>3 temporadas</strong>
+                  <p>124 episodios</p>
+                  <p>1964 – 1973</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-item">
+            <div class="serie-card" onclick="window.location.href='serie.html?id=c-bear-and-jamal'">
+              <img src="img/schedule-slider/c-bear-and-jamal-200x200px.png" alt="C-Bear and Jamal">
+              <div class="serie-info-overlay">
+                <div class="info-content">
+                  <strong>1 temporada</strong>
+                  <p>13 episodios</p>
+                  <p>1996</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -881,7 +1003,17 @@
       'Eek! The Cat': 'eek-the-cat',
       "Bobby's World": 'bobbys-world',
       'Transformers: Car Robots': 'transformers-car-robots',
-      'The New Woody Woodpecker Show': 'woody-woodpecker'
+      'The New Woody Woodpecker Show': 'woody-woodpecker',
+      'Samurai Pizza Cats': 'samurai-pizza-cats',
+      'Sonic X': 'sonic-x',
+      'Megaman': 'megaman-nt-warrior',
+      'Biker Mice From Mars': 'biker-mice-from-mars',
+      'Totally Spies!': 'totally-spies',
+      'Teenage Mutant Ninja Turtles': 'teenage-mutant-ninja-turtles-2003',
+      'Wishbone': 'wishbone',
+      'Riding High': 'riding-high',
+      'Underdog': 'underdog',
+      'C-Bear and Jamal': 'c-bear-and-jamal'
     };
     
     // Hacer las tarjetas clicables y enlazarlas a serie.html
@@ -921,6 +1053,7 @@
       'supersentai': ['superSentai'],
       'anime': ['invasionAnime'],
       'comics': ['comicAnimated'],
+      'actionadventure': ['actionAdventure'],
       'liveaction': ['liveAction'],
       'comedia': ['comedy'],
       'movies': ['movies']

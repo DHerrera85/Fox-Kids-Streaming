@@ -148,6 +148,7 @@
   .diff-control label{font-size:12px;font-weight:900;letter-spacing:.04em;color:#111;text-transform:uppercase;}
   .pill-select{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff;border:2px solid rgba(0,0,0,.08);font-weight:900;color:#111;box-shadow:0 6px 16px rgba(0,0,0,.12);}
   .pill-select select{border:none;background:transparent;font-weight:900;color:#111;font-size:13px;outline:none;cursor:pointer;}
+  .icon-btn.muted{background:rgba(0,0,0,.32);}
 </style>
 </head>
 <body>
@@ -174,6 +175,7 @@
       <div class="icons">
         <div class="icon-btn" onclick="location.href='index.html'" title="Inicio"><span class="icon"><i class="fas fa-house"></i></span></div>
         <div class="icon-btn" onclick="resetAll()" title="Reset"><span class="icon"><i class="fas fa-rotate-right"></i></span></div>
+        <div class="icon-btn" id="btnMute" onclick="toggleMute()" title="Sonido"><span class="icon"><i class="fas fa-volume-high"></i></span></div>
       </div>
     </div>
   </header>
@@ -358,17 +360,20 @@
   let state = loadState();
   let selected = state.selected || null;
   state.difficulty = state.difficulty || 'normal';
+  state.muted = state.muted || false;
 
   let session = null;
   let tapClicks = 0, tapTimer = null, tapLeft = 5.0;
   let memSeq = [], memIndex = 0;
   let timingRAF = null, timingStart = 0, timingSpeed = 0.9, timingPos = 0.0;
   let howtoEscHandler = null;
+  let audioCtx = null;
 
   const picker = document.getElementById('picker');
   const diffSelect = document.getElementById('diffSelect');
   diffSelect.value = state.difficulty;
   const difficultyLabel = () => DIFF[state.difficulty] || DIFF.normal;
+  const muteBtn = document.getElementById('btnMute');
   DIGI.forEach(d => {
     const el = document.createElement('div');
     el.className = 'digicard';
@@ -538,6 +543,8 @@
     if(!tapTimer) return;
     tapClicks += 1;
     tapCountEl.textContent = tapClicks;
+    playClick();
+    haptic(8);
   }
 
   const memShow = document.getElementById('memShow');
@@ -651,6 +658,8 @@
       const closeness = Math.max(0, 1 - (dist/0.10));
       pts = Math.round(90 + closeness*40);
       acc = Math.round(closeness*100) + '%';
+      playDing();
+      haptic(18);
     } else {
       pts = 55;
       acc = 'Fuera';
@@ -689,6 +698,8 @@
     bar.style.width = '100%';
     sessionMeta.textContent = '3/3 pruebas';
     session = null;
+    playFanfare();
+    haptic(28);
   }
 
   function goHome(){
@@ -711,12 +722,15 @@
   function resetAll(){
     stopAll();
     localStorage.removeItem(LS_KEY);
-    state = {scores:{}, difficulty:'normal'};
+    state = {scores:{}, difficulty:'normal', muted:false};
     selected = null;
     document.getElementById('btnStart').disabled = true;
     goHome();
     renderStats();
     updateBanner();
+    diffSelect.value = state.difficulty;
+    tapGoalEl.textContent = difficultyLabel().tapGoal;
+    renderMute();
     toast('Reset OK');
   }
 
@@ -728,6 +742,21 @@
     const diff = difficultyLabel();
     tapGoalEl.textContent = diff.tapGoal;
     toast('Dificultad: ' + val);
+  }
+
+  function toggleMute(){
+    state.muted = !state.muted;
+    saveState();
+    renderMute();
+    toast(state.muted ? 'Sonido: off' : 'Sonido: on');
+  }
+
+  function renderMute(){
+    if(!muteBtn) return;
+    muteBtn.classList.toggle('muted', !!state.muted);
+    const icon = muteBtn.querySelector('i');
+    if(icon){ icon.className = state.muted ? 'fas fa-volume-xmark' : 'fas fa-volume-high'; }
+    muteBtn.title = state.muted ? 'Sonido desactivado' : 'Sonido activado';
   }
 
   function howTo(){
@@ -761,6 +790,45 @@
     toastT = setTimeout(()=>{ el.style.opacity='0'; }, 1200);
   }
 
+  function ensureAudio(){
+    if(state.muted) return null;
+    if(!audioCtx){
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return null;
+      audioCtx = new AC();
+    }
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  function playTone(freq, duration=0.12, type='sine', volume=0.12, startOffset=0){
+    const ctx = ensureAudio();
+    if(!ctx) return;
+    const t0 = ctx.currentTime + startOffset;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, t0);
+    gain.gain.setValueAtTime(volume, t0);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(t0);
+    osc.stop(t0 + duration + 0.05);
+  }
+
+  function playClick(){ playTone(220, 0.07, 'triangle', 0.08); }
+  function playDing(){ playTone(880, 0.15, 'sine', 0.12); }
+  function playFanfare(){
+    if(state.muted) return;
+    playTone(740, 0.12, 'square', 0.10, 0.00);
+    playTone(880, 0.14, 'square', 0.10, 0.10);
+    playTone(988, 0.18, 'triangle', 0.12, 0.22);
+  }
+
+  function haptic(ms){
+    if(navigator.vibrate) navigator.vibrate(ms);
+  }
+
   function toggleSidebar(){
     const sidebar=document.getElementById('sidebar');
     document.body.classList.toggle('sidebar-expanded');
@@ -769,6 +837,7 @@
 
   renderStats();
   updateBanner();
+  renderMute();
   if(selected){
     document.getElementById('btnStart').disabled = false;
     toast('Continuando con: ' + getD(selected).name);

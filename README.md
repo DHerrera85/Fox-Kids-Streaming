@@ -1,68 +1,122 @@
-Fox Kids Streaming Site
-Overview
-A retro-themed website inspired by Fox Kids Latin America from the early 2000s. It features:
+# Fox Kids Streaming - Plataforma Interactiva
 
-🔴 A red banner at the top with the Fox Kids logo and a slogan.
+## Descripción General
 
-📂 A left sidebar with large buttons: Series, Juegos, Artículos, Videos, Programación.
+Plataforma web retro-temática inspirada en Fox Kids Latinoamérica de los años 2000. Sitio interactivo con series clásicas, minijuegos arcade, horarios de programación y una experiencia nostálgica completa.
 
-🕘 A round schedule gallery displaying 24 show icons (100×100 px), scrolling horizontally with arrows.
+Alojado en GitHub Pages: https://dherrera85.github.io/Fox-Kids-Streaming
 
-▶️ An embedded YouTube video (“AHORA EN PANTALLA”).
+## Cambios Recientes (Enero 2026)
 
-🎞️ Multiple vertical image galleries for SUPER SENTAI, INVASIÓN ANIME, LIVE ACTION, COMEDY, etc.
+### Minijuegos Implementados
 
-📰 Newly added 'Artículos' section featuring article cards that link to individual full article pages.
+1. Digi-Training Arena
+   - Minijuego de entrenamiento con 3 etapas progresivas: Velocidad, Memoria, Reflejos/Timing
+   - Sistema de puntos por rendimiento
+   - Rotación automática de etapas finales
+   - Sonido y retroalimentación háptica (vibración)
+   - Puntos: 50+ según desempeño
 
-🧩 Key Features
-1. Retro Aesthetic
-Bold orange/red color scheme.
+2. Marvel Combat Simulator
+   - Sistema de batalla por turnos entre superhéroes y villanos
+   - 4 héroes jugables: Spider-Man, Cyclops, Wolverine, Mr. Fantastic
+   - 6 villanos con estadísticas variadas: Magneto, Electro, Mysterio, Hobgoblin, Sentinel, Galactus
+   - Mecánicas: Ataque, Especial (crítico), Defensa
+   - 3 rondas progresivas de dificultad creciente
+   - 3 fondos de batalla dinámicos (1280x720px) que rotan aleatoriamente
+   - Registro de batalla en tiempo real
+   - Sistema de puntos: 50-80 según rondas completadas
 
-Large, chunky sidebar buttons.
+### Contenido de Series Agregado
 
-Stylized Audiowide font for headings and labels.
+10 nuevas series integradas a la plataforma con metadata completa:
+- Samurai Pizza Cats
+- Sonic X
+- Megaman Nt Warrior
+- Biker Mice From Mars
+- Totally Spies
+- Teenage Mutant Ninja Turtles 2003
+- Wishbone
+- Riding High
+- Underdog
+- C-Bear and Jamal
 
-2. Left Navigation Bar
-Big rectangular red buttons with white text.
+Cada serie incluye: carátula, duración, año, categoría, información de temporadas/episodios, y acceso a videos promocionales.
 
-Hover state turns text yellow.
+### Mejoras de Interfaz
 
-Categories: Series, Juegos, Artículos, Videos, Programación.
+- Carrusel de juegos responsive: scroll horizontal en móvil, grid 2 columnas en desktop
+- Fondos de batalla dinámicos para el simulador de combate
+- Barra de filtros mejorada: agregado filtro Acción/Aventura
+- Renombrado filtro COMICS a Marvel para mayor claridad
+- Unificación de tamaños de cards móviles: 160x270px en todas las galerías
+- Correcciones de codificación ASCII en textos: Próximos, Acción, Históricos, Programación
 
-3. Round Schedule Gallery
-Displays 10 circular thumbnails at a time (100×100 px).
+### Cambios de Navegación
 
-Scrolls one item at a time.
+- Normalización de menús en todas las páginas (index, series, shorts, programación-historia)
+- Navegación consistente: Inicio > Series > Shorts > Horarios
+- Estandarización de sistema de navegación con location.href
 
-24-hour loop: wraps to the start after last item.
+### Correcciones Técnicas
 
-4. YouTube Embed — “AHORA EN PANTALLA”
-Black box styled with red border.
+- Reparación de problemas de codificación de caracteres especiales
+- Corrección de rutas de imágenes
+- Optimización responsive para móvil y desktop
+- Ajustes en z-index y overlay para visibilidad de contenido
 
-Plays a featured video clip (e.g. Digimon, Power Rangers intros).
+## Próximas Características Planeadas
 
-5. Vertical Image Galleries
-Horizontal carousel: 5 visible items per row.
+1. Power Spinner - Rueda giratoria interactiva con sistema de puntos
+2. Villain Whacker - Minijuego arcade tipo Whack-a-Mole con villanos
+3. Quiz Retro - Trivia con preguntas sobre series clásicas
 
-Themes: SUPER SENTAI, INVASIÓN ANIME, COMEDY, etc.
+## Estructura Técnica
 
-Posters sized (e.g., 280×420) to match screen width.
+- HTML5 semántico con diseño responsive
+- CSS3 con media queries para móvil (600px, 768px)
+- JavaScript vanilla para interactividad
+- Librería Flickity para carruseles
+- Web Audio API para efectos de sonido
+- Vibration API para retroalimentación háptica
+- JSON estático para índice de series y videos
 
-Looping, one-by-one scroll with left/right arrows.
+## Archivos Principales
 
-6. New Article Pages ✍️
-New navigation section “Artículos” replaces old “Concursos” tab.
+- index.html - Página principal con secciones de contenido
+- series.html - Galería de series con filtros
+- shorts.html - Videos cortos y promocionales
+- marvel-combat-simulator.html - Juego de batalla por turnos
+- digi-training-arena.html - Minijuego de entrenamiento
+- programacion-historia.html - Horarios históricos
+- data/search-index.json - Índice centralizado de series y videos
+- img/games/combat-simulator/ - Assets del simulador de combate
 
-Main page (articles.html) shows horizontal Flickity-style carousel of featured articles.
+## Características Principales
 
-Each article links to a dedicated subpage (article01.html to article06.html).
+Estética Retro
+- Esquema de colores naranja/rojo audaz
+- Tipografía Audiowide para títulos y etiquetas
+- Diseño inspirado en la interfaz de Fox Kids años 2000
 
-Full articles include:
+Navegación Principal
+- Barra lateral fija con opciones: Inicio, Series, Shorts, Horarios
+- Menú responsive que se adapta a móvil y desktop
+- Sistema de tabs para contenido organizado
 
-Responsive hero image (recommended size: 1000×562 px or 16:9 ratio)
+Galerías y Carruseles
+- Galerías horizontales con scroll suave
+- Categorías: Super Sentai, Invasión Anime, Live Action, Comedy, Marvel
+- Cartas de series con overlay de información
 
-Proper use of <strong> for anime titles
+Secciones Destacadas
+- Ahora en Vivo: Programación actual con horarios
+- Juegos: Minijuegos arcade interactivos
+- Horarios: Históricos y programación futura
+- Series: Catálogo completo con búsqueda y filtros
 
+## Despliegue
 
-
-Site: https://foxkids-tribute.netlify.app/
+Rama: gh-pages en GitHub
+URL: https://dherrera85.github.io/Fox-Kids-Streaming
+Actualizaciones: Automáticas al hacer push a gh-pages

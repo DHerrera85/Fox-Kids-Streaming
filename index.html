@@ -1059,10 +1059,10 @@
   <div class="sidebar-toggle" onclick="toggleSidebar()">
     <div class="ni"><i class="fas fa-bars"></i></div>
   </div>
-  <div class="nav-item active" data-tab="home" onclick="go(this.dataset.tab)"><div class="ni"><i class="fas fa-house"></i></div><div class="label">Inicio</div></div>
+  <div class="nav-item active" onclick="location.href='index.html'"><div class="ni"><i class="fas fa-house"></i></div><div class="label">Inicio</div></div>
   <div class="nav-item" onclick="location.href='series.html'"><div class="ni"><i class="fas fa-tv"></i></div><div class="label">Series</div></div>
   <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni"><i class="fas fa-film"></i></div><div class="label">Shorts</div></div>
-  <div class="nav-item" data-tab="schedule" onclick="go(this.dataset.tab)"><div class="ni"><i class="fas fa-calendar"></i></div><div class="label">Horarios</div></div>
+  <div class="nav-item" onclick="location.href='programacion-historia.html'"><div class="ni"><i class="fas fa-calendar"></i></div><div class="label">Horarios</div></div>
 </nav>
 
 <!-- Reminder Modal -->
@@ -1094,10 +1094,10 @@
     Object.values(views).forEach(v=>v.classList.remove('active'));
     (views[tab]||views.home).classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});
-    toast('Secci•n: '+tab);
+    toast('Sección: '+tab);
   }
 
-  // Filtros de secci•n
+  // Filtros de sección
   function filterSections(section){
     const contentSections = document.querySelectorAll('.content-section');
     const filterButtons = document.querySelectorAll('.filter-btn');

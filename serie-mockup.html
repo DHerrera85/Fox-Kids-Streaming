@@ -97,11 +97,14 @@
       <div id="content" class="loading">Cargando serie...</div>
     </main>
 
-    <nav class="bottom-nav" aria-label="Navegación inferior">
+    <nav class="bottom-nav" id="sidebar" aria-label="Navegación inferior">
+      <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <div class="ni"><i class="fas fa-bars"></i></div>
+      </div>
       <div class="nav-item" onclick="location.href='index.html'"><div class="ni"><i class="fas fa-house"></i></div><div class="label">Inicio</div></div>
-      <div class="nav-item active"><div class="ni"><i class="fas fa-tv"></i></div><div class="label">Series</div></div>
+      <div class="nav-item active" onclick="location.href='series.html'"><div class="ni"><i class="fas fa-tv"></i></div><div class="label">Series</div></div>
+      <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni"><i class="fas fa-film"></i></div><div class="label">Shorts</div></div>
       <div class="nav-item" onclick="location.href='programacion-historia.html'"><div class="ni"><i class="fas fa-calendar"></i></div><div class="label">Horarios</div></div>
-      <div class="nav-item" onclick="location.href='shorts.html'"><div class="ni"><i class="fas fa-film"></i></div><div class="label">Videos</div></div>
     </nav>
   </div>
 

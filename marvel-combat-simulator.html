@@ -752,6 +752,13 @@
       { id: 'fantastic', name: 'Mr. Fantastic', image: 'img/games/combat-simulator/mr-fantastic-hero-300px-300px.png', hp: 95, attack: 22, defense: 20, special: 42 }
     ];
 
+    // Battle Backgrounds
+    const battleBackgrounds = [
+      'img/games/combat-simulator/marvel-combat-simulator-background-01-1280x720.jpg',
+      'img/games/combat-simulator/marvel-combat-simulator-background-02-1280x720.jpg',
+      'img/games/combat-simulator/marvel-combat-simulator-background-03-1280x720.jpg'
+    ];
+
     const villains = [
       { id: 'magneto', name: 'Magneto', image: 'img/games/combat-simulator/magneto-villain-300px-300px.png', hp: 130, attack: 28, defense: 15 },
       { id: 'electro', name: 'Electro', image: 'img/games/combat-simulator/electro-villain-300px-300px.png', hp: 100, attack: 26, defense: 10 },
@@ -829,6 +836,13 @@
       // Select random enemy based on round
       const availableVillains = round < 3 ? villains.slice(0, 4) : villains;
       currentEnemy = availableVillains[Math.floor(Math.random() * availableVillains.length)];
+
+      // Select random background
+      const randomBg = battleBackgrounds[Math.floor(Math.random() * battleBackgrounds.length)];
+      const battleArena = document.querySelector('.battle-arena');
+      battleArena.style.backgroundImage = `url('${randomBg}')`;
+      battleArena.style.backgroundSize = 'cover';
+      battleArena.style.backgroundPosition = 'center';
 
       // Initialize HP
       playerHP = selectedHero.hp;

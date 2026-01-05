@@ -1,5 +1,7 @@
 # Fox Kids Streaming - Plataforma Interactiva
 
+![Fox Kids Preview](docs/preview.png)
+
 ## Descripción General
 
 Plataforma web retro-temática inspirada en Fox Kids Latinoamérica de los años 2000. Sitio interactivo con series clásicas, minijuegos arcade, horarios de programación y una experiencia nostálgica completa.

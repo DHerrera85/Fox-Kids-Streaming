@@ -107,6 +107,20 @@
       "year": 1997,
       "region": "US"
     },
+      {
+        "id": "x-men-promo-japan-2000",
+        "name": "X-Men Promo",
+        "type": "video",
+        "category": "Shorts",
+        "subcategory": "Promos",
+        "series": "X-Men",
+        "seriesId": "x-men",
+        "file": "videos/shorts/promos/US/x-men-promo-japan.mp4",
+        "duration": "0:04",
+        "image": "videos/shorts/promos/US/x-men-promo-japan.jpg",
+        "year": 2000,
+        "region": "US"
+      },
     {
       "id": "x-men-opening-us-1992",
       "name": "X-Men Opening",

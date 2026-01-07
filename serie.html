@@ -96,7 +96,7 @@
     .error{color:#ff6b6b;}
 
   /* Bottom nav */
-  .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px,calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
+  .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:4px;width:min(430px,calc(100% - 20px));background:rgba(0,0,0,.82);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:10px;display:flex;justify-content:space-between;gap:8px;z-index:50;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);}
   .nav-item{flex:1;color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;border-radius:16px;user-select:none;cursor:pointer;font-size:11px;opacity:.9;transition:all .3s ease;font-family:'Audiowide',Impact,Haettenschweiler,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.02em;}
   .nav-item:hover{opacity:1;color:var(--yellow);transform:scale(1.1);}
   .nav-item .ni{font-size:18px;}
@@ -296,7 +296,8 @@
     function renderShortCard(item){
       const bg=item.image?`background-image:url('${item.image}');background-size:cover;background-position:center;background-repeat:no-repeat;`:`background:linear-gradient(135deg,#ff7a00,#ff2b70 55%,#7c3aed);`; 
       const badge=norm(item.category)==='openings'||norm(item.subcategory)==='openings'?'OPENING':'PROMO'; 
-      const region=item.region?` • ${item.region}`:'';
+      const displayRegion=item.regionLabel||item.region; 
+      const region=displayRegion?` • ${displayRegion}`:'';
       const payload=JSON.stringify(item).replace(/"/g,'&quot;'); // encode to avoid breaking attribute when names have apostrophes
       return `<div class="short" style="${bg}" data-item="${payload}" onclick="playShort(JSON.parse(this.dataset.item))">
         <div class="badge">${badge}${region}</div>

@@ -119,7 +119,8 @@
         "duration": "0:04",
         "image": "videos/shorts/promos/US/x-men-promo-japan.jpg",
         "year": 2000,
-        "region": "US"
+        "region": "US",
+        "regionLabel": "Japan"
       },
     {
       "id": "x-men-opening-us-1992",

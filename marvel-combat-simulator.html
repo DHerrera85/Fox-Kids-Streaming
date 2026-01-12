@@ -900,6 +900,7 @@
       updateBattleLog('¡Combate iniciado! ' + selectedHero.name + ' vs ' + currentEnemy.name);
       
       showScreen('battleScreen');
+      enableActions();
     }
 
     function playerAction(action) {
@@ -930,13 +931,7 @@
       // Check if enemy is defeated
       if (enemyHP <= 0) {
         setTimeout(() => {
-          round++;
-          if (round <= 3) {
-            updateBattleLog('¡Victoria! Preparando siguiente ronda...');
-            setTimeout(startBattle, 2000);
-          } else {
-            endBattle(true);
-          }
+          endBattle(true);
         }, 1500);
         return;
       }
@@ -1108,7 +1103,13 @@
       selectedHero.hp = playerHP;
       // Clear battle log
       document.getElementById('battleLog').innerHTML = '<div class="log-entry">¡Combate iniciado!</div>';
+      // Re-enable special button
+      document.getElementById('specialBtn').disabled = false;
       startBattle();
+      // Enable actions after battle starts
+      setTimeout(() => {
+        enableActions();
+      }, 500);
     }
 
     function showScreen(screenId) {

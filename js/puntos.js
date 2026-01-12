@@ -554,6 +554,43 @@ const FoxKidsGameSystem = {
       const icon = tierInfo ? tierInfo.icon : '';
       subEl.textContent = `${icon} ${user.tier} • ${user.totalPoints.toLocaleString()} puntos`;
     }
+
+    // Actualizar contador de puntos en header de juegos (si existe)
+    const pointsEl = document.getElementById('topbar-points');
+    if (pointsEl) {
+      pointsEl.textContent = user.totalPoints.toString();
+    }
+
+    // Actualizar ícono de tier en header de juegos (si existe)
+    const tierEl = document.getElementById('topbar-tier');
+    if (tierEl) {
+      const tierIcons = {
+        'Fan Novato': '★',
+        'Fan Mode': '◆',
+        'Super Fan': '✦',
+        'VIP': '✶',
+        'Leyenda': '◇'
+      };
+      tierEl.textContent = tierIcons[user.tier] || '★';
+    }
+
+    // Actualizar display de Marvel Combat (si existe)
+    const marvelPointsDisplay = document.getElementById('marvel-points-display');
+    const marvelPointsValue = document.getElementById('marvel-points-value');
+    const marvelTierIcon = document.getElementById('marvel-tier-icon');
+    
+    if (marvelPointsDisplay && marvelPointsValue && marvelTierIcon) {
+      marvelPointsDisplay.style.display = 'flex';
+      marvelPointsValue.textContent = user.totalPoints.toString();
+      const tierIcons = {
+        'Fan Novato': '★',
+        'Fan Mode': '◆',
+        'Super Fan': '✦',
+        'VIP': '✶',
+        'Leyenda': '◇'
+      };
+      marvelTierIcon.textContent = tierIcons[user.tier] || '★';
+    }
   },
 
   showPointsReward: function(points, source) {
@@ -583,9 +620,12 @@ const FoxKidsGameSystem = {
 
   getSourceLabel: function(source) {
     const labels = {
+      'digi-training': 'Digi Training Arena',
       'digiTraining': 'Digi Training Arena',
+      'marvel-combat': 'Marvel Combat Simulator',
       'marvelCombat': 'Marvel Combat Simulator',
       'videoWatch': 'Video completado',
+      'video-watch': 'Video completado',
       'achievement': 'Logro desbloqueado',
       'tier_upgrade_bonus': 'Bonus de tier',
       'streak_bonus': 'Bonus de racha'

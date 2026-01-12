@@ -1540,8 +1540,8 @@
         document.getElementById('pointsEarned').textContent = '+' + points;
         
         // GAMIFICACIÓN: Registrar puntos por derrota
-        if(typeof gainPoints === 'function') {
-          gainPoints(points, 'marvel-combat', {
+        if(typeof FoxKidsGameSystem !== 'undefined' && FoxKidsGameSystem.addPoints) {
+          FoxKidsGameSystem.addPoints(points, 'marvel-combat', {
             hero: selectedHero.name,
             opponent: selectedEnemy.name,
             roundsReached: round - 1,
@@ -1549,7 +1549,6 @@
             victory: false,
             timestamp: new Date().toISOString()
           });
-          updateMarvelPointsDisplay();
         }
         
         setTimeout(() => showScreen('resultScreen'), 500);
@@ -1576,8 +1575,8 @@
           document.getElementById('pointsEarned').textContent = '+' + points;
           
           // GAMIFICACIÓN: Registrar puntos por victoria total
-          if(typeof gainPoints === 'function') {
-            gainPoints(points, 'marvel-combat', {
+          if(typeof FoxKidsGameSystem !== 'undefined' && FoxKidsGameSystem.addPoints) {
+            FoxKidsGameSystem.addPoints(points, 'marvel-combat', {
               hero: selectedHero.name,
               opponent: selectedEnemy.name,
               roundsCompleted: maxRounds,
@@ -1586,7 +1585,6 @@
               perfectedRounds: round === maxRounds ? maxRounds : round - 1,
               timestamp: new Date().toISOString()
             });
-            updateMarvelPointsDisplay();
           }
           
           setTimeout(() => showScreen('resultScreen'), 500);
@@ -1624,26 +1622,14 @@
       document.getElementById(screenId).classList.add('active');
     }
 
-    // GAMIFICACIÓN: Funciones de actualización de display
-    function updateMarvelPointsDisplay() {
-      if(typeof getPlayerProfile === 'function') {
-        const profile = getPlayerProfile();
-        const pointsDisplay = document.getElementById('marvel-points-display');
-        const pointsValue = document.getElementById('marvel-points-value');
-        const tierIcon = document.getElementById('marvel-tier-icon');
-        
-        if(pointsDisplay) pointsDisplay.style.display = 'flex';
-        if(pointsValue) pointsValue.textContent = (profile.totalPoints || 0).toString();
-        if(tierIcon) {
-          const tierIcons = ['★', '◆', '✦', '✶', '◇'];
-          const tierIndex = profile.currentTier || 0;
-          tierIcon.textContent = tierIcons[Math.min(tierIndex, 4)];
+    // GAMIFICACIÓN: Inicializar display de puntos
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        if(typeof FoxKidsGameSystem !== 'undefined') {
+          FoxKidsGameSystem.syncHeaderDisplay();
         }
-      }
-    }
-    
-    // Actualizar display al iniciar
-    updateMarvelPointsDisplay();
+      }, 100);
+    });
     
     // Initialize game
     init();

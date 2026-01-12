@@ -793,15 +793,14 @@
     sessionMeta.textContent = '3/3 pruebas';
     
     // GAMIFICACIÓN: Vincular puntos al sistema de gamificación
-    if(typeof gainPoints === 'function') {
+    if(typeof FoxKidsGameSystem !== 'undefined' && FoxKidsGameSystem.addPoints) {
       const finalPoints = 50 + Math.round(earned * 0.05);
-      gainPoints(finalPoints, 'digi-training', {
+      FoxKidsGameSystem.addPoints(finalPoints, 'digi-training', {
         digimon: getD(selected).name,
         difficulty: difficultyLabel().label,
         sessionScore: earned,
         timestamp: new Date().toISOString()
       });
-      updatePointsDisplay();
     }
     
     session = null;
@@ -951,24 +950,17 @@
     document.getElementById('btnStart').disabled = false;
     toast('Continuando con: ' + getD(selected).name);
   }
-  
-  // GAMIFICACIÓN: Actualizar display de puntos
-  function updatePointsDisplay() {
-    if(typeof getPlayerProfile === 'function') {
-      const profile = getPlayerProfile();
-      const pointsEl = document.getElementById('topbar-points');
-      const tierEl = document.getElementById('topbar-tier');
-      if(pointsEl) pointsEl.textContent = (profile.totalPoints || 0).toString();
-      if(tierEl) {
-        const tierIcons = ['★', '◆', '✦', '✶', '◇'];
-        const tierIndex = profile.currentTier || 0;
-        tierEl.textContent = tierIcons[Math.min(tierIndex, 4)];
-      }
-    }
-  }
-  
-  updatePointsDisplay();
 </script>
 <script src="js/puntos.js"></script>
+<script>
+  // GAMIFICACIÓN: Actualizar display de puntos después de cargar puntos.js
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      if(typeof FoxKidsGameSystem !== 'undefined') {
+        FoxKidsGameSystem.syncHeaderDisplay();
+      }
+    }, 100);
+  });
+</script>
 </body>
 </html>

@@ -177,7 +177,7 @@
       </div>
       <div class="video-frame">
         <div class="video-inner">
-          <video id="mainVideo" class="horizontal" style="display:none;" controls playsinline>
+          <video id="mainVideo" class="horizontal" style="display:none;" controls playsinline onerror="console.error('Video error event fired:', this.error)">
             Tu navegador no soporta videos HTML5
           </video>
           <div id="playerPlaceholder" style="position:absolute;inset:0;background:#111;border-radius:12px;padding:40px;text-align:center;color:#FFD200;display:flex;align-items:center;justify-content:center;">
@@ -365,15 +365,43 @@
     const playerTitle = document.getElementById('playerTitle');
     const playPauseBtn = document.getElementById('playPauseBtn');
 
+    // Diagnóstico en consola
+    console.log('🎬 playShort() called with:', videoSrc);
+    console.log('mainVideo element:', mainVideo);
+    console.log('playerPlaceholder element:', playerPlaceholder);
+
+    // Validar que los elementos existan
+    if (!mainVideo) {
+      console.error('❌ Error: mainVideo element not found!');
+      return;
+    }
+    if (!playerPlaceholder) {
+      console.error('❌ Error: playerPlaceholder element not found!');
+      return;
+    }
+
     const aspect = event?.currentTarget?.dataset?.aspectRatio || 'horizontal';
     setVideoAspect(aspect);
     
     mainVideo.src = videoSrc;
+    console.log('✓ Video src set to:', mainVideo.src);
+    
     playerPlaceholder.style.display = 'none';
     mainVideo.style.display = 'block';
+    console.log('✓ Video display: block');
+    
     mainVideo.load();
-    mainVideo.play().catch(()=>{ try { showToast('Pulsa ▶ para continuar'); } catch(_){} });
-    playPauseBtn.textContent = '⏸ Pausar';
+    console.log('✓ Video loaded');
+    
+    mainVideo.play()
+      .then(() => {
+        console.log('✓ Video playing');
+        playPauseBtn.textContent = '⏸ Pausar';
+      })
+      .catch((err) => {
+        console.error('❌ Error playing video:', err);
+        showToast('Pulsa ▶ para continuar');
+      });
     
     const filename = videoSrc.split('/').pop().replace('.mp4', '').replace(/-/g, ' ').toUpperCase();
     playerTitle.textContent = filename;
@@ -499,6 +527,21 @@
     }catch(err){}
   }
   document.addEventListener('DOMContentLoaded', () => {
+    // Diagnosticar elemento mainVideo
+    const mainVideo = document.getElementById('mainVideo');
+    console.log('📺 mainVideo element on DOMContentLoaded:', mainVideo);
+    
+    if (mainVideo) {
+      mainVideo.addEventListener('loadstart', () => console.log('📺 Video loadstart event'));
+      mainVideo.addEventListener('canplay', () => console.log('✓ Video canplay event'));
+      mainVideo.addEventListener('error', (e) => {
+        console.error('❌ Video error:', e, 'Error code:', mainVideo.error?.code, 'Error message:', mainVideo.error?.message);
+      });
+      mainVideo.addEventListener('play', () => console.log('▶ Video playing'));
+      mainVideo.addEventListener('pause', () => console.log('⏸ Video paused'));
+      mainVideo.addEventListener('ended', () => console.log('⏹ Video ended'));
+    }
+    
     // load queue
     loadQueueFromStorage();
     // restore index

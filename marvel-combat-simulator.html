@@ -389,6 +389,39 @@
       50% { opacity: 0.7; }
     }
 
+    /* Energy Bar */
+    .energy-bar-container {
+      background: rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,196,0,0.3);
+      border-radius: 10px;
+      height: 20px;
+      overflow: hidden;
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .energy-bar {
+      background: linear-gradient(90deg, #ffaa00, #ffff00);
+      height: 100%;
+      transition: width 0.3s ease, background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 900;
+      color: #111;
+    }
+
+    .energy-bar.full {
+      background: linear-gradient(90deg, #ff00ff, #ff44ff);
+      animation: energyPulse 0.6s infinite;
+    }
+
+    @keyframes energyPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
     /* Battle Actions */
     .battle-actions {
       display: flex;
@@ -490,6 +523,17 @@
     .log-entry.critical {
       color: #FFD200;
       font-weight: 900;
+    }
+
+    .log-entry.combo {
+      color: #ff00ff;
+      font-weight: 900;
+      text-shadow: 0 0 8px rgba(255,0,255,0.6);
+    }
+
+    .log-entry.warning {
+      color: #ffaa00;
+      font-style: italic;
     }
 
     /* Victory/Defeat Screen */
@@ -680,6 +724,11 @@
                     <span id="playerHealthText">100 / 100</span>
                   </div>
                 </div>
+                <div class="energy-bar-container">
+                  <div class="energy-bar" id="playerEnergy" style="width: 0%;">
+                    <span id="playerEnergyText">0 / 100</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -694,6 +743,11 @@
                 <div class="health-bar-container">
                   <div class="health-bar" id="enemyHealth" style="width: 100%;">
                     <span id="enemyHealthText">100 / 100</span>
+                  </div>
+                </div>
+                <div class="energy-bar-container">
+                  <div class="energy-bar" id="enemyEnergy" style="width: 0%;">
+                    <span id="enemyEnergyText">0 / 100</span>
                   </div>
                 </div>
               </div>
@@ -807,6 +861,15 @@
     let totalDamageDealt = 0;
     let roundDamageDealt = 0;
     let specialCharges = 3;
+    
+    // Combo System
+    let playerCombo = 0;
+    let playerEnergy = 0;
+    let playerMaxEnergy = 100;
+    let enemyCombo = 0;
+    let enemyEnergy = 0;
+    let enemyMaxEnergy = 100;
+    let lastActionWasAttack = false;
 
     // Initialize
     function init() {
@@ -888,6 +951,13 @@
       isDefending = false;
       specialCharges = 3;
       roundDamageDealt = 0;
+      
+      // Initialize Combo/Energy System
+      playerCombo = 0;
+      playerEnergy = 0;
+      enemyCombo = 0;
+      enemyEnergy = 0;
+      lastActionWasAttack = false;
 
       // Update UI
       document.getElementById('playerImage').src = selectedHero.image;
@@ -907,13 +977,26 @@
       disableActions();
 
       if (action === 'attack') {
-        const damage = calculateDamage(selectedHero.attack, currentEnemy.defense);
+        // Aumentar combo y energía
+        playerCombo++;
+        playerEnergy = Math.min(playerMaxEnergy, playerEnergy + 15);
+        
+        const comboMultiplier = 1 + (Math.min(playerCombo - 1, 4) * 0.25); // Max 2.25x con 5+ combos
+        const damage = calculateDamage(selectedHero.attack, currentEnemy.defense, false, comboMultiplier);
         dealDamage('enemy', damage);
         animateAttack('player');
-        updateBattleLog(`${selectedHero.name} ataca e inflige ${damage} de daño!`, 'damage');
+        
+        if (playerCombo > 1) {
+          updateBattleLog(`${selectedHero.name} ataca! ¡COMBO x${playerCombo}! ${damage} de daño!`, 'combo');
+        } else {
+          updateBattleLog(`${selectedHero.name} ataca e inflige ${damage} de daño!`, 'damage');
+        }
+        lastActionWasAttack = true;
       } else if (action === 'special') {
-        if (specialCharges > 0) {
-          const damage = calculateDamage(selectedHero.special, currentEnemy.defense, true);
+        if (specialCharges > 0 && playerEnergy >= 50) {
+          playerCombo = 0; // Reset combo al usar especial
+          playerEnergy = Math.max(0, playerEnergy - 50);
+          const damage = calculateDamage(selectedHero.special, currentEnemy.defense, true, 1.5);
           dealDamage('enemy', damage);
           animateAttack('player');
           specialCharges--;
@@ -922,11 +1005,21 @@
           if (specialCharges === 0) {
             document.getElementById('specialBtn').disabled = true;
           }
+        } else if (playerEnergy < 50) {
+          updateBattleLog(`¡Energía insuficiente! Se necesitan 50 puntos de energía`, 'warning');
+          enableActions();
+          return;
         }
+        lastActionWasAttack = false;
       } else if (action === 'defend') {
         isDefending = true;
+        playerCombo = 0; // Reset combo al defenderse
+        playerEnergy = Math.min(playerMaxEnergy, playerEnergy + 20); // Generar energía al defender
         updateBattleLog(`${selectedHero.name} se defiende...`, 'heal');
+        lastActionWasAttack = false;
       }
+      
+      updateEnergyBars();
 
       // Check if enemy is defeated
       if (enemyHP <= 0) {
@@ -947,23 +1040,35 @@
       const action = actions[Math.floor(Math.random() * actions.length)];
 
       if (action === 'attack') {
-        let damage = calculateDamage(currentEnemy.attack, selectedHero.defense);
+        // Aumentar combo y energía del enemigo
+        enemyCombo++;
+        enemyEnergy = Math.min(enemyMaxEnergy, enemyEnergy + 15);
+        const comboMultiplier = 1 + (Math.min(enemyCombo - 1, 4) * 0.25);
+        
+        let damage = calculateDamage(currentEnemy.attack, selectedHero.defense, false, comboMultiplier);
         if (isDefending) {
           damage = Math.floor(damage * 0.5);
           updateBattleLog(`${currentEnemy.name} ataca, pero ${selectedHero.name} reduce el daño a ${damage}!`);
         } else {
-          updateBattleLog(`${currentEnemy.name} ataca e inflige ${damage} de daño!`, 'damage');
+          if (enemyCombo > 1) {
+            updateBattleLog(`${currentEnemy.name} ataca! ¡COMBO x${enemyCombo}! ${damage} de daño!`, 'combo');
+          } else {
+            updateBattleLog(`${currentEnemy.name} ataca e inflige ${damage} de daño!`, 'damage');
+          }
         }
         dealDamage('player', damage);
         animateAttack('enemy');
       } else {
-        const damage = calculateDamage(currentEnemy.attack * 1.5, selectedHero.defense, true);
+        enemyCombo = 0;
+        enemyEnergy = Math.max(0, enemyEnergy - 50);
+        const damage = calculateDamage(currentEnemy.attack * 1.5, selectedHero.defense, true, 1.5);
         dealDamage('player', damage);
         animateAttack('enemy');
         updateBattleLog(`¡${currentEnemy.name} usa un ataque devastador! ${damage} de daño!`, 'critical');
       }
 
       isDefending = false;
+      updateEnergyBars();
 
       // Check if player is defeated
       if (playerHP <= 0) {
@@ -974,13 +1079,25 @@
       setTimeout(() => enableActions(), 1000);
     }
 
-    function calculateDamage(attack, defense, isCritical = false) {
+    function calculateDamage(attack, defense, isCritical = false, comboMultiplier = 1) {
       const baseDamage = Math.max(5, attack - defense);
       const variance = Math.floor(Math.random() * 10) - 5;
       let damage = baseDamage + variance;
       
+      // Aplicar multiplicador de combo
+      damage = Math.floor(damage * comboMultiplier);
+      
+      // Calcular crítico basado en estadísticas
+      let critChance = 0;
       if (isCritical) {
+        critChance = 50; // 50% de chance en ataque especial
+      } else if (selectedHero && selectedHero.attack > currentEnemy.defense) {
+        critChance = Math.floor((selectedHero.attack - currentEnemy.defense) / 10); // Basado en diferencia de ataque
+      }
+      
+      if (Math.random() * 100 < critChance) {
         damage = Math.floor(damage * 1.5);
+        isCritical = true;
       }
       
       return Math.max(5, damage);
@@ -1024,6 +1141,24 @@
       } else if (percent <= 50) {
         bar.classList.add('low');
       }
+    }
+
+    function updateEnergyBars() {
+      const playerPercent = (playerEnergy / playerMaxEnergy) * 100;
+      const enemyPercent = (enemyEnergy / enemyMaxEnergy) * 100;
+
+      const playerBar = document.getElementById('playerEnergy');
+      const enemyBar = document.getElementById('enemyEnergy');
+
+      playerBar.style.width = playerPercent + '%';
+      enemyBar.style.width = enemyPercent + '%';
+
+      document.getElementById('playerEnergyText').textContent = `${Math.floor(playerEnergy)} / ${playerMaxEnergy}`;
+      document.getElementById('enemyEnergyText').textContent = `${Math.floor(enemyEnergy)} / ${enemyMaxEnergy}`;
+
+      // Highlight when full energy
+      playerBar.classList.toggle('full', playerEnergy >= playerMaxEnergy);
+      enemyBar.classList.toggle('full', enemyEnergy >= enemyMaxEnergy);
     }
 
     function animateAttack(attacker) {
@@ -1105,6 +1240,9 @@
       document.getElementById('battleLog').innerHTML = '<div class="log-entry">¡Combate iniciado!</div>';
       // Re-enable special button
       document.getElementById('specialBtn').disabled = false;
+      // Reset combos for new round
+      playerCombo = 0;
+      enemyCombo = 0;
       startBattle();
       // Enable actions after battle starts
       setTimeout(() => {

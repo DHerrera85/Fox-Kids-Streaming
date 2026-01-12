@@ -196,3 +196,46 @@ function toggleSidebar() {
     }
   }
 }
+// Función para reorganizar aleatoriamente elementos en un contenedor
+function shuffleGallery(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  
+  const items = Array.from(container.children);
+  
+  // Fisher-Yates shuffle algorithm
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = items[i];
+    items[i] = items[j];
+    items[j] = temp;
+  }
+  
+  // Reordenar en el DOM
+  items.forEach(item => {
+    container.appendChild(item);
+  });
+}
+
+// Ejecutar shuffle al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+  // Shuffle de Shorts en index.html
+  if (document.getElementById('shortsCarousel')) {
+    shuffleGallery('shortsCarousel');
+  }
+  
+  // Shuffle de Openings en shorts.html
+  if (document.getElementById('openingsCarousel')) {
+    shuffleGallery('openingsCarousel');
+  }
+  
+  // Shuffle de Promos USA en shorts.html
+  if (document.getElementById('promosUSACarousel')) {
+    shuffleGallery('promosUSACarousel');
+  }
+  
+  // Shuffle de Promos LATAM en shorts.html
+  if (document.getElementById('promosLatamCarousel')) {
+    shuffleGallery('promosLatamCarousel');
+  }
+});

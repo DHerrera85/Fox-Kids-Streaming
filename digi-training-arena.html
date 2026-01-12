@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/gamification.css">
 <title>Digi-Training Arena – Fox Kids (Demo)</title>
 <style>
   :root{--bg:#ff4a00;--bg2:#ff5b1a;--red:#b00000;--red2:#e20000;--yellow:#ffc400;--card:#ffffff;--ink:#0e0f14;--muted:#6b7280;--radius:18px;--shadow:0 14px 30px rgba(0,0,0,.22);--article-w:140px;--article-h:230px;--article-img-h:150px;}
@@ -177,6 +178,8 @@
         </div>
       </div>
       <div class="icons">
+        <div class="icon-btn" title="Puntos" style="background:rgba(255,196,0,.25);border-color:rgba(255,196,0,.4);position:relative;"><span class="icon"><i class="fas fa-star"></i></span><span id="topbar-points" style="position:absolute;top:-8px;right:-8px;background:var(--yellow);color:#111;border-radius:50%;width:24px;height:24px;display:grid;place-items:center;font-size:10px;font-weight:900;">0</span></div>
+        <div class="icon-btn" title="Tier" style="background:rgba(255,196,0,.15);border-color:rgba(255,196,0,.3);"><span class="icon" id="topbar-tier" style="font-size:14px;">★</span></div>
         <div class="icon-btn" onclick="location.href='index.html'" title="Inicio"><span class="icon"><i class="fas fa-house"></i></span></div>
         <div class="icon-btn" onclick="resetAll()" title="Reset"><span class="icon"><i class="fas fa-rotate-right"></i></span></div>
         <div class="icon-btn" id="btnMute" onclick="toggleMute()" title="Sonido"><span class="icon"><i class="fas fa-volume-high"></i></span></div>
@@ -788,6 +791,19 @@
     chPts.textContent   = `+${earned}`;
     bar.style.width = '100%';
     sessionMeta.textContent = '3/3 pruebas';
+    
+    // GAMIFICACIÓN: Vincular puntos al sistema de gamificación
+    if(typeof gainPoints === 'function') {
+      const finalPoints = 50 + Math.round(earned * 0.05);
+      gainPoints(finalPoints, 'digi-training', {
+        digimon: getD(selected).name,
+        difficulty: difficultyLabel().label,
+        sessionScore: earned,
+        timestamp: new Date().toISOString()
+      });
+      updatePointsDisplay();
+    }
+    
     session = null;
     playFanfare();
     haptic(28);
@@ -935,6 +951,24 @@
     document.getElementById('btnStart').disabled = false;
     toast('Continuando con: ' + getD(selected).name);
   }
+  
+  // GAMIFICACIÓN: Actualizar display de puntos
+  function updatePointsDisplay() {
+    if(typeof getPlayerProfile === 'function') {
+      const profile = getPlayerProfile();
+      const pointsEl = document.getElementById('topbar-points');
+      const tierEl = document.getElementById('topbar-tier');
+      if(pointsEl) pointsEl.textContent = (profile.totalPoints || 0).toString();
+      if(tierEl) {
+        const tierIcons = ['★', '◆', '✦', '✶', '◇'];
+        const tierIndex = profile.currentTier || 0;
+        tierEl.textContent = tierIcons[Math.min(tierIndex, 4)];
+      }
+    }
+  }
+  
+  updatePointsDisplay();
 </script>
+<script src="js/puntos.js"></script>
 </body>
 </html>

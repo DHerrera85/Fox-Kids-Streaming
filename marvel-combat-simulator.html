@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/gamification.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
@@ -50,6 +51,29 @@
       font-weight: 900;
       color: #FFD200;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .header-points {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,212,0,0.15);
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,212,0,0.3);
+      margin-left: auto;
+      margin-right: 10px;
+    }
+
+    .header-points-value {
+      font-weight: 900;
+      color: #FFD200;
+      font-size: 14px;
+    }
+
+    .header-tier {
+      font-size: 16px;
+      color: #FFD200;
     }
 
     .back-btn {
@@ -697,6 +721,10 @@
     <div class="logo-section">
       <img src="img/FOX_Kids_logo-_200___176-transparent.png" alt="Fox Kids" class="logo-img">
       <div class="game-title">Marvel Combat Simulator</div>
+    </div>
+    <div class="header-points" id="marvel-points-display" style="display:none;">
+      <i class="fas fa-star header-tier" id="marvel-tier-icon">★</i>
+      <span class="header-points-value" id="marvel-points-value">0</span>
     </div>
     <a href="index.html" class="back-btn">◀ Volver</a>
   </div>
@@ -1510,6 +1538,20 @@
         document.getElementById('totalRounds').textContent = round - 1;
         document.getElementById('totalDamage').textContent = totalDamageDealt;
         document.getElementById('pointsEarned').textContent = '+' + points;
+        
+        // GAMIFICACIÓN: Registrar puntos por derrota
+        if(typeof gainPoints === 'function') {
+          gainPoints(points, 'marvel-combat', {
+            hero: selectedHero.name,
+            opponent: selectedEnemy.name,
+            roundsReached: round - 1,
+            damageDealt: totalDamageDealt,
+            victory: false,
+            timestamp: new Date().toISOString()
+          });
+          updateMarvelPointsDisplay();
+        }
+        
         setTimeout(() => showScreen('resultScreen'), 500);
       } else {
         // Player won this round
@@ -1526,12 +1568,27 @@
           setTimeout(() => showScreen('roundResultScreen'), 500);
         } else {
           // Final victory - completed all rounds
-          const points = 50 + (maxRounds * 10);
+          const points = 40 + Math.round(totalDamageDealt * 0.04);
           document.getElementById('resultTitle').textContent = '¡Victoria Total!';
           document.getElementById('resultTitle').className = 'result-title victory';
           document.getElementById('totalRounds').textContent = round;
           document.getElementById('totalDamage').textContent = totalDamageDealt;
           document.getElementById('pointsEarned').textContent = '+' + points;
+          
+          // GAMIFICACIÓN: Registrar puntos por victoria total
+          if(typeof gainPoints === 'function') {
+            gainPoints(points, 'marvel-combat', {
+              hero: selectedHero.name,
+              opponent: selectedEnemy.name,
+              roundsCompleted: maxRounds,
+              damageDealt: totalDamageDealt,
+              victory: true,
+              perfectedRounds: round === maxRounds ? maxRounds : round - 1,
+              timestamp: new Date().toISOString()
+            });
+            updateMarvelPointsDisplay();
+          }
+          
           setTimeout(() => showScreen('resultScreen'), 500);
         }
       }
@@ -1567,8 +1624,30 @@
       document.getElementById(screenId).classList.add('active');
     }
 
+    // GAMIFICACIÓN: Funciones de actualización de display
+    function updateMarvelPointsDisplay() {
+      if(typeof getPlayerProfile === 'function') {
+        const profile = getPlayerProfile();
+        const pointsDisplay = document.getElementById('marvel-points-display');
+        const pointsValue = document.getElementById('marvel-points-value');
+        const tierIcon = document.getElementById('marvel-tier-icon');
+        
+        if(pointsDisplay) pointsDisplay.style.display = 'flex';
+        if(pointsValue) pointsValue.textContent = (profile.totalPoints || 0).toString();
+        if(tierIcon) {
+          const tierIcons = ['★', '◆', '✦', '✶', '◇'];
+          const tierIndex = profile.currentTier || 0;
+          tierIcon.textContent = tierIcons[Math.min(tierIndex, 4)];
+        }
+      }
+    }
+    
+    // Actualizar display al iniciar
+    updateMarvelPointsDisplay();
+    
     // Initialize game
     init();
   </script>
+  <script src="js/puntos.js"></script>
 </body>
 </html>

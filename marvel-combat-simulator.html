@@ -174,11 +174,23 @@
       font-size: 14px;
       font-weight: 900;
       color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .hero-ability {
+      font-size: 10px;
+      color: #FFD200;
+      font-weight: 700;
       margin-bottom: 8px;
+      text-shadow: 0 0 4px rgba(255,196,0,0.5);
     }
 
     .hero-card.selected .hero-name {
       color: #111;
+    }
+
+    .hero-card.selected .hero-ability {
+      color: #e20000;
     }
 
     .hero-stats {
@@ -208,6 +220,7 @@
     .stat-value {
       font-weight: 900;
       font-size: 13px;
+    }
     }
 
     .start-battle-btn {
@@ -1025,10 +1038,10 @@
 
     // Game Data
     const heroes = [
-      { id: 'spiderman', name: 'Spider-Man', image: 'img/games/combat-simulator/spiderman-hero-300px-300px.png', hp: 100, attack: 25, defense: 15, special: 40 },
-      { id: 'cyclops', name: 'Cyclops', image: 'img/games/combat-simulator/cyclops-hero-300px-300px-hero.png', hp: 110, attack: 30, defense: 12, special: 45 },
-      { id: 'wolverine', name: 'Wolverine', image: 'img/games/combat-simulator/wolverine-300px-300px-hero.png', hp: 120, attack: 28, defense: 18, special: 38 },
-      { id: 'fantastic', name: 'Mr. Fantastic', image: 'img/games/combat-simulator/mr-fantastic-hero-300px-300px.png', hp: 95, attack: 22, defense: 20, special: 42 }
+      { id: 'spiderman', name: 'Spider-Man', image: 'img/games/combat-simulator/spiderman-hero-300px-300px.png', hp: 100, attack: 25, defense: 15, special: 40, ability: 'Telaraña', abilityDesc: 'Reduce ataque enemigo 50%' },
+      { id: 'cyclops', name: 'Cyclops', image: 'img/games/combat-simulator/cyclops-hero-300px-300px-hero.png', hp: 110, attack: 30, defense: 12, special: 45, ability: 'Rayo Óptico', abilityDesc: 'Crítico garantizado' },
+      { id: 'wolverine', name: 'Wolverine', image: 'img/games/combat-simulator/wolverine-300px-300px-hero.png', hp: 120, attack: 28, defense: 18, special: 38, ability: 'Regeneración', abilityDesc: 'Recupera HP + Energía' },
+      { id: 'fantastic', name: 'Mr. Fantastic', image: 'img/games/combat-simulator/mr-fantastic-hero-300px-300px.png', hp: 95, attack: 22, defense: 20, special: 42, ability: 'Barrera Elástica', abilityDesc: 'Defensa + Red' }
     ];
 
     // Battle Backgrounds
@@ -1069,6 +1082,13 @@
     let enemyEnergy = 0;
     let enemyMaxEnergy = 100;
     let lastActionWasAttack = false;
+    
+    // Special Effects
+    let enemyAttackReduced = false;
+    let enemyAttackReducedTurns = 0;
+    let playerDefenseBoost = false;
+    let playerDefenseBoostTurns = 0;
+    let nextEnemyAttackReduced = false;
 
     // Initialize
     function init() {
@@ -1090,6 +1110,7 @@
         card.innerHTML = `
           <img src="${hero.image}" alt="${hero.name}" class="hero-image">
           <div class="hero-name">${hero.name}</div>
+          <div class="hero-ability">${hero.ability}</div>
           <div class="hero-stats">
             <div class="stat">
               <span class="stat-label">HP</span>
@@ -1202,12 +1223,11 @@
         if (specialCharges > 0 && playerEnergy >= 50) {
           playerCombo = 0; // Reset combo al usar especial
           playerEnergy = Math.max(0, playerEnergy - 50);
-          const damage = calculateDamage(selectedHero.special, currentEnemy.defense, true, 1.5);
-          dealDamage('enemy', damage);
-          animateAttack('player');
-          playSpecialSound();
           specialCharges--;
-          updateBattleLog(`¡${selectedHero.name} usa su ataque especial! ${damage} de daño crítico!`, 'critical');
+          playSpecialSound();
+          
+          // Ejecutar habilidad especial según el héroe
+          executeHeroAbility(selectedHero.id);
           
           if (specialCharges === 0) {
             document.getElementById('specialBtn').disabled = true;
@@ -1248,6 +1268,48 @@
       }, 1000);
     }
 
+    function executeHeroAbility(heroId) {
+      switch(heroId) {
+        case 'spiderman': {
+          // Telaraña: Reduce ataque enemigo 50%
+          enemyAttackReduced = true;
+          enemyAttackReducedTurns = 1;
+          updateBattleLog(`¡${selectedHero.name} lanza una telaraña! ¡El ataque de ${currentEnemy.name} se reduce 50%!`, 'critical');
+          animateAttack('player');
+          break;
+        }
+        case 'wolverine': {
+          // Regeneración: Recupera HP + Energía
+          const hpRestore = 25;
+          playerHP = Math.min(playerMaxHP, playerHP + hpRestore);
+          playerEnergy = Math.min(playerMaxEnergy, playerEnergy + 30);
+          updateBattleLog(`¡${selectedHero.name} se regenera! Recupera ${hpRestore} HP + 30 de energía!`, 'heal');
+          animateAttack('player');
+          updateHealthBars();
+          updateEnergyBars();
+          break;
+        }
+        case 'cyclops': {
+          // Rayo Óptico: Crítico garantizado + daño 1.5x
+          const damage = calculateDamage(selectedHero.special, currentEnemy.defense, true, 2);
+          dealDamage('enemy', damage);
+          animateAttack('player');
+          updateBattleLog(`¡${selectedHero.name} dispara su Rayo Óptico! ¡CRÍTICO GARANTIZADO! ${damage} de daño!`, 'critical');
+          playCriticalSound();
+          break;
+        }
+        case 'fantastic': {
+          // Barrera Elástica: Defensa + siguiente ataque enemigo -75%
+          playerDefenseBoost = true;
+          playerDefenseBoostTurns = 1;
+          nextEnemyAttackReduced = true;
+          updateBattleLog(`¡${selectedHero.name} crea una barrera elástica! ¡Reduce el próximo ataque 75%!`, 'critical');
+          animateAttack('player');
+          break;
+        }
+      }
+    }
+
     function enemyTurn() {
       const actions = ['attack', 'attack', 'special'];
       const action = actions[Math.floor(Math.random() * actions.length)];
@@ -1256,14 +1318,32 @@
         // Aumentar combo y energía del enemigo
         enemyCombo++;
         enemyEnergy = Math.min(enemyMaxEnergy, enemyEnergy + 15);
-        const comboMultiplier = 1 + (Math.min(enemyCombo - 1, 4) * 0.25);
+        let comboMultiplier = 1 + (Math.min(enemyCombo - 1, 4) * 0.25);
+        
+        // Aplicar reducción de ataque si está activa
+        if (enemyAttackReduced) {
+          comboMultiplier *= 0.5;
+          updateBattleLog(`¡El ataque de ${currentEnemy.name} está reducido por la telaraña!`, 'heal');
+          enemyAttackReducedTurns--;
+          if (enemyAttackReducedTurns <= 0) {
+            enemyAttackReduced = false;
+          }
+        }
         
         let damage = calculateDamage(currentEnemy.attack, selectedHero.defense, false, comboMultiplier);
+        
+        // Aplicar reducción de siguiente ataque (Barrera Elástica)
+        if (nextEnemyAttackReduced) {
+          damage = Math.floor(damage * 0.25);
+          updateBattleLog(`¡La barrera elástica reduce el ataque a ${damage}!`, 'heal');
+          nextEnemyAttackReduced = false;
+        }
+        
         if (isDefending) {
           damage = Math.floor(damage * 0.5);
           updateBattleLog(`${currentEnemy.name} ataca, pero ${selectedHero.name} reduce el daño a ${damage}!`);
         } else {
-          if (enemyCombo > 1) {
+          if (enemyCombo > 1 && !enemyAttackReduced) {
             playComboSound();
             updateBattleLog(`${currentEnemy.name} ataca! ¡COMBO x${enemyCombo}! ${damage} de daño!`, 'combo');
           } else {
@@ -1470,6 +1550,12 @@
       // Reset combos for new round
       playerCombo = 0;
       enemyCombo = 0;
+      // Reset special effects
+      enemyAttackReduced = false;
+      enemyAttackReducedTurns = 0;
+      playerDefenseBoost = false;
+      playerDefenseBoostTurns = 0;
+      nextEnemyAttackReduced = false;
       startBattle();
       // Enable actions after battle starts
       setTimeout(() => {

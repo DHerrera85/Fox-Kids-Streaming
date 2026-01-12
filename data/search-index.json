@@ -538,6 +538,34 @@
       "region": "US"
     },
     {
+      "id": "cybersix-promo-us-1999-02",
+      "name": "Cybersix Promo 02",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Cybersix",
+      "seriesId": "cybersix",
+      "file": "videos/shorts/promos/US/cybersix-Promo-02-Fox-Kids-US-1999.mp4",
+      "duration": "0:30",
+      "image": "img/marvel/cybersix-280x420.jpg",
+      "year": 1999,
+      "region": "US"
+    },
+    {
+      "id": "cybersix-promo-us-1999-03",
+      "name": "Cybersix Promo 03",
+      "type": "video",
+      "category": "Shorts",
+      "subcategory": "Promos",
+      "series": "Cybersix",
+      "seriesId": "cybersix",
+      "file": "videos/shorts/promos/US/cybersix-Promo-03-Fox-Kids-US-1999.mp4",
+      "duration": "0:30",
+      "image": "img/marvel/cybersix-280x420.jpg",
+      "year": 1999,
+      "region": "US"
+    },
+    {
       "id": "silver-surfer-promo-us-1998",
       "name": "Silver Surfer Promo",
       "type": "video",

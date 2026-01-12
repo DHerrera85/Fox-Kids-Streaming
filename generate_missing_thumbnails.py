@@ -14,6 +14,8 @@ EXTRA_VIDEOS = [
     ROOT / "videos/shorts/openings/x-men-opening-US-1992.mp4",
     ROOT / "videos/shorts/openings/x-men-opening-japan-1994.mp4",
     ROOT / "videos/shorts/openings/spider-man-opening-1994.mp4",
+    ROOT / "videos/shorts/openings/los-luchadores-opening-2001.mp4",
+    ROOT / "videos/shorts/openings/nancy-drew-opening.mp4",
 ]
 
 

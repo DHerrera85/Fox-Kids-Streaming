@@ -1,0 +1,531 @@
+/* ===== FOX KIDS GAMIFICATION STYLES ===== */
+
+/* ==================== POPUP DE PUNTOS ==================== */
+
+.fox-points-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  z-index: 10000;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fox-points-popup.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: pointsFloat 2s ease-out forwards;
+}
+
+@keyframes pointsFloat {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -130%) scale(0.9);
+  }
+}
+
+.popup-content {
+  background: linear-gradient(135deg, #FFD200 0%, #FFA500 100%);
+  border-radius: 24px;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  min-width: 240px;
+}
+
+.popup-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+  animation: spin 0.6s ease-out;
+}
+
+@keyframes spin {
+  0% {
+    transform: scale(0) rotate(-180deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.popup-amount {
+  font-size: 32px;
+  font-weight: 1000;
+  color: #111;
+  font-family: 'Audiowide', Impact, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.popup-source {
+  font-size: 12px;
+  color: #111;
+  font-weight: 900;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+/* ==================== MODAL DE LOGRO ==================== */
+
+.achievement-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.achievement-modal.show {
+  opacity: 1;
+}
+
+.achievement-content {
+  background: linear-gradient(135deg, #1f0c0c, #4a1a1a);
+  border-radius: 32px;
+  padding: 40px;
+  text-align: center;
+  max-width: 380px;
+  border: 3px solid #FFD200;
+  box-shadow: 0 30px 80px rgba(255, 210, 0, 0.3);
+  animation: achievementPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes achievementPop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.achievement-icon {
+  font-size: 80px;
+  margin-bottom: 16px;
+  animation: bounce 0.6s ease-out;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0) translateY(30px);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+.achievement-title {
+  font-size: 24px;
+  font-weight: 1000;
+  color: #FFD200;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.achievement-points {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 900;
+  margin-bottom: 20px;
+  background: rgba(255, 210, 0, 0.2);
+  padding: 8px 16px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.achievement-btn {
+  background: linear-gradient(135deg, #FFD200, #FFA500);
+  color: #111;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 32px;
+  font-weight: 1000;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Audiowide', Impact, sans-serif;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(255, 210, 0, 0.3);
+  width: 100%;
+}
+
+.achievement-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 210, 0, 0.4);
+}
+
+.achievement-btn:active {
+  transform: translateY(0);
+}
+
+/* ==================== MODAL DE TIER UPGRADE ==================== */
+
+.tier-upgrade-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.tier-upgrade-modal.show {
+  opacity: 1;
+}
+
+.tier-modal-content {
+  background: linear-gradient(180deg, #1f0c0c 0%, #2d0f0f 50%, #1f0c0c 100%);
+  border-radius: 32px;
+  padding: 48px 40px;
+  text-align: center;
+  max-width: 420px;
+  border: 4px solid #FFD200;
+  box-shadow: 
+    0 0 40px rgba(255, 210, 0, 0.4),
+    0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: tierUpgradePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes tierUpgradePop {
+  0% {
+    transform: scale(0.3) rotate(-10deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.tier-icon {
+  font-size: 96px;
+  margin-bottom: 20px;
+  animation: tierIconBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+}
+
+@keyframes tierIconBounce {
+  0% {
+    transform: scale(0) translateY(40px);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+.tier-title {
+  font-size: 28px;
+  font-weight: 1000;
+  color: #FFD200;
+  margin-bottom: 12px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+  font-family: 'Audiowide', Impact, sans-serif;
+}
+
+.tier-text {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+.tier-text strong {
+  color: #FFD200;
+  font-weight: 1000;
+}
+
+.tier-benefits {
+  background: rgba(255, 210, 0, 0.1);
+  border-left: 4px solid #FFD200;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.benefit {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.benefit:last-child {
+  margin-bottom: 0;
+}
+
+.tier-btn {
+  background: linear-gradient(135deg, #FFD200 0%, #FFA500 100%);
+  color: #111;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 36px;
+  font-weight: 1000;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: 'Audiowide', Impact, sans-serif;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 12px 30px rgba(255, 210, 0, 0.4);
+  width: 100%;
+  letter-spacing: 0.05em;
+}
+
+.tier-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(255, 210, 0, 0.5);
+}
+
+.tier-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ==================== HEADER POINTS DISPLAY ==================== */
+
+.points-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 210, 0, 0.3);
+  border-radius: 14px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 900;
+  color: #FFD200;
+  transition: all 0.3s ease;
+}
+
+.points-display:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 210, 0, 0.6);
+}
+
+.points-icon {
+  font-size: 16px;
+  animation: pointsPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pointsPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* ==================== PROGRESS BAR TIER ==================== */
+
+.tier-progress {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.tier-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD200, #FFA500);
+  border-radius: 999px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 12px rgba(255, 210, 0, 0.6);
+}
+
+/* ==================== STREAK DISPLAY ==================== */
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #FF6347, #FFD200);
+  color: #111;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 1000;
+  box-shadow: 0 4px 12px rgba(255, 99, 71, 0.3);
+  animation: streakPulse 2s ease-in-out infinite;
+}
+
+@keyframes streakPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(255, 99, 71, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 20px rgba(255, 99, 71, 0.6);
+  }
+}
+
+.streak-flame {
+  font-size: 14px;
+  animation: flameFlicker 0.5s ease-in-out infinite;
+}
+
+@keyframes flameFlicker {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.05) rotate(-1deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(1deg);
+  }
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 600px) {
+  .popup-content {
+    padding: 16px 32px;
+    min-width: 200px;
+  }
+
+  .popup-icon {
+    font-size: 36px;
+  }
+
+  .popup-amount {
+    font-size: 28px;
+  }
+
+  .achievement-content,
+  .tier-modal-content {
+    max-width: 90vw;
+    padding: 28px 24px;
+  }
+
+  .achievement-icon,
+  .tier-icon {
+    font-size: 60px;
+  }
+
+  .achievement-title,
+  .tier-title {
+    font-size: 20px;
+  }
+}
+
+/* ==================== ANIMACIÓN DE ACTUALIZACIÓN ==================== */
+
+.points-update {
+  animation: pointsWiggle 0.4s ease-out;
+}
+
+@keyframes pointsWiggle {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.05) rotate(-2deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+
+.fox-toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: #FFD200;
+  border: 2px solid #FFD200;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 12px;
+  font-weight: 900;
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.fox-toast.show {
+  opacity: 1;
+  animation: toastSlide 0.3s ease;
+}
+
+@keyframes toastSlide {
+  from {
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==================== CONFETTI (CELEBRACIÓN) ==================== */
+
+@keyframes confettiFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) rotate(360deg);
+  }
+}
+
+.confetti {
+  position: fixed;
+  pointer-events: none;
+  animation: confettiFloat 1.5s ease-out forwards;
+}
+
+/* ==================== SHIMMER EFFECT ==================== */
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}

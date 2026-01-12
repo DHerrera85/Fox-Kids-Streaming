@@ -715,10 +715,36 @@
       </div>
     </div>
 
-    <!-- Result Screen -->
+    <!-- Round Result Screen -->
+    <div class="screen" id="roundResultScreen">
+      <div class="result-screen">
+        <h1 class="result-title" id="roundResultTitle">Victoria</h1>
+        
+        <div class="result-stats">
+          <div class="stat-row">
+            <span class="label">Ronda Completada:</span>
+            <span class="value" id="roundNumber2">1</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Daño Infligido:</span>
+            <span class="value" id="roundDamage">0</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">HP Restante:</span>
+            <span class="value" id="roundHPLeft">100</span>
+          </div>
+        </div>
+
+        <div class="result-actions" id="roundResultActions">
+          <button class="result-btn" id="nextRoundBtn">▶ Siguiente Ronda</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final Result Screen -->
     <div class="screen" id="resultScreen">
       <div class="result-screen">
-        <h1 class="result-title" id="resultTitle">Victoria</h1>
+        <h1 class="result-title" id="resultTitle">¡Victoria Total!</h1>
         
         <div class="result-stats">
           <div class="stat-row">
@@ -772,12 +798,14 @@
     let selectedHero = null;
     let currentEnemy = null;
     let round = 1;
+    let maxRounds = 3;
     let playerHP = 0;
     let playerMaxHP = 0;
     let enemyHP = 0;
     let enemyMaxHP = 0;
     let isDefending = false;
     let totalDamageDealt = 0;
+    let roundDamageDealt = 0;
     let specialCharges = 3;
 
     // Initialize
@@ -787,6 +815,7 @@
       document.getElementById('attackBtn').addEventListener('click', () => playerAction('attack'));
       document.getElementById('specialBtn').addEventListener('click', () => playerAction('special'));
       document.getElementById('defendBtn').addEventListener('click', () => playerAction('defend'));
+      document.getElementById('nextRoundBtn').addEventListener('click', nextRound);
     }
 
     function loadHeroes() {
@@ -833,8 +862,15 @@
     function startBattle() {
       if (!selectedHero) return;
 
-      // Select random enemy based on round
-      const availableVillains = round < 3 ? villains.slice(0, 4) : villains;
+      // Select random enemy based on round - more difficult as round increases
+      let availableVillains = villains;
+      if (round === 1) {
+        availableVillains = villains.slice(0, 3); // Easier villains
+      } else if (round === 2) {
+        availableVillains = villains.slice(2, 5); // Medium villains
+      } else {
+        availableVillains = villains.slice(4); // Harder villains
+      }
       currentEnemy = availableVillains[Math.floor(Math.random() * availableVillains.length)];
 
       // Select random background
@@ -851,6 +887,7 @@
       enemyMaxHP = currentEnemy.hp;
       isDefending = false;
       specialCharges = 3;
+      roundDamageDealt = 0;
 
       // Update UI
       document.getElementById('playerImage').src = selectedHero.image;
@@ -961,6 +998,7 @@
       } else {
         enemyHP = Math.max(0, enemyHP - damage);
         totalDamageDealt += damage;
+        roundDamageDealt += damage;
         animateHurt('enemy');
       }
       updateHealthBars();
@@ -1029,15 +1067,48 @@
     }
 
     function endBattle(victory) {
-      const points = victory ? 50 + (round * 10) : 20;
-      
-      document.getElementById('resultTitle').textContent = victory ? '¡Victoria!' : 'Derrota';
-      document.getElementById('resultTitle').className = victory ? 'result-title victory' : 'result-title defeat';
-      document.getElementById('totalRounds').textContent = round;
-      document.getElementById('totalDamage').textContent = totalDamageDealt;
-      document.getElementById('pointsEarned').textContent = '+' + points;
+      if (!victory) {
+        // Player was defeated
+        const points = 20;
+        document.getElementById('resultTitle').textContent = 'Derrota';
+        document.getElementById('resultTitle').className = 'result-title defeat';
+        document.getElementById('totalRounds').textContent = round - 1;
+        document.getElementById('totalDamage').textContent = totalDamageDealt;
+        document.getElementById('pointsEarned').textContent = '+' + points;
+        showScreen('resultScreen');
+      } else {
+        // Player won this round
+        const damageThisRound = roundDamageDealt;
+        const hpLeft = playerHP;
+        
+        if (round < maxRounds) {
+          // Show round result and option to continue
+          document.getElementById('roundResultTitle').textContent = `¡Ronda ${round} Completada!`;
+          document.getElementById('roundNumber2').textContent = round;
+          document.getElementById('roundDamage').textContent = damageThisRound;
+          document.getElementById('roundHPLeft').textContent = hpLeft;
+          showScreen('roundResultScreen');
+        } else {
+          // Final victory - completed all rounds
+          const points = 50 + (maxRounds * 10);
+          document.getElementById('resultTitle').textContent = '¡Victoria Total!';
+          document.getElementById('resultTitle').className = 'result-title victory';
+          document.getElementById('totalRounds').textContent = round;
+          document.getElementById('totalDamage').textContent = totalDamageDealt;
+          document.getElementById('pointsEarned').textContent = '+' + points;
+          showScreen('resultScreen');
+        }
+      }
+    }
 
-      showScreen('resultScreen');
+    function nextRound() {
+      round++;
+      roundDamageDealt = 0;
+      // Keep player HP for next round
+      selectedHero.hp = playerHP;
+      // Clear battle log
+      document.getElementById('battleLog').innerHTML = '<div class="log-entry">¡Combate iniciado!</div>';
+      startBattle();
     }
 
     function showScreen(screenId) {

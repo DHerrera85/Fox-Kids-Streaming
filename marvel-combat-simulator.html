@@ -824,6 +824,205 @@
   </div>
 
   <script>
+    // Audio System
+    let audioContext = null;
+
+    function initAudio() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playSound(frequency, duration, type = 'sine', volume = 0.3) {
+      if (!audioContext) initAudio();
+      
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.type = type;
+      oscillator.frequency.value = frequency;
+      
+      gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + duration);
+    }
+
+    function playAttackSound() {
+      // Whoosh - onda cuadrada ascendente
+      if (!audioContext) initAudio();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      oscillator.type = 'square';
+      
+      oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+      oscillator.frequency.linearRampToValueAtTime(400, audioContext.currentTime + 0.1);
+      
+      gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.1);
+    }
+
+    function playComboSound() {
+      // Beep ascendente para combos
+      if (!audioContext) initAudio();
+      const now = audioContext.currentTime;
+      
+      for (let i = 0; i < 3; i++) {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.type = 'sine';
+        
+        const freq = 400 + (i * 150);
+        osc.frequency.setValueAtTime(freq, now + i * 0.08);
+        
+        gain.gain.setValueAtTime(0.25, now + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.08 + 0.08);
+        
+        osc.start(now + i * 0.08);
+        osc.stop(now + i * 0.08 + 0.08);
+      }
+    }
+
+    function playCriticalSound() {
+      // Explosion/chime para críticos
+      if (!audioContext) initAudio();
+      const now = audioContext.currentTime;
+      
+      // Primer tono agudo
+      const osc1 = audioContext.createOscillator();
+      const gain1 = audioContext.createGain();
+      osc1.connect(gain1);
+      gain1.connect(audioContext.destination);
+      osc1.type = 'sine';
+      osc1.frequency.value = 800;
+      gain1.gain.setValueAtTime(0.3, now);
+      gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+      osc1.start(now);
+      osc1.stop(now + 0.15);
+      
+      // Segundo tono más bajo
+      const osc2 = audioContext.createOscillator();
+      const gain2 = audioContext.createGain();
+      osc2.connect(gain2);
+      gain2.connect(audioContext.destination);
+      osc2.type = 'sine';
+      osc2.frequency.value = 600;
+      gain2.gain.setValueAtTime(0.2, now + 0.05);
+      gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+      osc2.start(now + 0.05);
+      osc2.stop(now + 0.2);
+    }
+
+    function playSpecialSound() {
+      // Power-up para especial
+      if (!audioContext) initAudio();
+      const now = audioContext.currentTime;
+      
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      osc.type = 'sine';
+      
+      osc.frequency.setValueAtTime(300, now);
+      osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+      
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+      
+      osc.start(now);
+      osc.stop(now + 0.3);
+    }
+
+    function playDefenseSound() {
+      // Shield - tono resonante
+      playSound(500, 0.2, 'sine', 0.25);
+    }
+
+    function playEnergyFullSound() {
+      // Ding para energía llena
+      if (!audioContext) initAudio();
+      const now = audioContext.currentTime;
+      
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      osc.type = 'sine';
+      osc.frequency.value = 1046; // C6 (nota alta)
+      
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+      
+      osc.start(now);
+      osc.stop(now + 0.3);
+    }
+
+    function playVictorySound() {
+      // Fanfarria de victoria
+      if (!audioContext) initAudio();
+      const now = audioContext.currentTime;
+      
+      const notes = [
+        { freq: 523, time: 0 },      // C5
+        { freq: 659, time: 0.2 },    // E5
+        { freq: 784, time: 0.4 }     // G5
+      ];
+      
+      notes.forEach(note => {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.type = 'sine';
+        osc.frequency.value = note.freq;
+        
+        gain.gain.setValueAtTime(0.3, now + note.time);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + note.time + 0.25);
+        
+        osc.start(now + note.time);
+        osc.stop(now + note.time + 0.25);
+      });
+    }
+
+    function playDefeatSound() {
+      // Buzzer de fallo
+      if (!audioContext) initAudio();
+      const now = audioContext.currentTime;
+      
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      osc.type = 'square';
+      
+      osc.frequency.setValueAtTime(200, now);
+      osc.frequency.linearRampToValueAtTime(100, now + 0.4);
+      
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+      
+      osc.start(now);
+      osc.stop(now + 0.4);
+    }
+
     // Game Data
     const heroes = [
       { id: 'spiderman', name: 'Spider-Man', image: 'img/games/combat-simulator/spiderman-hero-300px-300px.png', hp: 100, attack: 25, defense: 15, special: 40 },
@@ -985,13 +1184,20 @@
         const damage = calculateDamage(selectedHero.attack, currentEnemy.defense, false, comboMultiplier);
         dealDamage('enemy', damage);
         animateAttack('player');
+        playAttackSound();
         
         if (playerCombo > 1) {
+          playComboSound();
           updateBattleLog(`${selectedHero.name} ataca! ¡COMBO x${playerCombo}! ${damage} de daño!`, 'combo');
         } else {
           updateBattleLog(`${selectedHero.name} ataca e inflige ${damage} de daño!`, 'damage');
         }
         lastActionWasAttack = true;
+        
+        // Verificar energía llena
+        if (playerEnergy >= playerMaxEnergy) {
+          setTimeout(playEnergyFullSound, 100);
+        }
       } else if (action === 'special') {
         if (specialCharges > 0 && playerEnergy >= 50) {
           playerCombo = 0; // Reset combo al usar especial
@@ -999,6 +1205,7 @@
           const damage = calculateDamage(selectedHero.special, currentEnemy.defense, true, 1.5);
           dealDamage('enemy', damage);
           animateAttack('player');
+          playSpecialSound();
           specialCharges--;
           updateBattleLog(`¡${selectedHero.name} usa su ataque especial! ${damage} de daño crítico!`, 'critical');
           
@@ -1015,8 +1222,14 @@
         isDefending = true;
         playerCombo = 0; // Reset combo al defenderse
         playerEnergy = Math.min(playerMaxEnergy, playerEnergy + 20); // Generar energía al defender
+        playDefenseSound();
         updateBattleLog(`${selectedHero.name} se defiende...`, 'heal');
         lastActionWasAttack = false;
+        
+        // Verificar energía llena
+        if (playerEnergy >= playerMaxEnergy) {
+          setTimeout(playEnergyFullSound, 100);
+        }
       }
       
       updateEnergyBars();
@@ -1051,8 +1264,10 @@
           updateBattleLog(`${currentEnemy.name} ataca, pero ${selectedHero.name} reduce el daño a ${damage}!`);
         } else {
           if (enemyCombo > 1) {
+            playComboSound();
             updateBattleLog(`${currentEnemy.name} ataca! ¡COMBO x${enemyCombo}! ${damage} de daño!`, 'combo');
           } else {
+            playAttackSound();
             updateBattleLog(`${currentEnemy.name} ataca e inflige ${damage} de daño!`, 'damage');
           }
         }
@@ -1064,6 +1279,7 @@
         const damage = calculateDamage(currentEnemy.attack * 1.5, selectedHero.defense, true, 1.5);
         dealDamage('player', damage);
         animateAttack('enemy');
+        playSpecialSound();
         updateBattleLog(`¡${currentEnemy.name} usa un ataque devastador! ${damage} de daño!`, 'critical');
       }
 
@@ -1089,6 +1305,7 @@
       
       // Calcular crítico basado en estadísticas
       let critChance = 0;
+      let isCriticalHit = false;
       if (isCritical) {
         critChance = 50; // 50% de chance en ataque especial
       } else if (selectedHero && selectedHero.attack > currentEnemy.defense) {
@@ -1097,13 +1314,16 @@
       
       if (Math.random() * 100 < critChance) {
         damage = Math.floor(damage * 1.5);
-        isCritical = true;
+        isCriticalHit = true;
       }
       
+      damage.isCritical = isCriticalHit;
       return Math.max(5, damage);
     }
 
     function dealDamage(target, damage) {
+      const isCrit = damage.isCritical;
+      
       if (target === 'player') {
         playerHP = Math.max(0, playerHP - damage);
         animateHurt('player');
@@ -1112,6 +1332,11 @@
         totalDamageDealt += damage;
         roundDamageDealt += damage;
         animateHurt('enemy');
+        
+        // Reproducir sonido crítico si aplica
+        if (isCrit) {
+          playCriticalSound();
+        }
       }
       updateHealthBars();
     }
@@ -1199,15 +1424,17 @@
     function endBattle(victory) {
       if (!victory) {
         // Player was defeated
+        playDefeatSound();
         const points = 20;
         document.getElementById('resultTitle').textContent = 'Derrota';
         document.getElementById('resultTitle').className = 'result-title defeat';
         document.getElementById('totalRounds').textContent = round - 1;
         document.getElementById('totalDamage').textContent = totalDamageDealt;
         document.getElementById('pointsEarned').textContent = '+' + points;
-        showScreen('resultScreen');
+        setTimeout(() => showScreen('resultScreen'), 500);
       } else {
         // Player won this round
+        playVictorySound();
         const damageThisRound = roundDamageDealt;
         const hpLeft = playerHP;
         
@@ -1217,7 +1444,7 @@
           document.getElementById('roundNumber2').textContent = round;
           document.getElementById('roundDamage').textContent = damageThisRound;
           document.getElementById('roundHPLeft').textContent = hpLeft;
-          showScreen('roundResultScreen');
+          setTimeout(() => showScreen('roundResultScreen'), 500);
         } else {
           // Final victory - completed all rounds
           const points = 50 + (maxRounds * 10);
@@ -1226,7 +1453,7 @@
           document.getElementById('totalRounds').textContent = round;
           document.getElementById('totalDamage').textContent = totalDamageDealt;
           document.getElementById('pointsEarned').textContent = '+' + points;
-          showScreen('resultScreen');
+          setTimeout(() => showScreen('resultScreen'), 500);
         }
       }
     }

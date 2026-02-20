@@ -762,11 +762,156 @@
     document.body.appendChild(toast);
     return toast;
   }
+
+  // ========== SISTEMA DE SHORTS DESBLOQUEABLES ==========
+  
+  /**
+   * Renderiza los shorts con estado de bloqueo/desbloqueo
+   */
+  function renderLockableShorts() {
+    if (!window.FoxKidsGameSystem) {
+      console.warn('Sistema de puntos no disponible');
+      return;
+    }
+
+    const lockableShorts = window.FoxKidsGameSystem.getAllLockableShorts();
+    const user = window.FoxKidsGameSystem.getUser();
+    
+    if (!user) {
+      console.warn('Usuario no encontrado');
+      return;
+    }
+
+    // Renderizar openings
+    renderShortsSection('openingsCarousel', lockableShorts.openings, user.totalPoints);
+    
+    // Nota: Las promos también podrían renderizarse aquí si quisieras
+    // renderShortsSection('promosUSACarousel', lockableShorts.promos, user.totalPoints);
+  }
+
+  /**
+   * Renderiza una sección de shorts (openings o promos)
+   */
+  function renderShortsSection(carouselId, shorts, currentPoints) {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    // Limpiar el contenido actual excepto el botón "Ver más"
+    const viewMoreCard = carousel.querySelector('.view-more-card');
+    carousel.innerHTML = '';
+
+    // Renderizar cada short
+    shorts.forEach(short => {
+      const shortElement = createShortElement(short, currentPoints);
+      carousel.appendChild(shortElement);
+    });
+
+    // Volver a agregar el botón "Ver más" al final
+    if (viewMoreCard) {
+      carousel.appendChild(viewMoreCard);
+    }
+  }
+
+  /**
+   * Crea un elemento de short con estado de bloqueo/desbloqueo
+   */
+  function createShortElement(short, currentPoints) {
+    const div = document.createElement('div');
+    div.className = 'short';
+    div.setAttribute('data-aspect-ratio', short.aspectRatio);
+    div.setAttribute('data-type', short.type);
+    
+    const isLocked = !short.unlocked;
+    const bgSize = short.aspectRatio === 'vertical' ? 'contain' : 'cover';
+    
+    div.style.backgroundImage = `url('${short.thumbnail}')`;
+    div.style.backgroundSize = bgSize;
+    div.style.backgroundPosition = 'center';
+
+    if (isLocked) {
+      div.classList.add('locked');
+      
+      // Calcular progreso
+      const progress = Math.min(100, Math.floor((currentPoints / short.pointsRequired) * 100));
+      const pointsNeeded = short.pointsRequired - currentPoints;
+      
+      div.innerHTML = `
+        <div class="badge">${short.badge}</div>
+        <div class="lock-overlay">
+          <div class="lock-icon">🔒</div>
+          <div class="lock-points-required">
+            ${short.pointsRequired} puntos
+          </div>
+          <div class="lock-points-progress">
+            Te faltan ${pointsNeeded} pts
+          </div>
+        </div>
+        <div class="t">${short.title}</div>
+      `;
+
+      // Click en short bloqueado muestra cuántos puntos faltan
+      div.onclick = (e) => {
+        e.stopPropagation();
+        showToast(`🔒 Necesitas ${pointsNeeded} puntos más. ¡Sigue jugando!`);
+      };
+    } else {
+      div.innerHTML = `
+        <div class="badge">${short.badge}</div>
+        <div class="add" onclick="addToQueue('${short.videoPath}','${short.title}','${short.aspectRatio}',event)">＋</div>
+        <div class="play">▶</div>
+        <div class="t">${short.title}</div>
+      `;
+
+      div.onclick = (e) => {
+        if (!e.target.classList.contains('add')) {
+          playShort(short.videoPath, e);
+        }
+      };
+    }
+
+    return div;
+  }
+
+  /**
+   * Actualiza los shorts cuando cambian los puntos
+   */
+  function updateShortsDisplay() {
+    renderLockableShorts();
+  }
+
+  /**
+   * Inicializar sistema de shorts al cargar la página
+   */
+  window.addEventListener('DOMContentLoaded', () => {
+    // Esperar a que se cargue el sistema de puntos
+    setTimeout(() => {
+      renderLockableShorts();
+      
+      // Mostrar siguiente desbloqueo en el topbar hint
+      const nextUnlock = window.FoxKidsGameSystem?.getNextUnlock();
+      if (nextUnlock) {
+        const sectionHint = document.querySelector('.section-title .hint');
+        if (sectionHint) {
+          const user = window.FoxKidsGameSystem.getUser();
+          const pointsNeeded = nextUnlock.pointsRequired - user.totalPoints;
+          sectionHint.textContent = `Próximo desbloqueo: ${pointsNeeded} pts`;
+          sectionHint.style.cursor = 'pointer';
+          sectionHint.onclick = () => {
+            showToast(`🎯 ${nextUnlock.title} - Necesitas ${pointsNeeded} puntos más`);
+          };
+        }
+      }
+    }, 500);
+  });
+
+  // Escuchar eventos de actualización de puntos para refrescar display
+  document.addEventListener('foxKidsPointsUpdated', () => {
+    updateShortsDisplay();
+  });
 </script>
 
 <script src="script.js"></script>
 <script src="search.js"></script>
 <script src="shorts-video-preview.js"></script>
-
-</body>
-</html>
+<script src="js/puntos.js"></script>
+<link rel="stylesheet" href="css/gamification.css">

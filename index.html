@@ -923,6 +923,20 @@
 
       <div class="content-section active" data-section="games">
         <div class="section-title" style="margin-top:16px"><h2>Juegos</h2><div class="hint">Mini-retos y puntos</div></div>
+        
+        <!-- BANNER DE SHORTS DESBLOQUEABLES -->
+        <div id="unlockableBanner" style="display:none;background:linear-gradient(135deg,#FFD200,#FFA500);border-radius:16px;padding:14px 16px;margin-bottom:16px;box-shadow:0 8px 20px rgba(255,210,0,0.3);border:2px solid rgba(0,0,0,0.1);">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="font-size:32px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.2));">🔓</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:900;color:#111;margin-bottom:2px;">Shorts Desbloqueables</div>
+              <div id="unlockableText" style="font-size:10px;color:rgba(0,0,0,0.75);font-weight:800;"></div>
+            </div>
+            <button onclick="location.href='shorts.html'" style="background:#111;color:#FFD200;border:2px solid rgba(0,0,0,0.2);border-radius:12px;padding:10px 14px;font-size:11px;font-weight:900;cursor:pointer;transition:all 0.2s ease;font-family:'Audiowide',Impact,sans-serif;text-transform:uppercase;box-shadow:0 4px 12px rgba(0,0,0,0.2);">Ver Shorts</button>
+          </div>
+          <div id="nextUnlockHint" style="margin-top:10px;font-size:9px;color:rgba(0,0,0,0.7);font-weight:800;display:none;"></div>
+        </div>
+
         <div class="games-grid">
           <article class="card">
             <div class="media" style="background-image:url('img/digimon-slider.jpg');background-size:cover;background-position:center;"><div class="chip">FEATURED GAME</div><div class="play">▶</div></div>
@@ -1838,9 +1852,57 @@
   document.addEventListener('DOMContentLoaded', () => {
     updateReminderBadge();
   });
-</script>
-<script src="script.js"></script>
-<script src="search.js"></script>
-<script src="shorts-video-preview.js"></script>
+
+  // ========== BANNER DE SHORTS DESBLOQUEABLES ==========
+  
+  /**
+   * Actualiza el banner de shorts desbloqueables en la página principal
+   */
+  function updateUnlockableBanner() {
+    if (!window.FoxKidsGameSystem) {
+      return;
+    }
+
+    const user = window.FoxKidsGameSystem.getUser();
+    if (!user) return;
+
+    const lockableShorts = window.FoxKidsGameSystem.getAllLockableShorts();
+    const allShorts = [...lockableShorts.openings, ...lockableShorts.promos];
+    
+    const unlockedCount = allShorts.filter(s => s.unlocked).length;
+    const lockedCount = allShorts.filter(s => !s.unlocked).length;
+    const totalCount = allShorts.length;
+
+    const banner = document.getElementById('unlockableBanner');
+    const text = document.getElementById('unlockableText');
+    const nextUnlockHint = document.getElementById('nextUnlockHint');
+
+    if (lockedCount > 0 || unlockedCount > 0) {
+      banner.style.display = 'block';
+      text.textContent = `${unlockedCount} de ${totalCount} desbloqueados • ${lockedCount} por descubrir`;
+      
+      // Mostrar próximo desbloqueo
+      const nextUnlock = window.FoxKidsGameSystem.getNextUnlock();
+      if (nextUnlock) {
+        const pointsNeeded = nextUnlock.pointsRequired - user.totalPoints;
+        nextUnlockHint.style.display = 'block';
+        nextUnlockHint.innerHTML = `🎯 Próximo: <strong>${nextUnlock.title}</strong> (${pointsNeeded} pts más)`;
+      } else {
+        nextUnlockHint.style.display = 'none';
+      }
+    } else {
+      banner.style.display = 'none';
+    }
+  }
+
+  // Actualizar banner al cargar la página
+  setTimeout(() => {
+    updateUnlockableBanner();
+  }, 500);
+
+  // Actualizar banner cuando cambien los puntos
+  document.addEventListener('foxKidsPointsUpdated', () => {
+    updateUnlockableBanner();
+  });
 </body>
 </html>

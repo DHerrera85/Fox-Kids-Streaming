@@ -175,12 +175,29 @@ const FoxKidsGameSystem = {
     // Verificar logros
     this.checkAchievements(user, source);
 
+    // NUEVO: Verificar desbloqueos de shorts
+    const unlockedShorts = this.checkNewUnlocks(oldPoints, user.totalPoints);
+
+    // Disparar evento personalizado para que otras páginas se actualicen
+    const event = new CustomEvent('foxKidsPointsUpdated', {
+      detail: {
+        previousPoints: oldPoints,
+        currentPoints: user.totalPoints,
+        pointsGained: amount,
+        source: source,
+        unlockedShorts: unlockedShorts
+      }
+    });
+    document.dispatchEvent(event);
+
     return {
       success: true,
       newTotal: user.totalPoints,
       transaction: transaction,
       tierChanged: oldTier !== user.tier,
-      newTier: user.tier
+      newTier: user.tier,
+      shortsUnlocked: unlockedShorts.length,
+      unlockedShorts: unlockedShorts
     };
   },
 
@@ -708,6 +725,249 @@ const FoxKidsGameSystem = {
     setInterval(() => {
       this.syncHeaderDisplay();
     }, 60000);
+  },
+
+  // ==================== SISTEMA DE DESBLOQUEO DE SHORTS ====================
+
+  /**
+   * Shorts bloqueables - se desbloquean al alcanzar ciertos umbrales de puntos
+   * Estructura: { videoPath, title, type, aspectRatio, thumbnail, pointsRequired, badge }
+   */
+  lockableShorts: {
+    // OPENINGS DESBLOQUEABLES
+    openings: [
+      {
+        id: 'fantastic-four-opening',
+        videoPath: 'videos/shorts/openings/fantastic-four-opening-1994.mp4',
+        title: 'Fantastic Four • Opening',
+        type: 'opening',
+        aspectRatio: 'vertical',
+        thumbnail: 'videos/shorts/openings/fantastic-four.jpg',
+        pointsRequired: 0, // Siempre disponible
+        badge: 'OPENING'
+      },
+      {
+        id: 'iron-man-opening',
+        videoPath: 'videos/shorts/openings/iron-man-opening-1996.mp4',
+        title: 'Iron Man • Opening',
+        type: 'opening',
+        aspectRatio: 'vertical',
+        thumbnail: 'videos/shorts/openings/iron-man-short.jpg',
+        pointsRequired: 0, // Siempre disponible
+        badge: 'OPENING'
+      },
+      {
+        id: 'power-rangers-opening',
+        videoPath: 'videos/shorts/openings/power-rangers-opening-1993.mp4',
+        title: 'Power Rangers • Opening',
+        type: 'opening',
+        aspectRatio: 'vertical',
+        thumbnail: 'videos/shorts/openings/power-rangers.jpg',
+        pointsRequired: 150, // Desbloqueable
+        badge: '🔥 OPENING'
+      },
+      {
+        id: 'xmen-us-opening',
+        videoPath: 'videos/shorts/openings/x-men-opening-US-1992.mp4',
+        title: 'X-Men • Opening (US)',
+        type: 'opening',
+        aspectRatio: 'vertical',
+        thumbnail: 'videos/shorts/openings/x-men-short.jpg',
+        pointsRequired: 300, // Desbloqueable
+        badge: '⭐ OPENING'
+      },
+      {
+        id: 'xmen-japan-opening',
+        videoPath: 'videos/shorts/openings/x-men-opening-japan-1994.mp4',
+        title: 'X-Men • Opening (Japan)',
+        type: 'opening',
+        aspectRatio: 'vertical',
+        thumbnail: 'videos/shorts/openings/x-men-short.jpg',
+        pointsRequired: 500, // Desbloqueable - Exclusivo
+        badge: '🎌 EXCLUSIVO'
+      },
+      {
+        id: 'spiderman-opening',
+        videoPath: 'videos/shorts/openings/spider-man-opening-1994.mp4',
+        title: 'Spider-Man • Opening',
+        type: 'opening',
+        aspectRatio: 'vertical',
+        thumbnail: 'videos/shorts/openings/spider-man-opening-1994.jpg',
+        pointsRequired: 700, // Desbloqueable - Legendario
+        badge: '🕷️ LEGENDARIO'
+      }
+    ],
+
+    // PROMOS DESBLOQUEABLES
+    promos: [
+      {
+        id: 'digimon-tamers-promo',
+        videoPath: 'videos/shorts/promos/US/digimon-tamers-promo-US-2002.mp4',
+        title: 'Digimon Tamers • Promo',
+        type: 'promo',
+        aspectRatio: 'horizontal',
+        thumbnail: 'videos/shorts/promos/US/digimon-tamers-promo-US-2002.jpg',
+        pointsRequired: 250, // Desbloqueable tras completar Digi Training
+        badge: '🔥 PROMO'
+      },
+      {
+        id: 'transformers-beast-machines-promo',
+        videoPath: 'videos/shorts/promos/US/transformers-beast-machines-fox-kids-US-promo-2000.mp4',
+        title: 'Transformers: Beast Machines • Promo',
+        type: 'promo',
+        aspectRatio: 'horizontal',
+        thumbnail: 'videos/shorts/promos/US/transformers-beast-machines-fox-kids-US-promo-2000.jpg',
+        pointsRequired: 400,
+        badge: '🤖 PROMO'
+      },
+      {
+        id: 'cybersix-promo',
+        videoPath: 'videos/shorts/promos/US/cybersix-Promo-Fox-Kids-US-1999.mp4',
+        title: 'Cybersix • Promo',
+        type: 'promo',
+        aspectRatio: 'horizontal',
+        thumbnail: 'videos/shorts/promos/US/cybersix-Promo-Fox-Kids-US-1999.jpg',
+        pointsRequired: 600,
+        badge: '⚡ PROMO'
+      },
+      {
+        id: 'gargoyles-promo',
+        videoPath: 'videos/shorts/promos/US/gargoyles-promo-fox-kids-US-1994.mp4',
+        title: 'Gargoyles • Promo',
+        type: 'promo',
+        aspectRatio: 'horizontal',
+        thumbnail: 'videos/shorts/promos/US/gargoyles-promo-fox-kids-US-1994.jpg',
+        pointsRequired: 900,
+        badge: '👹 ÉPICO'
+      }
+    ]
+  },
+
+  /**
+   * Verifica si un short está desbloqueado basándose en los puntos del usuario
+   */
+  isShortUnlocked: function(shortId) {
+    const user = this.getUser();
+    if (!user) return false;
+
+    // Buscar el short en openings o promos
+    let short = this.lockableShorts.openings.find(s => s.id === shortId);
+    if (!short) {
+      short = this.lockableShorts.promos.find(s => s.id === shortId);
+    }
+
+    if (!short) return true; // Si no está en la lista de bloqueables, está disponible
+
+    return user.totalPoints >= short.pointsRequired;
+  },
+
+  /**
+   * Obtiene todos los shorts desbloqueables (bloqueados y desbloqueados)
+   */
+  getAllLockableShorts: function() {
+    const user = this.getUser();
+    if (!user) return { openings: [], promos: [] };
+
+    return {
+      openings: this.lockableShorts.openings.map(short => ({
+        ...short,
+        unlocked: user.totalPoints >= short.pointsRequired
+      })),
+      promos: this.lockableShorts.promos.map(short => ({
+        ...short,
+        unlocked: user.totalPoints >= short.pointsRequired
+      }))
+    };
+  },
+
+  /**
+   * Verifica si se desbloquearon nuevos shorts después de ganar puntos
+   */
+  checkNewUnlocks: function(previousPoints, currentPoints) {
+    const newUnlocks = [];
+
+    // Verificar openings
+    this.lockableShorts.openings.forEach(short => {
+      if (previousPoints < short.pointsRequired && currentPoints >= short.pointsRequired) {
+        newUnlocks.push(short);
+      }
+    });
+
+    // Verificar promos
+    this.lockableShorts.promos.forEach(short => {
+      if (previousPoints < short.pointsRequired && currentPoints >= short.pointsRequired) {
+        newUnlocks.push(short);
+      }
+    });
+
+    // Mostrar notificaciones para cada desbloqueo
+    if (newUnlocks.length > 0) {
+      this.showUnlockNotifications(newUnlocks);
+    }
+
+    return newUnlocks;
+  },
+
+  /**
+   * Muestra notificaciones de shorts desbloqueados
+   */
+  showUnlockNotifications: function(unlockedShorts) {
+    unlockedShorts.forEach((short, index) => {
+      setTimeout(() => {
+        this.showUnlockModal(short);
+      }, index * 2500); // Espaciar notificaciones 2.5s
+    });
+  },
+
+  /**
+   * Muestra modal de desbloqueo de short
+   */
+  showUnlockModal: function(short) {
+    const modal = document.createElement('div');
+    modal.className = 'unlock-modal';
+    modal.innerHTML = `
+      <div class="unlock-content">
+        <div class="unlock-icon">🔓</div>
+        <div class="unlock-title">¡Nuevo Short Desbloqueado!</div>
+        <div class="unlock-thumbnail" style="background-image:url('${short.thumbnail}');background-size:cover;background-position:center;width:160px;height:240px;margin:20px auto;border-radius:18px;border:3px solid #FFD200;box-shadow:0 8px 24px rgba(255,210,0,0.4);"></div>
+        <div class="unlock-short-title">${short.title}</div>
+        <div class="unlock-badge">${short.badge}</div>
+        <div class="unlock-hint">Visita la sección Shorts para verlo</div>
+        <button class="unlock-btn" onclick="this.parentElement.parentElement.remove()">¡Genial!</button>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+    modal.offsetHeight;
+    modal.classList.add('show');
+
+    // Auto-cerrar después de 8 segundos
+    setTimeout(() => {
+      if (modal.parentElement) {
+        modal.classList.remove('show');
+        setTimeout(() => modal.remove(), 300);
+      }
+    }, 8000);
+  },
+
+  /**
+   * Obtiene el siguiente short a desbloquear
+   */
+  getNextUnlock: function() {
+    const user = this.getUser();
+    if (!user) return null;
+
+    const allShorts = [
+      ...this.lockableShorts.openings,
+      ...this.lockableShorts.promos
+    ];
+
+    // Filtrar shorts bloqueados y ordenar por puntos requeridos
+    const lockedShorts = allShorts
+      .filter(s => user.totalPoints < s.pointsRequired)
+      .sort((a, b) => a.pointsRequired - b.pointsRequired);
+
+    return lockedShorts.length > 0 ? lockedShorts[0] : null;
   }
 };
 

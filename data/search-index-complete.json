@@ -1,17 +1,6 @@
 {
   "videos": [
     {
-      "id": "spider-man-01",
-      "name": "Spider-Man Episodio 1",
-      "type": "video",
-      "category": "Stories",
-      "series": "Spider-Man",
-      "seriesId": "spider-man",
-      "file": "videos/stories/spider-man-01.mp4",
-      "duration": "22:00",
-      "image": "img/marvel/spiderman-animated-280x420.jpg"
-    },
-    {
       "id": "spider-man-promo-us-1995-1",
       "name": "Spider-Man Promo",
       "type": "video",
@@ -117,7 +106,7 @@
       "subcategory": "Promos",
       "series": "Avengers: United They Stand",
       "seriesId": "avengers-united",
-      "file": "videos/shorts/promos/US/avengers-united-they-stand-promo-fox-kids- US-1999.mp4",
+        "file": "videos/shorts/promos/US/avengers-united-they-stand-promo-fox-kids-US-1999.mp4",
       "duration": "0:30",
       "image": "img/marvel/avengers-united-they-stand-280 X 420.jpg",
       "year": 1999,
@@ -215,9 +204,9 @@
       "subcategory": "Promos",
       "series": "Shaman King",
       "seriesId": "shaman-king",
-      "file": "videos/shorts/promos/latam/shaman-king-promo-fox-kids-LATAM-2002.mp4",
+      "file": "videos/shorts/promos/latam/shaman-king-latam-promo-2002.mp4",
       "duration": "0:30",
-      "image": "img/invasion-anime/shaman king-280x420.png",
+        "image": "img/invasion-anime/shaman king-280x420.png",
       "year": 2002,
       "region": "LATAM"
     },

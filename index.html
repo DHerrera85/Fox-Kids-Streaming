@@ -804,11 +804,11 @@
               <div class="chip">EN VIVO</div><div class="play">▶</div>
             </div>
             <div class="body">
-              <p class="title">Power Rangers Megaforce & Super Megaforce ▶▶ LIVE 24/7</p>
+              <p class="title">🔴 LIVE | Power Rangers Megaforce & Super Megaforce 24/7</p>
               <div class="meta"><span>Power Rangers Official</span></div>
               <div class="cta-row">
                 <button class="btn primary" onclick="window.open('https://www.youtube.com/watch?v=eSP5L0z7JPI','_blank')">Ver ahora</button>
-                <button class="btn ghost" onclick="addReminder('Power Rangers Megaforce & Super Megaforce ▶▶ LIVE 24/7')">Recordarme</button>
+                <button class="btn ghost" onclick="addReminder('🔴 LIVE | Power Rangers Megaforce & Super Megaforce 24/7')">Recordarme</button>
               </div>
             </div>
           </article>
@@ -818,11 +818,11 @@
               <div class="chip">EN VIVO</div><div class="play">▶</div>
             </div>
             <div class="body">
-              <p class="title">▶▶ LIVE | Goosebumps Season 3 & 4</p>
+              <p class="title">🔴 LIVE | Goosebumps Season 3 & 4</p>
               <div class="meta"><span>Especial retro terror</span></div>
               <div class="cta-row">
                 <button class="btn primary" onclick="window.open('https://www.youtube.com/watch?v=eK77jSvufRk','_blank')">Entrar</button>
-                <button class="btn ghost" onclick="addReminder('▶▶ LIVE | Goosebumps Season 3 & 4')">Recordarme</button>
+                <button class="btn ghost" onclick="addReminder('🔴 LIVE | Goosebumps Season 3 & 4')">Recordarme</button>
               </div>
             </div>
           </article>
@@ -832,11 +832,11 @@
               <div class="chip">EN VIVO</div><div class="play">▶</div>
             </div>
             <div class="body">
-              <p class="title">LIVE! Marvel's Spider-Man | Seasons 1-3</p>
+              <p class="title">🔴 LIVE | Marvel's Spider-Man | Seasons 1-3</p>
               <div class="meta"><span>Marvel HQ en acción</span></div>
               <div class="cta-row">
                 <button class="btn primary" onclick="window.open('https://www.youtube.com/watch?v=yABPtUc7KOg','_blank')">Ver ahora</button>
-                <button class="btn ghost" onclick="addReminder('LIVE! Marvel\'s Spider-Man | Seasons 1-3')">Recordarme</button>
+                <button class="btn ghost" onclick="addReminder('🔴 LIVE | Marvel\'s Spider-Man | Seasons 1-3')">Recordarme</button>
               </div>
             </div>
           </article>
@@ -1170,6 +1170,7 @@
 
   function scrollStories(direction){
     const container=document.getElementById('stories-container');
+    if(!container) return;
     const scrollAmount=300;
     if(direction==='left'){
       container.scrollBy({left:-scrollAmount,behavior:'smooth'});
@@ -1614,13 +1615,13 @@
   updateReminderButtons();
 
   // Instagram Stories System
-  const storiesData = [
-    {name:'Spider-Man',avatar:'img/round/spider-man-100px-100px.png',items:[{type:'video',src:'videos/stories/spider-man-01.mp4'},{type:'video',src:'videos/stories/spider-man-02.mp4'}]},
-    {name:'Power Rangers',avatar:'img/round/mighty-morphin-power-rangers-100px-100px.png',items:[{type:'video',src:'videos/stories/power-rangers.mp4'}]},
-    {name:'Iron Man',avatar:'img/round/iron-man-100px-100px.png',items:[{type:'video',src:'videos/stories/iron-man.mp4'}]},
-    {name:'X-Men',avatar:'img/round/x-men-100px-100px.png',items:[{type:'video',src:'videos/stories/x-men.mp4'}]},
-    {name:'Fantastic Four',avatar:'img/round/fantastic-four-100px-100px.png',items:[{type:'video',src:'videos/stories/fantastic-four.mp4'}]},
-  ];
+  const storiesData = [];
+  if (storiesData.length === 0) {
+    const storiesWrap = document.querySelector('.stories-wrap');
+    if (storiesWrap) {
+      storiesWrap.style.display = 'none';
+    }
+  }
   /* Bottom Sheet Functions */
   function openScheduleSheet(element) {
     const title = element.getAttribute('data-title');
@@ -1904,5 +1905,10 @@
   document.addEventListener('foxKidsPointsUpdated', () => {
     updateUnlockableBanner();
   });
+</script>
+<script src="script.js"></script>
+<script src="search.js"></script>
+<script src="shorts-video-preview.js"></script>
+<script src="js/puntos.js"></script>
 </body>
 </html>
